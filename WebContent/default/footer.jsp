@@ -6,27 +6,22 @@
 	href="${pageContext.request.contextPath}/default/footer.css"
 	type="text/css" />
 <style>
-.grid {
-	width: 1200px;
-	max-width: 100%;
-	margin: 0 auto;
+.footer {
+	font-size: 1.4rem;
 }
 
-.grid__row {
+.footer__row {
 	display: flex;
+	align-items: center;
+	justify-content: space-between;
 	flex-wrap: wrap;
-	margin-left: -5px;
-	margin-right: -5px;
+	gap: 2rem;
+	padding: 4rem 0;
 }
 
-.grid__column {
-	padding-left: 10px;
-	padding-right: 10px;
-	width: 25%;
-	margin-bottom: 32px;
+.footer__column {
+	max-width: calc(1140px/ 4);
 }
-
-/* Top */
 
 /* Copyright */
 .header__copyright {
@@ -46,32 +41,29 @@
 <footer class="footer">
 	<div class="footer__top">
 		<div class="container">
-			<div class="grid">
-				<div class="grid__row">
-					<%
-					for (int i = 0; i < 4; i++) {
-					%>
-					<div class="grid__column">
-						<h2 class="footer_title">THÔNG TIN LIÊN HỆ</h2>
-						<p class="footer_content">
-							<b>Địa chỉ</b>: 5/15 Tô Hiệu, Tân Thới Hòa, Tân Phú, Hồ Chí Minh
-							(Giờ mở cửa sáng: 08H30 -> 11H30, Giờ nghĩ trưa: 11H30 -> 13H30,
-							Giờ mở cửa buổi chiều: 13H30 -> 17H45) KH vui lòng đến đúng khung
-							giờ mở cửa trên để mua hàng.
-						</p>
-						<p class="footer_phonenumber">
-							<b>Phone</b>: 037 335 7405.
-						</p>
-						<p class="footer_email">
-							<b>Email</b>: shoplane.contact@gmail.com
-						</p>
-					</div>
-					<%
-					}
-					%>
+			<div class="footer__row">
+				<%
+				for (int i = 0; i < 4; i++) {
+				%>
+				<div class="footer__column">
+					<h3 class="footer__title">THÔNG TIN LIÊN HỆ</h3>
+					<p class="footer__content">
+						<b>Địa chỉ</b>: 5/15 Tô Hiệu, Tân Thới Hòa, Tân Phú, Hồ Chí Minh
+						(Giờ mở cửa sáng: 08H30 -> 11H30, Giờ nghĩ trưa: 11H30 -> 13H30,
+						Giờ mở cửa buổi chiều: 13H30 -> 17H45) KH vui lòng đến đúng khung
+						giờ mở cửa trên để mua hàng.
+					</p>
+					<p class="footer__phone">
+						<b>Phone</b>: 037 335 7405.
+					</p>
+					<p class="footer__email">
+						<b>Email</b>: shoplane.contact@gmail.com
+					</p>
 				</div>
+				<%
+				}
+				%>
 			</div>
-
 		</div>
 	</div>
 	<div class="header__copyright">

@@ -103,12 +103,13 @@ margin: 0 auto;
 
 .btn-more-link {
 	display: flex;
-	padding: 1rem 1.5rem;
+	padding: 0.8rem 1.5rem;
 	border: 1px solid #5ec9ff;
 	border-radius: 0.4rem;
 	color: #5ec9ff;
 	font-weight: 500;
 	transition: all linear 0.2s;
+	font-size: 1.4rem;
 }
 
 .btn-more-link:hover {

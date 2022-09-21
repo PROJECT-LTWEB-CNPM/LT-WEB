@@ -114,13 +114,15 @@
 					</a>
 				</div>
 				<div class="header__navbar-item hide dropdown">
-					<a href="${pageContext.request.contextPath}/default/collections/index.jsp">ÁO</a>
+					<a
+						href="${pageContext.request.contextPath}/default/collections/index.jsp">ÁO</a>
 					<div class="dropdown-content">
 						<a href="#">ÁO</a> <a href="#">ÁO</a> <a href="#">ÁO</a>
 					</div>
 				</div>
 				<div class="header__navbar-item hide dropdown">
-					<a href="${pageContext.request.contextPath}/default/collections/index.jsp">QUẦN</a>
+					<a
+						href="${pageContext.request.contextPath}/default/collections/index.jsp">QUẦN</a>
 					<div class="dropdown-content">
 						<a href="#">ÁO</a> <a href="#">ÁO</a> <a href="#">ÁO</a>
 					</div>

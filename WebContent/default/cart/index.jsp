@@ -19,8 +19,7 @@ request.setCharacterEncoding("utf-8");
 	css="../../assets/css/index.css">
 	<jsp:include page="../header.jsp" />
 	<main class="main">
-		<h1>Cart</h1>
+		<jsp:include page="./cart-content.jsp"></jsp:include>
 	</main>
 	<jsp:include page="../footer.jsp" />
-	<jsp:include page="../back-to-top.jsp" />
 </tags:base>
