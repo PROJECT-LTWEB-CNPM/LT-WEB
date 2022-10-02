@@ -6,49 +6,49 @@
 <head>
 <style>
 .main {
-	padding-top: 6rem;
+	padding-top: 12rem;
+	padding-bottom: 4rem;
 }
 
 .product__inner {
 	display: flex;
 	justify-content: space-between;
-	flex-direction: row;
-	margin: 10px 0 40px 0;
+	gap: 3rem;
 }
 
 .container_product_img {
-	flex-basis: 48%;
-}
-
-.product_img {
-	padding-top: 100%;
-	background-repeat: no-repeat;
-	background-size: contain;
-	background-position: center;
+	width: 40%;
 }
 
 .product_info {
-	flex-basis: 48%;
+	width: 60%;
+}
+
+.product_img {
+	border-radius: 0.4rem;
+	width: 100%;
+	height: 40rem;
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
 }
 
 .product_info-name {
-	position: relative;
-	top: -2px;
-	font-size: 2.8rem;
-	color: var(- -text-color);
-	line-height: 2.8rem;
-	margin-bottom: 20px;
+	font-size: 2rem;
+	color: rgba(0, 0, 0, 0.7);
+	margin-bottom: 1rem;
 }
 
 .home-product-item__price {
-	margin-bottom: 8px;
+	margin-bottom: 1.2rem;
 }
 
 .home-product-item__price-current {
 	font-size: 2.6rem;
 	font-weight: 600;
 	color: red;
-	margin-right: 16px;
+	margin-right: 1rem;
 }
 
 .home-product-item__price-old {
@@ -58,9 +58,15 @@
 }
 
 .product_info-more {
-	font-size: 1.8rem;
-	line-height: 2.2rem;
-	margin-bottom: 20px;
+	font-size: 1.6rem;
+	margin-bottom: 1.4rem;
+}
+
+.product_info-more>span {
+	display: block;
+	margin-bottom: 0.5rem;
+	font-weight: 500;
+	color: #333;
 }
 
 .product_info-size {
@@ -71,28 +77,14 @@
 }
 
 .product_info-size-label {
-	color: var(- -text-color);
-	font-size: 1.8rem;
-	margin-right: 10px;
-}
-
-.product_info-size-general {
-	width: 47px;
-	height: 47px;
-	text-align: center;
-	vertical-align: middle;
-	margin-right: 10px;
-	border: 1px solid #000;
-	border-radius: 10px;
-	font-weight: 500;
 	font-size: 1.6rem;
-	cursor: pointer;
-	background-color: #fff;
+	margin-right: 1rem;
 }
 
-.product_info-size-active {
-	background-color: #9999FF;
-	color: #fff;
+.product_info-size-list {
+	display: flex;
+	align-items: center;
+	gap: 2rem;
 }
 
 .product_info-quantity {
@@ -104,36 +96,33 @@
 
 .product_info-quantity-label {
 	color: var(- -text-color);
-	font-size: 1.8rem;
+	font-size: 1.6rem;
 	margin-right: 10px;
 }
 
-.product_info-quantity-subtraction, .product_info-quantity-number,
-	.product_info-quantity-add {
-	height: 30px;
-	text-align: center;
-	vertical-align: middle;
-	border: 1px solid #000;
-	border-radius: 10px;
-	color: var(- -text-color);
-	font-size: 1.8rem;
-	font-weight: 500;
-	margin-right: 10px;
+.product_info-quantity-group {
+	display: flex;
+	gap: 0.4rem;
+}
+
+.product_info-quantity-btn {
+	width: 2.5rem;
+	height: 2.5rem;
+	font-size: 1.6rem;
 	cursor: pointer;
-	background-color: #fff;
 }
 
-.product_info-quantity-subtraction, .product_info-quantity-add {
-	width: 30px;
+.product_info-quantity-text {
+	width: 6rem;
+	text-align: center;
 }
 
-.product_info-quantity-number {
-	width: 100px;
+.product_info-quantity-text:focus {
+	outline: none;
 }
 
 .some_more_img_lable {
-	font-size: 1.8rem;
-	color: var(- -text-color);
+	font-size: 1.6rem;
 	margin-bottom: 12px;
 }
 
@@ -142,7 +131,7 @@
 	flex-direction: row;
 	height: 60px;
 	width: 100%;
-	margin-bottom: 40px;
+	margin-bottom: 2rem;
 }
 
 .member-item {
@@ -162,31 +151,36 @@
 	background-position: center;
 }
 
-.btn_container {
+.btn_container, .btn_cart {
 	display: flex;
-	flex-direction: row;
 	align-items: center;
-	justify-content: space-between;
+}
+
+.btn_container {
+	gap: 2rem;
 }
 
 .btn_cart {
-	display: flex;
-	flex-direction: row;
-	align-items: center;
+	gap: 1rem;
 	justify-content: center;
-	min-width: 220px;
-	height: 42px;
-	border: 1px solid #000;
-	border-radius: 10px;
+	border: 0.5px solid #f2f2f2;
+	border-radius: 0.4rem;
 	background-color: #fff;
-	color: var(- -text);
 	cursor: pointer;
+	font-size: 1rem;
+	padding: 0.8rem 0;
+	min-width: 15rem;
+	color: #fff;
+	background-color: #5ec9ff;
+	transition: all linear 0.2s;
+}
+
+.btn_cart:hover {
+	background-color: #65b9e3;
 }
 
 .btn_cart ion-icon {
-	font-size: 2.8rem;
-	margin-left: 12px;
-	vertical-align: middle;
+	font-size: 2.2rem;
 }
 </style>
 </head>
@@ -212,21 +206,36 @@ request.setCharacterEncoding("utf-8");
 							class="home-product-item__price-old">390,000₫</span>
 					</div>
 					<p class="product_info-more">
-						Thông tin sản phẩm: ILLUSION T-SHIRT. HOẠ TIẾT: IN LỤA U.S.A <br>
-						INK.COLOR: DARK BROWN SIZE: M / L / XL.<br> MATERIAL: PREMIUM
-						COTTON.
+						<span>Thông tin sản phẩm: ILLUSION T-SHIRT.</span> <span>
+							Họa tiết: IN LỤA U.S.A</span> <span>Màu sắc: DARK BROWN</span> <span>Chất
+							liệu: PREMIUM COTTON.</span>
 					</p>
 					<div class="product_info-size">
 						<h3 class="product_info-size-label">KÍCH THƯỚC:</h3>
-						<button class="product_info-size-general product_info-size-active">M</button>
-						<button class="product_info-size-general">L</button>
-						<button class="product_info-size-general">XL</button>
+						<div class="product_info-size-list">
+							<div class="product_info-size-item">
+								<input type="radio" id="sizeM" name="sizeM" value="M"> <label
+									for="sizeM"> M</label>
+							</div>
+							<div class="product_info-size-item">
+								<input type="radio" id="sizeM" name="sizeM" value="M"> <label
+									for="sizeM"> L</label>
+							</div>
+							<div class="product_info-size-item">
+								<input type="radio" id="sizeM" name="sizeM" value="M"> <label
+									for="sizeM"> XL</label>
+							</div>
+						</div>
 					</div>
 					<div class="product_info-quantity">
 						<h3 class="product_info-quantity-label">SỐ LƯỢNG:</h3>
-						<button class="product_info-quantity-subtraction">-</button>
-						<button class="product_info-quantity-number">1</button>
-						<button class="product_info-quantity-add">+</button>
+						<div class="product_info-quantity-group">
+							<button class="product_info-quantity-btn">-</button>
+							<input type="text" name="quantity" value="1"
+								class="product_info-quantity-text" />
+							<button class="product_info-quantity-btn">+</button>
+						</div>
+
 					</div>
 					<h3 class="some_more_img_lable">XEM THÊM HÌNH ẢNH</h3>
 					<div class="some_more_img">
@@ -250,7 +259,7 @@ request.setCharacterEncoding("utf-8");
 					</div>
 					<div class="btn_container">
 						<button class="btn_cart">
-							<h3 class="btn_cart-lable">THÊM VÀO GIỎ HÀNG</h3>
+							<h3 class="btn_cart-lable">THÊM VÀO GIỎ</h3>
 							<ion-icon name="cart"></ion-icon>
 						</button>
 						<button class="btn_cart">
