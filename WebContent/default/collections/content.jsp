@@ -241,6 +241,7 @@
 <%
 request.setCharacterEncoding("utf-8");
 List<String> typesOfProduct = Arrays.asList("ÁO HODDIE", "ÁO POLO", "ÁO UNISEX", "ÁO PHÔNG");
+
 %>
 
 <div class="grid__row collection__container">

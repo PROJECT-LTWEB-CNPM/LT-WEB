@@ -21,6 +21,7 @@ request.setCharacterEncoding("utf-8");
 	<jsp:include page="../header.jsp" />
 	<main class="main">
 		<div class="container">
+			<p>${name}</p>
 			<jsp:include page="./content.jsp" />
 		</div>
 	</main>

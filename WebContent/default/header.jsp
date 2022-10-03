@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@page import="services.ProductTypeService"%>
+<%@page import="services.CategoryService"%>
 
 <head>
 <link rel="stylesheet"
@@ -105,6 +107,10 @@
 </style>
 </head>
 
+<% 
+	ProductTypeService ps = new ProductTypeService();
+%>
+
 <header class="header">
 	<div class="container">
 		<ul class="header__navbar">
@@ -113,20 +119,24 @@
 					<a href="${pageContext.request.contextPath}/"> <span>SHOP</span><span>LANE</span>
 					</a>
 				</div>
+				<%for (int i=0; i<ps.getListProductType().size(); i++) { %>
+				
 				<div class="header__navbar-item hide dropdown">
-					<a
-						href="${pageContext.request.contextPath}/default/collections/index.jsp">ÁO</a>
+					<a href="${pageContext.request.contextPath}/default/collections/index.jsp=?pt=<%=ps.getListProductType().get(i).getTypeId()%>"><%=ps.getListProductType().get(i).getTypeName()%></a>
 					<div class="dropdown-content">
-						<a href="#">ÁO</a> <a href="#">ÁO</a> <a href="#">ÁO</a>
+						<%
+							String pType = ps.getListProductType().get(i).getTypeName();
+							System.out.println("Type Id is " + pType);
+							CategoryService cs = new CategoryService(pType);
+							
+							for (int j = 0; j < cs.getListCategories().size(); j++) {
+						%>
+							<a href="#"><%=cs.getListCategories().get(j).getCategoryName()%></a> 
+						
+						<% }%>
 					</div>
 				</div>
-				<div class="header__navbar-item hide dropdown">
-					<a
-						href="${pageContext.request.contextPath}/default/collections/index.jsp">QUẦN</a>
-					<div class="dropdown-content">
-						<a href="#">ÁO</a> <a href="#">ÁO</a> <a href="#">ÁO</a>
-					</div>
-				</div>
+				<%} %>
 			</li>
 			<li class="header__navbar-item header__navbar-item-search"><i
 				class="fas fa-search header__navbar-item-search-icon"></i> <input
