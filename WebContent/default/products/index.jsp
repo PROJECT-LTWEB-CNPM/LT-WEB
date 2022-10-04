@@ -195,7 +195,7 @@ request.setCharacterEncoding("utf-8");
 			<div class="product__inner">
 				<div class="container_product_img">
 					<div class="product_img"
-						style="background-image: url(${productImagesDetail != null ? productImagesDetail. getImageUrl() : product.getMainImageUrl()});">
+						style="background-image: url(${productImagesDetail != null ? productImagesDetail.getImageUrl() : product.getMainImageUrl()});">
 					</div>
 				</div>
 				<div class="product_info">
