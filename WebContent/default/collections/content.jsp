@@ -2,10 +2,10 @@
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <head>
-
+<jsp:useBean id="categories" class="services.CategoryService"></jsp:useBean>
 <style>
 .main {
 	padding-top: 6rem;
@@ -238,11 +238,6 @@
 </style>
 </head>
 
-<%
-request.setCharacterEncoding("utf-8");
-List<String> typesOfProduct = Arrays.asList("ÁO HODDIE", "ÁO POLO", "ÁO UNISEX", "ÁO PHÔNG");
-%>
-
 <div class="grid__row collection__container">
 	<div class="grid__column">
 		<div class="category__container">
@@ -251,22 +246,17 @@ List<String> typesOfProduct = Arrays.asList("ÁO HODDIE", "ÁO POLO", "ÁO UNISE
 				<i class="fa-solid fa-xmark"></i>
 			</div>
 			<ul class="category-list">
-				<li class="category-item active"><a href=""
-					class="category-item__link">ÁO THUN</a></li>
-				<%
-				for (int i = 0; i < typesOfProduct.size(); i++) {
-				%>
-				<li class="category-item"><a href=""
-					class="category-item__link"><%=typesOfProduct.get(i)%></a></li>
-				<%
-				}
-				%>
+				<c:forEach var="item" items="${productType.contains('ÁO') == true ? categories.getAllShirtType() : categories.getAllShortType()}">
+					<li class="category-item">
+						<a href="${pageContext.request.contextPath}/ProductController?categoryId=${item.getCategoryId()}"class="category-item__link">${item.getCategoryName() }</a>
+					</li>
+				</c:forEach>
 			</ul>
 		</div>
 	</div>
 	<div class="grid__column_3">
 		<div class="product_filter">
-			<h3 class="type_of_product">ÁO THUN</h3>
+			<h3 class="type_of_product">${category.getCategoryName() }</h3>
 			<div class="option_filter">
 				<h3 class="option_filter-label">SẮP XẾP THEO</h3>
 				<select class="option_filter-group" tabindex="-1">
@@ -282,31 +272,29 @@ List<String> typesOfProduct = Arrays.asList("ÁO HODDIE", "ÁO POLO", "ÁO UNISE
 			</div>
 		</div>
 		<div class="grid__row">
-			<%
-			for (int i = 0; i < 9; i++) {
-			%>
-			<div class="grid__column-3-3">
-				<div class="group_content">
-					<div class="home-product-item__img"
-						style="background-image: url(https://cf.shopee.vn/file/fe2451710511f9ddb24d33dcf1621345);">
-					</div>
-					<h4 class="home-product-item__name">ILLUSION T-SHIRT/DARK
-						BROWN</h4>
-					<h4 class="shop_name">SHOPLANE</h4>
-					<div class="home-product-item__rating">
-						<i class="fas fa-star"></i> <i class="fas fa-star"></i> <i
-							class="fas fa-star"></i> <i class="fas fa-star"></i> <i
-							class="fas fa-star"></i>
-					</div>
-					<div class="home-product-item__price">
-						<span class="home-product-item__price-current">69,000₫</span> <span
-							class="home-product-item__price-old">390,000₫</span>
+			<c:forEach var="item" items="${productBycategoryId}">
+				<div class="grid__column-3-3">
+					<div class="group_content">
+						<div class="home-product-item__img"
+							style="background-image: url(${item.getMainImageUrl()});">
+						</div>
+						<h4 class="home-product-item__name">
+						<%-- ${item.getProductName()} --%>
+							<a href="${pageContext.request.contextPath}/ProductController?productId=${item.getProductId()}">${item.getProductName()}</a>
+						</h4>
+						<h4 class="shop_name">SHOPLANE</h4>
+						<div class="home-product-item__rating">
+							<i class="fas fa-star"></i> <i class="fas fa-star"></i> <i
+								class="fas fa-star"></i> <i class="fas fa-star"></i> <i
+								class="fas fa-star"></i>
+						</div>
+						<div class="home-product-item__price">
+							<span class="home-product-item__price-current">${item.getNewPrice()}</span> <span
+								class="home-product-item__price-old">${item.getOldPrice()}</span>
+						</div>
 					</div>
 				</div>
-			</div>
-			<%
-			}
-			%>
+			</c:forEach>
 		</div>
 		<div class="show_all">
 			<button class="btn-submit">XEM THÊM 45 SẢN PHẨM KHÁC</button>

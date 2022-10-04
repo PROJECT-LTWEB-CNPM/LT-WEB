@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <head>
+<jsp:useBean id="categories" class="services.CategoryService"></jsp:useBean>
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/default/header.css" />
 
@@ -60,7 +62,10 @@
 .dropdown:hover .dropdown-content {
 	display: block;
 }
-
+.header__navbar-item-search,
+.header__navbar-item-search-input {
+	background: var(--white-color-5);
+}
 .header__navbar-item-link>ion-icon {
 	font-size: 2.5rem !important;
 	transition: all linear 0.1s;
@@ -115,16 +120,20 @@
 				</div>
 				<div class="header__navbar-item hide dropdown">
 					<a
-						href="${pageContext.request.contextPath}/default/collections/index.jsp">ÁO</a>
+						href="${pageContext.request.contextPath}/">ÁO</a>
 					<div class="dropdown-content">
-						<a href="#">ÁO</a> <a href="#">ÁO</a> <a href="#">ÁO</a>
+						<c:forEach var="item" items="${categories.getAllShirtType()}">
+							<a href="${pageContext.request.contextPath}/ProductController?categoryId=${item.getCategoryId()}">${item.getCategoryName() }</a>
+						</c:forEach>
 					</div>
 				</div>
 				<div class="header__navbar-item hide dropdown">
 					<a
-						href="${pageContext.request.contextPath}/default/collections/index.jsp">QUẦN</a>
+						href="${pageContext.request.contextPath}/">QUẦN</a>
 					<div class="dropdown-content">
-						<a href="#">ÁO</a> <a href="#">ÁO</a> <a href="#">ÁO</a>
+						<c:forEach var="item" items="${categories.getAllShortType()}">
+							<a href="${pageContext.request.contextPath}/ProductController?categoryId=${item.getCategoryId()}">${item.getCategoryName() }</a>
+						</c:forEach>
 					</div>
 				</div>
 			</li>
