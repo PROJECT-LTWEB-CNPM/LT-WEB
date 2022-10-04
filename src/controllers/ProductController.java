@@ -86,7 +86,7 @@ public class ProductController extends HttpServlet {
 	}
 	
 	protected void showAll(HttpServletRequest request, HttpServletResponse response, String showAll) throws ServletException, IOException{
-		request.setAttribute("showAll", showAll);
+		request.getSession().setAttribute("showAll", showAll);
 		request.getRequestDispatcher("/default/home/index.jsp").forward(request, response);	
 	}
 	
