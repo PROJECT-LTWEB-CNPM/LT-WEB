@@ -66,7 +66,7 @@ public class ProductController extends HttpServlet {
 	protected void renderProductToHomeView(HttpServletRequest request, HttpServletResponse response, String productId) throws ServletException, IOException{
 		ProductService productSevice = new ProductService();
 		Product product = productSevice.findProductdById(productId);
-		request.setAttribute("product", product);
+		request.getSession().setAttribute("product", product);
 	}
 	
 	protected void renderShirtProductWithType(HttpServletRequest request, HttpServletResponse response, String categoryId) throws ServletException, IOException{
