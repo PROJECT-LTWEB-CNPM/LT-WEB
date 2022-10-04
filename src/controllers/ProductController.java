@@ -77,10 +77,10 @@ public class ProductController extends HttpServlet {
 		Category category = categoryService.findCategorydById(categoryId);
 		
 //		Lấy loại sản phẩm thông qua tên bằng hàm contains('ÁO')
-		request.setAttribute("productType",category.getCategoryName());
+		request.getSession().setAttribute("productType",category.getCategoryName());
 		
-		request.setAttribute("productBycategoryId", productBycategoryId);
-		request.setAttribute("category", category);
+		request.getSession().setAttribute("productBycategoryId", productBycategoryId);
+		request.getSession().setAttribute("category", category);
 		
 		request.getRequestDispatcher("/default/collections/index.jsp").forward(request, response);	
 	}
@@ -102,6 +102,6 @@ public class ProductController extends HttpServlet {
 		ProductImagesService productImagesService = new ProductImagesService();
 		ProductImage productImagesDetail = productImagesService.findProductImageById(imageId);
 		
-		request.setAttribute("productImagesDetail", productImagesDetail);
+		request.getSession().setAttribute("productImagesDetail", productImagesDetail);
 	}
 }
