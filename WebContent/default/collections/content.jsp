@@ -246,10 +246,11 @@
 				<i class="fa-solid fa-xmark"></i>
 			</div>
 			<ul class="category-list">
-				<c:forEach var="item" items="${productType.contains('ÁO') == true ? categories.getAllShirtType() : categories.getAllShortType()}">
-					<li class="category-item">
-						<a href="${pageContext.request.contextPath}/ProductController?categoryId=${item.getCategoryId()}"class="category-item__link">${item.getCategoryName() }</a>
-					</li>
+				<c:forEach var="item"
+					items="${productType.contains('ÁO') == true ? categories.getAllShirtType() : categories.getAllShortType()}">
+					<li class="category-item"><a
+						href="${pageContext.request.contextPath}/ProductController?categoryId=${item.getCategoryId()}"
+						class="category-item__link">${item.getCategoryName() }</a></li>
 				</c:forEach>
 			</ul>
 		</div>
@@ -259,16 +260,18 @@
 			<h3 class="type_of_product">${category.getCategoryName() }</h3>
 			<div class="option_filter">
 				<h3 class="option_filter-label">SẮP XẾP THEO</h3>
-				<select class="option_filter-group" tabindex="-1">
-					<option value="manual">Sản phẩm nổi bật</option>
-					<option value="price-ascending">Giá: Tăng dần</option>
-					<option value="price-descending">Giá: Giảm dần</option>
-					<option value="title-ascending">Tên: A-Z</option>
-					<option value="title-descending">Tên: Z-A</option>
-					<option value="created-ascending">Cũ nhất</option>
-					<option value="created-descending" selected>Mới nhất</option>
-					<option value="best-selling">Bán chạy nhất</option>
-				</select>
+				<form>
+					<select class="option_filter-group" tabindex="-1">
+						<option value="manual">Sản phẩm nổi bật</option>
+						<option value="price-ascending">Giá: Tăng dần</option>
+						<option value="price-descending">Giá: Giảm dần</option>
+						<option value="title-ascending">Tên: A-Z</option>
+						<option value="title-descending">Tên: Z-A</option>
+						<option value="created-ascending">Cũ nhất</option>
+						<option value="created-descending" selected>Mới nhất</option>
+						<option value="best-selling">Bán chạy nhất</option>
+					</select>
+				</form>
 			</div>
 		</div>
 		<div class="grid__row">
@@ -279,8 +282,9 @@
 							style="background-image: url(${item.getMainImageUrl()});">
 						</div>
 						<h4 class="home-product-item__name">
-						<%-- ${item.getProductName()} --%>
-							<a href="${pageContext.request.contextPath}/ProductController?productId=${item.getProductId()}">${item.getProductName()}</a>
+							<%-- ${item.getProductName()} --%>
+							<a
+								href="${pageContext.request.contextPath}/ProductController?productId=${item.getProductId()}">${item.getProductName()}</a>
 						</h4>
 						<h4 class="shop_name">SHOPLANE</h4>
 						<div class="home-product-item__rating">
@@ -289,8 +293,8 @@
 								class="fas fa-star"></i>
 						</div>
 						<div class="home-product-item__price">
-							<span class="home-product-item__price-current">${item.getNewPrice()}</span> <span
-								class="home-product-item__price-old">${item.getOldPrice()}</span>
+							<span class="home-product-item__price-current">${item.getNewPrice()}</span>
+							<span class="home-product-item__price-old">${item.getOldPrice()}</span>
 						</div>
 					</div>
 				</div>

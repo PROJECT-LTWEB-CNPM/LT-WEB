@@ -38,7 +38,9 @@ public class ProductController extends HttpServlet {
 		String imageId = request.getParameter("imageId");
 		
 		if (productId != null) {
+			
 			renderProductToHomeView(request, response, productId);
+			request.getSession().removeAttribute("productImagesDetail");
 			showProductImage(request, response, productId);
 			request.getRequestDispatcher("/default/products/index.jsp").forward(request, response);	
 		}
@@ -59,7 +61,13 @@ public class ProductController extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
+//		doGet(request, response);
+		response.setContentType("text/html");
+		response.setCharacterEncoding("UTF-8");
+		request.setCharacterEncoding("UTF-8");
+		
+		String findProduct = request.getParameter("findProduct");
+		System.out.println(findProduct.toUpperCase());
 	}
 	
 	
@@ -86,7 +94,7 @@ public class ProductController extends HttpServlet {
 	}
 	
 	protected void showAll(HttpServletRequest request, HttpServletResponse response, String showAll) throws ServletException, IOException{
-		request.getSession().setAttribute("showAll", showAll);
+		request.setAttribute("showAll", showAll);
 		request.getRequestDispatcher("/default/home/index.jsp").forward(request, response);	
 	}
 	

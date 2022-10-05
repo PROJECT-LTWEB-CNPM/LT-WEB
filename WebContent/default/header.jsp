@@ -62,10 +62,11 @@
 .dropdown:hover .dropdown-content {
 	display: block;
 }
-.header__navbar-item-search,
-.header__navbar-item-search-input {
+
+.header__navbar-item-search, .header__navbar-item-search-input, form {
 	background: var(--white-color-5);
 }
+
 .header__navbar-item-link>ion-icon {
 	font-size: 2.5rem !important;
 	transition: all linear 0.1s;
@@ -119,28 +120,32 @@
 					</a>
 				</div>
 				<div class="header__navbar-item hide dropdown">
-					<a
-						href="${pageContext.request.contextPath}/">ÁO</a>
+					<a href="${pageContext.request.contextPath}/">ÁO</a>
 					<div class="dropdown-content">
 						<c:forEach var="item" items="${categories.getAllShirtType()}">
-							<a href="${pageContext.request.contextPath}/ProductController?categoryId=${item.getCategoryId()}">${item.getCategoryName() }</a>
+							<a
+								href="${pageContext.request.contextPath}/ProductController?categoryId=${item.getCategoryId()}">${item.getCategoryName() }</a>
 						</c:forEach>
 					</div>
 				</div>
 				<div class="header__navbar-item hide dropdown">
-					<a
-						href="${pageContext.request.contextPath}/">QUẦN</a>
+					<a href="${pageContext.request.contextPath}/">QUẦN</a>
 					<div class="dropdown-content">
 						<c:forEach var="item" items="${categories.getAllShortType()}">
-							<a href="${pageContext.request.contextPath}/ProductController?categoryId=${item.getCategoryId()}">${item.getCategoryName() }</a>
+							<a
+								href="${pageContext.request.contextPath}/ProductController?categoryId=${item.getCategoryId()}">${item.getCategoryName() }</a>
 						</c:forEach>
 					</div>
 				</div>
 			</li>
 			<li class="header__navbar-item header__navbar-item-search"><i
-				class="fas fa-search header__navbar-item-search-icon"></i> <input
-				type="text" placeholder="Tìm kiếm quần áo...."
-				class="header__navbar-item-search-input" autofocus /></li>
+				class="fas fa-search header__navbar-item-search-icon"></i>
+				<form action="ProductController" method="post" style="width:100%;">
+					<input type="text" placeholder="Tìm kiếm quần áo...."
+						class="header__navbar-item-search-input" autofocus
+						name="findProduct"/>
+					<input type="submit" style="display:none"/>
+				</form></li>
 
 			<li class="header__navbar-item header__navbar-actions"><a
 				href="${pageContext.request.contextPath}/default/cart/index.jsp"
