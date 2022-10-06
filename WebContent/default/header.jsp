@@ -1,8 +1,10 @@
 <%@page import="models.User"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <head>
+<jsp:useBean id="categories" class="services.CategoryService"></jsp:useBean>
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/default/header.css" />
 
@@ -60,6 +62,10 @@
 
 .dropdown:hover .dropdown-content {
 	display: block;
+}
+
+.header__navbar-item-search, .header__navbar-item-search-input, form {
+	background: var(--white-color-5);
 }
 
 .header__navbar-item-link>ion-icon {
@@ -125,24 +131,32 @@ if (u != null) {
 					</a>
 				</div>
 				<div class="header__navbar-item hide dropdown">
-					<a
-						href="${pageContext.request.contextPath}/default/collections/index.jsp">ÁO</a>
+					<a href="${pageContext.request.contextPath}/">ÁO</a>
 					<div class="dropdown-content">
-						<a href="#">ÁO</a> <a href="#">ÁO</a> <a href="#">ÁO</a>
+						<c:forEach var="item" items="${categories.getAllShirtType()}">
+							<a
+								href="${pageContext.request.contextPath}/ProductController?categoryId=${item.getCategoryId()}">${item.getCategoryName() }</a>
+						</c:forEach>
 					</div>
 				</div>
 				<div class="header__navbar-item hide dropdown">
-					<a
-						href="${pageContext.request.contextPath}/default/collections/index.jsp">QUẦN</a>
+					<a href="${pageContext.request.contextPath}/">QUẦN</a>
 					<div class="dropdown-content">
-						<a href="#">ÁO</a> <a href="#">ÁO</a> <a href="#">ÁO</a>
+						<c:forEach var="item" items="${categories.getAllShortType()}">
+							<a
+								href="${pageContext.request.contextPath}/ProductController?categoryId=${item.getCategoryId()}">${item.getCategoryName() }</a>
+						</c:forEach>
 					</div>
 				</div>
 			</li>
 			<li class="header__navbar-item header__navbar-item-search"><i
-				class="fas fa-search header__navbar-item-search-icon"></i> <input
-				type="text" placeholder="Tìm kiếm quần áo...."
-				class="header__navbar-item-search-input" autofocus /></li>
+				class="fas fa-search header__navbar-item-search-icon"></i>
+				<form action="ProductController" method="post" style="width:100%;">
+					<input type="text" placeholder="Tìm kiếm quần áo...."
+						class="header__navbar-item-search-input" autofocus
+						name="findProduct"/>
+					<input type="submit" style="display:none"/>
+				</form></li>
 
 			<li class="header__navbar-item header__navbar-actions"><a
 				href="${pageContext.request.contextPath}/default/cart/index.jsp"

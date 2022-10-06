@@ -17,11 +17,11 @@ request.setCharacterEncoding("utf-8");
 %>
 
 <tags:base title="Tất cả sản phẩm - SHOPLANE"
-	css="../../assets/css/index.css">
+	css="./assets/css/index.css">
 	<jsp:include page="../header.jsp" />
 	<main class="main">
 		<div class="container">
-			<jsp:include page="./content.jsp" />
+			<jsp:include page="./content.jsp"/>
 		</div>
 	</main>
 	<jsp:include page="../footer.jsp" />

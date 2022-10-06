@@ -1,8 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <head>
+<jsp:useBean id="product" class="services.ProductService"></jsp:useBean>
 <style>
 .catalog {
 	margin: 8rem 0;
@@ -32,9 +33,13 @@
 .catalog__list {
 	display: flex;
 	align-items: flex-start;
-	justify-content: space-between;
+	justify-content: flex-start;
 	flex-wrap: wrap;
 	gap: 2.5rem 2rem;
+}
+
+.catalog__item {
+	width: 23%;
 }
 
 .group_content {
@@ -60,6 +65,12 @@
 .home-product-item__name {
 	font-size: 1.5rem;
 	margin-top: 8px;
+	line-height: 1.5rem;
+	max-height: 1.5rem;
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 1;
+	overflow: hidden;
 }
 
 .shop_name {
@@ -98,7 +109,9 @@
 }
 
 .btn-more {
-margin: 0 auto;
+	display: block;
+	margin: 40px auto 0;
+	width: 120px;
 }
 
 .btn-more-link {
@@ -120,45 +133,128 @@ margin: 0 auto;
 </head>
 
 <section class="catalog">
-	<div class="container">
-		<h1 class="catalog__heading">${param.heading}</h1>
-		<div class="catalog__list">
-			<%
-			for (int i = 0; i < 8; i++) {
-			%>
-			<div class="catalog__item">
-				<div class="group_content">
-					<div class="home-product-item__img"
-						style="background-image: url(https://cf.shopee.vn/file/fe2451710511f9ddb24d33dcf1621345);">
+	<c:choose>
+		<c:when test="${showAll.contains('showAll')}">
+			<c:choose>
+				<c:when test="${showAll.contains('DANH MỤC ÁO') && param.heading.contains('DANH MỤC ÁO')}">
+					<div class="container">
+						<h1 class="catalog__heading">${param.heading}</h1>
+						<div class="catalog__list">
+							<c:forEach var="item"
+								items="${product.getAllShirt()}">
+								<div class="catalog__item">
+									<div class="group_content">
+										<div class="home-product-item__img"
+											style="background-image: url(${item.getMainImageUrl()});">
+										</div>
+										<h4 class="home-product-item__name">
+											<%-- <a href="${pageContext.request.contextPath}/default/products/index.jsp">${item.getProductName()}</a> --%>
+											<a
+												href="${pageContext.request.contextPath}/ProductController?productId=${item.getProductId()}">${item.getProductName()}</a>
+										</h4>
+										<h4 class="shop_name">SHOPLANE</h4>
+										<div class="home-product-item__rating">
+											<ion-icon name="star-outline"></ion-icon>
+											<ion-icon name="star-outline"></ion-icon>
+											<ion-icon name="star-outline"></ion-icon>
+											<ion-icon name="star-outline"></ion-icon>
+											<ion-icon name="star-outline"></ion-icon>
+										</div>
+										<div class="home-product-item__price">
+											<span class="home-product-item__price-current">${item.getNewPrice()}</span>
+											<span class="home-product-item__price-old">${item.getOldPrice()}</span>
+										</div>
+									</div>
+								</div>
+							</c:forEach>
+							<div class="btn-more">
+								<a class="btn-more-link"
+									href="${pageContext.request.contextPath}/ProductController?showAll=showAll-${param.heading}">
+									XEM TẤT CẢ </a>
+							</div>
+						</div>
 					</div>
-					<h4 class="home-product-item__name">
-						<a
-							href="${pageContext.request.contextPath}/default/products/index.jsp">ILLUSION
-							T-SHIRT/DARK BROWN</a>
+				</c:when>
+				<c:when test="${showAll.contains('DANH MỤC QUẦN') && param.heading.contains('DANH MỤC QUẦN')}">
+					<div class="container">
+						<h1 class="catalog__heading">${param.heading}</h1>
+						<div class="catalog__list">
+							<c:forEach var="item"
+								items="${product.getAllShort()}">
+								<div class="catalog__item">
+									<div class="group_content">
+										<div class="home-product-item__img"
+											style="background-image: url(${item.getMainImageUrl()});">
+										</div>
+										<h4 class="home-product-item__name">
+											<%-- <a href="${pageContext.request.contextPath}/default/products/index.jsp">${item.getProductName()}</a> --%>
+											<a
+												href="${pageContext.request.contextPath}/ProductController?productId=${item.getProductId()}">${item.getProductName()}</a>
+										</h4>
+										<h4 class="shop_name">SHOPLANE</h4>
+										<div class="home-product-item__rating">
+											<ion-icon name="star-outline"></ion-icon>
+											<ion-icon name="star-outline"></ion-icon>
+											<ion-icon name="star-outline"></ion-icon>
+											<ion-icon name="star-outline"></ion-icon>
+											<ion-icon name="star-outline"></ion-icon>
+										</div>
+										<div class="home-product-item__price">
+											<span class="home-product-item__price-current">${item.getNewPrice()}</span>
+											<span class="home-product-item__price-old">${item.getOldPrice()}</span>
+										</div>
+									</div>
+								</div>
+							</c:forEach>
+							<div class="btn-more">
+								<a class="btn-more-link"
+									href="${pageContext.request.contextPath}/ProductController?showAll=showAll-${param.heading}">
+									XEM TẤT CẢ </a>
+							</div>
+						</div>
+					</div>
+				</c:when>
+			</c:choose>
+		</c:when>
 
-					</h4>
-					<h4 class="shop_name">SHOPLANE</h4>
-					<div class="home-product-item__rating">
-						<ion-icon name="star-outline"></ion-icon>
-						<ion-icon name="star-outline"></ion-icon>
-						<ion-icon name="star-outline"></ion-icon>
-						<ion-icon name="star-outline"></ion-icon>
-						<ion-icon name="star-outline"></ion-icon>
-					</div>
-					<div class="home-product-item__price">
-						<span class="home-product-item__price-current">69,000₫</span> <span
-							class="home-product-item__price-old">390,000₫</span>
+		<c:otherwise>
+			<div class="container">
+				<h1 class="catalog__heading">${param.heading}</h1>
+				<div class="catalog__list">
+					<c:forEach var="item"
+						items="${param.heading == 'DANH MỤC ÁO' ? product.getAllShirt(1, 12) :  product.getAllShort()}">
+						<div class="catalog__item">
+							<div class="group_content">
+								<div class="home-product-item__img"
+									style="background-image: url(${item.getMainImageUrl()});">
+								</div>
+								<h4 class="home-product-item__name">
+									<%-- <a href="${pageContext.request.contextPath}/default/products/index.jsp">${item.getProductName()}</a> --%>
+									<a
+										href="${pageContext.request.contextPath}/ProductController?productId=${item.getProductId()}">${item.getProductName()}</a>
+								</h4>
+								<h4 class="shop_name">SHOPLANE</h4>
+								<div class="home-product-item__rating">
+									<ion-icon name="star-outline"></ion-icon>
+									<ion-icon name="star-outline"></ion-icon>
+									<ion-icon name="star-outline"></ion-icon>
+									<ion-icon name="star-outline"></ion-icon>
+									<ion-icon name="star-outline"></ion-icon>
+								</div>
+								<div class="home-product-item__price">
+									<span class="home-product-item__price-current">${item.getNewPrice()}</span>
+									<span class="home-product-item__price-old">${item.getOldPrice()}</span>
+								</div>
+							</div>
+						</div>
+					</c:forEach>
+					<div class="btn-more">
+						<a class="btn-more-link"
+							href="${pageContext.request.contextPath}/ProductController?showAll=showAll-${param.heading}">
+							XEM TẤT CẢ </a>
 					</div>
 				</div>
 			</div>
-			<%
-			}
-			%>
-			<div class="btn-more">
-				<a class="btn-more-link" href="${pageContext.request.contextPath}/">
-					XEM TẤT CẢ </a>
-			</div>
-		</div>
-	</div>
+		</c:otherwise>
+	</c:choose>
 </section>
-

@@ -7,7 +7,8 @@
 	type="text/css" />
 <style>
 .footer {
-	font-size: 1.4rem;
+	font-size: 1.2rem;
+	text-align: justify;
 }
 
 .footer__row {

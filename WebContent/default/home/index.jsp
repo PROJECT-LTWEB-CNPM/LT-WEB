@@ -2,9 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="tags" tagdir="/WEB-INF/tags"%>
 
-
 <head>
-
 <style>
 .main {
 	padding-top: 6rem;
@@ -22,7 +20,6 @@ request.setCharacterEncoding("utf-8");
 	<main class="main">
 		<!-- Slider section -->
 		<jsp:include page="./slider/index.jsp" />
-
 		<!-- Shirt section-->
 		<jsp:include page="./shirt-catalog/index.jsp" />
 		<!-- Short section-->
@@ -30,5 +27,4 @@ request.setCharacterEncoding("utf-8");
 	</main>
 	<jsp:include page="../footer.jsp" />
 	<jsp:include page="../back-to-top.jsp" />
-
 </tags:base>

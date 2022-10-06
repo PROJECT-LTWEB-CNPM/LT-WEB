@@ -3,6 +3,7 @@
 <%
 request.setCharacterEncoding("utf-8");
 %>
+
 <jsp:include page="../default-section/index.jsp">
 	<jsp:param value="DANH MỤC ÁO" name="heading" />
 </jsp:include>
