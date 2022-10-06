@@ -50,7 +50,7 @@ public class SizeController extends HttpServlet {
 			String sizeName = request.getParameter("sizeName");
 			SizeService sv = new SizeService();
 			Size s = sv.getSize(sizeId, sizeName);
-			// sv.addSize(s);
+			sv.addSize(s);
 			List<Size> sizes = sv.findAll();
 			System.out.println(sizes.size());
 		} catch (Exception e) {
