@@ -122,7 +122,7 @@
 				<%for (int i=0; i<ps.getListProductType().size(); i++) { %>
 				
 				<div class="header__navbar-item hide dropdown">
-					<a href="${pageContext.request.contextPath}/default/collections/index.jsp?pt=<%=ps.getListProductType().get(i).getTypeId()%>"><%=ps.getListProductType().get(i).getTypeName()%></a>
+					<a href="${pageContext.request.contextPath}/loai-san-pham?pt=<%=ps.getListProductType().get(i).getTypeId()%>"><%=ps.getListProductType().get(i).getTypeName()%></a>
 					<div class="dropdown-content">
 						<%
 							String pType = ps.getListProductType().get(i).getTypeName();

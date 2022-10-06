@@ -22,8 +22,6 @@ request.setCharacterEncoding("utf-8");
 	<main class="main">
 		<!-- Slider section -->
 		<jsp:include page="./slider/index.jsp" />
-
-		<jsp:include page="./test/index.jsp" />
 		<!-- Shirt section-->
 		<jsp:include page="./shirt-catalog/index.jsp" />
 		<!-- Short section-->
