@@ -110,11 +110,11 @@ request.setCharacterEncoding("utf-8");
 			<section id="register">
 				<div class="border border-1 rounded register-form">
 
-					<form action="" method="">
+					<form action="register" method="POST">
 						<h1 class="register-header">ĐĂNG KÝ</h1>
-						<input class="form-control" type="text" name="fullname"
+						<input class="form-control" type="text" name="fullName"
 							placeholder="Họ và tên" required> <input
-							class="form-control" type="text" name="phoneNumber"
+							class="form-control" type="text" name="phonenumber"
 							placeholder="Số điện thoại" required> <input
 							class="form-control" type="text" name="address"
 							placeholder="Địa chỉ" required> <input
