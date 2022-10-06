@@ -1,10 +1,11 @@
 package controllers;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
-import javax.servlet.ServletContext;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -37,43 +38,38 @@ public class CategoryController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//response.setContentType("text/html");
 		String productType = request.getParameter("pt");
-		System.out.print("Product type is " + productType );
+		String category = request.getParameter("ct");
 		String url = "/default/collections/index.jsp";
-		//PrintWriter out = response.getWriter();
-		try {
-			if (productType == null) {
-				// trả về trang báo lỗi
-				//out.print("Error");
+		if (productType == null) {
+			// error
+		}else{
+			CategoryService cs = new CategoryService(productType); 
+			List<Category> listC = cs.getListCategories();
+			String categoryName = cs.getCategoryNameById(category);
+			
+			ProductService ps = new ProductService(productType, category);
+			List<Product> listP;
+			if (category != null) {
+				listP = ps.getListPC();
+				if (listP == null) {
+					listP = Collections.<Product>emptyList();
+				}
 			}else {
-				// khởi tạo các đối tượng dựa vào productType
-				CategoryService cs = new CategoryService(productType);
-				ProductService ps = new ProductService(productType);
-				
-				// Lấy các list category và list sản phẩm theo loại sản phẩm
-				List<Product> listP = ps.getListP();
-				for(Product p : listP) {
-					System.out.println(p.getProductName());
-				}
-				List<Category> listC = cs.getListCategories();
-				for(Category c : listC) {
-					System.out.println(c.getCategoryName());
-				}
-				
-				if (listP == null || listC == null) {
-					// Trả về thông báo lỗi
-					//print("Error");
-				}
-				
-				request.setAttribute("listP", listP);
-				request.setAttribute("listC", listC);	
+				listP = ps.getListP();
 			}
-		}finally {
-			//out.close();
+			
+			
+			
+			request.setAttribute("categoryName", categoryName);
+			request.setAttribute("listP", listP);
+			request.setAttribute("listC", listC);
+			
 		}
+		
 		
 		// chuyển đến trang được chỉ định
 		getServletContext().getRequestDispatcher(url).forward(request, response);
-	
+		
 	}
 
 	/**

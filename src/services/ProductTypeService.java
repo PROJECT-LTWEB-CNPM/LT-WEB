@@ -42,13 +42,7 @@ public class ProductTypeService {
 			em.close();
 		}
 		
-		for (ProductType a : lProductType) {
-			System.out.println(a.getTypeId() + ", " +  a.getTypeName());
-		}
 		return lProductType;
 	}
-	
-	
-	
-	
+		
 }

@@ -10,6 +10,9 @@ import utils.Common;
 
 
 public class CategoryService {
+	
+	
+	
 	private List<Category> listCategories;
 
 	
@@ -26,8 +29,8 @@ public class CategoryService {
 	
 	// Get Categories By Product Type Id
 	public List<Category> getCategoriesByType(String pt){
-		EntityManager em = Common.getEntityManager();
 		
+		EntityManager em = Common.getEntityManager();
 		String qString = "Select pt from Category pt where pt.producttype='" + pt + "'" ;
 		
 		TypedQuery<Category> q = em.createQuery(qString, Category.class);
@@ -46,6 +49,22 @@ public class CategoryService {
 		return listCats;
 	}
 	
+
+	public String getCategoryNameById (String Cid) {
+		EntityManager em = Common.getEntityManager();
+		String categoryName = "";
+		try {
+			if (Cid == null) {
+				categoryName = "TẤT CẢ";
+			}else {
+				Category cat = em.find(Category.class, Cid);
+				categoryName = cat.getCategoryName();
+			}
+		}finally {
+			em.close();
+		}
+		return categoryName;
+	}
 	
 	
 	

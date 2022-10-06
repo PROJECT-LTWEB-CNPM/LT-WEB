@@ -255,18 +255,17 @@
 				<i class="fa-solid fa-xmark"></i>
 			</div>
 			<ul class="category-list">
-				<li class="category-item active"><a href=""
-					class="category-item__link">${listC.get(0).getCategoryName()}</a></li>
-				<c:forEach begin="1" var="cat" items="${listC}">
-					<li class="category-item"><a href=""
+				<c:forEach var="cat" items="${listC}">
+					<li class="category-item"><a href="${pageContext.request.contextPath}/loai-san-pham?pt=${cat.getProducttype().getTypeId()}&ct=${cat.getCategoryId()}"
 					class="category-item__link"><c:out value="${cat.getCategoryName()}"/></a></li>
 				</c:forEach>
 			</ul>
 		</div>
 	</div>
+	
 	<div class="grid__column_3">
 		<div class="product_filter">
-			<h3 class="type_of_product">ÁO THUN</h3>
+			<h3 class="type_of_product">${categoryName}</h3>
 			<div class="option_filter">
 				<h3 class="option_filter-label">SẮP XẾP THEO</h3>
 				<select class="option_filter-group" tabindex="-1">
@@ -281,8 +280,14 @@
 				</select>
 			</div>
 		</div>
+		
 		<div class="grid__row">
-			<c:forEach var="product" items="${listP}">
+			<c:choose>
+				<c:when test="${empty listP}">
+					<h4>Chưa có sản phẩm</h4>
+				</c:when>
+				 <c:when test="${not empty listP}">
+					<c:forEach var="product" items="${listP}">
 			<div class="grid__column-3-3">
 				<div class="group_content">
 					<div class="home-product-item__img"
@@ -302,10 +307,13 @@
 				</div>
 			</div>
 			</c:forEach>
-		</div>
-		<div class="show_all">
+				</c:when> 
+			</c:choose>
+			<div class="show_all">
 			<button class="btn-submit">XEM THÊM 45 SẢN PHẨM KHÁC</button>
+			</div>
 		</div>
+		
 	</div>
 </div>			
 

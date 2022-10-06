@@ -109,6 +109,7 @@
 
 <% 
 	ProductTypeService ps = new ProductTypeService();
+
 %>
 
 <header class="header">
@@ -131,7 +132,7 @@
 							
 							for (int j = 0; j < cs.getListCategories().size(); j++) {
 						%>
-							<a href="#"><%=cs.getListCategories().get(j).getCategoryName()%></a> 
+							<a href="${pageContext.request.contextPath}/loai-san-pham?"><%=cs.getListCategories().get(j).getCategoryName()%></a> 
 						
 						<% }%>
 					</div>
