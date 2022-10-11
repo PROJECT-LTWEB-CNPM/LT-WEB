@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="tags" tagdir="/WEB-INF/tags"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <head>
 <style>
@@ -163,42 +163,37 @@ request.setCharacterEncoding("utf-8");
 			<div class="order__left">
 				<h3 class="order__heading">GIỎ HÀNG</h3>
 				<div class="order__list">
-					<%
-					for (int i = 0; i < 3; i++) {
-					%>
-					<div class="order__item">
-						<img class="order__image"
-							src="https://product.hstatic.net/200000305259/product/vgc-tee_mockup_sep22-art_play-red_1_df951b2ad8fd4e2d8d9f1a635a58f6d9_master.jpg"
-							width="100" height="100" alt="UPGRADE PLAY T-SHIRT/RED" />
-						<div class="order__content">
-							<div class="order__row order__group">
-								<strong class="order__group-name">UPGRADE PLAY
-									T-SHIRT/RED</strong>
-								<button class="order__remove-btn">XÓA SẢN PHẨM</button>
-							</div>
-							<div class="order__row">KÍCH THƯỚC: XL</div>
-							<div class="order__quanty order__row">
-								<span class="order__quanty-title">SỐ LƯỢNG:</span>
-								<div class="order__quanty-action">
-									<button type="button" class="order__quanty-btn">-</button>
-									<input type="text" size="1" name="updates" min="1" id=""
-										data-price="" value="1" class="btn qty-btn">
-									<button type="button" class="order__quanty-btn">+</button>
+					<c:forEach var="item" items="${listProductInCart }">
+						<div class="order__item">
+							<img class="order__image"
+								src="${item.getMainImageUrl() }"
+								width="100" height="100" alt="UPGRADE PLAY T-SHIRT/RED" />
+							<div class="order__content">
+								<div class="order__row order__group">
+									<strong class="order__group-name">${item.getProductName() }</strong>
+									<button class="order__remove-btn">XÓA SẢN PHẨM</button>
 								</div>
+								<div class="order__row">KÍCH THƯỚC: XL</div>
+								<div class="order__quanty order__row">
+									<span class="order__quanty-title">SỐ LƯỢNG:</span>
+									<div class="order__quanty-action">
+										<button type="button" class="order__quanty-btn">-</button>
+										<input type="text" size="1" name="updates" min="1" id=""
+											data-price="" value="1" class="btn qty-btn">
+										<button type="button" class="order__quanty-btn">+</button>
+									</div>
+								</div>
+								<div class="order__total">${item.getNewPrice() }</div>
 							</div>
-							<div class="order__total">69000₫</div>
 						</div>
-					</div>
-					<%
-					}
-					%>
+					</c:forEach>
 				</div>
 			</div>
 			<div class="order__right">
 				<h3 class="order__heading">ĐƠN HÀNG</h3>
 				<div class="order__payment">
 					<span class="title_order order_item">Tổng tiền:</span> <span
-						class="order__payment-price">270000₫</span>
+						class="order__payment-price">${totalPrice }</span>
 				</div>
 				<a class="btn-submit" href="./checkouts.jsp"> <span
 					class="btn_cart-lable">THANH TOÁN</span> <ion-icon name="cart"></ion-icon>

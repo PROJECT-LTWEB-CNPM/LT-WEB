@@ -188,7 +188,8 @@
 request.setCharacterEncoding("utf-8");
 %>
 
-<tags:base title="CAMERA T-SHIRT/ROSE GREY - SHOPLANE" css="./assets/css/index.css">
+<tags:base title="CAMERA T-SHIRT/ROSE GREY - SHOPLANE"
+	css="./assets/css/index.css">
 	<jsp:include page="../header.jsp" />
 	<main class="main">
 		<div class="container">
@@ -201,13 +202,14 @@ request.setCharacterEncoding("utf-8");
 				<div class="product_info">
 					<h3 class="product_info-name">${product.getProductName()}</h3>
 					<div class="home-product-item__price">
-						<span class="home-product-item__price-current">${product.getNewPrice()}</span> <span
-							class="home-product-item__price-old">${product.getOldPrice()}</span>
+						<span class="home-product-item__price-current">${product.getNewPrice()}</span>
+						<span class="home-product-item__price-old">${product.getOldPrice()}</span>
 					</div>
 					<p class="product_info-more">
 						<span>Thông tin sản phẩm: ILLUSION T-SHIRT.</span> <span>
-							Họa tiết: ${product.getPattern()}</span> <span>Màu sắc: ${product.getProductName().split('/')[1]}</span> <span>Chất
-							liệu: ${product.getMeterial()}</span>
+							Họa tiết: ${product.getPattern()}</span> <span>Màu sắc:
+							${product.getProductName().split('/')[1]}</span> <span>Chất liệu:
+							${product.getMeterial()}</span>
 					</p>
 					<div class="product_info-size">
 						<h3 class="product_info-size-label">KÍCH THƯỚC:</h3>
@@ -240,19 +242,20 @@ request.setCharacterEncoding("utf-8");
 					<div class="some_more_img">
 						<c:forEach var="item" items="${productImages}">
 							<div class="member-item">
-								<a href="${pageContext.request.contextPath}/ProductController?imageId=${item.getImageId()}">
-									<img class="member-img"
-									src="${item.getImageUrl()}"
-									alt="Name">
+								<a
+									href="${pageContext.request.contextPath}/ProductController?imageId=${item.getImageId()}">
+									<img class="member-img" src="${item.getImageUrl()}" alt="Name">
 								</a>
 							</div>
 						</c:forEach>
 					</div>
 					<div class="btn_container">
-						<button class="btn_cart">
-							<h3 class="btn_cart-lable">THÊM VÀO GIỎ</h3>
-							<ion-icon name="cart"></ion-icon>
-						</button>
+						<form action="${pageContext.request.contextPath}/ProductController?productId=${product.getProductId()}" method="post">
+							<button class="btn_cart" style="submit">
+								<h3 class="btn_cart-lable">THÊM VÀO GIỎ</h3>
+								<ion-icon name="cart"></ion-icon>
+							</button>
+						</form>
 						<button class="btn_cart">
 							<h3 class="btn_cart-lable">MUA NGAY</h3>
 							<ion-icon name="checkmark-outline"></ion-icon>

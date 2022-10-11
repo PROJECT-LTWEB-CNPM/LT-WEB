@@ -143,12 +143,12 @@
 				<form action="ProductController" method="post" style="width:100%;">
 					<input type="text" placeholder="Tìm kiếm quần áo...."
 						class="header__navbar-item-search-input" autofocus
-						name="findProduct"/>
+						name="findProduct" value=""/>
 					<input type="submit" style="display:none"/>
 				</form></li>
 
 			<li class="header__navbar-item header__navbar-actions"><a
-				href="${pageContext.request.contextPath}/default/cart/index.jsp"
+				href="${pageContext.request.contextPath}/ProductController?showCart=showCart"
 				class="header__navbar-item-link"><ion-icon name="cart-outline"></ion-icon>
 					<div class="header__navbar-count">0</div></a> <a
 				href="${pageContext.request.contextPath}/default/account/index.jsp"

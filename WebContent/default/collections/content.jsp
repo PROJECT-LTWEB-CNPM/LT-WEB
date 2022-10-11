@@ -246,18 +246,30 @@
 				<i class="fa-solid fa-xmark"></i>
 			</div>
 			<ul class="category-list">
-				<c:forEach var="item"
-					items="${productType.contains('ÁO') == true ? categories.getAllShirtType() : categories.getAllShortType()}">
-					<li class="category-item"><a
-						href="${pageContext.request.contextPath}/ProductController?categoryId=${item.getCategoryId()}"
-						class="category-item__link">${item.getCategoryName() }</a></li>
-				</c:forEach>
+				<c:choose>
+					<c:when test="${listCategoryWithSearch != null}">
+						<c:forEach var="item"
+							items="${listCategoryWithSearch}">
+							<li class="category-item"><a
+								href="${pageContext.request.contextPath}/ProductController?categoryId=${item.getCategoryId()}"
+								class="category-item__link">${item.getCategoryName() }</a></li>
+						</c:forEach>
+					</c:when>
+					<c:otherwise>
+						<c:forEach var="item"
+							items="${productType.contains('ÁO') == true ? categories.getAllShirtType() : categories.getAllShortType()}">
+							<li class="category-item"><a
+								href="${pageContext.request.contextPath}/ProductController?categoryId=${item.getCategoryId()}"
+								class="category-item__link">${item.getCategoryName() }</a></li>
+						</c:forEach>
+					</c:otherwise>
+				</c:choose>
 			</ul>
 		</div>
 	</div>
 	<div class="grid__column_3">
 		<div class="product_filter">
-			<h3 class="type_of_product">${category.getCategoryName() }</h3>
+			<h3 class="type_of_product">${listCategoryWithSearch != null ? 'Result with search' : category.getCategoryName() }</h3>
 			<div class="option_filter">
 				<h3 class="option_filter-label">SẮP XẾP THEO</h3>
 				<form>
@@ -275,7 +287,7 @@
 			</div>
 		</div>
 		<div class="grid__row">
-			<c:forEach var="item" items="${productBycategoryId}">
+			<c:forEach var="item" items="${listProductWithSearch != null ? listProductWithSearch : productBycategoryId}">
 				<div class="grid__column-3-3">
 					<div class="group_content">
 						<div class="home-product-item__img"

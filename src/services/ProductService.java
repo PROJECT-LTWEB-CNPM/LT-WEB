@@ -76,8 +76,9 @@ public class ProductService {
 		return product;
 	}
 	
-//	Tìm sản phẩm theo category id
-	public List<Product> getAllShortByCategoryId(String categoryId) {
+	
+//	Tìm sản phẩm theo category id khi search
+	public List<Product> getAllProductByCategoryId(String categoryId) {
 		EntityManager em = Common.getEntityManager();
 		EntityTransaction tss = em.getTransaction();
 		

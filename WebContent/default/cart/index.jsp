@@ -16,7 +16,7 @@ request.setCharacterEncoding("utf-8");
 %>
 
 <tags:base title="Giỏ hàng của bạn - SHOPLANE"
-	css="../../assets/css/index.css">
+	css="./assets/css/index.css">
 	<jsp:include page="../header.jsp" />
 	<main class="main">
 		<jsp:include page="./cart-content.jsp"></jsp:include>

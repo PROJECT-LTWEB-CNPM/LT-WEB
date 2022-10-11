@@ -38,5 +38,13 @@ public class CategoryService {
 	
 		return category;
 	}
-
+//	Lấy danh mục sản phẩm theo category name --> return List các category thỏa điều kiện
+	public  List<Category> getCategoryByCategoryName(String categoryName) {
+		EntityManager em = Common.getEntityManager();
+		EntityTransaction tss = em.getTransaction();
+		
+		TypedQuery<Category> query = em.createQuery("SELECT c FROM Category c WHERE c.categoryName like '%" + categoryName + "%'", Category.class);
+		List<Category> categories = query.getResultList();
+		return categories;
+	}
 }
