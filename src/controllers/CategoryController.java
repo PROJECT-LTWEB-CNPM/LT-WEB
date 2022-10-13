@@ -1,7 +1,7 @@
 package controllers;
 
 import java.io.IOException;
-import java.util.ArrayList;
+
 import java.util.Collections;
 import java.util.List;
 
@@ -24,42 +24,50 @@ import services.CategoryService;
 public class CategoryController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
+    
     public CategoryController() {
         super();
-        // TODO Auto-generated constructor stub
+        
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//response.setContentType("text/html");
+		// Get product type 
 		String productType = request.getParameter("pt");
+		System.out.println("product Type Is " + productType);
+		
+		
+		//Get category id from url
 		String category = request.getParameter("ct");
+		System.out.println("Category id Is " + category);
+		
+		// get order type from options
+		String orderType = request.getParameter("sortType");
+		if (orderType == null) orderType = "normal";
+		
+		System.out.println("Sort Type Is " + orderType);
+		
+		// the url of jsp file that we will forward data
 		String url = "/default/collections/index.jsp";
+		
 		if (productType == null) {
 			// error
 		}else{
+			// get list categories from databases
 			CategoryService cs = new CategoryService(productType); 
 			List<Category> listC = cs.getListCategories();
+			
+			// get Category Name for title of category
 			String categoryName = cs.getCategoryNameById(category);
 			
-			ProductService ps = new ProductService(productType, category);
+			// create list result
 			List<Product> listP;
-			if (category != null) {
-				listP = ps.getListPC();
-				if (listP == null) {
-					listP = Collections.<Product>emptyList();
-				}
-			}else {
-				listP = ps.getListP();
-			}
+			ProductService ps = new ProductService(productType, category);
 			
-			
-			
+			listP = ps.getOrderedProduct(productType, category, orderType);
+
+			request.setAttribute("productTypeId", productType);
+			request.setAttribute("categoryId", category);
 			request.setAttribute("categoryName", categoryName);
 			request.setAttribute("listP", listP);
 			request.setAttribute("listC", listC);

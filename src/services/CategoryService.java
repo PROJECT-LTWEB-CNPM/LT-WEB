@@ -54,7 +54,7 @@ public class CategoryService {
 		EntityManager em = Common.getEntityManager();
 		String categoryName = "";
 		try {
-			if (Cid == null) {
+			if (Cid == null || Cid == "") {
 				categoryName = "TẤT CẢ";
 			}else {
 				Category cat = em.find(Category.class, Cid);
