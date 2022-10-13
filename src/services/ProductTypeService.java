@@ -14,6 +14,7 @@ public class ProductTypeService {
 	private List<ProductType> listProductType;
 
 	
+	
 	public ProductTypeService() {
 		this.listProductType = new ArrayList<ProductType>(getAllProductType());
 	}

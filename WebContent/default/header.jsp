@@ -127,12 +127,11 @@
 					<div class="dropdown-content">
 						<%
 							String pType = ps.getListProductType().get(i).getTypeName();
-							System.out.println("Type Id is " + pType);
 							CategoryService cs = new CategoryService(pType);
 							
 							for (int j = 0; j < cs.getListCategories().size(); j++) {
 						%>
-							<a href="${pageContext.request.contextPath}/loai-san-pham?"><%=cs.getListCategories().get(j).getCategoryName()%></a> 
+							<a href="${pageContext.request.contextPath}/loai-san-pham?pt=<%=ps.getListProductType().get(i).getTypeId() %>&ct=<%=cs.getListCategories().get(j).getCategoryId()%>"><%=cs.getListCategories().get(j).getCategoryName()%></a> 
 						
 						<% }%>
 					</div>
