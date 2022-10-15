@@ -10,6 +10,7 @@
 }
 
 .login-form, .register-form, .modify-form {
+	background-color: #f5f5f5;
 	margin: 100px auto;
 	padding: 30px 30px 10px;
 	color: rgba(0, 0, 0, 0.6);
@@ -117,8 +118,8 @@ if (prevUrl != null) {
 				<div class="border border-1 rounded login-form">
 					<form action="login" method="POST">
 						<h1 class="login-header">ĐĂNG NHẬP</h1>
-						<input type="text" hidden name="caller" value="${caller}" />
-						<input class="form-control" type="email" name="email"
+						<input type="text" hidden name="caller" value="${caller}" /> <input
+							class="form-control" type="email" name="email"
 							placeholder="Email" required> <input class="form-control"
 							type="password" name="password" placeholder="Mật khẩu" required>
 

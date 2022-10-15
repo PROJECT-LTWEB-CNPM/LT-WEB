@@ -10,6 +10,7 @@
 }
 
 .login-form, .register-form, .modify-form {
+	background-color: #f5f5f5;
 	margin: 100px auto;
 	padding: 30px 30px 10px;
 	color: rgba(0, 0, 0, 0.6);

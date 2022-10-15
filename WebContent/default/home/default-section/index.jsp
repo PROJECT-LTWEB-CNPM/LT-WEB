@@ -136,12 +136,12 @@
 	<c:choose>
 		<c:when test="${showAll.contains('showAll')}">
 			<c:choose>
-				<c:when test="${showAll.contains('DANH MỤC ÁO') && param.heading.contains('DANH MỤC ÁO')}">
+				<c:when
+					test="${showAll.contains('DANH MỤC ÁO') && param.heading.contains('DANH MỤC ÁO')}">
 					<div class="container">
 						<h1 class="catalog__heading">${param.heading}</h1>
 						<div class="catalog__list">
-							<c:forEach var="item"
-								items="${product.getAllShirt()}">
+							<c:forEach var="item" items="${product.getAllShirt()}">
 								<div class="catalog__item">
 									<div class="group_content">
 										<div class="home-product-item__img"
@@ -175,12 +175,12 @@
 						</div>
 					</div>
 				</c:when>
-				<c:when test="${showAll.contains('DANH MỤC QUẦN') && param.heading.contains('DANH MỤC QUẦN')}">
+				<c:when
+					test="${showAll.contains('DANH MỤC QUẦN') && param.heading.contains('DANH MỤC QUẦN')}">
 					<div class="container">
 						<h1 class="catalog__heading">${param.heading}</h1>
 						<div class="catalog__list">
-							<c:forEach var="item"
-								items="${product.getAllShort()}">
+							<c:forEach var="item" items="${product.getAllShort()}">
 								<div class="catalog__item">
 									<div class="group_content">
 										<div class="home-product-item__img"
@@ -248,11 +248,11 @@
 							</div>
 						</div>
 					</c:forEach>
-					<div class="btn-more">
-						<a class="btn-more-link"
-							href="${pageContext.request.contextPath}/ProductController?showAll=showAll-${param.heading}">
-							XEM TẤT CẢ </a>
-					</div>
+				</div>
+				<div class="btn-more">
+					<a class="btn-more-link"
+						href="${pageContext.request.contextPath}/ProductController?showAll=showAll-${param.heading}">
+						XEM TẤT CẢ </a>
 				</div>
 			</div>
 		</c:otherwise>
