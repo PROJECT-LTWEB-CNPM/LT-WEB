@@ -1,7 +1,7 @@
 <%@page import="models.User"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <head>
 <jsp:useBean id="categories" class="services.CategoryService"></jsp:useBean>
@@ -131,20 +131,20 @@ if (u != null) {
 					</a>
 				</div>
 				<div class="header__navbar-item hide dropdown">
-					<a href="${pageContext.request.contextPath}/">ÁO</a>
+					<a href="${pageContext.request.contextPath}/loai-san-pham?pt=AO">ÁO</a>
 					<div class="dropdown-content">
 						<c:forEach var="item" items="${categories.getAllShirtType()}">
 							<a
-								href="${pageContext.request.contextPath}/ProductController?categoryId=${item.getCategoryId()}">${item.getCategoryName() }</a>
+								href="${pageContext.request.contextPath}/loai-san-pham?pt=AO&cid=${item.getCategoryId()}">${item.getCategoryName() }</a>
 						</c:forEach>
 					</div>
 				</div>
 				<div class="header__navbar-item hide dropdown">
-					<a href="${pageContext.request.contextPath}/">QUẦN</a>
+					<a href="${pageContext.request.contextPath}/loai-san-pham?pt=QUAN">QUẦN</a>
 					<div class="dropdown-content">
 						<c:forEach var="item" items="${categories.getAllShortType()}">
 							<a
-								href="${pageContext.request.contextPath}/ProductController?categoryId=${item.getCategoryId()}">${item.getCategoryName() }</a>
+								href="${pageContext.request.contextPath}/loai-san-pham?pt=QUAN&cid=${item.getCategoryId()}">${item.getCategoryName() }</a>
 						</c:forEach>
 					</div>
 				</div>
