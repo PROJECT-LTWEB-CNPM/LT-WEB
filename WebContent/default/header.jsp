@@ -135,7 +135,7 @@ if (u != null) {
 					<div class="dropdown-content">
 						<c:forEach var="item" items="${categories.getAllShirtType()}">
 							<a
-								href="${pageContext.request.contextPath}/loai-san-pham?pt=AO&cid=${item.getCategoryId()}">${item.getCategoryName() }</a>
+								href="${pageContext.request.contextPath}/loai-san-pham?pt=AO&ct=${item.getCategoryId()}">${item.getCategoryName() }</a>
 						</c:forEach>
 					</div>
 				</div>
@@ -144,7 +144,7 @@ if (u != null) {
 					<div class="dropdown-content">
 						<c:forEach var="item" items="${categories.getAllShortType()}">
 							<a
-								href="${pageContext.request.contextPath}/loai-san-pham?pt=QUAN&cid=${item.getCategoryId()}">${item.getCategoryName() }</a>
+								href="${pageContext.request.contextPath}/loai-san-pham?pt=QUAN&ct=${item.getCategoryId()}">${item.getCategoryName() }</a>
 						</c:forEach>
 					</div>
 				</div>
