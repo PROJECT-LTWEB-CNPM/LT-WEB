@@ -1,3 +1,4 @@
+<%@page import="models.User"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -111,6 +112,16 @@
 </style>
 </head>
 
+<%
+String url = request.getContextPath();
+User u = (User) session.getAttribute("user");
+if (u != null) {
+	url = "default/account/index.jsp";
+} else {
+	url = url + "/default/account/login.jsp";
+}
+%>
+
 <header class="header">
 	<div class="container">
 		<ul class="header__navbar">
@@ -150,8 +161,7 @@
 			<li class="header__navbar-item header__navbar-actions"><a
 				href="${pageContext.request.contextPath}/default/cart/index.jsp"
 				class="header__navbar-item-link"><ion-icon name="cart-outline"></ion-icon>
-					<div class="header__navbar-count">0</div></a> <a
-				href="${pageContext.request.contextPath}/default/account/index.jsp"
+					<div class="header__navbar-count">0</div></a> <a href="<%=url%>"
 				class="header__navbar-item-link"><ion-icon name="person-outline"></ion-icon></a></li>
 		</ul>
 	</div>

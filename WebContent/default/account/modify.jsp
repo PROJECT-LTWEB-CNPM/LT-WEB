@@ -110,15 +110,15 @@ request.setCharacterEncoding("utf-8");
 		<div class="container">
 			<section id="modify">
 				<div class="modify-form">
-					<form action="" method="POST">
+					<form action="modify" method="POST">
 						<h1 class="modify-header">ĐIỀU CHỈNH THÔNG TIN</h1>
 						<input class="form-control" type="text" name="fullname"
 							placeholder="Họ và tên"> <input class="form-control"
-							type="email" name="email" placeholder="Email"> <input
+							type="text" name="phonenumber" placeholder="Số điện thoại" /> <input
 							class="form-control" type="text" name="address"
 							placeholder="Địa chỉ">
-						<button class="btn-submit" type="submit"
-							name="modifyButton">Cập nhật</button>
+						<button class="btn-submit" type="submit" name="modifyButton">Cập
+							nhật</button>
 					</form>
 				</div>
 			</section>

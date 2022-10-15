@@ -1,22 +1,29 @@
 package models;
 
 import java.io.Serializable;
-import javax.persistence.*;
 import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 /**
  * The persistent class for the users database table.
  * 
  */
 @Entity
-@Table(name="users")
-@NamedQuery(name="User.findAll", query="SELECT u FROM User u")
+@Table(name = "users")
+@NamedQuery(name = "User.findAll", query = "SELECT u FROM User u")
 public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name="user_id")
+	@Column(name = "user_id")
 	private String userId;
 
 	private String address;
@@ -25,26 +32,35 @@ public class User implements Serializable {
 
 	private String fullname;
 
-	@Column(name="is_active_acc")
+	@Column(name = "is_active_acc")
 	private byte isActiveAcc;
 
-	@Column(name="is_delete_acc")
+	@Column(name = "is_delete_acc")
 	private byte isDeleteAcc;
 
 	private String password;
 
 	private String phonenumber;
 
-	//bi-directional many-to-one association to Bill
-	@OneToMany(mappedBy="user")
+	// bi-directional many-to-one association to Bill
+	@OneToMany(mappedBy = "user")
 	private List<Bill> bills;
 
-	//bi-directional many-to-one association to Role
+	// bi-directional many-to-one association to Role
 	@ManyToOne
-	@JoinColumn(name="role_id")
+	@JoinColumn(name = "role_id")
 	private Role role;
 
 	public User() {
+	}
+
+	public User(String userId, String fullname, String address, String phonenumber, String email, String pwd) {
+		this.userId = userId;
+		this.fullname = fullname;
+		this.address = address;
+		this.phonenumber = phonenumber;
+		this.email = email;
+		this.password = pwd;
 	}
 
 	public String getUserId() {

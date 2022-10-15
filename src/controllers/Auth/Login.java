@@ -1,8 +1,7 @@
-package controllers;
+package controllers.Auth;
 
 import java.io.IOException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class Login
  */
-@WebServlet("/login")
+@WebServlet("/default/account/login")
 public class Login extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -31,8 +30,7 @@ public class Login extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		RequestDispatcher dispatch = request.getRequestDispatcher("/shoplane-ft/pages/Login.jsp");
-		dispatch.forward(request, response);
+		System.out.println("hello world");
 	}
 
 	/**
@@ -43,6 +41,13 @@ public class Login extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		String url = request.getContextPath();
+		if (url == null) {
+			url += "/default/account/index.jsp";
+		} else {
+			url += request.getParameter("caller");
+		}
+		response.sendRedirect(url);
 		doGet(request, response);
 	}
 

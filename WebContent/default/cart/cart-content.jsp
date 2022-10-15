@@ -1,3 +1,4 @@
+<%@page import="models.User"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="tags" tagdir="/WEB-INF/tags"%>
@@ -155,6 +156,14 @@
 
 <%
 request.setCharacterEncoding("utf-8");
+String url = request.getContextPath();
+User u = (User) session.getAttribute("user");
+if (u != null) {
+	url = "./checkouts.jsp";
+} else {
+	url = url + "/default/account/login.jsp";
+	session.setAttribute("caller", "/default/cart/index.jsp");
+}
 %>
 
 <div class="container">
@@ -200,7 +209,7 @@ request.setCharacterEncoding("utf-8");
 					<span class="title_order order_item">Tổng tiền:</span> <span
 						class="order__payment-price">270000₫</span>
 				</div>
-				<a class="btn-submit" href="./checkouts.jsp"> <span
+				<a class="btn-submit" href="<%=url%>"> <span
 					class="btn_cart-lable">THANH TOÁN</span> <ion-icon name="cart"></ion-icon>
 				</a>
 			</div>
