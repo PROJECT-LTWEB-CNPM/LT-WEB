@@ -1,5 +1,6 @@
 package services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -31,7 +32,7 @@ public class CategoryService {
     return categories;
   }
 
-//	Lấy sản phầm theo id của sản phẩm
+  // Lấy sản phầm theo id của sản phẩm
   public Category findCategorydById(String CategoryId) {
     EntityManager em = Common.getEntityManager();
     Category category = em.find(Category.class, CategoryId);
