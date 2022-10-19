@@ -1,12 +1,23 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@taglib prefix="tags" tagdir="/WEB-INF/tags"%>
 <%@page import="services.ProductService"%>
+
+<%
+request.setCharacterEncoding("utf-8");
+String baseUrl = request.getContextPath() + "/default/home";
+%>
+
+<!doctype html>
+<html lang="en">
 <head>
+<jsp:include page="../head.jsp" />
 <title>Dashboard</title>
-<link rel="stylesheet" href="../../assets/css/index.css" type="text/css" />
 <style>
-#admin {
+.main {
+	padding-top: 6rem;
+}
+
+#system {
 	display: flex;
 }
 
@@ -21,22 +32,25 @@
 #header {
 	height: 6rem;
 }
-
 </style>
 </head>
-
-<tags:base>
-	<div id="admin">
+<body>
+	<div id="system">
 		<div id="sidebar">
-			<jsp:include page="../partials/sidebar.jsp" />
+			<jsp:include page="../partials/sidebar/index.jsp" />
 		</div>
 		<div id="content">
 			<div id="header">
-				<jsp:include page="../partials/header.jsp" />
+				<jsp:include page="../partials/header/index.jsp" />
 			</div>
-			<main>
-		
-			</main>
+			<main></main>
 		</div>
 	</div>
-</tags:base>
+	<!-- Jquery -->
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"
+		integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA=="
+		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</body>
+</html>
+

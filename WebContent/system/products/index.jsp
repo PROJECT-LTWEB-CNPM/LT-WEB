@@ -1,103 +1,28 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@taglib prefix="tags" tagdir="/WEB-INF/tags"%>
 
+<%
+request.setCharacterEncoding("utf-8");
+String baseUrl = request.getContextPath() + "/system/products";
+%>
 
+<!doctype html>
+<html lang="en">
 <head>
+<jsp:include page="../head.jsp" />
+<link rel="stylesheet" href="<%=baseUrl%>/index.css" />
 <title>Products Manage</title>
-<link rel="stylesheet" href="../../assets/css/index.css" type="text/css" />
-
-<style>
-#admin {
-	display: flex;
-}
-
-#sidebar {
-	width: 25rem;
-}
-
-#content {
-	width: calc(100% - 25rem);
-}
-
-#header {
-	height: 6rem;
-}
-
-#main-content {
-	padding: 3rem 2rem 10rem 1rem;
-}
-
-.actions {
-	display: flex;
-	justify-content: flex-end;
-	gap: 2rem;
-	padding-bottom: 1rem;
-	border-bottom: 1px solid #ddd;
-}
-
-.actions>a:hover {
-	text-decoration: underline;
-}
-
-.table {
-	padding-top: 1rem;
-}
-
-.table__head, .table__row {
-	display: flex;
-	align-items: center;
-	border: 1px solid #ddd;
-	border-radius: 4px;
-	box-shadow: 0px 0px 9px 3px rgb(41 41 41/ 10%);
-}
-
-.table__head>div, .table__row>div {
-	text-align: center;
-}
-
-.table__head {
-	font-weight: 600;
-	margin-bottom: 2rem;
-	padding: 1rem 0;
-}
-
-.table__row {
-	padding: 1.5rem 0;
-	font-size: 1.4rem;
-	transition: all linear 0.2s;
-}
-
-.table__row:hover {
-	box-shadow: 0px 0px 9px 3px rgb(41 41 41/ 20%);
-}
-
-.table__body {
-	display: flex;
-	flex-direction: column;
-	gap: 1.5rem;
-}
-
-.table__link a {
-	font-size: 1.5rem;
-}
-
-.table__link a:hover {
-	text-decoration: underline;
-}
-</style>
 </head>
-
-<tags:base>
-	<div id="admin">
+<body>
+	<div id="system">
 		<div id="sidebar">
-			<jsp:include page="../partials/sidebar.jsp" />
+			<jsp:include page="../partials/sidebar/index.jsp" />
 		</div>
 		<div id="content">
 			<div id="header">
-				<jsp:include page="../partials/header.jsp" />
+				<jsp:include page="../partials/header/index.jsp" />
 			</div>
-			<main id="main-content">
+			<main id="main">
 				<div class="actions">
 					<a href="./sizes.jsp">Quản lý màu sắc</a> <a href="./colors.jsp">Quản
 						lý kích thước</a> <a href="./form.jsp?type=add">Thêm bản ghi</a> <a
@@ -145,4 +70,10 @@
 			</main>
 		</div>
 	</div>
-</tags:base>
+	<!-- Jquery -->
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"
+		integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA=="
+		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</body>
+</html>
