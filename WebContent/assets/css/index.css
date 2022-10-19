@@ -16,3 +16,7 @@
 #content {
 	width: calc(100% - 20rem);
 }
+
+h1	 {
+	color: red;
+}
