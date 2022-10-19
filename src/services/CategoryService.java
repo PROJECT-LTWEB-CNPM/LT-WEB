@@ -31,7 +31,7 @@ public class CategoryService {
     return categories;
   }
 
-//	Lấy sản phầm theo id của sản phẩm
+  // Lấy sản phầm theo id của sản phẩm
   public Category findCategorydById(String CategoryId) {
     EntityManager em = Common.getEntityManager();
     Category category = em.find(Category.class, CategoryId);
@@ -49,7 +49,6 @@ public class CategoryService {
     EntityManager em = Common.getEntityManager();
     TypedQuery<Category> query = em.createQuery("SELECT c FROM Category c WHERE c.producttype = '" + pType + "'",
         Category.class);
-    List<Category> categories = query.getResultList();
     return query.getResultList();
   }
 

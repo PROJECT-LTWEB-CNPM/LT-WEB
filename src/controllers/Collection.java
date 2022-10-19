@@ -11,10 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import models.Category;
 import models.Product;
-import models.ProductType;
 import services.CategoryService;
 import services.ProductService;
-import services.ProductTypeService;
 
 /**
  * Servlet implementation class Collection
@@ -28,7 +26,6 @@ public class Collection extends HttpServlet {
    */
   public Collection() {
     super();
-    // TODO Auto-generated constructor stub
   }
 
   @Override
@@ -41,7 +38,6 @@ public class Collection extends HttpServlet {
     if (categoryId != null && categoryType != null) {
       handleGetProducts(request, response, categoryType, categoryId);
     }
-
   }
 
   protected void handleGetProducts(HttpServletRequest req, HttpServletResponse res, String cateType, String cateId)
@@ -50,12 +46,10 @@ public class Collection extends HttpServlet {
     // Create services
     ProductService ps = new ProductService();
     CategoryService categoryService = new CategoryService();
-    ProductTypeService pts = new ProductTypeService();
 
     // Init data
     List<Product> pList = null;
     List<Category> cate = null;
-    ProductType pt = null;
     String cateName = "TẤT CẢ SẢN PHẨM";
 
     if (cateId.contains("AO5") || cateId.contains("QUAN4")) {
