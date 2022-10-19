@@ -1,6 +1,5 @@
 package services;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -50,7 +49,6 @@ public class CategoryService {
     EntityManager em = Common.getEntityManager();
     TypedQuery<Category> query = em.createQuery("SELECT c FROM Category c WHERE c.producttype = '" + pType + "'",
         Category.class);
-    List<Category> categories = query.getResultList();
     return query.getResultList();
   }
 

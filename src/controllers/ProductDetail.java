@@ -25,7 +25,7 @@ public class ProductDetail extends HttpServlet {
    * @see HttpServlet#HttpServlet()
    */
   public ProductDetail() {
-    super(); // TODO Auto-generated constructor stub
+    super();
   }
 
   @Override

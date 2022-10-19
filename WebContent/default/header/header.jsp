@@ -20,7 +20,7 @@ if (u != null) {
 		<ul class="header__navbar">
 			<li class="header__navbar-left">
 				<div class="header__navbar-item hide header__logo">
-					<a href="${pageContext.request.contextPath}/"> <span>SHOP</span><span>LANE</span>
+					<a href="<%=context %>/"> <span>SHOP</span><span>LANE</span>
 					</a>
 				</div>
 				<div class="header__navbar-item hide dropdown">
@@ -52,7 +52,7 @@ if (u != null) {
 				</form></li>
 
 			<li class="header__navbar-item header__navbar-actions"><a
-				href="${pageContext.request.contextPath}/default/cart/index.jsp"
+				href="<%=context %>/default/cart/index.jsp"
 				class="header__navbar-item-link"><ion-icon name="cart-outline"></ion-icon>
 					<div class="header_navbar-count">0</div></a> <a href="<%=url%>"
 				class="header__navbar-item-link"><ion-icon name="person-outline"></ion-icon></a></li>
