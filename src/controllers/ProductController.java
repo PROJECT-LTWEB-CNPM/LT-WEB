@@ -17,7 +17,7 @@ import services.ProductService;
 import services.CategoryService;
 import services.ProductImagesService;
 
-@WebServlet("/ProductController")
+@WebServlet(urlPatterns = {"/ProductController", "/chi-tiet-san-pham"})
 public class ProductController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -60,6 +60,9 @@ public class ProductController extends HttpServlet {
 		}
 	}
 
+	
+	
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 //		doGet(request, response);
 		response.setContentType("text/html");

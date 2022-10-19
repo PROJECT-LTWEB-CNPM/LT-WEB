@@ -19,11 +19,11 @@ public class AuthService {
 		} catch (Exception e) {
 			tss.rollback();
 			System.out.println("Eror from add user");
-			return -1;
+			return null;
 		} finally {
 			// Close connection
 			em.close();
 		}
-		return 1;
+		return null;
 	}
 }
