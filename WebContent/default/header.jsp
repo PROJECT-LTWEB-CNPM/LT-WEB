@@ -150,7 +150,7 @@
 			<li class="header__navbar-item header__navbar-actions"><a
 				href="${pageContext.request.contextPath}/ProductController?showCart=showCart"
 				class="header__navbar-item-link"><ion-icon name="cart-outline"></ion-icon>
-					<div class="header__navbar-count">0</div></a> <a
+					<div class="header__navbar-count">${listProductInCart != null ? listProductInCart.size() : 0}</div></a> <a
 				href="${pageContext.request.contextPath}/default/account/index.jsp"
 				class="header__navbar-item-link"><ion-icon name="person-outline"></ion-icon></a></li>
 		</ul>

@@ -11,6 +11,7 @@
 
 .order__container {
 	margin: 6rem 0;
+	min-height: 330px;
 }
 
 .order__top {
@@ -78,6 +79,7 @@
 	background-color: transparent;
 	border: none;
 	cursor: pointer;
+	font-size: 1.2rem;
 }
 
 .order__total {
@@ -163,7 +165,7 @@ request.setCharacterEncoding("utf-8");
 			<div class="order__left">
 				<h3 class="order__heading">GIỎ HÀNG</h3>
 				<div class="order__list">
-					<c:forEach var="item" items="${listProductInCart }">
+					<c:forEach var="item" items="${listProductInCart }" varStatus="loop">
 						<div class="order__item">
 							<img class="order__image"
 								src="${item.getMainImageUrl() }"
@@ -171,7 +173,7 @@ request.setCharacterEncoding("utf-8");
 							<div class="order__content">
 								<div class="order__row order__group">
 									<strong class="order__group-name">${item.getProductName() }</strong>
-									<button class="order__remove-btn">XÓA SẢN PHẨM</button>
+									<a href="${pageContext.request.contextPath}/ProductController?delele=${loop.index}" class="order__remove-btn">XÓA SẢN PHẨM</a>
 								</div>
 								<div class="order__row">KÍCH THƯỚC: XL</div>
 								<div class="order__quanty order__row">

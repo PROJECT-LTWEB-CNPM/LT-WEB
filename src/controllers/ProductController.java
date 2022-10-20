@@ -39,6 +39,8 @@ public class ProductController extends HttpServlet {
 		String showAll = request.getParameter("showAll");
 		String imageId = request.getParameter("imageId");
 		String showCart = request.getParameter("showCart");
+		String delete = request.getParameter("delele");
+		
 		
 		if (productId != null) {
 			
@@ -69,7 +71,7 @@ public class ProductController extends HttpServlet {
 			listProductInCart = new ArrayList<>();
 			request.getSession().removeAttribute("listProductInCart");
 			renderProductInCartToview(request, response);
-			
+		
 		}
 	}
 
@@ -88,7 +90,8 @@ public class ProductController extends HttpServlet {
 		if (productId != null) {
 //			System.out.println(productId);
 			addProductIdToCart (request, response, productId);
-			request.getRequestDispatcher("/default/products/index.jsp").forward(request, response);	
+			handleLogicCart(request, response);
+//			request.getRequestDispatcher("/default/products/index.jsp").forward(request, response);	
 		}
 	}
 	
@@ -178,4 +181,17 @@ public class ProductController extends HttpServlet {
 		request.getSession().setAttribute("listProductInCart", listProductInCart);
 		request.getRequestDispatcher("/default/cart/index.jsp").forward(request, response);	
 	}
+	
+	protected void handleLogicCart(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		listProductInCart = new ArrayList<>();
+		request.getSession().removeAttribute("listProductInCart");
+		renderProductInCartToview(request, response);
+	}
+	
+	protected void deleteFromProductFromCart(HttpServletRequest request, HttpServletResponse response, String delete) throws ServletException, IOException {
+		listProductIdInCart.remove(Integer.parseInt(delete));
+		handleLogicCart(request, response);
+	}
+	
+	
 }
