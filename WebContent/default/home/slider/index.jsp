@@ -1,22 +1,15 @@
+<%@page import="java.util.Arrays"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-
-<head>
-<style>
-.swiper {
-	height: 40rem;
-}
-
-.swiper-slide__img {
-	width: inherit;
-	height: 50rem;
-	background-size: cover;
-	background-position: center;
-	background-repeat: no-repeat;
-}
-</style>
-</head>
+<%
+List<String> slideUrls = Arrays.asList(
+		"https://theme.hstatic.net/200000305259/1000922697/14/slide_index_1_master.jpg?v=213",
+		"https://theme.hstatic.net/200000305259/1000922697/14/slide_index_2.jpg?v=383",
+		"https://theme.hstatic.net/200000305259/1000922697/14/slide_index_1_master.jpg?v=213",
+		"https://theme.hstatic.net/200000305259/1000922697/14/slide_index_2.jpg?v=383");
+%>
 
 <section>
 	<!-- Slider main container -->
@@ -25,12 +18,11 @@
 		<div class="swiper-wrapper">
 			<!-- Slides -->
 			<%
-			for (int i = 0; i < 4; i++) {
+			for (int i = 0; i < slideUrls.size(); i++) {
 			%>
 			<div class="swiper-slide">
 				<div class="swiper-slide__img"
-					style="background-image: url(https://theme.hstatic.net/200000305259/1000922697/14/slide_index_1_master.jpg?v=213);">
-				</div>
+					style="background-image: url(<%=slideUrls.get(i)%>);"></div>
 			</div>
 			<%
 			}
@@ -43,5 +35,4 @@
 		<div class="swiper-button-prev"></div>
 		<div class="swiper-button-next"></div>
 	</div>
-
 </section>

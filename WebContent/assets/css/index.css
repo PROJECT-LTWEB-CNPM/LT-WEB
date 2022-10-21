@@ -1,7 +1,22 @@
 @import url('./base.css');
 
-
 .container {
 	width: 1200px;
 	margin: 0 auto;
+}
+
+#admin {
+	display: flex;
+}
+
+#sidebar {
+	width: 25rem;
+}
+
+#content {
+	width: calc(100% - 20rem);
+}
+
+h1	 {
+	color: red;
 }

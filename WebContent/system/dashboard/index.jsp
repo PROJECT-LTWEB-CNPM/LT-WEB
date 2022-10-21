@@ -1,17 +1,56 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@taglib prefix="tags" tagdir="/WEB-INF/tags"%>
 <%@page import="services.ProductService"%>
-<head>
-<title>Dashboard</title>
 
-<link rel="stylesheet" href="../../assets/css/index.css" type="text/css" />
+<%
+request.setCharacterEncoding("utf-8");
+String baseUrl = request.getContextPath() + "/default/home";
+%>
+
+<!doctype html>
+<html lang="en">
+<head>
+<jsp:include page="../head.jsp" />
+<title>Dashboard</title>
+<style>
+.main {
+	padding-top: 6rem;
+}
+
+#system {
+	display: flex;
+}
+
+#sidebar {
+	width: 25rem;
+}
+
+#content {
+	width: calc(100% - 25rem);
+}
+
+#header {
+	height: 6rem;
+}
+</style>
 </head>
-<tags:base>
-	<jsp:include page="../header.jsp" />
-	<jsp:include page="../sidebar.jsp" />
-	<main>
-		<h1>Content</h1>
-		<a href="${pageContext.request.contextPath}/">Go to Home</a>
-	</main>
-</tags:base>
+<body>
+	<div id="system">
+		<div id="sidebar">
+			<jsp:include page="../partials/sidebar/index.jsp" />
+		</div>
+		<div id="content">
+			<div id="header">
+				<jsp:include page="../partials/header/index.jsp" />
+			</div>
+			<main></main>
+		</div>
+	</div>
+	<!-- Jquery -->
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"
+		integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA=="
+		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</body>
+</html>
+
