@@ -27,29 +27,21 @@ String url = context + "/default/account/register";
 				<section id="register">
 					<div class="border border-1 rounded register-form">
 
-						<form action="register" method="POST">
-							<h1 class="register-header">ĐĂNG KÝ</h1>
-							<input class="form-control" type="text" name="fullName"
-								placeholder="Họ và tên" required /> 
-							<input
-								class="form-control" type="text" name="phonenumber"
-								placeholder="Số điện thoại" required /> 
-							<input
-								class="form-control" type="text" name="address"
-								placeholder="Địa chỉ" required /> 
-							<input
-								class="form-control" type="email" name="email"
-								placeholder="Email" /> 
-							<input class="form-control"
-								type="password" name="password" placeholder="Password">
+						<form action="verify" method="POST">
+							<h1 class="register-header">XÁC NHẬN EMAIL</h1>
+							<input class="form-control" type="text" name="code"
+								placeholder="Nhập mã xác nhận" required />
+							<div class="error__msg">
+								<span>${errMsg}</span>
+							</div>
 
-							<button class="btn-submit" type="submit" name="registerButton">Đăng
-								ký</button>
+							<button class="btn-submit" type="submit" name="registerButton">Xác
+								nhận</button>
 
 							<div class="have-account">
 								<p>
-									Đã có tài khoản?<a class="signin-text"
-										href="<%=context%>/login"> Đăng nhập</a>
+									Chưa có mã xác nhận? <a class="signin-text"
+										href="<%=context%>/login">Lấy lại mã</a>
 								</p>
 							</div>
 

@@ -4,6 +4,7 @@
 
 <%
 request.setCharacterEncoding("utf-8");
+String context = request.getContextPath();
 String baseUrl = request.getContextPath() + "/default/home";
 %>
 
@@ -13,7 +14,7 @@ String baseUrl = request.getContextPath() + "/default/home";
 <jsp:include page="../head.jsp" />
 <link rel="stylesheet" href="<%=baseUrl%>/slider/index.css" />
 <link rel="stylesheet" href="<%=baseUrl%>/default-section/index.css" />
-<title>Cửa hàng quần áo - SHOPLANE</title>
+<title>Cửa hàng quần áo - Shoplane</title>
 <style>
 .main {
 	padding-top: 6rem;
@@ -34,18 +35,11 @@ String baseUrl = request.getContextPath() + "/default/home";
 		<jsp:include page="../footer/footer.jsp" />
 		<jsp:include page="../back-to-top/back-to-top.jsp" />
 	</div>
-
-	<!-- Jquery -->
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"
-		integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA=="
-		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
 	<!-- Swipper Slider -->
 	<script
 		src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+	<jsp:include page="../script.jsp" />
 	<script type="text/javascript" src="<%=baseUrl%>/index.js"></script>
-
 </body>
 </html>
 

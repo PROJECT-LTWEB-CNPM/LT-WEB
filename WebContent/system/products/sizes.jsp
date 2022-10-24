@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@taglib prefix="tags" tagdir="/WEB-INF/tags"%>
 
 
 <head>
@@ -36,7 +35,7 @@
 	border-bottom: 1px solid #ddd;
 }
 
-.actions > a:hover {
+.actions>a:hover {
 	text-decoration: underline;
 }
 
@@ -80,22 +79,44 @@
 </style>
 </head>
 
-<tags:base>
-	<div id="admin">
-		<div id="sidebar">
-			<jsp:include page="../partials/sidebar.jsp" />
+<div id="admin">
+	<div id="sidebar">
+		<jsp:include page="../partials/sidebar.jsp" />
+	</div>
+	<div id="content">
+		<div id="header">
+			<jsp:include page="../partials/header.jsp" />
 		</div>
-		<div id="content">
-			<div id="header">
-				<jsp:include page="../partials/header.jsp" />
+		<main id="main-content">
+			<div class="actions">
+				<a href="#">Quản lý màu sắc</a> <a href="">Quản lý kích thước</a> <a
+					href="#">Thêm bản ghi</a> <a href="#">Xóa bản ghi</a>
 			</div>
-			<main id="main-content">
-				<div class="actions">
-					<a href="#">Quản lý màu sắc</a> <a href="">Quản lý kích thước</a> <a
-						href="#">Thêm bản ghi</a> <a href="#">Xóa bản ghi</a>
+			<div class="table">
+				<div class="table__head">
+					<div style="width: 5%">
+						<input type="checkbox">
+					</div>
+					<div style="width: 10%">ID</div>
+					<div style="width: 35%">Tên sản phẩm</div>
+					<div style="width: 15%">Màu sắc</div>
+					<div style="width: 10%">Kích cỡ</div>
+					<div style="width: 10%">Khả dụng</div>
+					<div style="width: 15%"></div>
 				</div>
-				<div class="table">
-					<div class="table__head">
+				<div class="table__body">
+					<div class="table__row">
+						<div style="width: 5%">
+							<input type="checkbox">
+						</div>
+						<div style="width: 10%">ID</div>
+						<div style="width: 35%">Tên sản phẩm</div>
+						<div style="width: 15%">Màu sắc</div>
+						<div style="width: 10%">Kích cỡ</div>
+						<div style="width: 10%">Khả dụng</div>
+						<div style="width: 15%">Xem chi tiết</div>
+					</div>
+					<div class="table__row">
 						<div style="width: 5%">
 							<input type="checkbox">
 						</div>
@@ -106,32 +127,8 @@
 						<div style="width: 10%">Khả dụng</div>
 						<div style="width: 15%"></div>
 					</div>
-					<div class="table__body">
-						<div class="table__row">
-							<div style="width: 5%">
-								<input type="checkbox">
-							</div>
-							<div style="width: 10%">ID</div>
-							<div style="width: 35%">Tên sản phẩm</div>
-							<div style="width: 15%">Màu sắc</div>
-							<div style="width: 10%">Kích cỡ</div>
-							<div style="width: 10%">Khả dụng</div>
-							<div style="width: 15%">Xem chi tiết</div>
-						</div>
-						<div class="table__row">
-							<div style="width: 5%">
-								<input type="checkbox">
-							</div>
-							<div style="width: 10%">ID</div>
-							<div style="width: 35%">Tên sản phẩm</div>
-							<div style="width: 15%">Màu sắc</div>
-							<div style="width: 10%">Kích cỡ</div>
-							<div style="width: 10%">Khả dụng</div>
-							<div style="width: 15%"></div>
-						</div>
-					</div>
 				</div>
-			</main>
-		</div>
+			</div>
+		</main>
 	</div>
-</tags:base>
+</div>

@@ -1,6 +1,7 @@
 package controllers;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -9,8 +10,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import models.Option;
+import models.Order;
 import models.Product;
 import models.ProductImage;
+import services.OptionService;
 import services.ProductImagesService;
 import services.ProductService;
 
@@ -34,21 +38,68 @@ public class ProductDetail extends HttpServlet {
     String productId = request.getParameter("product_id").trim();
     if (productId != null) {
       // Get product by productId
-      ProductService productSevice = new ProductService();
-      Product product = productSevice.findProductdById(productId);
+      Product product = this.getProductByPId(productId);
       request.getSession().setAttribute("product", product);
-      //
-      ProductImagesService productImagesService = new ProductImagesService();
-      List<ProductImage> productImages = productImagesService.getAllProductImage(productId);
-      request.getSession().setAttribute("productImages", productImages);
-      request.getRequestDispatcher("/default/product-detail/index.jsp").forward(request, response);
+
+      // Get list image preview
+      List<ProductImage> productImages = this.getPImages(productId);
+      request.setAttribute("productImages", productImages);
+
+      List<Option> options = this.getOptionsByPId(productId);
+      request.setAttribute("options", options);
+
+      // Forward url
+      String url = "/default/product-detail/index.jsp";
+      request.getRequestDispatcher(url).forward(request, response);
     }
   }
 
   @Override
-  protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    // TODO Auto-generated method stub
-    doGet(request, response);
+  protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    // Get data from input form
+    String optionId = req.getParameter("oId").trim();
+    String quanty = req.getParameter("quanty").trim();
+
+    // Get Option
+    OptionService os = new OptionService();
+    Option option = os.find(optionId);
+
+    // Create order
+    Order o = new Order();
+    o.setOrderedQuantity(Integer.parseInt(quanty));
+    o.setOption(option);
+
+    // Add order to list
+    @SuppressWarnings("unchecked")
+    List<Order> ors = (List<Order>) req.getSession().getAttribute("orders");
+    if (ors == null) {
+      ors = new ArrayList<>();
+    }
+    ors.add(o);
+    System.out.println("============================= " + ors.size());
+
+    // Set att session
+    req.getSession().setAttribute("orders", ors);
+    req.getSession().setAttribute("orderSize", ors.size());
+
+  }
+
+  protected List<ProductImage> getPImages(String pId) {
+    ProductImagesService productImagesService = new ProductImagesService();
+    List<ProductImage> productImages = productImagesService.getAllProductImage(pId);
+    return productImages;
+  }
+
+  protected Product getProductByPId(String pId) {
+    ProductService productSevice = new ProductService();
+    Product product = productSevice.findProductdById(pId);
+    return product;
+  }
+
+  protected List<Option> getOptionsByPId(String pId) {
+    OptionService os = new OptionService();
+    List<Option> options = os.findBy(pId);
+    return options;
   }
 
 }

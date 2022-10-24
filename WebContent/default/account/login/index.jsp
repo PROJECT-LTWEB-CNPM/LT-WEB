@@ -3,15 +3,16 @@
 
 <%
 request.setCharacterEncoding("utf-8");
-String context = request.getContextPath() + "/default/account/login";
+String context = request.getContextPath();
+String url = context + "/default/account/login";
 %>
 
 <!doctype html>
 <html lang="en">
 <head>
 <jsp:include page="../../head.jsp" />
-<link rel="stylesheet" href="<%=context%>/index.css" />
-<title>Tất cả sản phẩm - SHOPLANE</title>
+<link rel="stylesheet" href="<%=url%>/index.css" />
+<title>Đăng nhập tài khoản - Shoplane</title>
 <style>
 .main {
 	padding-top: 6rem;
@@ -32,12 +33,13 @@ String context = request.getContextPath() + "/default/account/login";
 								placeholder="Email" required> <input
 								class="form-control" type="password" name="password"
 								placeholder="Mật khẩu" required>
+								<div class="err__msg"><span>${errMsg}</span></div>
 
 							<button class="btn-submit" type="submit">Đăng nhập</button>
 							<div class="no-account">
 								<p>
 									Không có tài khoản?<a class="register-text"
-										href="../register/index.jsp"> Đăng ký</a>
+										href="<%=context%>/register"> Đăng ký</a>
 								</p>
 							</div>
 						</form>
@@ -47,15 +49,6 @@ String context = request.getContextPath() + "/default/account/login";
 		</main>
 		<jsp:include page="../../footer/footer.jsp" />
 	</div>
-
-	<!-- Jquery -->
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"
-		integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA=="
-		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
-	<!-- Swipper Slider -->
-	<script
-		src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+	<jsp:include page="../../script.jsp" />
 </body>
 </html>

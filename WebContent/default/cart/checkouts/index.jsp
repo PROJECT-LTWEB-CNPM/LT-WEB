@@ -32,56 +32,69 @@ if (u != null) {
 		<jsp:include page="../../header/header.jsp" />
 		<main class="main">
 			<div class="container">
-				<div class="order__container">
-					<div class="order__top">
-						<div class="order__left">
-							<h3 class="order__heading">GIỎ HÀNG</h3>
-							<div class="order__list">
-								<%
-								for (int i = 0; i < 3; i++) {
-								%>
-								<div class="order__item">
-									<img class="order__image"
-										src="https://product.hstatic.net/200000305259/product/vgc-tee_mockup_sep22-art_play-red_1_df951b2ad8fd4e2d8d9f1a635a58f6d9_master.jpg"
-										width="100" height="100" alt="UPGRADE PLAY T-SHIRT/RED" />
-									<div class="order__content">
-										<div class="order__row order__group">
-											<strong class="order__group-name">UPGRADE PLAY
-												T-SHIRT/RED</strong>
-											<button class="order__remove-btn">XÓA SẢN PHẨM</button>
-										</div>
-										<div class="order__row">KÍCH THƯỚC: XL</div>
-										<div class="order__quanty order__row">
-											<span class="order__quanty-title">SỐ LƯỢNG:</span>
-											<div class="order__quanty-action">
-												<button type="button" class="order__quanty-btn">-</button>
-												<input type="text" size="1" name="updates" min="1" id=""
-													data-price="" value="1" class="btn qty-btn">
-												<button type="button" class="order__quanty-btn">+</button>
-											</div>
-										</div>
-										<div class="order__total">69000₫</div>
-									</div>
+				<!-- Content -->
+				<div class="checkouts__container">
+					<div class="group_content">
+						<h3 class="info_customer">THÔNG TIN GIAO HÀNG</h3>
+						<form action="checkout" method="POST">
+							<input class="form-control" type="email" name="email"
+								placeholder="Họ và tên" required> <input
+								class="form-control" type="text" name="password"
+								placeholder="Số điện thoại" required> <input
+								class="form-control" type="text" name="password"
+								placeholder="Địa chỉ" required> <input
+								class="form-control" type="text" name="password"
+								placeholder="Số điện thoại" required>
+
+							<div class="form-control"
+								style="display: flex; align-items: center; justify-content: space-between;">
+								<div style="color: #d2d2d2">
+									<i class="fas fa-dot-circle"></i> <span>Giao hàng tận
+										nơi</span>
 								</div>
-								<%
-								}
-								%>
+								<span>35,000đ</span>
 							</div>
-						</div>
-						<div class="order__right">
-							<h3 class="order__heading">ĐƠN HÀNG</h3>
-							<div class="order__payment">
-								<span class="title_order order_item">Tổng tiền:</span> <span
-									class="order__payment-price">270000₫</span>
+							<div class="checkBill_policy-second">
+								<div>
+									<i class="fa-regular fa-circle-dot"></i> <span>Thanh
+										toán khi giao hàng (COD)</span>
+								</div>
 							</div>
-							<a class="btn-submit" href="<%=url%>"> <span
-								class="btn_cart-lable">THANH TOÁN</span> <ion-icon name="cart"></ion-icon>
-							</a>
-						</div>
+							<div class="checkBill_policy-content">
+								<p>1. Khi click vào nút hoàn tất đơn hàng thì đơn hàng sẽ
+									được hệ thống tự động xác nhận mà không cần phải gọi qua điện
+									thoại, nếu điền thông tin địa chỉ và số điện thoại chính xác
+									thì đơn hàng sẽ được vận chuyển từ 3-4-5 ngày tùy vùng miền.</p>
+								<p>2. Trường hợp đặt hàng xong nhưng muốn HỦY ĐƠN, vui lòng
+									soạn tin nhắn theo cú pháp: SĐT ĐÃ ĐẶT ĐƠN (hoặc MÃ ĐƠN hoặc
+									GMAIL ĐƠN HÀNG) + TÊN NGƯỜI NHẬN sau đó gửi qua các kênh
+									online: Page Facebook, Intagram. Nhân viên check tin nhắn sẽ xử
+									lý hủy giúp Quý KH.</p>
+							</div>
+							<div class="btn_container">
+								<a class="btn-submit" href="${pageContext.request.contextPath}/cart"> <span
+									class="btn_cart-lable">Quay lại giỏ hàng</span> <ion-icon
+										name="cart"></ion-icon>
+								</a>
+								<button class="btn-submit" type="submit">
+									<span class="btn_cart-lable">Hoàn tất đơn hàng</span>
+								</button>
+							</div>
+						</form>
 					</div>
-					<div class="order__bottom">
-						<a class="btn-submit" href="${pageContext.request.contextPath}/">
-							QUAY LẠI TRANG CHỦ </a>
+					<div class="group_content">
+						<div class="bill_info">
+							<h3>Tạm tính:</h3>
+							<h3>69,000đ</h3>
+						</div>
+						<div class="bill_info">
+							<h3>Phí vận chuyển:</h3>
+							<h3>35,000đ</h3>
+						</div>
+						<div class="bill_info">
+							<h3>Tổng:</h3>
+							<h3>104,000đ</h3>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -89,15 +102,7 @@ if (u != null) {
 		<jsp:include page="../../footer/footer.jsp" />
 	</div>
 
-	<!-- Jquery -->
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"
-		integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA=="
-		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
-	<!-- Swipper Slider -->
-	<script
-		src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+	<jsp:include page="../../script.jsp" />
 </body>
 </html>
 
