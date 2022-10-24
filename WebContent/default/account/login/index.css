@@ -41,6 +41,11 @@
 	box-shadow: 0 0 10px #719ECE;
 }
 
+.err__msg {
+	transform: translate(0, -1.5rem);
+	font-size: 1.2rem;
+	color: red;
+}
 .btn-submit {
 	display: block;
 	width: 100%;

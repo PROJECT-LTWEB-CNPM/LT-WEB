@@ -12,7 +12,7 @@ String context = request.getContextPath() + "/default/product-detail";
 <head>
 <jsp:include page="../head.jsp" />
 <link rel="stylesheet" href="<%=context%>/index.css" />
-<title>Tất cả sản phẩm - SHOPLANE</title>
+<title>${product.getProductName()}-Shoplane</title>
 <style>
 .main {
 	padding-top: 10rem;
@@ -46,18 +46,13 @@ String context = request.getContextPath() + "/default/product-detail";
 						<div class="product_info-size">
 							<h3 class="product_info-size-label">KÍCH THƯỚC:</h3>
 							<div class="product_info-size-list">
-								<div class="product_info-size-item">
-									<input type="radio" id="sizeM" name="sizeM" value="M">
-									<label for="sizeM"> M</label>
-								</div>
-								<div class="product_info-size-item">
-									<input type="radio" id="sizeM" name="sizeM" value="M">
-									<label for="sizeM"> L</label>
-								</div>
-								<div class="product_info-size-item">
-									<input type="radio" id="sizeM" name="sizeM" value="M">
-									<label for="sizeM"> XL</label>
-								</div>
+								<c:forEach var="o" items="${options}">
+									<div class="product_info-size-item">
+										<input type="radio" id="${o.getSize().getSizeId()}"
+											value="${o.getOptionId()}" /> <label
+											for="${o.getSize().getSizeId()}">${o.getSize().getSizeName()}</label>
+									</div>
+								</c:forEach>
 							</div>
 						</div>
 						<div class="product_info-quantity">
@@ -78,7 +73,7 @@ String context = request.getContextPath() + "/default/product-detail";
 							</c:forEach>
 						</div>
 						<div class="btn_container">
-							<button class="btn_cart">
+							<button class="btn_cart btn__add-to-cart">
 								<h3 class="btn_cart-lable">THÊM VÀO GIỎ</h3>
 								<ion-icon name="cart"></ion-icon>
 							</button>
@@ -94,15 +89,8 @@ String context = request.getContextPath() + "/default/product-detail";
 		<jsp:include page="../footer/footer.jsp" />
 	</div>
 	<!-- Jquery -->
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"
-		integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA=="
-		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<jsp:include page="../script.jsp" />
 	<script type="text/javascript" src="<%=context%>/index.js"></script>
-	<script>
-		
-	</script>
-
 </body>
 </html>
 
