@@ -17,6 +17,7 @@ String baseUrl = context + "/default/collections";
 <head>
 <jsp:include page="../head.jsp" />
 <link rel="stylesheet" href="<%=baseUrl%>/index.css" />
+<title>Tất cả sản phẩm - SHOPLANE</title>
 <title>${cateName}-Shoplane</title>
 <style>
 .main {
@@ -109,6 +110,11 @@ String baseUrl = context + "/default/collections";
 		<jsp:include page="../back-to-top/back-to-top.jsp" />
 	</div>
 
+	<!-- Jquery -->
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"
+		integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA=="
+		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 	<jsp:include page="../script.jsp" />
 
 </body>

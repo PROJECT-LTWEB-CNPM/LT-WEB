@@ -68,6 +68,5 @@ public class Collection extends HttpServlet {
     req.setAttribute("productBycategoryId", pList);
 
     req.getRequestDispatcher("/default/collections/index.jsp").forward(req, res);
-    System.out.println(pList.size());
   }
 }

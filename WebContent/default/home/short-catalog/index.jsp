@@ -9,7 +9,7 @@ String context = request.getContextPath();
 %>
 
 <section class="catalog">
-	<div class="container">
+	<div class="container hide_short">
 		<h1 class="catalog__heading">DANH MỤC QUẦN</h1>
 		<div class="catalog__list">
 			<c:forEach var="item" items="${product.getAllShort()}">
