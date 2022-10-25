@@ -36,10 +36,23 @@ public class Login extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-    response.setCharacterEncoding("UTF-8");
-    String url = "/default/account/login/index.jsp";
+    try {
+      HttpSession session = request.getSession();
+      response.setCharacterEncoding("UTF-8");
+      String url = "/default/account/login/index.jsp";
 
-    request.getRequestDispatcher(url).forward(request, response);
+      User user = (User) session.getAttribute("user");
+
+      if (user != null) {
+        url = "./cart";
+        response.sendRedirect(url);
+        return;
+      }
+      request.getRequestDispatcher(url).forward(request, response);
+
+    } catch (Exception e) {
+      System.out.println("Login controller " + e.getMessage());
+    }
 
   }
 
@@ -50,10 +63,8 @@ public class Login extends HttpServlet {
     String url = "./account";
     String nextUrl = request.getParameter("caller");
     if (nextUrl != null) {
-      url += nextUrl;
+      url = nextUrl;
       System.out.println("=====================No");
-    } else {
-      url = url + "/default/account/index.jsp";
     }
     try {
       String email = request.getParameter("email").trim();

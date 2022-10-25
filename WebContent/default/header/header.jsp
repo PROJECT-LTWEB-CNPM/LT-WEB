@@ -3,17 +3,17 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<jsp:useBean id="categories" class="services.CategoryService"></jsp:useBean>
-<%
+<%-- <jsp:useBean id="categories" class="services.CategoryService"></jsp:useBean>
+ --%><%
 String context = request.getContextPath();
 String url = null;
 url = context + "/login";
-/* User u = (User) session.getAttribute("user");
+ User u = (User) session.getAttribute("user");
 if (u != null) {
 	url = context + "/account";
 } else {
 	url = context + "/login";
-} */
+}
 %>
 
 <header class="header">

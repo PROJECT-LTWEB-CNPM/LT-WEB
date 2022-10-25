@@ -2,6 +2,7 @@ package controllers;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -17,17 +18,12 @@ import models.ProductImage;
 import services.OptionService;
 import services.ProductImagesService;
 import services.ProductService;
+import utils.Helper;
 
-/**
- * Servlet implementation class ProductDetail
- */
 @WebServlet("/product-detail")
 public class ProductDetail extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
-  /**
-   * @see HttpServlet#HttpServlet()
-   */
   public ProductDetail() {
     super();
   }
@@ -56,32 +52,50 @@ public class ProductDetail extends HttpServlet {
 
   @Override
   protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-    // Get data from input form
-    String optionId = req.getParameter("oId").trim();
-    String quanty = req.getParameter("quanty").trim();
+    try {
+      // Get data from input form
+      String optionId = req.getParameter("oId").trim();
+      String quantyString = req.getParameter("quanty").trim();
+      int quanty = Integer.parseInt(quantyString);
+      // Get Option
+      OptionService os = new OptionService();
+      Option option = os.find(optionId);
+      // Calc price
+      int price = option.getProduct().getNewPrice() * quanty;
+      // orderid
+      String oId = Helper.getRandom();
 
-    // Get Option
-    OptionService os = new OptionService();
-    Option option = os.find(optionId);
+      // Create order
+      Order o = new Order(oId, new Date(), quanty, price, option);
 
-    // Create order
-    Order o = new Order();
-    o.setOrderedQuantity(Integer.parseInt(quanty));
-    o.setOption(option);
-
-    // Add order to list
-    @SuppressWarnings("unchecked")
-    List<Order> ors = (List<Order>) req.getSession().getAttribute("orders");
-    if (ors == null) {
-      ors = new ArrayList<>();
+      // Add order to list
+      @SuppressWarnings("unchecked")
+      List<Order> ors = (List<Order>) req.getSession().getAttribute("orders");
+      if (ors == null) {
+        ors = new ArrayList<>();
+        ors.add(o);
+      } else {
+        boolean flag = false;
+        for (Order or : ors) {
+          if (or.getOption().getOptionId().equals(o.getOption().getOptionId())) {
+            int currOrderQuanty = or.getOrderedQuantity() + o.getOrderedQuantity();
+            int newPriceOrder = or.getPrice() + o.getPrice();
+            or.setOrderedQuantity(currOrderQuanty);
+            or.setPrice(newPriceOrder);
+            flag = true;
+            break;
+          }
+        }
+        if (!flag) {
+          ors.add(o);
+        }
+      }
+      // Set att session
+      req.getSession().setAttribute("orders", ors);
+      req.getSession().setAttribute("orderSize", ors.size());
+    } catch (Exception e) {
+      System.out.println(e.getMessage());
     }
-    ors.add(o);
-    System.out.println("============================= " + ors.size());
-
-    // Set att session
-    req.getSession().setAttribute("orders", ors);
-    req.getSession().setAttribute("orderSize", ors.size());
-
   }
 
   protected List<ProductImage> getPImages(String pId) {

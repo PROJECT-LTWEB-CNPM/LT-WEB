@@ -17,7 +17,7 @@ String baseUrl = context + "/default/collections";
 <head>
 <jsp:include page="../head.jsp" />
 <link rel="stylesheet" href="<%=baseUrl%>/index.css" />
-<title>${cateName}-Shoplane</title>
+<title>${cateName} - Shoplane</title>
 <style>
 .main {
 	padding-top: 6rem;
