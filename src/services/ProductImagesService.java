@@ -9,6 +9,11 @@ import models.ProductImage;
 import utils.Common;
 
 public class ProductImagesService {
+
+  public ProductImagesService() {
+
+  }
+
 //	Lấy list hình ảnh theo product của sản phẩm
   public List<ProductImage> getAllProductImage(String productId) {
     EntityManager em = Common.getEntityManager();

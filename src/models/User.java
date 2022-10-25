@@ -20,141 +20,151 @@ import javax.persistence.Table;
 @Table(name = "users")
 @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u")
 public class User implements Serializable {
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	@Id
-	@Column(name = "user_id")
-	private String userId;
+  @Id
+  @Column(name = "user_id")
+  private String userId;
 
-	private String address;
+  private String address;
 
-	private String email;
+  private String email;
 
-	private String fullname;
+  private String fullname;
 
-	@Column(name = "is_active_acc")
-	private byte isActiveAcc;
+  private String code;
 
-	@Column(name = "is_delete_acc")
-	private byte isDeleteAcc;
+  @Column(name = "is_active_acc")
+  private byte isActiveAcc;
 
-	private String password;
+  @Column(name = "is_delete_acc")
+  private byte isDeleteAcc;
 
-	private String phonenumber;
+  private String password;
 
-	// bi-directional many-to-one association to Bill
-	@OneToMany(mappedBy = "user")
-	private List<Bill> bills;
+  private String phonenumber;
 
-	// bi-directional many-to-one association to Role
-	@ManyToOne
-	@JoinColumn(name = "role_id")
-	private Role role;
+  // bi-directional many-to-one association to Bill
+  @OneToMany(mappedBy = "user")
+  private List<Bill> bills;
 
-	public User() {
-	}
+  // bi-directional many-to-one association to Role
+  @ManyToOne
+  @JoinColumn(name = "role_id")
+  private Role role;
 
-	public User(String userId, String fullname, String address, String phonenumber, String email, String pwd) {
-		this.userId = userId;
-		this.fullname = fullname;
-		this.address = address;
-		this.phonenumber = phonenumber;
-		this.email = email;
-		this.password = pwd;
-	}
+  public User() {
+  }
 
-	public String getUserId() {
-		return this.userId;
-	}
+  public User(String userId, String fullname, String address, String phonenumber, String email, String pwd) {
+    this.userId = userId;
+    this.fullname = fullname;
+    this.address = address;
+    this.phonenumber = phonenumber;
+    this.email = email;
+    this.password = pwd;
+  }
 
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
+  public String getUserId() {
+    return this.userId;
+  }
 
-	public String getAddress() {
-		return this.address;
-	}
+  public void setUserId(String userId) {
+    this.userId = userId;
+  }
 
-	public void setAddress(String address) {
-		this.address = address;
-	}
+  public String getAddress() {
+    return this.address;
+  }
 
-	public String getEmail() {
-		return this.email;
-	}
+  public void setAddress(String address) {
+    this.address = address;
+  }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+  public String getEmail() {
+    return this.email;
+  }
 
-	public String getFullname() {
-		return this.fullname;
-	}
+  public void setEmail(String email) {
+    this.email = email;
+  }
 
-	public void setFullname(String fullname) {
-		this.fullname = fullname;
-	}
+  public String getFullname() {
+    return this.fullname;
+  }
 
-	public byte getIsActiveAcc() {
-		return this.isActiveAcc;
-	}
+  public void setFullname(String fullname) {
+    this.fullname = fullname;
+  }
 
-	public void setIsActiveAcc(byte isActiveAcc) {
-		this.isActiveAcc = isActiveAcc;
-	}
+  public byte getIsActiveAcc() {
+    return this.isActiveAcc;
+  }
 
-	public byte getIsDeleteAcc() {
-		return this.isDeleteAcc;
-	}
+  public void setIsActiveAcc(byte isActiveAcc) {
+    this.isActiveAcc = isActiveAcc;
+  }
 
-	public void setIsDeleteAcc(byte isDeleteAcc) {
-		this.isDeleteAcc = isDeleteAcc;
-	}
+  public byte getIsDeleteAcc() {
+    return this.isDeleteAcc;
+  }
 
-	public String getPassword() {
-		return this.password;
-	}
+  public void setIsDeleteAcc(byte isDeleteAcc) {
+    this.isDeleteAcc = isDeleteAcc;
+  }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+  public String getPassword() {
+    return this.password;
+  }
 
-	public String getPhonenumber() {
-		return this.phonenumber;
-	}
+  public void setPassword(String password) {
+    this.password = password;
+  }
 
-	public void setPhonenumber(String phonenumber) {
-		this.phonenumber = phonenumber;
-	}
+  public String getPhonenumber() {
+    return this.phonenumber;
+  }
 
-	public List<Bill> getBills() {
-		return this.bills;
-	}
+  public void setPhonenumber(String phonenumber) {
+    this.phonenumber = phonenumber;
+  }
 
-	public void setBills(List<Bill> bills) {
-		this.bills = bills;
-	}
+  public List<Bill> getBills() {
+    return this.bills;
+  }
 
-	public Bill addBill(Bill bill) {
-		getBills().add(bill);
-		bill.setUser(this);
+  public void setBills(List<Bill> bills) {
+    this.bills = bills;
+  }
 
-		return bill;
-	}
+  public Bill addBill(Bill bill) {
+    getBills().add(bill);
+    bill.setUser(this);
 
-	public Bill removeBill(Bill bill) {
-		getBills().remove(bill);
-		bill.setUser(null);
+    return bill;
+  }
 
-		return bill;
-	}
+  public Bill removeBill(Bill bill) {
+    getBills().remove(bill);
+    bill.setUser(null);
 
-	public Role getRole() {
-		return this.role;
-	}
+    return bill;
+  }
 
-	public void setRole(Role role) {
-		this.role = role;
-	}
+  public Role getRole() {
+    return this.role;
+  }
+
+  public void setRole(Role role) {
+    this.role = role;
+  }
+
+  public void setCode(String code) {
+    this.code = code;
+  }
+
+  public String getCode() {
+    return this.code;
+  }
 
 }

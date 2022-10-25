@@ -11,7 +11,7 @@ String context = request.getContextPath() + "/default/account/modify";
 <head>
 <jsp:include page="../../head.jsp" />
 <link rel="stylesheet" href="<%=context%>/index.css" />
-<title>Tất cả sản phẩm - SHOPLANE</title>
+<title>Thay đổi thông tin - Shoplane</title>
 <style>
 .main {
 	padding-top: 6rem;
@@ -41,15 +41,6 @@ String context = request.getContextPath() + "/default/account/modify";
 		</main>
 		<jsp:include page="../../footer/footer.jsp" />
 	</div>
-
-	<!-- Jquery -->
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"
-		integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA=="
-		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
-	<!-- Swipper Slider -->
-	<script
-		src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+	<jsp:include page="../../script.jsp" />
 </body>
 </html>

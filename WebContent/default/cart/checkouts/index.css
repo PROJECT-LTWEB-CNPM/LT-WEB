@@ -1,123 +1,131 @@
 @charset "UTF-8";
-
-.order__container {
-	margin: 6rem 0;
-}
-
-.order__top {
+.checkouts__container {
 	display: flex;
-	align-items: flex-start;
+	flex-direction: row;
 	justify-content: space-between;
-	gap: 3rem;
-	margin-bottom: 2rem;
+	margin: 6rem;
+}
+/* Content */
+.group_content:first-child {
+	flex-basis: 58%;
+	border-right: 1px solid rgb(176, 175, 175);
 }
 
-.order__bottom {
-	max-width: 25rem;
-}
-
-.order__left {
-	flex: 1;
-}
-
-.order__left, .order__right {
-	border: 0.5px solid #ddd;
-	border-radius: 0.4rem;
-	padding: 1rem 2rem;
-}
-
-.order__right {
-	min-width: 35rem;
-}
-
-.order__heading {
+.info_customer {
+	color: var(- -text-color);
+	font-size: 1.8rem;
+	opacity: 0.8;
 	margin-bottom: 1rem;
 }
 
-.order__item {
+.form-control {
+	width: 90%;
+	margin-bottom: 1rem;
+	outline: none;
+	padding: 1rem 1.5rem;
+	border-radius: 0.4rem;
+	border: 1px solid #ddd;
+	display: block;
+	font-size: 1.4rem;
+}
+
+.form-control:focus {
+	outline: none !important;
+	border-color: #719ECE;
+	box-shadow: 0 0 10px #719ECE;
+}
+
+.checkBill_policy-first, .checkBill_policy-second {
 	display: flex;
-	align-items: flex-start;
-	gap: 1rem;
-	padding-bottom: 1.5rem;
-	border-bottom: 0.5px solid #ddd;
-}
-
-.order__item:not(:last-child ) {
-	margin-bottom: 1.5rem;
-}
-
-.order__content {
-	flex: 1;
-}
-
-.order__row {
-	margin-bottom: 0.8rem;
-}
-
-.order__group {
-	display: flex;
+	flex-direction: row;
+	width: 90%;
 	justify-content: space-between;
-	align-items: center;
+	border: 1px solid #e3e3e3;
+	height: 40px;
+	line-height: 40px;
+	padding: 0 16px;
+	margin-top: 16px;
 }
 
-.order__group-name {
+.checkBill_policy-first {
+	border-radius: 10px;
+}
+
+.checkBill_policy-second {
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+}
+
+.checkBill_policy-first i, .checkBill_policy-second i {
+	color: var(- -text-color);
+	font-weight: 500;
+	font-size: 1.4rem;
+	margin-right: 4px;
+}
+
+.checkBill_policy-first span, .checkBill_policy-second span {
+	color: #757575;
+	font-size: 1.4rem;
+}
+
+.checkBill_policy-content {
+	width: 90%;
+	background-color: #F2F2F2;
+	padding: 8px 16px;
+}
+
+.checkBill_policy-content p {
+	text-align: justify;
+	font-size: 1.3rem;
+	color: rgba(0, 0, 0, 0.6);
+}
+
+.checkBill_policy-content p:first-child {
+	margin-bottom: 4px;
+}
+
+.btn_container {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	max-width: 90%;
+	gap: 12rem;
+	margin-top: 2rem;
+}
+
+.group_content:last-child {
+	flex-basis: 38%;
+}
+
+.bill_info {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+
+.bill_info:not(:last-child) {
+	margin-bottom: 1rem;
+}
+
+.bill_info:last-child {
+	border-top: 0.5px solid #d2d2d2;
+	padding-top: 1rem;
+}
+
+.bill_info h3 {
+	color: var(- -text-color);
 	font-size: 1.8rem;
+	opacity: 0.8;
 }
 
-.order__remove-btn {
-	outline: none;
-	background-color: transparent;
-	border: none;
-	cursor: pointer;
-}
-
-.order__total {
-	width: fit-content;
-	margin-left: auto;
-	font-weight: 700;
-	font-size: 1.7rem;
-	color: red;
-}
-
-.order__quanty, .order__quanty-action {
-	display: flex;
-	align-items: center;
-	gap: 0.5rem;
-}
-
-.order__quanty-btn {
-	background-color: transparent;
-	outline: none;
-	border: 1px solid #d2d2d2;
-	padding: 0 0.6rem;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	cursor: pointer;
-}
-
-.order__remove-btn:hover {
-	text-decoration: underline;
-}
-
-.order__payment {
-	margin: 3rem 0 1.5rem 0;
-	font-weight: 600;
-	font-size: 2rem;
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-}
-
-.order__payment-price {
+.bill_info h3:last-child {
 	color: red;
 }
 
 .btn-submit {
 	display: flex;
-	align-items: center;
 	justify-content: center;
-	gap: 1rem;
+	align-items: center;
 	width: 100%;
 	outline: none;
 	border: 0.5px solid #6c757d;
@@ -128,16 +136,9 @@
 	color: #6c757d;
 	background-color: transparent;
 	transition: all linear 0.2s;
-	width: 100%;
-	width: 100%;
-	gap: 1rem;
 }
 
 .btn-submit:hover {
 	color: #fff;
 	background-color: #6c757d;
-}
-
-.btn-submit ion-icon {
-	font-size: 2.5rem;
 }

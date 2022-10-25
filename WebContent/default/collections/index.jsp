@@ -5,9 +5,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <jsp:useBean id="categories" class="services.CategoryService"></jsp:useBean>
 
-<% request.setCharacterEncoding("utf-8"); String categoryId = (String)
-request.getAttribute("categoryId"); String context = request.getContextPath();
-String baseUrl = context + "/default/collections"; %>
+<%
+request.setCharacterEncoding("utf-8");
+String categoryId = (String) request.getAttribute("categoryId");
+String context = request.getContextPath();
+String baseUrl = context + "/default/collections";
+%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -15,6 +18,7 @@ String baseUrl = context + "/default/collections"; %>
 <jsp:include page="../head.jsp" />
 <link rel="stylesheet" href="<%=baseUrl%>/index.css" />
 <title>Tất cả sản phẩm - SHOPLANE</title>
+<title>${cateName}-Shoplane</title>
 <style>
 .main {
 	padding-top: 6rem;
@@ -76,11 +80,10 @@ String baseUrl = context + "/default/collections"; %>
 								<div class="grid__column-3-3">
 									<div class="group_content">
 										<div class="home-product-item__img"
-											style="background-image: url(${item.getMainImageUrl()});">
-										</div>
+											style="background-image: url(${item.getMainImageUrl()})"></div>
 										<h4 class="home-product-item__name">
 											<a
-												href="${pageContext.request.contextPath}/product-detail?product_id=${item.getProductId()}">${item.getProductName()}</a>
+												href="<%=context %>/product-detail?product_id=${item.getProductId()}">${item.getProductName()}</a>
 										</h4>
 										<h4 class="shop_name">SHOPLANE</h4>
 										<div class="home-product-item__rating">
@@ -89,15 +92,15 @@ String baseUrl = context + "/default/collections"; %>
 												class="fas fa-star"></i>
 										</div>
 										<div class="home-product-item__price">
-											<span class="home-product-item__price-current">${item.getNewPrice()}</span>
-											<span class="home-product-item__price-old">${item.getOldPrice()}</span>
+											<span class="home-product-item__price-current">${item.getNewPrice()}đ</span>
+											<span class="home-product-item__price-old">${item.getOldPrice()}đ</span>
 										</div>
 									</div>
 								</div>
 							</c:forEach>
 						</div>
 						<div class="show_all">
-							<button class="btn-submit">XEM THÊM</button>
+							<button class="btn-submit">XEM THÊM 45 SẢN PHẨM KHÁC</button>
 						</div>
 					</div>
 				</div>
@@ -112,5 +115,7 @@ String baseUrl = context + "/default/collections"; %>
 		src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"
 		integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA=="
 		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<jsp:include page="../script.jsp" />
+
 </body>
 </html>

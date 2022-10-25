@@ -56,6 +56,7 @@ public class Collection extends HttpServlet {
       pList = ps.findBy(cateType, "");
     } else {
       pList = ps.findBy(cateType, cateId);
+      cateName = categoryService.findCategorydById(cateId).getCategoryName();
     }
     cate = categoryService.findBy(cateType);
 
