@@ -8,7 +8,7 @@ request.setCharacterEncoding("utf-8");
 %>
 
 <section class="catalog">
-	<div class="container hide_shirt">
+	<div class="container">
 		<h1 class="catalog__heading">DANH MỤC ÁO</h1>
 		<div class="catalog__list">
 			<c:forEach var="item" items="${product.getAllShirt(1, 12)}">
@@ -39,11 +39,6 @@ request.setCharacterEncoding("utf-8");
 					href="${pageContext.request.contextPath}/collection?category_type=AO&category_id=AO5">
 					XEM TẤT CẢ </a>
 			</div>
-		</div>
-	</div>
-	<div class="container">
-		<div class="catalog__list" id="catalog_home">
-			
 		</div>
 	</div>
 </section>

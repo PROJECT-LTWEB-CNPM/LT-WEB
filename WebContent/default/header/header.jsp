@@ -45,11 +45,12 @@ if (u != null) {
 			</li>
 			<li class="header__navbar-item header__navbar-item-search"><i
 				class="fas fa-search header__navbar-item-search-icon"></i>
-				<form action="ProductController" method="post" style="width: 100%;">
+				<form action="SearchProduct" method="get" style="width: 100%;">
 					<input oninput="searchProduct(this)" type="text"
 						placeholder="Tìm kiếm quần áo...."
 						class="header__navbar-item-search-input" autofocus
-						name="findProduct" /> <input type="submit" style="display: none" />
+						name="findProduct" />
+						<input type="submit" style="display:none"/>
 				</form></li>
 
 			<li class="header__navbar-item header__navbar-actions"><a
@@ -60,37 +61,3 @@ if (u != null) {
 		</ul>
 	</div>
 </header>
-script src="jquery-3.6.0.min.js"></script>
-<script>
-	function searchProduct(param) {
-		// param is input tag
-		var textSearch = param.value;
-		$.ajax({
-			url : "http://localhost:8080/shoplane-ft/SearchProduct",
-			type : "get",
-			data : {
-				findProduct : textSearch
-			},
-			success : function(data) {
-				var row = document.getElementById('catalog_home');
-				
-				var hide_shirt = document.querySelector('.hide_shirt')
-				var hide_short = document.querySelector('.hide_short')
-				
-				
-				if (textSearch){
-					hide_shirt.classList.add('hide_element')
-					hide_short.classList.add('hide_element')
-					
-					row.innerHTML = data;
-				}
-				else{
-					hide_shirt.classList.remove('hide_element')
-					hide_short.classList.remove('hide_element')
-
-					row.innerHTML = ''
-				}
-			}
-		});
-	}
-</script>
