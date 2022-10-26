@@ -108,7 +108,7 @@ String baseUrl = context + "/default/collections"; %>
                 </c:forEach>
               </div>
               <div class="show_all">
-                <button class="btn-submit">XEM THÊM 45</button>
+                <button class="btn-submit">XEM THÊM</button>
               </div>
             </div>
           </div>
