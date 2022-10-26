@@ -62,9 +62,8 @@ public class Login extends HttpServlet {
     HttpSession session = request.getSession();
     String url = "./account";
     String nextUrl = request.getParameter("caller");
-    if (nextUrl != null) {
+    if (nextUrl != null && !nextUrl.equals(url)) {
       url = nextUrl;
-      System.out.println("=====================No");
     }
     try {
       String email = request.getParameter("email").trim();
