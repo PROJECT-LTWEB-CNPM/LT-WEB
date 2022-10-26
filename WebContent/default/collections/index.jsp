@@ -61,13 +61,11 @@ String baseUrl = context + "/default/collections"; %>
                 <h3 class="type_of_product">${cateName}</h3>
                 <div class="option_filter">
                   <h3 class="option_filter-label">SẮP XẾP THEO</h3>
-                  <form>
-                    <select class="option_filter-group" tabindex="-1">
+                  <form action="${requestScope['javax.servlet.forward.request_uri']}?category_id=${categoryId}&category_type=${categoryType}" method="post">
+                    <select onchange="this.form.submit()" name="orderType" class="option_filter-group" tabindex="-1">
                       <option value="manual">Sản phẩm nổi bật</option>
                       <option value="price-ascending">Giá: Tăng dần</option>
                       <option value="price-descending">Giá: Giảm dần</option>
-                      <option value="title-ascending">Tên: A-Z</option>
-                      <option value="title-descending">Tên: Z-A</option>
                       <option value="created-ascending">Cũ nhất</option>
                       <option value="created-descending" selected>
                         Mới nhất
@@ -110,7 +108,7 @@ String baseUrl = context + "/default/collections"; %>
                 </c:forEach>
               </div>
               <div class="show_all">
-                <button class="btn-submit">XEM THÊM 45 SẢN PHẨM KHÁC</button>
+                <button class="btn-submit">XEM THÊM 45</button>
               </div>
             </div>
           </div>

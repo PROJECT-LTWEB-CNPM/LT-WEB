@@ -20,11 +20,10 @@
 			<property name="javax.persistence.jdbc.url"
 				value="jdbc:mysql://localhost:3306/shoplanedb" />
 			<property name="javax.persistence.jdbc.user" value="root" />
-			<property name="javax.persistence.jdbc.password"
-				value="201102" />
 			<property name="javax.persistence.jdbc.driver"
 				value="com.mysql.jdbc.Driver" />
 			<property name="hibernate.show_sql" value="true" />
+			<property name="javax.persistence.jdbc.password" value="12345"/>
 		</properties>
 	</persistence-unit>
 </persistence>

@@ -14,16 +14,12 @@ import models.Product;
 import services.CategoryService;
 import services.ProductService;
 
-/**
- * Servlet implementation class Collection
- */
+
 @WebServlet("/collection")
 public class Collection extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
-  /**
-   * @see HttpServlet#HttpServlet()
-   */
+  
   public Collection() {
     super();
   }
@@ -32,21 +28,34 @@ public class Collection extends HttpServlet {
   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     request.setCharacterEncoding("UTF-8");
 
-    String categoryId = request.getParameter("category_id").trim();
-    String categoryType = request.getParameter("category_type").trim();
+    String productType = request.getParameter("category_type");
 
-    if (categoryId != null && categoryType != null) {
-      handleGetProducts(request, response, categoryType, categoryId);
+    // Get category id from url
+    String categoryId = request.getParameter("category_id");
+    // get sort type form select form
+    String orderType  = request.getParameter("orderType");
+    if (orderType == null) orderType = "normal";
+    
+    System.out.println(orderType);
+
+    if (categoryId != null && productType != null) {
+      handleGetProducts(request, response, productType, categoryId, orderType);
     }
   }
+  
+  @Override
+  protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    doGet(request, response);
+  }
 
-  protected void handleGetProducts(HttpServletRequest req, HttpServletResponse res, String cateType, String cateId)
+
+  protected void handleGetProducts(HttpServletRequest req, HttpServletResponse res, String cateType, String cateId, String sortType)
       throws ServletException, IOException {
 
     // Create services
     ProductService ps = new ProductService();
     CategoryService categoryService = new CategoryService();
-
+    
     // Init data
     List<Product> pList = null;
     List<Category> cate = null;
@@ -57,6 +66,9 @@ public class Collection extends HttpServlet {
     } else {
       pList = ps.findBy(cateType, cateId);
     }
+    
+    pList = ps.getOrderedProduct(pList, sortType);
+    
     cate = categoryService.findBy(cateType);
 
     // Set att => collection/index.jsp
@@ -67,6 +79,8 @@ public class Collection extends HttpServlet {
     req.setAttribute("productBycategoryId", pList);
 
     req.getRequestDispatcher("/default/collections/index.jsp").forward(req, res);
-    System.out.println(pList.size());
   }
+  
+  
+  
 }

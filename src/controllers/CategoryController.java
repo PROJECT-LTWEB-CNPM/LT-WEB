@@ -22,11 +22,9 @@ public class CategoryController extends HttpServlet {
     // Get product type
     /*
      * String productType = request.getParameter("pt");
-     * System.out.println("product Type Is " + productType);
-     * 
+
      * // Get category id from url
      * String category = request.getParameter("ct");
-     * System.out.println("Category id Is " + category);
      * 
      * // get order type from options
      * String orderType = request.getParameter("sortType");
