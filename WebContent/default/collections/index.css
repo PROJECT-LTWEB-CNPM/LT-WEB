@@ -227,3 +227,7 @@
 	color: #fff;
 	background-color: #6c757d;
 }
+
+.hide_element {
+	display: none;
+}

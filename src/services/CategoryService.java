@@ -44,5 +44,13 @@ public class CategoryService {
         Category.class);
     return query.getResultList();
   }
+  
+  public  List<Category> getCategoryByCategoryName(String categoryName) {
+    EntityManager em = Common.getEntityManager();
+    
+    TypedQuery<Category> query = em.createQuery("SELECT c FROM Category c WHERE c.categoryName like '%" + categoryName + "%'", Category.class);
+    List<Category> categories = query.getResultList();
+    return categories;
+}
 
 }
