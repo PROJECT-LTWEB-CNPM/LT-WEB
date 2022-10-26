@@ -69,7 +69,7 @@ function handleChangeCartCount() {
 	window.location.reload();
 	const cartCountString = $('#ordersCount').val() || '0';
 
-	const cartCount = +cartCountString + 1
+	const cartCount = +cartCountString;
 	$('.header_navbar-count').text(cartCount);
 }
 

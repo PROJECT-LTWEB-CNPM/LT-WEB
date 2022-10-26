@@ -1,7 +1,10 @@
 package controllers;
 
 import java.io.IOException;
+<<<<<<< HEAD
+=======
 import java.io.PrintWriter;
+>>>>>>> 5ff24020b2ced68e7b1712c7d6212c23aaf10030
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,6 +14,28 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+<<<<<<< HEAD
+import models.Product;
+import services.ProductService;
+
+@WebServlet("/search")
+public class SearchProduct extends HttpServlet {
+  private static final long serialVersionUID = 1L;
+
+  @Override
+  protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    String productName = request.getParameter("product_name");
+    if (productName != null) {
+      searchProductByCategoryId(request, response, productName);
+    }
+  }
+
+  @Override
+  protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    doGet(request, response);
+  }
+
+=======
 import models.Category;
 import models.Product;
 import services.CategoryService;
@@ -34,6 +59,7 @@ public class SearchProduct extends HttpServlet {
     doGet(request, response);
   }
   
+>>>>>>> 5ff24020b2ced68e7b1712c7d6212c23aaf10030
 //  protected void autoRenderWhenSearch_HomePage(HttpServletRequest request, HttpServletResponse response, String textSearch) throws ServletException, IOException {
 //    ProductService productService = new ProductService();
 //    List<Product> listProduct = productService.getProductByProductName(textSearch);
@@ -67,7 +93,10 @@ public class SearchProduct extends HttpServlet {
 //          + "                </div>");
 //    }
 //  }
+<<<<<<< HEAD
+=======
  
+>>>>>>> 5ff24020b2ced68e7b1712c7d6212c23aaf10030
 
   protected void searchProductByCategoryId(HttpServletRequest request, HttpServletResponse response, String findProduct)
       throws ServletException, IOException {
@@ -79,8 +108,12 @@ public class SearchProduct extends HttpServlet {
     request.setAttribute("listProductWithSearch", listProductWithSearch);
     request.getRequestDispatcher("/default/search-product/index.jsp").forward(request, response);
   }
+<<<<<<< HEAD
+
+=======
   
   
+>>>>>>> 5ff24020b2ced68e7b1712c7d6212c23aaf10030
 //  protected void autoRenderWhenSearch_CollectionPage(HttpServletRequest request, HttpServletResponse response, String textSearch) throws ServletException, IOException {
 //    ProductService productService = new ProductService();
 //    List<Product> listProduct = productService.getProductByProductName(textSearch);

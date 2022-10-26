@@ -12,8 +12,6 @@ String context = request.getContextPath();
 	</div>
 	<div class="cart__noti">
 		<h3 class="cart__noti-txt">ĐẶT HÀNG THÀNH CÔNG</h3>
-		<h3 class="cart__noti-txt">VUI LÒNG KIỂM TRA EMAIL ĐỂ XEM CHI
-			TIẾT ĐƠN HÀNG</h3>
 		<a href="<%=context %>/" class="cart__noti-btn"> <span class="cart__noti-lb">TIẾP
 				TỤC MUA HÀNG</span> <ion-icon name="cart"></ion-icon>
 		</a>

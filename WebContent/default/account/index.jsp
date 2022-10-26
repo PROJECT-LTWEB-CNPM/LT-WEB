@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
 request.setCharacterEncoding("utf-8");
 String context = request.getContextPath();
@@ -12,7 +12,7 @@ String url = context + "/default/account";
 <head>
 <jsp:include page="../head.jsp" />
 <link rel="stylesheet" href="<%=url%>/index.css" />
-<title>tài khoản - Shoplane</title>
+<title>Tài khoản - Shoplane</title>
 <style>
 .main {
 	padding-top: 6rem;
@@ -36,20 +36,15 @@ String url = context + "/default/account";
 									class="your__order-title">Tổng tiền</span>
 							</div>
 							<div class="your__order-table-body">
+								<c:forEach var="item" items="${bills}" >
 								<div class="your__order-table-item">
-									<a class="your__order-value" href="./my-orders.jsp">354651</a>
+									<a class="your__order-value" href="./my-orders.jsp">${item.getBillId()}</a>
 									<span class="your__order-value">01/09/2022</span> <span
 										class="your__order-value">Chưa hoàn tất</span> <span
 										class="your__order-value">Đang vận chuyển</span> <span
-										class="your__order-value">203.000đ</span>
+										class="your__order-value">${item.getTotalPrice()}đ</span>
 								</div>
-								<div class="your__order-table-item">
-									<a class="your__order-value" href="./my-orders.jsp">354660</a>
-									<span class="your__order-value">01/09/2022</span> <span
-										class="your__order-value">Chưa hoàn tất</span> <span
-										class="your__order-value">Đang vận chuyển</span> <span
-										class="your__order-value">203.000đ</span>
-								</div>
+								</c:forEach>
 							</div>
 						</div>
 					</div>
@@ -57,16 +52,16 @@ String url = context + "/default/account";
 						<h1 class="your__info-heading">TÀI KHOẢN CỦA BẠN</h1>
 						<div class="your__info-list">
 							<div class="infor-item">
-								<span>Họ và tên:</span> <span>Đỗ Dương Thái Tuấn</span>
+								<span>Họ và tên:</span> <span>${sessionScope.user.getFullname()}</span>
 							</div>
 							<div class="infor-item">
-								<span>Địa chỉ:</span> <span>Thanh Đa, Hà Nội</span>
+								<span>Địa chỉ:</span> <span>${sessionScope.user.getAddress()}</span>
 							</div>
 							<div class="infor-item">
-								<span>Email:</span> <span>doduongthaituan201102@gmail.com</span>
+								<span>Email:</span> <span>${sessionScope.user.getEmail()}</span>
 							</div>
 							<div class="infor-item">
-								<span>Điện thoại:</span> <span>0123456789</span>
+								<span>Điện thoại:</span> <span>${sessionScope.user.getPhonenumber()}</span>
 							</div>
 						</div>
 						<div class="your__info-action">

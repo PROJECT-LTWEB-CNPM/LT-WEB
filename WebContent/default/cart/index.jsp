@@ -17,7 +17,7 @@ String context = request.getContextPath();
 	</c:when>
 	<c:otherwise>
 		<link rel="stylesheet"
-			href="<%=context%>/default/cart/cart-success/index.css" />
+			href="<%=context%>/default/cart/cart-empty/index.css" />
 	</c:otherwise>
 </c:choose>
 <title>Giỏ hàng của bạn - Shoplane</title>
@@ -37,7 +37,7 @@ String context = request.getContextPath();
 						<jsp:include page="./cart-list/index.jsp" />
 					</c:when>
 					<c:otherwise>
-						<jsp:include page="./cart-success/index.jsp" />
+						<jsp:include page="./cart-empty/index.jsp" />
 					</c:otherwise>
 				</c:choose>
 			</div>

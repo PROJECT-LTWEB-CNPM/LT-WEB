@@ -1,3 +1,5 @@
+<%@page import="models.Order"%>
+<%@page import="java.util.List"%>
 <%@page import="models.User"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -5,6 +7,7 @@
 <%
 request.setCharacterEncoding("utf-8");
 String context = request.getContextPath();
+// Check user login
 String url = "";
 User u = (User) session.getAttribute("user");
 if (u != null) {
@@ -13,6 +16,12 @@ if (u != null) {
 	url = context + "/login";
 	String cartUrl = context + "/cart";
 	session.setAttribute("caller", cartUrl);
+}
+// Calc total price
+int totalPrice = 0;
+List<Order> ors = (List<Order>) session.getAttribute("orders");
+for (Order order : ors) {
+	totalPrice += order.getPrice();
 }
 %>
 <div class="order__container">
@@ -29,7 +38,8 @@ if (u != null) {
 							<div class="order__row order__group">
 								<strong class="order__group-name">${o.getOption().getProduct().getProductName()}</strong>
 								<form action="cart" method="POST">
-									<input type="text" name="oId" value="12" hidden />
+									<input type="text" name="oId"
+										value="${o.getOption().getOptionId()}" hidden />
 									<button class="order__remove-btn" type="submit">XÓA
 										SẢN PHẨM</button>
 								</form>
@@ -45,7 +55,7 @@ if (u != null) {
 									<button type="button" class="order__quanty-btn">+</button>
 								</div>
 							</div>
-							<div class="order__total">${o.getOption().getProduct().getNewPrice()}₫</div>
+							<div class="order__total">${o.getPrice()}₫</div>
 						</div>
 					</div>
 				</c:forEach>
@@ -55,7 +65,7 @@ if (u != null) {
 			<h3 class="order__heading">ĐƠN HÀNG</h3>
 			<div class="order__payment">
 				<span class="title_order order_item">Tổng tiền:</span> <span
-					class="order__payment-price">270000₫</span>
+					class="order__payment-price"><%=totalPrice %>₫</span>
 			</div>
 			<a class="btn-submit" href="<%=url%>"> <span
 				class="btn_cart-lable">THANH TOÁN</span> <ion-icon name="cart"></ion-icon>
