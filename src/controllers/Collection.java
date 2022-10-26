@@ -28,12 +28,11 @@ public class Collection extends HttpServlet {
   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     request.setCharacterEncoding("UTF-8");
 
-    String productType = request.getParameter("category_type");
-
-    // Get category id from url
-    String categoryId = request.getParameter("category_id");
+    String productType = request.getParameter("category_type").trim();
+    String categoryId = request.getParameter("category_id").trim();
     // get sort type form select form
     String orderType  = request.getParameter("orderType");
+    
     if (orderType == null) orderType = "normal";
     
     System.out.println(orderType);
