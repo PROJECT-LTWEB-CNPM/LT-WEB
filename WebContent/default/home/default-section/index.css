@@ -4,6 +4,7 @@
 	margin: 8rem 0;
 }
 
+
 .catalog__heading {
 	margin: 0 auto;
 	text-transform: uppercase;
@@ -23,6 +24,10 @@
 	left: 0;
 	border-radius: 0.4rem;
 	background-color: #5ec9ff;
+}
+
+.hide_element {
+	display: none;
 }
 
 .catalog__list {

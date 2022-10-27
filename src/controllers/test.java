@@ -1,4 +1,4 @@
-package controllers.Auth;
+package controllers;
 
 import java.io.IOException;
 
@@ -9,17 +9,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class Login
+ * Servlet implementation class test
  */
-@WebServlet("/default/account/login")
-public class Login extends HttpServlet {
+@WebServlet("/test")
+public class test extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
   /**
    * @see HttpServlet#HttpServlet()
    */
-  public Login() {
+  public test() {
     super();
+    // TODO Auto-generated constructor stub
   }
 
   /**
@@ -27,9 +28,9 @@ public class Login extends HttpServlet {
    *      response)
    */
   @Override
-  protected void doGet(HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
-    System.out.println("hello world");
+  protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    // TODO Auto-generated method stub
+    response.getWriter().append("Served at: ").append(request.getContextPath());
   }
 
   /**
@@ -37,16 +38,8 @@ public class Login extends HttpServlet {
    *      response)
    */
   @Override
-  protected void doPost(HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
+  protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     // TODO Auto-generated method stub
-    String url = request.getContextPath();
-    if (url == null) {
-      url += "/default/account/index.jsp";
-    } else {
-      url += request.getParameter("caller");
-    }
-    response.sendRedirect(url);
     doGet(request, response);
   }
 

@@ -3,15 +3,16 @@
 
 <%
 request.setCharacterEncoding("utf-8");
-String context = request.getContextPath() + "/default/account/register";
+String context = request.getContextPath();
+String url = context + "/default/account/register";
 %>
 
 <!doctype html>
 <html lang="en">
 <head>
 <jsp:include page="../../head.jsp" />
-<link rel="stylesheet" href="<%=context%>/index.css" />
-<title>Tất cả sản phẩm - SHOPLANE</title>
+<link rel="stylesheet" href="<%=url%>/index.css" />
+<title>Đăng ký tài khoản - Shoplane</title>
 <style>
 .main {
 	padding-top: 6rem;
@@ -29,13 +30,17 @@ String context = request.getContextPath() + "/default/account/register";
 						<form action="register" method="POST">
 							<h1 class="register-header">ĐĂNG KÝ</h1>
 							<input class="form-control" type="text" name="fullName"
-								placeholder="Họ và tên" required> <input
+								placeholder="Họ và tên" required /> 
+							<input
 								class="form-control" type="text" name="phonenumber"
-								placeholder="Số điện thoại" required> <input
+								placeholder="Số điện thoại" required /> 
+							<input
 								class="form-control" type="text" name="address"
-								placeholder="Địa chỉ" required> <input
+								placeholder="Địa chỉ" required /> 
+							<input
 								class="form-control" type="email" name="email"
-								placeholder="Email"> <input class="form-control"
+								placeholder="Email" /> 
+							<input class="form-control"
 								type="password" name="password" placeholder="Password">
 
 							<button class="btn-submit" type="submit" name="registerButton">Đăng
@@ -43,8 +48,8 @@ String context = request.getContextPath() + "/default/account/register";
 
 							<div class="have-account">
 								<p>
-									Đã có tài khoản?<a class="signin-text" href="../login/index.jsp">
-										Đăng nhập</a>
+									Đã có tài khoản?<a class="signin-text"
+										href="<%=context%>/login"> Đăng nhập</a>
 								</p>
 							</div>
 
@@ -57,15 +62,6 @@ String context = request.getContextPath() + "/default/account/register";
 		</main>
 		<jsp:include page="../../footer/footer.jsp" />
 	</div>
-
-	<!-- Jquery -->
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"
-		integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA=="
-		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
-	<!-- Swipper Slider -->
-	<script
-		src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+	<jsp:include page="../../script.jsp" />
 </body>
 </html>

@@ -9,26 +9,19 @@ import models.Category;
 import utils.Common;
 
 public class CategoryService {
+
+  public CategoryService() {
+  }
+
   public List<Category> getAllShirtType() {
-    EntityManager em = Common.getEntityManager();
-
     String typeProduct = "AO";
-    String queryString = "SELECT c FROM Category c WHERE c.producttype ='" + typeProduct + "'";
-
-    TypedQuery<Category> query = em.createQuery(queryString, Category.class);
-    List<Category> categories = query.getResultList();
-    return categories;
+    return this.findBy(typeProduct);
   }
 
   public List<Category> getAllShortType() {
-    EntityManager em = Common.getEntityManager();
-
     String typeProduct = "QUAN";
+    return this.findBy(typeProduct);
 
-    TypedQuery<Category> query = em.createQuery("SELECT c FROM Category c WHERE c.producttype ='" + typeProduct + "'",
-        Category.class);
-    List<Category> categories = query.getResultList();
-    return categories;
   }
 
   // Lấy sản phầm theo id của sản phẩm
@@ -51,5 +44,13 @@ public class CategoryService {
         Category.class);
     return query.getResultList();
   }
+  
+  public  List<Category> getCategoryByCategoryName(String categoryName) {
+    EntityManager em = Common.getEntityManager();
+    
+    TypedQuery<Category> query = em.createQuery("SELECT c FROM Category c WHERE c.categoryName like '%" + categoryName + "%'", Category.class);
+    List<Category> categories = query.getResultList();
+    return categories;
+}
 
 }

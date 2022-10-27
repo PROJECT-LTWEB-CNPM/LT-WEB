@@ -120,6 +120,16 @@ public class ProductService {
     Product product = em.find(Product.class, productId);
     return product;
   }
+  
+//  get product by product name
+  public List<Product>  getProductByProductName(String productName) {
+    EntityManager em = Common.getEntityManager();
+    
+    TypedQuery<Product> query = em.createQuery("SELECT p FROM Product p WHERE p.productName like '%" + productName + "%'", Product.class);
+    
+    List<Product> products = query.getResultList();
+    return products;
+  }
 
   //// CODE của TRường
 
@@ -219,4 +229,14 @@ public class ProductService {
     List<Product> products = query.getResultList();
     return products;
   }
+  
+//Tìm sản phẩm theo category id khi search
+public List<Product> getAllProductByCategoryId(String categoryId) {
+    EntityManager em = Common.getEntityManager();
+    
+    TypedQuery<Product> query = em.createQuery("SELECT p FROM Product p WHERE p.category ='" + categoryId + "'", Product.class);
+    
+    List<Product> products = query.getResultList();
+    return products;
+}
 }
