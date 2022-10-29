@@ -8,10 +8,6 @@
 	width: 25rem;
 }
 
-#content {
-	width: calc(100% - 25rem);
-}
-
 #header {
 	height: 6rem;
 }

@@ -21,11 +21,6 @@ String context = request.getContextPath();
 	</c:otherwise>
 </c:choose>
 <title>Giỏ hàng của bạn - Shoplane</title>
-<style>
-.main {
-	padding-top: 6rem;
-}
-</style>
 </head>
 <body>
 	<div id="app">
@@ -44,7 +39,6 @@ String context = request.getContextPath();
 		</main>
 		<jsp:include page="../footer/footer.jsp" />
 		<jsp:include page="../back-to-top/back-to-top.jsp" />
-
 	</div>
 	<jsp:include page="../script.jsp" />
 </body>

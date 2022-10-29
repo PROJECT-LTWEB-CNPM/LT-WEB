@@ -23,13 +23,9 @@
 			<property name="javax.persistence.jdbc.driver"
 				value="com.mysql.jdbc.Driver" />
 			<property name="hibernate.show_sql" value="true" />
-<<<<<<< HEAD
 			<property name="hibernate.jdbc.batch_size" value="10" />
 			<property name="hibernate.order_inserts" value="true" />
 			<property name="javax.persistence.jdbc.password" value="201102"/>
-=======
-			<property name="javax.persistence.jdbc.password" value="pnnt19062002"/>
->>>>>>> 5ff24020b2ced68e7b1712c7d6212c23aaf10030
 		</properties>
 	</persistence-unit>
 </persistence>

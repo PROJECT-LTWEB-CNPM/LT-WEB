@@ -1,4 +1,4 @@
-package controllers;
+package controllers.client;
 
 import java.io.IOException;
 
@@ -9,10 +9,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @WebServlet("/account/modify")
-public class Modify extends HttpServlet {
+public class ModifyServlet extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
-  public Modify() {
+  public ModifyServlet() {
     super();
   }
 

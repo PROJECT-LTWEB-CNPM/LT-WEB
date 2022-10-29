@@ -4,11 +4,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <%-- <jsp:useBean id="categories" class="services.CategoryService"></jsp:useBean>
- --%><%
+ --%>
+<%
 String context = request.getContextPath();
 String url = null;
 url = context + "/login";
- User u = (User) session.getAttribute("user");
+User u = (User) session.getAttribute("user");
 if (u != null) {
 	url = context + "/account";
 } else {
@@ -46,22 +47,11 @@ if (u != null) {
 			</li>
 			<li class="header__navbar-item header__navbar-item-search"><i
 				class="fas fa-search header__navbar-item-search-icon"></i>
-<<<<<<< HEAD
 				<form action="search" method="get" style="width: 100%;">
-					<input type="text"
-						placeholder="Tìm kiếm quần áo...."
+					<input type="text" placeholder="Tìm kiếm quần áo...."
 						class="header__navbar-item-search-input" autofocus
-						name="product_name" />
-=======
-				<form action="SearchProduct" method="get" style="width: 100%;">
-					<input oninput="searchProduct(this)" type="text"
-						placeholder="Tìm kiếm quần áo...."
-						class="header__navbar-item-search-input" autofocus
-						name="findProduct" />
->>>>>>> 5ff24020b2ced68e7b1712c7d6212c23aaf10030
-						<input type="submit" style="display:none"/>
+						name="product_name" /> <input type="submit" style="display: none" />
 				</form></li>
-
 			<li class="header__navbar-item header__navbar-actions"><a
 				href="<%=context%>/cart" class="header__navbar-item-link"><ion-icon
 						name="cart-outline"></ion-icon>

@@ -1,25 +1,4 @@
 @charset "UTF-8";
-
-#admin {
-	display: flex;
-}
-
-#sidebar {
-	width: 25rem;
-}
-
-#content {
-	width: calc(100% - 25rem);
-}
-
-#header {
-	height: 6rem;
-}
-
-#main-content {
-	padding: 3rem 2rem 10rem 1rem;
-}
-
 .actions {
 	display: flex;
 	justify-content: flex-end;

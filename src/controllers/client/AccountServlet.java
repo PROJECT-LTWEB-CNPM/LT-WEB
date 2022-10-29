@@ -1,4 +1,4 @@
-package controllers;
+package controllers.client;
 
 import java.io.IOException;
 import java.util.List;
@@ -14,11 +14,11 @@ import models.User;
 import services.BillService;
 
 @WebServlet("/account")
-public class Account extends HttpServlet {
+public class AccountServlet extends HttpServlet {
   private static final long serialVersionUID = 1L;
   BillService bs = null;
 
-  public Account() {
+  public AccountServlet() {
     super();
     this.bs = new BillService();
   }

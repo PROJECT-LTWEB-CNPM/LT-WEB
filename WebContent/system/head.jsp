@@ -25,6 +25,9 @@
 	href="<c:url value='/system/partials/header/index.css?v=1' />" />
 <link rel="stylesheet" type="text/css"
 	href="<c:url value='/system/partials/sidebar/index.css?v=1' />" />
+<link rel="shortcut icon"
+	href="${pageContext.request.contextPath}/assets/images/favicon/favicon.ico"
+	type="image/x-icon" />
 
 <script defer
 	src="https://use.fontawesome.com/releases/v5.15.4/js/all.js"
