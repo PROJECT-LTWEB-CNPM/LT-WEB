@@ -1,4 +1,4 @@
-package controllers;
+package controllers.client;
 
 import java.io.IOException;
 
@@ -13,10 +13,10 @@ import models.User;
 import services.UserService;
 
 @WebServlet("/verify")
-public class VerifyCode extends HttpServlet {
+public class VerifyCodeServlet extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
-  public VerifyCode() {
+  public VerifyCodeServlet() {
     super();
   }
 

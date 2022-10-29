@@ -1,4 +1,4 @@
-package controllers;
+package controllers.client;
 
 import java.io.IOException;
 import java.util.Date;
@@ -18,12 +18,12 @@ import services.OrderService;
 import utils.Helper;
 
 @WebServlet("/checkout")
-public class Checkout extends HttpServlet {
+public class CheckoutServlet extends HttpServlet {
   private static final long serialVersionUID = 1L;
   BillService bs = null;
   OrderService os = null;
 
-  public Checkout() {
+  public CheckoutServlet() {
     super();
     bs = new BillService();
     os = new OrderService();

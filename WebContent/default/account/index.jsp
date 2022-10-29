@@ -13,11 +13,6 @@ String url = context + "/default/account";
 <jsp:include page="../head.jsp" />
 <link rel="stylesheet" href="<%=url%>/index.css" />
 <title>Tài khoản - Shoplane</title>
-<style>
-.main {
-	padding-top: 6rem;
-}
-</style>
 </head>
 <body>
 	<div id="app">

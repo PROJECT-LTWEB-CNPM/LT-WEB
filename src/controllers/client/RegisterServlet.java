@@ -1,4 +1,4 @@
-package controllers;
+package controllers.client;
 
 import java.io.IOException;
 
@@ -17,10 +17,10 @@ import utils.Bcrypt;
 import utils.Helper;
 
 @WebServlet("/register")
-public class Register extends HttpServlet {
+public class RegisterServlet extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
-  public Register() {
+  public RegisterServlet() {
     super();
   }
 

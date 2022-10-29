@@ -5,18 +5,25 @@
 	margin: 0 auto;
 }
 
-#admin {
-	display: flex;
+/* Client */
+.main {
+	padding-top: 6rem;
 }
 
+/* Admin */
 #sidebar {
 	width: 25rem;
 }
 
 #content {
-	width: calc(100% - 20rem);
+	margin-left: 25rem;
 }
 
-h1	 {
-	color: red;
+#main-content {
+	padding: 3rem 2rem 10rem 1rem;
+}
+
+
+#header {
+	height: 6rem;
 }

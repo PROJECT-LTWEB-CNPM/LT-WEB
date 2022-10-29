@@ -12,11 +12,6 @@ String context = request.getContextPath() + "/default/account/modify";
 <jsp:include page="../../head.jsp" />
 <link rel="stylesheet" href="<%=context%>/index.css" />
 <title>Thay đổi thông tin - Shoplane</title>
-<style>
-.main {
-	padding-top: 6rem;
-}
-</style>
 </head>
 <body>
 	<div id="app">

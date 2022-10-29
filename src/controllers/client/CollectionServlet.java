@@ -1,4 +1,4 @@
-package controllers;
+package controllers.client;
 
 import java.io.IOException;
 import java.util.List;
@@ -18,13 +18,13 @@ import services.ProductService;
  * Servlet implementation class Collection
  */
 @WebServlet("/collection")
-public class Collection extends HttpServlet {
+public class CollectionServlet extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
   /**
    * @see HttpServlet#HttpServlet()
    */
-  public Collection() {
+  public CollectionServlet() {
     super();
   }
 

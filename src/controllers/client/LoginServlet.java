@@ -1,4 +1,4 @@
-package controllers;
+package controllers.client;
 
 import java.io.IOException;
 
@@ -17,14 +17,14 @@ import utils.Bcrypt;
  * Servlet implementation class Login
  */
 @WebServlet("/login")
-public class Login extends HttpServlet {
+public class LoginServlet extends HttpServlet {
   private static final long serialVersionUID = 1L;
   private UserService us = null;
 
   /**
    * @see HttpServlet#HttpServlet()
    */
-  public Login() {
+  public LoginServlet() {
     super();
     this.us = new UserService();
   }

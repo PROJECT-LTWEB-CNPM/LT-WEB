@@ -10,7 +10,7 @@ request.setCharacterEncoding("utf-8");
 <html lang="en">
 <head>
 <jsp:include page="../head.jsp" />
-<title>Tổng quan - Shoplane</title>
+<title>Quản lý đơn hàng - Shoplane</title>
 </head>
 <body>
 	<div id="app">
@@ -31,4 +31,3 @@ request.setCharacterEncoding("utf-8");
 		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </body>
 </html>
-

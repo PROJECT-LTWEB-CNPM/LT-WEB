@@ -81,6 +81,7 @@ public class UserService {
   public User findBy(String field, String value) {
     User uSelected = null;
     try {
+      System.out.println("================ " + field + " " + value);
       String qString = "SELECT * FROM Users AS U WHERE U." + field + " = :field";
       Query q = this.em.createNativeQuery(qString, User.class);
       q.setParameter("field", value);

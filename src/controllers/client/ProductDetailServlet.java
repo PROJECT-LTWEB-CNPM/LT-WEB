@@ -1,4 +1,4 @@
-package controllers;
+package controllers.client;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -21,10 +21,10 @@ import services.ProductService;
 import utils.Helper;
 
 @WebServlet("/product-detail")
-public class ProductDetail extends HttpServlet {
+public class ProductDetailServlet extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
-  public ProductDetail() {
+  public ProductDetailServlet() {
     super();
   }
 

@@ -11,10 +11,10 @@ String baseUrl = request.getContextPath() + "/system/products";
 <head>
 <jsp:include page="../head.jsp" />
 <link rel="stylesheet" href="<%=baseUrl%>/index.css" />
-<title>Products Manage</title>
+<title>Quản lý sản phẩm - Shoplane</title>
 </head>
 <body>
-	<div id="system">
+	<div id="app">
 		<div id="sidebar">
 			<jsp:include page="../partials/sidebar/index.jsp" />
 		</div>
@@ -22,7 +22,7 @@ String baseUrl = request.getContextPath() + "/system/products";
 			<div id="header">
 				<jsp:include page="../partials/header/index.jsp" />
 			</div>
-			<main id="main">
+			<main id="main-content">
 				<div class="actions">
 					<a href="./sizes.jsp">Quản lý màu sắc</a> <a href="./colors.jsp">Quản
 						lý kích thước</a> <a href="./form.jsp?type=add">Thêm bản ghi</a> <a

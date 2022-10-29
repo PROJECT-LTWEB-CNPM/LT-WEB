@@ -11,10 +11,10 @@ String baseUrl = request.getContextPath() + "/system/users";
 <head>
 <jsp:include page="../head.jsp" />
 <link rel="stylesheet" href="<%=baseUrl%>/index.css" />
-<title>Users Manage</title>
+<title>Quản lý người dùng - Shoplane</title>
 </head>
 <body>
-	<div id="system">
+	<div id="app">
 		<div id="sidebar">
 			<jsp:include page="../partials/sidebar/index.jsp" />
 		</div>

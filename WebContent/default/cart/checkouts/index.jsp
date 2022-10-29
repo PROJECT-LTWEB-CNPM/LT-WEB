@@ -34,12 +34,7 @@ int totalPrice = priceOrders + 35000;
 		<link rel="stylesheet" href="<%=url%>/checkout-success/index.css" />
 	</c:otherwise>
 </c:choose>
-<title>Tất cả sản phẩm - SHOPLANE</title>
-<style>
-.main {
-	padding-top: 6rem;
-}
-</style>
+<title>Thanh toán đơn hàng - Shoplane</title>
 </head>
 <body>
 	<div id="app">

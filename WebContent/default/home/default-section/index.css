@@ -4,14 +4,13 @@
 	margin: 8rem 0;
 }
 
-
 .catalog__heading {
 	margin: 0 auto;
 	text-transform: uppercase;
 	margin-bottom: 3rem;
 	position: relative;
 	width: fit-content;
-	text-transform: uppercase;
+	color: #5ec9ff;
 }
 
 .catalog__heading::after {

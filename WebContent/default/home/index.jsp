@@ -15,11 +15,6 @@ String baseUrl = request.getContextPath() + "/default/home";
 <link rel="stylesheet" href="<%=baseUrl%>/slider/index.css" />
 <link rel="stylesheet" href="<%=baseUrl%>/default-section/index.css" />
 <title>Cửa hàng quần áo - Shoplane</title>
-<style>
-.main {
-	padding-top: 6rem;
-}
-</style>
 </head>
 <body>
 	<div id="app">

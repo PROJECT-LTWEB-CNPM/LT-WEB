@@ -1,4 +1,4 @@
-package controllers;
+package controllers.client;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -17,10 +17,10 @@ import models.Order;
  * Servlet implementation class Cart
  */
 @WebServlet("/cart")
-public class Cart extends HttpServlet {
+public class CartServlet extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
-  public Cart() {
+  public CartServlet() {
     super();
   }
 

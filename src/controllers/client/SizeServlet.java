@@ -1,4 +1,4 @@
-package controllers;
+package controllers.client;
 
 import java.io.IOException;
 import java.util.List;
@@ -16,13 +16,13 @@ import services.SizeService;
  * Servlet implementation class SizeController
  */
 @WebServlet("/SizeController")
-public class SizeController extends HttpServlet {
+public class SizeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public SizeController() {
+	public SizeServlet() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
