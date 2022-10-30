@@ -24,7 +24,7 @@ String baseUrl = request.getContextPath() + "/system/users";
 			</div>
 			<main id="main-content">
 				<div class="actions">
-					<a href="<%=baseUrl%>/form/index.jsp?edit=add">Thêm bản ghi</a> <a href="#">Xóa
+					<a href="<%=baseUrl%>/form/index.jsp?edit=add">Thêm bản ghi</a> <a onclick="deleteUser(this)" href="<%=baseUrl%>system/users/delete">Xóa
 						bản ghi</a>
 				</div>
 				<div class="table">
@@ -67,6 +67,23 @@ String baseUrl = request.getContextPath() + "/system/users";
 				//dataUser.innerHTML = response
 				
 				$('#data-users').html(response);
+			  },
+			  error: function(xhr) {
+				  alert('ERROR')
+			  }
+			});
+	}
+	
+	function deleteUser() {
+		$.ajax({
+			  url: "http://localhost:8080/shoplane-ft/system/users/",
+			  type: "post",
+			  data: {
+				  pageType : "user/index.jsp"
+			  },
+			  success: function(response) {
+				  var inputTags = document.querySelectorAll("input");
+					alert( inputTags.length)
 			  },
 			  error: function(xhr) {
 				  alert('ERROR')

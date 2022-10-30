@@ -17,7 +17,7 @@ import models.User;
 import services.RoleService;
 import services.UserService;
 
-@WebServlet(urlPatterns = { "/system/users/", "/system/users/edit/", "/system/users/add/"})
+@WebServlet(urlPatterns = { "/system/users/", "/system/users/edit/", "/system/users/add/", "system/users/delete/"})
 public class UserServlet extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
