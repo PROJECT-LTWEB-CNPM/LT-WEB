@@ -13,7 +13,7 @@ String baseUrl = request.getContextPath() + "/system/users";
 <link rel="stylesheet" href="<%=baseUrl%>/index.css" />
 <title>Quản lý người dùng - Shoplane</title>
 </head>
-<body>
+<body onload="loadUserData(this)">
 	<div id="app">
 		<div id="sidebar">
 			<jsp:include page="../partials/sidebar/index.jsp" />
@@ -24,7 +24,7 @@ String baseUrl = request.getContextPath() + "/system/users";
 			</div>
 			<main id="main-content">
 				<div class="actions">
-					<a href="./form.jsp?type=add">Thêm bản ghi</a> <a href="#">Xóa
+					<a href="./form/index.jsp?edit=add">Thêm bản ghi</a> <a href="#">Xóa
 						bản ghi</a>
 				</div>
 				<div class="table">
@@ -39,20 +39,8 @@ String baseUrl = request.getContextPath() + "/system/users";
 						<div style="width: 15%">Ngày tạo</div>
 						<div style="width: 10%"></div>
 					</div>
-					<div class="table__body">
-						<div class="table__row">
-							<div style="width: 5%">
-								<input type="checkbox">
-							</div>
-							<div style="width: 10%">1234</div>
-							<div style="width: 25%">Do Duong Thai Tuan</div>
-							<div style="width: 25%">doduongthaituan@gmail.com</div>
-							<div style="width: 15%">admin</div>
-							<div style="width: 15%">20/11/2016</div>
-							<div style="width: 10%" class="table__link">
-								<a href="./form.jsp?type=edit">Xem chi tiết</a>
-							</div>
-						</div>
+					<div class="table__body" id="data-users">
+					
 					</div>
 				</div>
 			</main>
@@ -63,6 +51,29 @@ String baseUrl = request.getContextPath() + "/system/users";
 		src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"
 		integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA=="
 		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<script type="text/javascript">
+	function loadUserData() {
+		$.ajax({
+			  url: "http://localhost:8080/shoplane-ft/system/users/",
+			  type: "get",
+			  data: {
+				  pageType : "user/index.jsp"
+			  },
+			  success: function(response) {
+				//var dataUser = document.querySelector('#data-users')
+				//dataUser.innerHTML = response
+				
+				$('#data-users').html(response);
+			  },
+			  error: function(xhr) {
+				  alert('ERROR')
+			  }
+			});
+	}
+	</script>
 </body>
 </html>
 
