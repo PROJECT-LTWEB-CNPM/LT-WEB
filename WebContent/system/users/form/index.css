@@ -90,12 +90,12 @@
 
 .customer_info-item label,
 .customer_info-item-select label{
-    min-width: 120px;
+     min-width: 220px;
     text-align: start;
     font-size: 1.8rem;
     font-weight: 500;
     color: var(--text-color);
-    margin-right: 40px;
+    margin-right: 0px;
 }
 
 .customer_info-item-select .select-button-label {

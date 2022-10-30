@@ -14,9 +14,10 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.beanutils.BeanUtils;
 
 import models.User;
+import services.RoleService;
 import services.UserService;
 
-@WebServlet(urlPatterns = { "/system/users/", "/system/users/edit/" })
+@WebServlet(urlPatterns = { "/system/users/", "/system/users/edit/", "/system/users/add/"})
 public class UserServlet extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
@@ -38,12 +39,11 @@ public class UserServlet extends HttpServlet {
     if (pageType.equals("user/index.jsp")) {
       loadUserDataToManageUserPage(request, response, pageContext);
     } else if (pageType.equals("user/form/index.jsp")) {
-        if(userNeedToEdit.equals("add")) {
-          System.out.print("====================HELLLLLLLO========================");
-        }
-        else {
-          loadUserDataToManageUserForm(request, response, pageContext, userNeedToEdit);
-        }
+        if (userNeedToEdit.equals("add")) {
+        loadUserDataToManageUserForm(request, response, pageContext, null, "add");
+      } else {
+        loadUserDataToManageUserForm(request, response, pageContext, userNeedToEdit, "edit");
+      }
     }
 
   }
@@ -55,19 +55,17 @@ public class UserServlet extends HttpServlet {
     request.setCharacterEncoding("UTF-8");
     String url = "http://localhost:8080/shoplane-ft/system/users/index.jsp";
     String uri = request.getRequestURL().toString();
-     if( uri.contains("edit")) {
-       update(request, response, url);
-     }
+    if (uri.contains("edit")) {
+      update(request, response, url);
+    } else if (uri.contains("add")) {
+      add(request, response, url);
+    }
   }
 
-  
-  
-  
-  
-  
   public void loadUserDataToManageUserPage(HttpServletRequest request, HttpServletResponse response,
       String pageContext) throws ServletException, IOException {
     UserService userService = new UserService();
+    RoleService roleService = new RoleService();
     List<User> listUser = new ArrayList<>();
     listUser = userService.getAll();
 
@@ -75,12 +73,12 @@ public class UserServlet extends HttpServlet {
     for (User user : listUser) {
       out.println("<div class=\"table__row\">\r\n"
           + "                            <div style=\"width: 5%\">\r\n"
-          + "                                <input type=\"checkbox\">\r\n"
+          + "                                <input type=\"checkbox\" value=\""+ user.getUserId() +"\">\r\n"
           + "                            </div>\r\n"
           + "                            <div style=\"width: 10%\">" + user.getUserId() + "</div>\r\n"
           + "                            <div style=\"width: 25%\">" + user.getFullname() + "</div>\r\n"
           + "                            <div style=\"width: 25%\">" + user.getEmail() + "</div>\r\n"
-          + "                            <div style=\"width: 15%\">admin</div>\r\n"
+          + "                            <div style=\"width: 15%\">"+ roleService.getRoleByRoleId(user.getRole().getRoleId()).getRoleName() +"</div>\r\n"
           + "                            <div style=\"width: 15%\">20/11/2016</div>\r\n"
           + "                            <div style=\"width: 10%\" class=\"table__link\">\r\n"
           + "                                <a href=\"" + pageContext + "form/index.jsp?edit=" + user.getUserId()
@@ -91,15 +89,19 @@ public class UserServlet extends HttpServlet {
   }
 
   public void loadUserDataToManageUserForm(HttpServletRequest request, HttpServletResponse response,
-      String pageContext, String userNeedToEdit) throws ServletException, IOException {
+      String pageContext, String userNeedToEdit, String activity) throws ServletException, IOException {
     User user = new User();
     UserService userService = new UserService();
     user = userService.findBy("user_id", userNeedToEdit);
+
+    if (user == null) {
+      user = new User("", "", "", "", "", "");
+    }
 //    System.out.print("=============" + fileNeedToEdit + "=============");
 
     PrintWriter out = response.getWriter();
 
-    out.println("<form action=\"" + pageContext + "edit/\" method=\"post\">"
+    out.println("<form action=\"" + pageContext + "" + activity + "/\" method=\"post\">"
         + "<div class=\"customer_info-item\">\r\n"
         + "                            <label for=\"userId\">User ID: </label> <input type=\"text\"\r\n"
         + "                                name=\"userId\" id=\"userId\" placeholder=\"User ID\" value=\""
@@ -150,19 +152,46 @@ public class UserServlet extends HttpServlet {
         + "                        <br>\r\n"
         + "                    </div>\r\n"
         + "                </div>"
+//        + "                 <div class=\"customer_info-item-select\">\r\n"
+//        + "                        <label for=\"productName\">Vai trò: </label>\r\n"
+//        + "                        <div class=\"select-button\">\r\n"
+//        + "                            <input type=\"radio\" id=\"admin\" name=\"role\" value=\"R01\">\r\n"
+//        + "                             <label class=\"select-button-label\" for=\"admin\">Admin</label><br>\r\n"
+//        + "                             <input type=\"radio\" id=\"employee\" name=\"role\" value=\"RO2\">\r\n"
+//        + "                             <label class=\"select-button-label\" for=\"employee\">Nhân viên</label><br>\r\n"
+//        + "                            <input type=\"radio\" id=\"customer\" name=\"role\" value=\"R03\">\r\n"
+//        + "                             <label class=\"select-button-label\" for=\"customer\">Khách hàng</label><br>\r\n"
+//        + "                            <input type=\"radio\" id=\"boss\" name=\"role\" value=\"R04\" checked>\r\n"
+//        + "                             <label class=\"select-button-label\" for=\"boss\">Chủ</label><br>\r\n"
+//        + "                            <br>\r\n"
+//        + "                        </div>\r\n"
+//        + "                    </div>"  
         + "                        <button type=\"submit\" class=\"save_change\">Lưu</button>"
         + "</form>");
   }
 
-  
-  
-  public void update(HttpServletRequest request, HttpServletResponse response, String url) throws ServletException, IOException {
+  public void update(HttpServletRequest request, HttpServletResponse response, String url)
+      throws ServletException, IOException {
     try {
       User user = new User();
       BeanUtils.populate(user, request.getParameterMap());
 
       UserService userService = new UserService();
       userService.update(user);
+      response.sendRedirect(url);
+    } catch (Exception e) {
+      System.out.println("ERROR");
+    }
+  }
+
+  public void add(HttpServletRequest request, HttpServletResponse response, String url)
+      throws ServletException, IOException {
+    try {
+      User user = new User();
+      BeanUtils.populate(user, request.getParameterMap());
+
+      UserService userService = new UserService();
+      userService.add(user);
       response.sendRedirect(url);
     } catch (Exception e) {
       System.out.println("ERROR");

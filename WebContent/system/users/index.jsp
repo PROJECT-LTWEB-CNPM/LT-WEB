@@ -24,7 +24,7 @@ String baseUrl = request.getContextPath() + "/system/users";
 			</div>
 			<main id="main-content">
 				<div class="actions">
-					<a href="./form/index.jsp?edit=add">Thêm bản ghi</a> <a href="#">Xóa
+					<a href="<%=baseUrl%>/form/index.jsp?edit=add">Thêm bản ghi</a> <a href="#">Xóa
 						bản ghi</a>
 				</div>
 				<div class="table">
