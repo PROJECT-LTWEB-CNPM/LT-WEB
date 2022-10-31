@@ -87,7 +87,7 @@ public class UserServlet extends HttpServlet {
           + "                            <div style=\"width: 10%\">" + user.getUserId() + "</div>\r\n"
           + "                            <div style=\"width: 25%\">" + user.getFullname() + "</div>\r\n"
           + "                            <div style=\"width: 25%\">" + user.getEmail() + "</div>\r\n"
-          + "                            <div style=\"width: 15%\">"+ roleService.getRoleByRoleId(user.getRole().getRoleId()).getRoleName() +"</div>\r\n"
+          + "                            <div style=\"width: 15%\">" + roleService.getRoleByRoleId(user.getRole().getRoleId()).getRoleName() + "</div>\r\n"
           + "                            <div style=\"width: 15%\">20/11/2016</div>\r\n"
           + "                            <div style=\"width: 10%\" class=\"table__link\">\r\n"
           + "                                <a href=\"" + pageContext + "form/index.jsp?edit=" + user.getUserId()
@@ -161,20 +161,20 @@ public class UserServlet extends HttpServlet {
         + "                        <br>\r\n"
         + "                    </div>\r\n"
         + "                </div>"
-//        + "                 <div class=\"customer_info-item-select\">\r\n"
-//        + "                        <label for=\"productName\">Vai trò: </label>\r\n"
-//        + "                        <div class=\"select-button\">\r\n"
-//        + "                            <input type=\"radio\" id=\"admin\" name=\"role\" value=\"R01\">\r\n"
-//        + "                             <label class=\"select-button-label\" for=\"admin\">Admin</label><br>\r\n"
-//        + "                             <input type=\"radio\" id=\"employee\" name=\"role\" value=\"RO2\">\r\n"
-//        + "                             <label class=\"select-button-label\" for=\"employee\">Nhân viên</label><br>\r\n"
-//        + "                            <input type=\"radio\" id=\"customer\" name=\"role\" value=\"R03\">\r\n"
-//        + "                             <label class=\"select-button-label\" for=\"customer\">Khách hàng</label><br>\r\n"
-//        + "                            <input type=\"radio\" id=\"boss\" name=\"role\" value=\"R04\" checked>\r\n"
-//        + "                             <label class=\"select-button-label\" for=\"boss\">Chủ</label><br>\r\n"
-//        + "                            <br>\r\n"
-//        + "                        </div>\r\n"
-//        + "                    </div>"  
+        + "                 <div class=\"customer_info-item-select\">\r\n"
+        + "                        <label for=\"productName\">Vai trò: </label>\r\n"
+        + "                        <div class=\"select-button\">\r\n"
+        + "                            <input type=\"radio\" id=\"admin\" name=\"roleAccount\" value=\"R01\">\r\n"
+        + "                             <label class=\"select-button-label\" for=\"admin\">Admin</label><br>\r\n"
+        + "                             <input type=\"radio\" id=\"employee\" name=\"roleAccount\" value=\"R02\">\r\n"
+        + "                             <label class=\"select-button-label\" for=\"employee\">Nhân viên</label><br>\r\n"
+        + "                            <input type=\"radio\" id=\"customer\" name=\"roleAccount\" value=\"R03\">\r\n"
+        + "                             <label class=\"select-button-label\" for=\"customer\">Khách hàng</label><br>\r\n"
+        + "                            <input type=\"radio\" id=\"boss\" name=\"roleAccount\" value=\"R04\" checked>\r\n"
+        + "                             <label class=\"select-button-label\" for=\"boss\">Chủ</label><br>\r\n"
+        + "                            <br>\r\n"
+        + "                        </div>\r\n"
+        + "                    </div>"  
         + "                        <button type=\"submit\" class=\"save_change\">Lưu</button>"
         + "</form>");
   }
@@ -183,13 +183,18 @@ public class UserServlet extends HttpServlet {
       throws ServletException, IOException {
     try {
       User user = new User();
+      Role role = new Role();
+      RoleService roleService = new RoleService();
       UserService userService = new UserService();
+      
+      role = roleService.getRoleByRoleId(request.getParameter("roleAccount"));
       BeanUtils.populate(user, request.getParameterMap());
-
+      
+      user.setRole(role);
       userService.update(user);
       response.sendRedirect(url);
     } catch (Exception e) {
-      System.out.println("ERROR");
+      System.out.println(e.getMessage());
     }
   }
 
@@ -197,9 +202,14 @@ public class UserServlet extends HttpServlet {
       throws ServletException, IOException {
     try {
       User user = new User();
+      Role role = new Role();
+      RoleService roleService = new RoleService();
       UserService userService = new UserService();
       
+      role = roleService.getRoleByRoleId(request.getParameter("roleAccount"));
       BeanUtils.populate(user, request.getParameterMap());
+      
+      user.setRole(role);
       userService.add(user);
       response.sendRedirect(url);
     } catch (Exception e) {
