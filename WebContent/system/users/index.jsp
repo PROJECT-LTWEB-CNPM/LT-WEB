@@ -24,13 +24,13 @@ String baseUrl = request.getContextPath() + "/system/users";
 			</div>
 			<main id="main-content">
 				<div class="actions">
-					<a href="<%=baseUrl%>/form/index.jsp?edit=add">Thêm bản ghi</a> <a onclick="deleteUser(this)" href="<%=baseUrl%>system/users/delete">Xóa
-						bản ghi</a>
+					<a href="<%=baseUrl%>/form/index.jsp?edit=add">Thêm bản ghi</a> 
+					<a onclick="deleteUser(this)" type="submit">Xóa bảng ghi</a>
 				</div>
 				<div class="table">
 					<div class="table__head">
 						<div style="width: 5%">
-							<input type="checkbox">
+							<input type="checkbox" class="all">
 						</div>
 						<div style="width: 10%">ID</div>
 						<div style="width: 25%">Họ và tên</div>
@@ -39,9 +39,7 @@ String baseUrl = request.getContextPath() + "/system/users";
 						<div style="width: 15%">Ngày tạo</div>
 						<div style="width: 10%"></div>
 					</div>
-					<div class="table__body" id="data-users">
-					
-					</div>
+					<div class="table__body" id="data-users"></div>
 				</div>
 			</main>
 		</div>
@@ -74,16 +72,29 @@ String baseUrl = request.getContextPath() + "/system/users";
 			});
 	}
 	
+	// Handle select all checkbox
+	$('.all').on('click',function(){
+		  $("input[type=checkbox]").prop('checked', $(this).prop('checked'));
+		});
+	
 	function deleteUser() {
+		var inputElements = $('input');
+		var listUserNeedToDelete = ""
+		for(var i=0; inputElements[i]; ++i){
+	        if(inputElements[i].checked){
+	        	listUserNeedToDelete += inputElements[i].value + "/"
+	        }
+	  	}
 		$.ajax({
 			  url: "http://localhost:8080/shoplane-ft/system/users/",
 			  type: "post",
 			  data: {
-				  pageType : "user/index.jsp"
-			  },
+				  pageType : "delete",
+				  listUserNeedToDelete: listUserNeedToDelete
+			  }, 
 			  success: function(response) {
-				  var inputTags = document.querySelectorAll("input");
-					alert( inputTags.length)
+				  alert('SUCCESSFULL')
+				  window.location.reload()
 			  },
 			  error: function(xhr) {
 				  alert('ERROR')

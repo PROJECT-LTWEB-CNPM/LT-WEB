@@ -7,7 +7,6 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
-import models.Product;
 import models.User;
 import utils.Common;
 
@@ -107,11 +106,24 @@ public class UserService {
     }
     return uSelected;
   }
-  
+  // Get all user account in database
   public List<User> getAll() {
     TypedQuery<User> query = em.createNamedQuery("User.findAll", User.class);
     return query.getResultList();
   }
-
+  
+//get all user accounts as long as is_delete_acc = 0 (not deleted)
+  public List<User> getAll(String field, String value) {
+    List< User> uSelected = null;
+    try {
+      String qString = "SELECT * FROM Users AS U WHERE U." + field + " = :field";
+      Query q = this.em.createNativeQuery(qString, User.class);
+      q.setParameter("field", value);
+      uSelected = q.getResultList();
+    } catch (Exception e) {
+      System.out.println(e.getMessage());
+    }
+    return uSelected;
+  }
 
 }

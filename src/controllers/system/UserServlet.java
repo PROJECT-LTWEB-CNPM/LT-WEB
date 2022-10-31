@@ -13,11 +13,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.beanutils.BeanUtils;
 
+import models.Role;
 import models.User;
 import services.RoleService;
 import services.UserService;
 
-@WebServlet(urlPatterns = { "/system/users/", "/system/users/edit/", "/system/users/add/", "system/users/delete/"})
+@WebServlet(urlPatterns = { "/system/users/", "/system/users/edit/", "/system/users/add/", "/system/users/delete/"})
 public class UserServlet extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
@@ -41,7 +42,8 @@ public class UserServlet extends HttpServlet {
     } else if (pageType.equals("user/form/index.jsp")) {
         if (userNeedToEdit.equals("add")) {
         loadUserDataToManageUserForm(request, response, pageContext, null, "add");
-      } else {
+      } 
+      else {
         loadUserDataToManageUserForm(request, response, pageContext, userNeedToEdit, "edit");
       }
     }
@@ -55,10 +57,17 @@ public class UserServlet extends HttpServlet {
     request.setCharacterEncoding("UTF-8");
     String url = "http://localhost:8080/shoplane-ft/system/users/index.jsp";
     String uri = request.getRequestURL().toString();
+    String pageType = request.getParameter("pageType");
+    String listUserNeedToDelete = request.getParameter("listUserNeedToDelete");
+    
     if (uri.contains("edit")) {
       update(request, response, url);
     } else if (uri.contains("add")) {
       add(request, response, url);
+    }
+    else if (pageType.contains("delete")) {
+//      System.out.println("==============="+ listUserNeedToDelete +"======================");
+      softDelete(request, response, listUserNeedToDelete, url);
     }
   }
 
@@ -67,7 +76,7 @@ public class UserServlet extends HttpServlet {
     UserService userService = new UserService();
     RoleService roleService = new RoleService();
     List<User> listUser = new ArrayList<>();
-    listUser = userService.getAll();
+    listUser = userService.getAll("is_delete_acc", "0");
 
     PrintWriter out = response.getWriter();
     for (User user : listUser) {
@@ -174,9 +183,9 @@ public class UserServlet extends HttpServlet {
       throws ServletException, IOException {
     try {
       User user = new User();
+      UserService userService = new UserService();
       BeanUtils.populate(user, request.getParameterMap());
 
-      UserService userService = new UserService();
       userService.update(user);
       response.sendRedirect(url);
     } catch (Exception e) {
@@ -188,13 +197,28 @@ public class UserServlet extends HttpServlet {
       throws ServletException, IOException {
     try {
       User user = new User();
-      BeanUtils.populate(user, request.getParameterMap());
-
       UserService userService = new UserService();
+      
+      BeanUtils.populate(user, request.getParameterMap());
       userService.add(user);
       response.sendRedirect(url);
     } catch (Exception e) {
       System.out.println("ERROR");
+    }
+  }
+  
+  public void softDelete (HttpServletRequest request, HttpServletResponse response, String listUserNeedToDelete, String url) {
+    UserService userService = new UserService();
+    User user = new User();
+    
+    if (listUserNeedToDelete != null) {
+      for (String item : listUserNeedToDelete.split("/")) {
+        if(!item.equals("on")) {
+          user = userService.findBy("user_id", item);
+          user.setIsDeleteAcc((byte)1);
+          userService.update(user);
+        }
+      }
     }
   }
 }
