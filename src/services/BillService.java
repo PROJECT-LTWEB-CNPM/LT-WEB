@@ -10,9 +10,13 @@ import utils.Common;
 
 import models.Bill;
 import models.User;
+import models.Order;
+
+
 public class BillService {
   
-    // get all bills
+  
+  // get all bills
   public static List<Bill> getAll(){
     EntityManager em = Common.getEntityManager();
     String qString = "Select b from Bill b";
@@ -96,7 +100,22 @@ public class BillService {
     }finally {
       em.close();
     }
-    
+  }
+  
+  public static boolean update(Bill modifiedBill) {
+    EntityManager em = Common.getEntityManager();
+    EntityTransaction trans = em.getTransaction();
+    try {
+      trans.begin();
+      em.merge(modifiedBill);
+      trans.commit();
+      return true;
+    }catch(Exception ex) {
+      trans.rollback();
+      return false;
+    }finally {
+      em.close();
+    }
   }
 
 }

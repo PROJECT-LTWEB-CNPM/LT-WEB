@@ -26,7 +26,7 @@ public class BillServlet extends HttpServlet {
     
     
     if (bills == null) {
-      System.out.println("can not retrive bill list or bill list is null");
+      System.out.println("can not retrieve bill list or bill list is null");
     }else {
       for(Bill b: bills){
         System.out.println(b.getBillId());

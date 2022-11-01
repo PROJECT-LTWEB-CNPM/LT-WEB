@@ -62,7 +62,7 @@ request.setCharacterEncoding("utf-8");
 							<div style="width: 15%">${b.user.userId}</div>
 							<div style="width: 15%">${b.totalPrice}</div>
 							<div style="width: 10%" class="table__link">
-								<a href="./form.jsp?type=edit">Xem chi tiết</a>
+								<a href="./detail?bill=${b.billId}">Xem chi tiết</a>
 							</div>
 						</div>
 					</c:forEach>
