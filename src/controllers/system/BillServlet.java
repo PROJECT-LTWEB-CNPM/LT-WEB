@@ -21,18 +21,13 @@ public class BillServlet extends HttpServlet {
 
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    // define url
     String url = "./index.jsp";
+    
+    // get all current bills in database
     List<Bill> bills = BillService.getAll();
     
-    
-    if (bills == null) {
-      System.out.println("can not retrieve bill list or bill list is null");
-    }else {
-      for(Bill b: bills){
-        System.out.println(b.getBillId());
-      }
-    }
-    
+    // set params and forward 
     request.setAttribute("bills", bills);
     request.getRequestDispatcher(url).forward(request, response);
   }
@@ -40,35 +35,24 @@ public class BillServlet extends HttpServlet {
  
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    //logParameters(request, response);
-    // get multiple selectd box value
+    // define url, action on this servlet
     String url = "./";
     String[] selectedBills= request.getParameterValues("selectedBills");
-    //boolean isChosen = true;
+ 
+    // validate and detele multiple bills
     if(selectedBills == null) {
-     // isChosen = false;
       System.out.println("can't get checkbox params");
     }else {
       for (int i=0; i< selectedBills.length; i++) {
-        
         System.out.println(selectedBills[i]);
         Bill b = BillService.findBillById(selectedBills[i]);
         BillService.delete(b);
       }
     }
+    
+    // redirect to current page
     response.sendRedirect(url);
   }
   
-  private void logParameters (HttpServletRequest request, HttpServletResponse response) {
-    String[] selectedBills= request.getParameterValues("selectedBills");
-    if(selectedBills == null) {
-      System.out.println("can't get checkbox params");
-    }else {
-      for (int i=0; i< selectedBills.length; i++) {
-        System.out.println(selectedBills[i]);
-      }
-    }
-    
-  }
 
 }
