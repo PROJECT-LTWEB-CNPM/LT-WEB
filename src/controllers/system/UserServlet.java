@@ -99,12 +99,40 @@ public class UserServlet extends HttpServlet {
 
   public void loadUserDataToManageUserForm(HttpServletRequest request, HttpServletResponse response,
       String pageContext, String userNeedToEdit, String activity) throws ServletException, IOException {
+    String [] active = {"checked",""};
+    String [] delete = {"","checked"};
+    String [] roleAccount = {"", "", "checked", ""};
+    
     User user = new User();
     UserService userService = new UserService();
     user = userService.findBy("user_id", userNeedToEdit);
 
     if (user == null) {
       user = new User("", "", "", "", "", "");
+    }
+    else {
+      if (user.getIsActiveAcc() == 0) {
+        active[0] = "";
+        active[1] = "checked";
+      }
+      
+      if (user.getIsDeleteAcc() == 1) {
+        delete[0] = "checked";
+        delete[1] = "";
+      }
+      
+      if (user.getRole().getRoleId().equals("R01")) {
+        roleAccount[0] = "checked";
+        roleAccount[2] = "";
+      }
+      else if (user.getRole().getRoleId().equals("R02")) {
+        roleAccount[1] = "checked";
+        roleAccount[2] = "";
+      }
+      else if (user.getRole().getRoleId().equals("R04")) {
+        roleAccount[3] = "checked";
+        roleAccount[2] = "";
+      }
     }
 //    System.out.print("=============" + fileNeedToEdit + "=============");
 
@@ -144,9 +172,9 @@ public class UserServlet extends HttpServlet {
         + "<div class=\"customer_info-item-select\">\r\n"
         + "                    <label for=\"productName\">Trạng thái User account: </label>\r\n"
         + "                    <div class=\"select-button\">\r\n"
-        + "                        <input type=\"radio\" id=\"active\" name=\"isActiveAcc\" value=\"1\" checked>\r\n"
+        + "                        <input type=\"radio\" id=\"active\" name=\"isActiveAcc\" value=\"1\" "+ active[0] +">\r\n"
         + "                         <label class=\"select-button-label\" for=\"active\">Active</label><br>\r\n"
-        + "                         <input type=\"radio\" id=\"inactive\" name=\"isActiveAcc\" value=\"0\">\r\n"
+        + "                         <input type=\"radio\" id=\"inactive\" name=\"isActiveAcc\" value=\"0\""+ active[1] +">\r\n"
         + "                         <label class=\"select-button-label\" for=\"inactive\">InActive</label><br>\r\n"
         + "                        <br>\r\n"
         + "                    </div>\r\n"
@@ -154,9 +182,9 @@ public class UserServlet extends HttpServlet {
         + "                <div class=\"customer_info-item-select\">\r\n"
         + "                    <label for=\"productName\">Trạng thái User account: </label>\r\n"
         + "                    <div class=\"select-button\">\r\n"
-        + "                        <input type=\"radio\" id=\"delete\" name=\"isDeleteAcc\" value=\"1\">\r\n"
+        + "                        <input type=\"radio\" id=\"delete\" name=\"isDeleteAcc\" value=\"1\""+ delete[0] +">\r\n"
         + "                         <label class=\"select-button-label\" for=\"delete\">Delete</label><br>\r\n"
-        + "                         <input type=\"radio\" id=\"undelete\" name=\"isDeleteAcc\" value=\"0\" checked>\r\n"
+        + "                         <input type=\"radio\" id=\"undelete\" name=\"isDeleteAcc\" value=\"0\" "+ delete[1] +">\r\n"
         + "                         <label class=\"select-button-label\" for=\"undelete\">Undelete</label><br>\r\n"
         + "                        <br>\r\n"
         + "                    </div>\r\n"
@@ -164,13 +192,13 @@ public class UserServlet extends HttpServlet {
         + "                 <div class=\"customer_info-item-select\">\r\n"
         + "                        <label for=\"productName\">Vai trò: </label>\r\n"
         + "                        <div class=\"select-button\">\r\n"
-        + "                            <input type=\"radio\" id=\"admin\" name=\"roleAccount\" value=\"R01\">\r\n"
+        + "                            <input type=\"radio\" id=\"admin\" name=\"roleAccount\" value=\"R01\""+ roleAccount[0] +">\r\n"
         + "                             <label class=\"select-button-label\" for=\"admin\">Admin</label><br>\r\n"
-        + "                             <input type=\"radio\" id=\"employee\" name=\"roleAccount\" value=\"R02\">\r\n"
+        + "                             <input type=\"radio\" id=\"employee\" name=\"roleAccount\" value=\"R02\""+ roleAccount[1] +">\r\n"
         + "                             <label class=\"select-button-label\" for=\"employee\">Nhân viên</label><br>\r\n"
-        + "                            <input type=\"radio\" id=\"customer\" name=\"roleAccount\" value=\"R03\">\r\n"
+        + "                            <input type=\"radio\" id=\"customer\" name=\"roleAccount\" value=\"R03\" "+ roleAccount[2] +">\r\n"
         + "                             <label class=\"select-button-label\" for=\"customer\">Khách hàng</label><br>\r\n"
-        + "                            <input type=\"radio\" id=\"boss\" name=\"roleAccount\" value=\"R04\" checked>\r\n"
+        + "                            <input type=\"radio\" id=\"boss\" name=\"roleAccount\" value=\"R04\""+ roleAccount[3] +">\r\n"
         + "                             <label class=\"select-button-label\" for=\"boss\">Chủ</label><br>\r\n"
         + "                            <br>\r\n"
         + "                        </div>\r\n"
