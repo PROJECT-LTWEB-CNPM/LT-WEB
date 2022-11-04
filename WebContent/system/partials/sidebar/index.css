@@ -62,7 +62,8 @@
 }
 
 .sidebar__nav-item>svg {
-	font-size: 1.8rem;
+	display: block;
+	width: 2rem !important; 
 }
 
 .sidebar__nav-item span {

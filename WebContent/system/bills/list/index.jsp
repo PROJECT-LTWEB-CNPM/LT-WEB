@@ -10,18 +10,18 @@ String context = request.getContextPath();
 <!doctype html>
 <html lang="en">
 <head>
-<jsp:include page="../head.jsp" />
+<jsp:include page="../../head.jsp" />
 <title>Quản lý đơn hàng - Shoplane</title>
 <link rel="stylesheet" href="./index.css" type="text/css">
 </head>
 <body>
 	<div id="app">
 		<div id="sidebar">
-			<jsp:include page="../partials/sidebar/index.jsp" />
+			<jsp:include page="../../partials/sidebar/index.jsp" />
 		</div>
 		<div id="content">
 			<div id="header">
-				<jsp:include page="../partials/header/index.jsp" />
+				<jsp:include page="../../partials/header/index.jsp" />
 			</div>
 			<main id="main-content">
 				<div class="actions">
@@ -69,10 +69,5 @@ String context = request.getContextPath();
 			</main>
 		</div>
 	</div>
-	<!-- Jquery -->
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"
-		integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA=="
-		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </body>
 </html>

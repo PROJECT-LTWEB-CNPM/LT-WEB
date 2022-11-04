@@ -4,7 +4,9 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.TypedQuery;
 
+import models.Bill;
 import models.Order;
 import utils.Common;
 
@@ -54,4 +56,26 @@ public class OrderService {
     }
     return isAdd;
   }
+  
+  
+//  public static List<Order> findOrderByBillId (String BillId){
+//    EntityManager em = Common.getEntityManager();
+//    String qString = "SELECT o FROM Order o " + 
+//        "WHERE o.BillId = :BillId";
+//    TypedQuery<Order> o = em.createQuery(qString, Order.class);
+//    o.setParameter("BillId", BillId);
+//    
+//    List<Order> orders = null;
+//    try {
+//      orders = o.getResultList();
+//      if (orders == null || orders.isEmpty()) {
+//        orders = null;
+//      }
+//    }finally {
+//      em.close();
+//    }
+//    return orders;
+//  }
+  
+  
 }

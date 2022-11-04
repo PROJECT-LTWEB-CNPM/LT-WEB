@@ -97,15 +97,10 @@ public class ProductService {
     return listP;
   }
 
-  public List<Product> getOrderedProduct(String typeId, String categoryId, String orderType) {
-    List<Product> listResult = new ArrayList<>();
+  public List<Product> getOrderedProduct(List<Product> products, String orderType) {
+    List<Product> listResult = new ArrayList<>(products);
 
-    if (categoryId != null && categoryId != "") {
-      listResult = getProductByCategory(categoryId);
-    } else {
-      listResult = getProductByType(typeId);
-    }
-
+  
     switch (orderType) {
       case "price-ascending":
         Collections.sort(listResult, CompareProduct.LOWEST_PRICE);
@@ -113,19 +108,9 @@ public class ProductService {
       case "price-descending":
         Collections.sort(listResult, CompareProduct.HIGHEST_PRICE);
         break;
-      case "created-descending":
-        Collections.reverse(listResult);
-        break;
-
+     
     }
 
-    if (listResult != null) {
-      for (Product p : listResult) {
-        System.out.println(p.getProductName() + p.getNewPrice());
-      }
-    } else {
-      System.out.println("ListResult is null");
-    }
     return listResult;
   }
 

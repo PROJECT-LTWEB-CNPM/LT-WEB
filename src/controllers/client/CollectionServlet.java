@@ -34,13 +34,26 @@ public class CollectionServlet extends HttpServlet {
 
     String categoryId = request.getParameter("category_id").trim();
     String categoryType = request.getParameter("category_type").trim();
+    
+    // get sort type form select form
+    String orderType  = request.getParameter("orderType");
+    
+    if (orderType == null) orderType = "normal";
+    
+    System.out.println(orderType);
 
     if (categoryId != null && categoryType != null) {
-      handleGetProducts(request, response, categoryType, categoryId);
+      handleGetProducts(request, response, categoryType, categoryId, orderType);
     }
   }
 
-  protected void handleGetProducts(HttpServletRequest req, HttpServletResponse res, String cateType, String cateId)
+  
+  @Override
+  protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    doGet(request, response);
+  }
+  
+  protected void handleGetProducts(HttpServletRequest req, HttpServletResponse res, String cateType, String cateId, String orderType)
       throws ServletException, IOException {
 
     // Create services
@@ -59,6 +72,8 @@ public class CollectionServlet extends HttpServlet {
       cateName = categoryService.findCategorydById(cateId).getCategoryName();
     }
     cate = categoryService.findBy(cateType);
+    
+    pList = ps.getOrderedProduct(pList, orderType);
 
     // Set att => collection/index.jsp
     req.setAttribute("cateName", cateName);
@@ -69,4 +84,6 @@ public class CollectionServlet extends HttpServlet {
 
     req.getRequestDispatcher("/default/collections/index.jsp").forward(req, res);
   }
+  
+  
 }

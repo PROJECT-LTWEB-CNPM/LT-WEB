@@ -67,7 +67,6 @@ public class CheckoutServlet extends HttpServlet {
       }
 
       // Insert Bill, list order to db
-
       boolean isAddBill = bs.add(bill);
       if (isAddBill) {
         Boolean isAddOrders = this.os.addList(orders);
