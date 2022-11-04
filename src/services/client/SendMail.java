@@ -38,7 +38,9 @@ public class SendMail {
       pr.setProperty("mail.smtp.port", "587");
       pr.setProperty("mail.smtp.auth", "true");
       pr.setProperty("mail.smtp.starttls.enable", "true");
-      pr.setProperty("mail.smtp.ssl.trust", "*");
+      pr.put("mail.smtp.ssl.trust", "smtp.gmail.com");
+//    pr.put("mail.debug", "true");
+//    pr.setProperty("mail.smtp.ssl.trust", "*");
       /*
        * pr.put("mail.smtp.socketFactory.port", "587");
        * pr.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");

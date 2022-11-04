@@ -13,7 +13,7 @@ String baseUrl = request.getContextPath() + "/system/users/form";
 <link rel="stylesheet" href="<%=baseUrl%>/index.css" />
 <title>Products Manage</title>
 </head>
-<body>
+<body onload="loadUserDataToForm(this)">
 	<div id="system">
 		<div id="sidebar">
 			<jsp:include page="../../partials/sidebar/index.jsp" />
@@ -30,30 +30,8 @@ String baseUrl = request.getContextPath() + "/system/users/form";
 							alt="" class="">
 					</div>
 					<button class="change_img">Thay đổi ảnh</button>
-					<div class="customer_info-item">
-						<label for="productName">Họ và tên: </label> <input type="text"
-							name="productName" id="productName"
-							placeholder="Áo phông form rộng">
-					</div>
-					<div class="customer_info-item">
-						<label for="productName">Số điện thoại: </label> <input
-							type="text" name="productName" id="productName"
-							placeholder="url....">
-					</div>
-					<div class="customer_info-item">
-						<label for="productName">Địa chỉ: </label> <input type="text"
-							name="productName" id="productName" placeholder="350,000">
-					</div>
-					<div class="customer_info-item">
-						<label for="productName">Email: </label> <input type="text"
-							name="productName" id="productName" placeholder="69,000">
-					</div>
-					<div class="customer_info-item">
-						<label for="productName">Mật khẩu: </label> <input type="text"
-							name="productName" id="productName"
-							placeholder="doduongthaituan201102@gmail.com">
-					</div>
-					<button class="save_change">Lưu</button>
+					
+					<div id="form_userData"></div>
 				</div>
 			</main>
 		</div>
@@ -63,5 +41,29 @@ String baseUrl = request.getContextPath() + "/system/users/form";
 		src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"
 		integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA=="
 		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<script type="text/javascript">
+		function loadUserDataToForm() {
+			const queryString = window.location.search
+			const urlParams = new URLSearchParams(queryString)
+			var userNeedToEdit = urlParams.get("edit");
+			$.ajax({
+				url : "http://localhost:8080/shoplane-ft/system/users/",
+				type : "get", //send it through get method
+				data : {
+					pageType : "user/form/index.jsp",
+					userNeedToEdit : userNeedToEdit
+				},
+				success : function(response) {
+					$('#form_userData').html(response);
+				},
+				error : function(xhr) {
+					alert('ERROR')
+				}
+			});
+		}
+	</script>
 </body>
 </html>

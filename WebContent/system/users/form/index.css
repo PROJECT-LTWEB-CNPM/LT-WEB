@@ -40,6 +40,9 @@
 	font-size: 1.6rem;
 	margin-top: 16px;
 	cursor: pointer;
+	display: block;
+    width: 120px;
+    margin: 20px auto
 }
 
 .customer_info-item {
@@ -67,4 +70,39 @@
 	border-radius: 10px;
 	padding-left: 10px;
 	font-size: 1.6rem;
+}
+
+
+
+
+.customer_info-item-select {
+    display: flex;
+    flex-direction: row;
+    margin-top: 20px;
+    align-items: center
+}
+
+.select-button {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center
+}
+
+.customer_info-item label,
+.customer_info-item-select label{
+     min-width: 220px;
+    text-align: start;
+    font-size: 1.8rem;
+    font-weight: 500;
+    color: var(--text-color);
+    margin-right: 0px;
+}
+
+.customer_info-item-select .select-button-label {
+    font-size: 1.6rem;
+    display: flex;
+    align-items: baseline;
+    margin-left: 8px;
+    color: var(--text-color);
+    opacity: 0.7;
 }
