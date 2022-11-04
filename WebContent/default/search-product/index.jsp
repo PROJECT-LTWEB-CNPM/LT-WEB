@@ -60,14 +60,7 @@ String baseUrl = context + "/default/search-product";
 	</div>
 
 	<!-- Jquery -->
-<<<<<<< HEAD
 	<jsp:include page="../script.jsp" />
 
-=======
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"
-		integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA=="
-		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
->>>>>>> 5ff24020b2ced68e7b1712c7d6212c23aaf10030
 </body>
 </html>

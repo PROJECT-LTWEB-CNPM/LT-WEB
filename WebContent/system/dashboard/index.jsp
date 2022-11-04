@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@page import="services.ProductService"%>
+<%@page import="services.client.ProductService"%>
 
 <%
 request.setCharacterEncoding("utf-8");

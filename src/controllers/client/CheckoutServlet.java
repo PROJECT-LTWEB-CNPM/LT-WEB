@@ -13,8 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 import models.Bill;
 import models.Order;
 import models.User;
-import services.BillService;
-import services.OrderService;
+import services.client.BillService;
+import services.client.OrderService;
 import utils.Helper;
 
 @WebServlet("/checkout")

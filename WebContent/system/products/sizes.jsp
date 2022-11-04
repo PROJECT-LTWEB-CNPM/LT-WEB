@@ -81,11 +81,11 @@
 
 <div id="admin">
 	<div id="sidebar">
-		<jsp:include page="../partials/sidebar.jsp" />
+		<jsp:include page="../partials/sidebar/index.jsp" />
 	</div>
 	<div id="content">
 		<div id="header">
-			<jsp:include page="../partials/header.jsp" />
+			<jsp:include page="../partials/header/index.jsp" />
 		</div>
 		<main id="main-content">
 			<div class="actions">

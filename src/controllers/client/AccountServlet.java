@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import models.Bill;
 import models.User;
-import services.BillService;
+import services.client.BillService;
 
 @WebServlet("/account")
 public class AccountServlet extends HttpServlet {

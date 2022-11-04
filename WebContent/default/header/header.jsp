@@ -28,20 +28,20 @@ if (u != null) {
 				<div class="header__navbar-item hide dropdown">
 					<a href="<%=context%>/collection?category_id=AO5&category_type=AO">ÁO</a>
 					<div class="dropdown-content">
-						<c:forEach var="item" items="${categories.getAllShirtType()}">
+					<%-- 	<c:forEach var="item" items="${categories.getAllShirtType()}">
 							<a
 								href="<%=context %>/collection?category_id=${item.getCategoryId()}&category_type=AO">${item.getCategoryName()}</a>
-						</c:forEach>
+						</c:forEach> --%>
 					</div>
 				</div>
 				<div class="header__navbar-item hide dropdown">
 					<a
 						href="<%=context%>/collection?category_id=QUAN4&category_type=QUAN">QUẦN</a>
 					<div class="dropdown-content">
-						<c:forEach var="item" items="${categories.getAllShortType()}">
+					<%-- 	<c:forEach var="item" items="${categories.getAllShortType()}">
 							<a
 								href="<%=context %>/collection?category_id=${item.getCategoryId()}&category_type=QUAN">${item.getCategoryName() }</a>
-						</c:forEach>
+						</c:forEach> --%>
 					</div>
 				</div>
 			</li>

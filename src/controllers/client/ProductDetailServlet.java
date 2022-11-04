@@ -15,9 +15,9 @@ import models.Option;
 import models.Order;
 import models.Product;
 import models.ProductImage;
-import services.OptionService;
-import services.ProductImagesService;
-import services.ProductService;
+import services.client.OptionService;
+import services.client.ProductImagesService;
+import services.client.ProductService;
 import utils.Helper;
 
 @WebServlet("/product-detail")

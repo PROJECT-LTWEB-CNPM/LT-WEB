@@ -25,7 +25,8 @@ String url = context + "/default/account/login";
 							<h1 class="login-header">ĐĂNG NHẬP</h1>
 							<input type="text" hidden name="caller" value="${caller}" /> <input
 								class="form-control" type="email" name="email"
-								placeholder="Email" required> <input
+								placeholder="Email" required>
+							 <input
 								class="form-control" type="password" name="password"
 								placeholder="Mật khẩu" required>
 								<div class="err__msg"><span>${errMsg}</span></div>
