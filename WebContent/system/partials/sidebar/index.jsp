@@ -13,15 +13,15 @@ String context = request.getContextPath() + "/system";
 	</div>
 	<div class="sidebar__nav">
 		<a class="sidebar__nav-item" href="<%=context%>/dashboard"><i class="fas fa-chart-line"></i><span>
-				Dashboard </span></a> 
+				Thống kê </span></a> 
 		<a href="<%=context %>/users"
 			class="sidebar__nav-item"><i class="fas fa-users"></i> <span>
-				Users </span></a> 
+				Người dùng </span></a> 
 		<a class="sidebar__nav-item" href="<%=context%>/bills"><i
-			class="fas fa-money-bill-wave-alt"></i> <span> Bills </span></a> 
+			class="fas fa-money-bill-wave-alt"></i> <span>Hóa đơn</span></a> 
 		<a
 			href="<%=context %>/products"
 			class="sidebar__nav-item"><i class="fas fa-tshirt"></i> <span>
-				Products </span></a>
+				Sản phẩm </span></a>
 	</div>
 </div>

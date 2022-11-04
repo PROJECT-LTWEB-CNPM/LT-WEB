@@ -1,7 +1,10 @@
 package services.client;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.TypedQuery;
 
 import models.Role;
 import utils.Common;
@@ -28,5 +31,14 @@ public class RoleService {
     }
     em.close();
     return r;
+  }
+
+  public List<Role> findAll() {
+    List<Role> roles = null;
+    EntityManager em = Common.getEntityManager();
+    TypedQuery<Role> query = em.createNamedQuery("Role.findAll", Role.class);
+
+    roles = query.getResultList();
+    return roles;
   }
 }
