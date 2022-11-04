@@ -7,8 +7,10 @@
 	border-bottom: 1px solid #ddd;
 }
 
-.actions>a:hover {
+.actions>form>a:hover,
+.actions>a:hover{
 	text-decoration: underline;
+	cursor: pointer;
 }
 
 .table {
