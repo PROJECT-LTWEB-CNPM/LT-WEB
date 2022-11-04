@@ -1,16 +1,16 @@
 package controllers.system;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import services.BillService;
+import models.Bill;
 
-/**
- * Servlet implementation class Bill
- */
 @WebServlet("/system/bills/")
 public class BillServlet extends HttpServlet {
   private static final long serialVersionUID = 1L;
@@ -21,18 +21,38 @@ public class BillServlet extends HttpServlet {
 
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    String url = "/system/bills/index.jsp";
+    // define url
+    String url = "./index.jsp";
+    
+    // get all current bills in database
+    List<Bill> bills = BillService.getAll();
+    
+    // set params and forward 
+    request.setAttribute("bills", bills);
     request.getRequestDispatcher(url).forward(request, response);
   }
 
-  /**
-   * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-   *      response)
-   */
+ 
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    // TODO Auto-generated method stub
-    doGet(request, response);
+    // define url, action on this servlet
+    String url = "./";
+    String[] selectedBills= request.getParameterValues("selectedBills");
+ 
+    // validate and detele multiple bills
+    if(selectedBills == null) {
+      System.out.println("can't get checkbox params");
+    }else {
+      for (int i=0; i< selectedBills.length; i++) {
+        System.out.println(selectedBills[i]);
+        Bill b = BillService.findBillById(selectedBills[i]);
+        BillService.delete(b);
+      }
+    }
+    
+    // redirect to current page
+    response.sendRedirect(url);
   }
+  
 
 }

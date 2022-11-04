@@ -5,6 +5,10 @@ import java.util.Currency;
 import java.util.Locale;
 import java.util.Random;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
+
 public class Helper {
   public static String getRandom() {
     Random rand = new Random();
@@ -19,5 +23,9 @@ public class Helper {
     // Create a formatter given the Locale
     NumberFormat vndFormat = NumberFormat.getCurrencyInstance(vnd);
     return vndFormat.format(price).replace('.', ',');
+  }
+  
+  public static LocalDate dateWithoutTime (Date date) {
+    return date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
   }
 }
