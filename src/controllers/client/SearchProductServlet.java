@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import models.Product;
-import services.ProductService;
+import services.client.ProductService;
 
 @WebServlet("/search")
 public class SearchProductServlet extends HttpServlet {

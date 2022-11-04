@@ -3,7 +3,7 @@
 <%@page import="java.util.Arrays"%>
 <%@page import="java.util.List"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<jsp:useBean id="categories" class="services.CategoryService"></jsp:useBean>
+<jsp:useBean id="categories" class="services.client.CategoryService"></jsp:useBean>
 
 <%
 request.setCharacterEncoding("utf-8");

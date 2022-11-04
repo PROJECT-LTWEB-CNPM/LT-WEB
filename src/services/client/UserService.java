@@ -1,9 +1,10 @@
-package services;
+package services.client;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
+import dao.UserDAO;
 import models.User;
 import utils.Common;
 
@@ -11,10 +12,12 @@ public class UserService {
 
   EntityManager em;
   EntityTransaction tss;
+  private UserDAO userDAO = null;
 
   public UserService() {
     this.em = Common.getEntityManager();
     this.tss = this.em.getTransaction();
+    this.userDAO = new UserDAO();
   }
 
   // Add new user

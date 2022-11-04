@@ -1,9 +1,11 @@
-p<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@page import="utils.Helper"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <%
 request.setCharacterEncoding("utf-8");
-String baseUrl = request.getContextPath() + "/system/products/form";
+String baseUrl = request.getContextPath() + "/system/products/create";
 %>
 
 <!doctype html>
@@ -11,7 +13,7 @@ String baseUrl = request.getContextPath() + "/system/products/form";
 <head>
 <jsp:include page="../../head.jsp" />
 <link rel="stylesheet" href="<%=baseUrl%>/index.css" />
-<title>Products Manage</title>
+<title>Thêm sản phẩm - Shoplane</title>
 </head>
 <body>
 	<div id="system">
@@ -24,41 +26,37 @@ String baseUrl = request.getContextPath() + "/system/products/form";
 			</div>
 			<main id="main-content">
 				<div class="customer_info">
-					<div class="customer_info-item">
-						<label for="productName">Tên sản phẩm: </label> <input type="text"
-							name="productName" id="productName"
-							placeholder="Áo phông form rộng">
+					<div class="actions">
+						<a href="./">&lt;&lt;Quản lý sản phẩm</a> 
 					</div>
-					<div class="customer_info-item">
-						<label for="productName">Hình ảnh: </label> <input type="text"
-							name="productName" id="productName" placeholder="url....">
-					</div>
-					<div class="customer_info-item">
-						<label for="productName">Giá cũ: </label> <input type="text"
-							name="productName" id="productName" placeholder="350,000">
-					</div>
-					<div class="customer_info-item">
-						<label for="productName">Giá mới: </label> <input type="text"
-							name="productName" id="productName" placeholder="69,000">
-					</div>
-					<div class="customer_info-item">
-						<label for="productName">Mô tả: </label> <input type="text"
-							name="productName" id="productName"
-							placeholder="doduongthaituan201102@gmail.com">
-					</div>
-					<div class="customer_info-item">
-						<label for="productName">Nguồn gốc: </label> <input type="text"
-							name="productName" id="productName" placeholder="Việt Nam">
-					</div>
-					<div class="customer_info-item">
-						<label for="productName">Họa tiết: </label> <input type="text"
-							name="productName" id="productName" placeholder="Không họa tiết">
-					</div>
-					<div class="customer_info-item">
-						<label for="productName">Loại vải: </label> <input type="text"
-							name="productName" id="productName" placeholder="Cotton">
-					</div>
-					<button class="save_change">Lưu</button>
+					<form action="create" method="POST">
+						<input type="text" name="productId" placeholder="Mã sản phẩm"
+							class="form-control" value="<%=Helper.getRandom()%>" /> <select
+							name="categoryTypeId" class="form-control">
+							<option value="-1">-- Lựa chọn loại danh mục --</option>
+							<c:forEach var="item" items="${productTypes}">
+								<option value="${item.getTypeId()}">${item.getTypeName()}</option>
+							</c:forEach>
+						</select> <select name="categoryId" class="form-control">
+							<option value="-1">-- Lựa chọn danh mục --</option>
+							<c:forEach var="item" items="${categories}">
+								<option value="${item.getCategoryId()}">${item.getCategoryName()}</option>
+							</c:forEach>
+						</select> <input type="text" name="productName" id="productName"
+							placeholder="Tên sản phẩm" class="form-control" /> <input
+							type="text" name="mainImageUrl" id="mainImageUrl"
+							placeholder="Hình ảnh" class="form-control" /> <input
+							type="text" name="oldPrice" id="oldPrice" placeholder="Giá cũ"
+							class="form-control" /> <input type="text" name="newPrice"
+							id="newPrice" placeholder="Giá mới" class="form-control" /> <input
+							type="text" name="description" placeholder="Mô tả"
+							class="form-control" /> <input type="text" name="origin"
+							id="origin" placeholder="Nguồn gốc" class="form-control" /> <input
+							type="text" name="pattern" id="pattern" placeholder="Họa tiết"
+							class="form-control" /> <input type="text" name="meterial"
+							id="meterial" placeholder="Loại vải" class="form-control" />
+						<button class="btn-submit" type="submit">Lưu</button>
+					</form>
 				</div>
 			</main>
 		</div>

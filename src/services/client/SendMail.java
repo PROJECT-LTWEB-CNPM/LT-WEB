@@ -1,4 +1,4 @@
-package services;
+package services.client;
 
 import java.util.Properties;
 import java.util.Random;
@@ -64,7 +64,7 @@ public class SendMail {
       mess.setSubject("User Email Verification");
 
       // set message text
-      mess.setText("Registered successfully.Please verify your account using this code: " + user.getCode());
+      mess.setText("Registered successfully. Please verify your account using this code: " + user.getCode());
       // send the message
       Transport.send(mess);
 

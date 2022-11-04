@@ -1,32 +1,32 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <%
 request.setCharacterEncoding("utf-8");
-String baseUrl = request.getContextPath() + "/system/products";
+String baseUrl = request.getContextPath() + "/system/products/list";
 %>
 
 <!doctype html>
 <html lang="en">
 <head>
-<jsp:include page="../head.jsp" />
+<jsp:include page="../../head.jsp" />
 <link rel="stylesheet" href="<%=baseUrl%>/index.css" />
 <title>Quản lý sản phẩm - Shoplane</title>
 </head>
 <body>
 	<div id="app">
 		<div id="sidebar">
-			<jsp:include page="../partials/sidebar/index.jsp" />
+			<jsp:include page="../../partials/sidebar/index.jsp" />
 		</div>
 		<div id="content">
 			<div id="header">
-				<jsp:include page="../partials/header/index.jsp" />
+				<jsp:include page="../../partials/header/index.jsp" />
 			</div>
 			<main id="main-content">
 				<div class="actions">
-					<a href="./sizes.jsp">Quản lý màu sắc</a> <a href="./colors.jsp">Quản
-						lý kích thước</a> <a href="./form.jsp?type=add">Thêm bản ghi</a> <a
-						href="#">Xóa bản ghi</a>
+					 <a href="./create">Thêm
+						sản phẩm</a> <a href="./delete">Xóa sản phẩm</a>
 				</div>
 				<div class="table">
 					<div class="table__head">
@@ -35,36 +35,35 @@ String baseUrl = request.getContextPath() + "/system/products";
 						</div>
 						<div style="width: 10%">ID</div>
 						<div style="width: 35%">Tên sản phẩm</div>
-						<div style="width: 15%">Màu sắc</div>
-						<div style="width: 10%">Kích cỡ</div>
-						<div style="width: 10%">Khả dụng</div>
+						<div style="width: 15%">Hình ảnh</div>
+						<div style="width: 10%">Nguồn gốc</div>
+						<div style="width: 10%">Các lựa chọn</div>
 						<div style="width: 15%"></div>
 					</div>
 					<div class="table__body">
-						<div class="table__row">
-							<div style="width: 5%">
-								<input type="checkbox">
+						<c:forEach var="item" items="${products}">
+							<div class="table__row">
+								<div style="width: 5%">
+									<input type="checkbox">
+								</div>
+								<div style="width: 10%">${item.getProductId()}</div>
+								<div style="width: 35%">${item.getProductName()}</div>
+								<div style="width: 15%">
+									<img src="${item.getMainImageUrl()}"
+										alt="${item.getProductName()}"
+										style="height: 60px; object-fit: cover" />
+								</div>
+								<div style="width: 10%">${item.getOrigin()}</div>
+								<div style="width: 10%" class="table__link">
+									<a href="./options?product_id=${item.getProductId()}">Xem
+										thêm</a>
+								</div>
+								<div style="width: 15%" class="table__link">
+									<a href="./detail?product_id=${item.getProductId()}">Xem
+										chi tiết</a>
+								</div>
 							</div>
-							<div style="width: 10%">ID</div>
-							<div style="width: 35%">Tên sản phẩm</div>
-							<div style="width: 15%">Màu sắc</div>
-							<div style="width: 10%">Kích cỡ</div>
-							<div style="width: 10%">Khả dụng</div>
-							<div style="width: 15%" class="table__link">
-								<a href="./form.jsp?type=edit">Xem chi tiết</a>
-							</div>
-						</div>
-						<div class="table__row">
-							<div style="width: 5%">
-								<input type="checkbox">
-							</div>
-							<div style="width: 10%">ID</div>
-							<div style="width: 35%">Tên sản phẩm</div>
-							<div style="width: 15%">Màu sắc</div>
-							<div style="width: 10%">Kích cỡ</div>
-							<div style="width: 10%">Khả dụng</div>
-							<div style="width: 15%"></div>
-						</div>
+						</c:forEach>
 					</div>
 				</div>
 			</main>

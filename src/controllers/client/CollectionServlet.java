@@ -11,8 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import models.Category;
 import models.Product;
-import services.CategoryService;
-import services.ProductService;
+import services.client.CategoryService;
+import services.client.ProductService;
 
 /**
  * Servlet implementation class Collection

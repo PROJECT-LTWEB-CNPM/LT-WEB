@@ -1,4 +1,4 @@
-package controllers.system;
+package controllers.client.customer;
 
 import java.io.IOException;
 
@@ -8,25 +8,26 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/system/dashboard/")
-public class DashboardServlet extends HttpServlet {
+import services.client.CustomerService;
+
+@WebServlet("/verify")
+public class CustomerVerifyCodeServlet extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
-  public DashboardServlet() {
+  public CustomerVerifyCodeServlet() {
     super();
   }
 
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    String url = "/system/dashboard/index.jsp";
-
-    request.getRequestDispatcher(url).forward(request, response);
-
+    CustomerService customerService = new CustomerService(request, response);
+    customerService.handleGetVerify();
   }
 
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    doGet(request, response);
+    CustomerService customerService = new CustomerService(request, response);
+    customerService.handlePostVerify();
   }
 
 }
