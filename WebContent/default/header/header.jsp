@@ -1,10 +1,10 @@
-<%@page import="models.User"%>
+<%@page import="com.shoplane.models.User"%>
+<%@page import="com.shoplane.utils.Constants"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
-<%-- <jsp:useBean id="categories" class="services.CategoryService"></jsp:useBean>
- --%>
+<jsp:useBean id="categoryDAO" class="com.shoplane.dao.CategoryDAO" />
+<jsp:useBean id="productTypeDAO" class="com.shoplane.dao.ProductTypeDAO" />
 <%
 String context = request.getContextPath();
 String url = null;
@@ -27,22 +27,28 @@ if (u != null) {
 				</div>
 				<div class="header__navbar-item hide dropdown">
 					<a href="<%=context%>/collection?category_id=AO5&category_type=AO">ÁO</a>
-					<div class="dropdown-content">
-					<%-- 	<c:forEach var="item" items="${categories.getAllShirtType()}">
-							<a
-								href="<%=context %>/collection?category_id=${item.getCategoryId()}&category_type=AO">${item.getCategoryName()}</a>
-						</c:forEach> --%>
-					</div>
+					<c:if test="${ categoryDAO != null && productTypeDAO != null}">
+						<div class="dropdown-content">
+							<c:forEach var="item"
+								items="${categoryDAO.findByProductType(productTypeDAO.find(Constants.SHIRT))}">
+								<a
+									href="<%=context %>/collection?category_id=${item.getCategoryId()}&category_type=AO">${item.getCategoryName()}</a>
+							</c:forEach>
+						</div>
+					</c:if>
 				</div>
 				<div class="header__navbar-item hide dropdown">
 					<a
 						href="<%=context%>/collection?category_id=QUAN4&category_type=QUAN">QUẦN</a>
-					<div class="dropdown-content">
-					<%-- 	<c:forEach var="item" items="${categories.getAllShortType()}">
-							<a
-								href="<%=context %>/collection?category_id=${item.getCategoryId()}&category_type=QUAN">${item.getCategoryName() }</a>
-						</c:forEach> --%>
-					</div>
+					<c:if test="${ categoryDAO != null && productTypeDAO != null}">
+						<div class="dropdown-content">
+							<c:forEach var="item"
+								items="${categoryDAO.findByProductType(productTypeDAO.find(Constants.SHORT))}">
+								<a
+									href="<%=context %>/collection?category_id=${item.getCategoryId()}&category_type=QUAN">${item.getCategoryName() }</a>
+							</c:forEach>
+						</div>
+					</c:if>
 				</div>
 			</li>
 			<li class="header__navbar-item header__navbar-item-search"><i
