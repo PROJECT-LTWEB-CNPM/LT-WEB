@@ -12,6 +12,7 @@ import com.shoplane.dao.UserDAO;
 import com.shoplane.models.Role;
 import com.shoplane.models.User;
 import com.shoplane.utils.Bcrypt;
+import com.shoplane.utils.Constants;
 import com.shoplane.utils.Helper;
 
 public class CustomerService {
@@ -27,65 +28,61 @@ public class CustomerService {
   }
 
   // Get login
-  public void handleGetLogin() {
+  public void handleGetLogin() throws ServletException, IOException {
     try {
       HttpSession session = request.getSession();
-      response.setCharacterEncoding("UTF-8");
+
       String url = "/default/account/login/index.jsp";
 
       User user = (User) session.getAttribute("user");
 
       if (user != null) {
-        url = "./cart";
+        url = "./account";
         response.sendRedirect(url);
         return;
       }
-      request.getRequestDispatcher(url).forward(request, response);
+      this.request.getRequestDispatcher(url).forward(request, response);
 
     } catch (Exception e) {
-      System.out.println("Login controller " + e.getMessage());
+      String errorPage = "/500.jsp";
+      this.request.getRequestDispatcher(errorPage).forward(request, response);
     }
   }
 
   // Post Login
-  public void handlePostLogin() throws IOException {
-    HttpSession session = request.getSession();
-    String url = "./account";
-    String nextUrl = request.getParameter("caller");
-    if (nextUrl != null && !nextUrl.equals(url)) {
-      url = nextUrl;
-    }
+  public void handlePostLogin() throws IOException, ServletException {
     try {
+      String url = "./account";
+      String nextUrl = request.getParameter("caller");
       String email = request.getParameter("email").trim();
       String pwdNotHash = request.getParameter("password").trim();
 
+      // Check Url
+      if (!nextUrl.equals("") && !nextUrl.equals(url)) {
+        url = nextUrl;
+      }
+
       // Get user by email
-      User u = null;
-      // Check user is null?
-      if (u == null) {
-        handleLoginFailed(request, response);
-        /*
-         * } else {
-         * boolean isMatchPwd = Bcrypt.checkpwd(pwdNotHash, u.getPassword());
-         * // Check pwd input with pwd in db
-         * if (!isMatchPwd) {
-         * handleLoginFailed(request, response);
-         * } else {
-         * // save user data on session
-         * session.setAttribute("user", u);
-         * }
-         */ }
+      User u = this.userDAO.findByEmail(email);
+      // Check user
+      if (u != null) {
+        // Check pwd
+        if (Bcrypt.checkpwd(pwdNotHash, u.getPassword())) {
+          request.getSession().setAttribute("user", u);
+          response.sendRedirect(url);
+        } else {
+          request.setAttribute("errMsg", "*Mật khẩu không chính xác");
+          this.handleGetLogin();
+        }
+      } else {
+        request.setAttribute("errMsg", "*Email không tồn tại");
+        this.handleGetLogin();
+      }
     } catch (Exception e) {
       System.out.println(e.getMessage());
+      String errorUrl = "/500.jsp";
+      request.getRequestDispatcher(errorUrl).forward(request, response);
     }
-    response.sendRedirect(url);
-  }
-
-  private void handleLoginFailed(HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
-    request.setAttribute("errMsg", "*Tài khoản hoặc mật khẩu không chính xác");
-    this.handleGetLogin();
-    return;
   }
 
   // Get Register
@@ -138,9 +135,9 @@ public class CustomerService {
     RoleDAO roleDAO = new RoleDAO();
 
     // Get Role
-    Role r = roleDAO.find("ROL1");
+    Role r = roleDAO.find(Constants.USER_ROLE);
 
-    // Get param from sign up fomr
+    // Get param from sign up form
     String userId = Helper.getRandom();
     String fullName = request.getParameter("fullName").trim();
     String phonenumber = request.getParameter("phonenumber").trim();
@@ -191,7 +188,14 @@ public class CustomerService {
   }
 
   // Get Logout
-  public void handleGetLogout() {
-
+  public void handleGetLogout() throws IOException, ServletException {
+    try {
+      this.request.getSession().removeAttribute("user");
+      this.response.sendRedirect("./login");
+    } catch (Exception e) {
+      System.out.println(e.getMessage());
+      String errorPage = "/500.jsp";
+      this.request.getRequestDispatcher(errorPage).forward(request, response);
+    }
   }
 }

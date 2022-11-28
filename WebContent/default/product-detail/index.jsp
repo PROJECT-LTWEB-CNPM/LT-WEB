@@ -1,3 +1,4 @@
+<%@page import="com.shoplane.utils.Helper"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -34,8 +35,8 @@ String context = request.getContextPath() + "/default/product-detail";
 					<div class="product_info">
 						<h3 class="product_info-name">${product.getProductName()}</h3>
 						<div class="home-product-item__price">
-							<span class="home-product-item__price-current">${product.getNewPrice()}đ</span>
-							<span class="home-product-item__price-old">${product.getOldPrice()}đ</span>
+							<span class="home-product-item__price-current">${Helper.intToVND(product.getNewPrice())}</span>
+							<span class="home-product-item__price-old">${Helper.intToVND(product.getOldPrice())}</span>
 						</div>
 						<p class="product_info-more">
 							<span>Thông tin sản phẩm: ILLUSION T-SHIRT.</span> <span>

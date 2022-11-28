@@ -16,7 +16,7 @@ String baseUrl = request.getContextPath() + "/default/home";
 <jsp:include page="../head.jsp" />
 <link rel="stylesheet" href="<%=baseUrl%>/slider/index.css"
 	type="text/css" />
-<link rel="stylesheet" href="<%=baseUrl%>/default-section/index.css" />
+<link rel="stylesheet" href="<%=baseUrl%>/index.css" />
 <title>Cửa hàng quần áo - Shoplane</title>
 </head>
 <body>

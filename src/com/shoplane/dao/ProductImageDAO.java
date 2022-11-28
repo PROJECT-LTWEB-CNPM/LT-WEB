@@ -52,8 +52,8 @@ public class ProductImageDAO extends JpaDAO<ProductImage> implements GenericDAO<
   }
 
   @Override
-  public List<ProductImage> pagination(int currentPage, int pageSize) {
+  public List<ProductImage> pagination(int currentPage, int pageSize, Object... rest) {
     String queryName = "ProductImage.findAll";
-    return super.pagination(queryName, ProductImage.class, currentPage, pageSize);
+    return super.pagination(queryName, ProductImage.class, currentPage, pageSize, rest);
   }
 }

@@ -8,30 +8,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.shoplane.services.client.CustomerService;
-
-@WebServlet("/login")
-public class CustomerLoginServlet extends HttpServlet {
+@WebServlet("/forgot-password")
+public class CustomerForgotPasswordServlet extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
-  public CustomerLoginServlet() {
+  public CustomerForgotPasswordServlet() {
     super();
   }
 
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    request.setCharacterEncoding("UTF-8");
-    response.setCharacterEncoding("UTF-8");
-    CustomerService customerService = new CustomerService(request, response);
-    customerService.handleGetLogin();
+    String url = "/default/account/forgotPassword/index.jsp";
+    request.getRequestDispatcher(url).forward(request, response);
   }
 
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    request.setCharacterEncoding("UTF-8");
-    response.setCharacterEncoding("UTF-8");
-    CustomerService customerService = new CustomerService(request, response);
-    customerService.handlePostLogin();
   }
 
 }

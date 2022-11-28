@@ -21,13 +21,16 @@ String url = context + "/default/account/modify";
 			<div class="container">
 				<section id="modify">
 					<div class="modify-form">
-						<form action="modify" method="POST">
-							<h1 class="modify-header">ĐIỀU CHỈNH THÔNG TIN</h1>
-							<input class="form-control" type="text" name="fullname"
-								placeholder="Họ và tên"> <input class="form-control"
-								type="text" name="phonenumber" placeholder="Số điện thoại" /> <input
-								class="form-control" type="text" name="address"
-								placeholder="Địa chỉ">
+						<form action="change-password" method="POST">
+							<h1 class="modify-header">THAY ĐỔI MẬT KHẨU</h1>
+							<input class="form-control" type="password" name="currentPassword"
+								placeholder="Mật khẩu hiện tại"> 
+								
+							<input class="form-control"
+								type="password" name="newPassword" placeholder="Mật khẩu mới" /> 
+							<input
+								class="form-control" type="password" name="confirmPassword"
+								placeholder="Xác nhận mật khẩu">
 							<button class="btn-submit" type="submit" name="modifyButton">Cập
 								nhật</button>
 						</form>

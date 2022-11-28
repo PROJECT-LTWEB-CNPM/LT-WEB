@@ -61,6 +61,7 @@ public class ProductDAO extends JpaDAO<Product> implements GenericDAO<Product> {
   public List<Product> findByProductName(String productName) {
     String queryName = "Product.findByProductName";
     Map<String, Object> param = new HashMap<>();
+    productName = "%" + productName + "%";
     param.put("productName", productName);
     return this.findWithNamedQuery(queryName, param);
   }
@@ -81,9 +82,12 @@ public class ProductDAO extends JpaDAO<Product> implements GenericDAO<Product> {
   }
 
   @Override
-  public List<Product> pagination(int currentPage, int pageSize) {
+  public List<Product> pagination(int currentPage, int pageSize, Object... rest) {
     String queryString = "Product.findAll";
-    return super.pagination(queryString, Product.class, currentPage, pageSize);
+    if (rest.length > 0) {
+      queryString = "Product.findByCategoryAndProductType";
+    }
+    return super.pagination(queryString, Product.class, currentPage, pageSize, rest);
   }
 
 }

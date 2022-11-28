@@ -42,11 +42,15 @@ public class UserDAO extends JpaDAO<User> implements GenericDAO<User> {
     return super.findWithNamedQuery(queryName, parameters);
   }
 
-  public List<User> findByEmail(String email) {
+  public User findByEmail(String email) {
     String queryName = "User.findByEmail";
     Map<String, Object> param = new HashMap<>();
     param.put("email", email);
-    return super.findWithNamedQuery(queryName, param);
+    List<User> users = super.findWithNamedQuery(queryName, param);
+    if (users.isEmpty()) {
+      return null;
+    }
+    return users.get(0);
   }
 
   public List<User> findByIsDeleted(byte isDeleteAcc) {
@@ -57,9 +61,9 @@ public class UserDAO extends JpaDAO<User> implements GenericDAO<User> {
   }
 
   @Override
-  public List<User> pagination(int currentPage, int pageSize) {
+  public List<User> pagination(int currentPage, int pageSize, Object... rest) {
     String queryString = "User.findAll";
-    return super.pagination(queryString, User.class, currentPage, pageSize);
+    return super.pagination(queryString, User.class, currentPage, pageSize, rest);
   }
 
 }

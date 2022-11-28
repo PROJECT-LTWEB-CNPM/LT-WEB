@@ -9,11 +9,9 @@ import javax.persistence.TypedQuery;
 
 import com.shoplane.models.Product;
 import com.shoplane.utils.Common;
+import com.shoplane.utils.Constants;
 
 public class ProductService {
-
-  private List<Product> listP = new ArrayList<>();
-  private List<Product> listPC = new ArrayList<>();
 
   // create default constructor
   public ProductService() {
@@ -24,13 +22,16 @@ public class ProductService {
     List<Product> listResult = new ArrayList<>(products);
 
     switch (orderType) {
-      case "price-ascending":
+      case Constants.ASC:
         Collections.sort(listResult, CompareProduct.LOWEST_PRICE);
         break;
-      case "price-descending":
+      case Constants.DESC:
         Collections.sort(listResult, CompareProduct.HIGHEST_PRICE);
+      case Constants.NEWEST:
+        Collections.reverse(listResult);
         break;
-
+      default:
+        break;
     }
 
     return listResult;

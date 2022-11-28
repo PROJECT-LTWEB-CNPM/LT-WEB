@@ -16,6 +16,7 @@ import com.shoplane.models.Category;
 import com.shoplane.models.Product;
 import com.shoplane.models.ProductType;
 import com.shoplane.services.client.ProductService;
+import com.shoplane.utils.Constants;
 
 @WebServlet("/collection")
 public class CollectionServlet extends HttpServlet {
@@ -35,6 +36,7 @@ public class CollectionServlet extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     request.setCharacterEncoding("UTF-8");
+    response.setCharacterEncoding("UTF-8");
 
     String categoryId = request.getParameter("category_id").trim();
     String categoryType = request.getParameter("category_type").trim();
@@ -43,9 +45,7 @@ public class CollectionServlet extends HttpServlet {
     String orderType = request.getParameter("orderType");
 
     if (orderType == null)
-      orderType = "normal";
-
-    System.out.println(orderType);
+      orderType = Constants.OLDEST;
 
     if (categoryId != null && categoryType != null) {
       handleGetProducts(request, response, categoryType, categoryId, orderType);
@@ -74,10 +74,8 @@ public class CollectionServlet extends HttpServlet {
       ProductType productType = this.productTypeDAO.find(cateType);
 
       if (cateId.contains("AO5") || cateId.contains("QUAN4")) {
-        // pList = ps.findBy(cateType, "");
       } else {
         category = this.categoryDAO.find(cateId);
-//        pList = ps.findBy(cateType, cateId);
         cateName = categoryDAO.find(cateId).getCategoryName();
       }
 
@@ -86,6 +84,7 @@ public class CollectionServlet extends HttpServlet {
       cate = categoryDAO.findByProductType(pType);
 
       pList = ps.getOrderedProduct(pList, orderType);
+      System.out.println(orderType);
 
       // Set att => collection/index.jsp
       req.setAttribute("cateName", cateName);

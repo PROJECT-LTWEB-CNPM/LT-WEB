@@ -42,8 +42,8 @@ public class ProductTypeDAO extends JpaDAO<ProductType> implements GenericDAO<Pr
   }
 
   @Override
-  public List<ProductType> pagination(int currentPage, int pageSize) {
+  public List<ProductType> pagination(int currentPage, int pageSize, Object... rest) {
     String queryString = "ProductType.findAll";
-    return super.pagination(queryString, ProductType.class, currentPage, pageSize);
+    return super.pagination(queryString, ProductType.class, currentPage, pageSize, rest);
   }
 }

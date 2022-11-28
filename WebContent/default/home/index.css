@@ -72,6 +72,13 @@
 	overflow: hidden;
 }
 
+
+.home-product-item__rating {
+    font-size: 1.2rem;
+    color: orange;
+    margin: 0.5rem 0;
+}
+
 .home-product-item__name>a {
 	transition: all linear 0.2s;
 }

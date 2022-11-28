@@ -14,21 +14,16 @@ import com.shoplane.dao.BillDAO;
 import com.shoplane.models.Bill;
 import com.shoplane.models.Order;
 import com.shoplane.models.User;
-import com.shoplane.services.client.OrderService;
 import com.shoplane.utils.Helper;
 
 @WebServlet("/checkout")
 public class CheckoutServlet extends HttpServlet {
   private static final long serialVersionUID = 1L;
-//  BillService bs = null;
   BillDAO billDAO = null;
-  OrderService os = null;
 
   public CheckoutServlet() {
     super();
-    // bs = new BillService();
     this.billDAO = new BillDAO();
-    os = new OrderService();
   }
 
   @Override
@@ -62,27 +57,23 @@ public class CheckoutServlet extends HttpServlet {
       String billId = Helper.getRandom();
       int totalPrice = Integer.parseInt(totalPriceStr);
       Bill bill = new Bill(billId, new Date(), totalPrice, user);
+      bill.setOrders(orders);
       // Set bill in each order
-
       for (Order order : orders) {
         order.setBill(bill);
       }
 
       // Insert Bill, list order to db
-//      boolean isAddBill = bs.add(bill);
       Bill billCreated = this.billDAO.create(bill);
       if (billCreated != null) {
-        Boolean isAddOrders = this.os.addList(orders);
-        if (isAddOrders) {
-          request.getSession().removeAttribute("orders");
-          request.getSession().removeAttribute("orderSize");
-          String msg = "success";
-          response.getWriter().append(msg);
-        }
+        request.getSession().removeAttribute("orders");
+        request.getSession().removeAttribute("orderSize");
+        String msg = "success";
+        response.getWriter().append(msg);
       }
-
     } catch (Exception e) {
-      System.out.println("Here " + e.getMessage());
+      String errorPage = "/500.jsp";
+      request.getRequestDispatcher(errorPage).forward(request, response);
     }
   }
 

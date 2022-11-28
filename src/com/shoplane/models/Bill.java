@@ -5,8 +5,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -49,7 +51,7 @@ public class Bill implements Serializable {
   private User user;
 
   // bi-directional many-to-one association to Order
-  @OneToMany(mappedBy = "bill")
+  @OneToMany(mappedBy = "bill", fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
   private List<Order> orders;
 
   public Bill() {

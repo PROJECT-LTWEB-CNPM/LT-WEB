@@ -20,12 +20,14 @@
 			<property name="javax.persistence.jdbc.url"
 				value="jdbc:mysql://localhost:3306/shoplanedb" />
 			<property name="javax.persistence.jdbc.user" value="root" />
+			<property name="javax.persistence.jdbc.password" value="201102"/>
 			<property name="javax.persistence.jdbc.driver"
 				value="com.mysql.jdbc.Driver" />
 			<property name="hibernate.show_sql" value="true" />
 			<property name="hibernate.jdbc.batch_size" value="10" />
 			<property name="hibernate.order_inserts" value="true" />
-			<property name="javax.persistence.jdbc.password" value="201102"/>
+			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect" />
+			<property name="hibernate.dialect.storage_engine" value="innodb" />
 		</properties>
 	</persistence-unit>
 </persistence>

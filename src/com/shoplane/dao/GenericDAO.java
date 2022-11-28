@@ -13,5 +13,5 @@ public interface GenericDAO<T> {
 
   public List<T> findAll();
 
-  public List<T> pagination(int currentPage, int pageSize);
+  public List<T> pagination(int currentPage, int pageSize, Object... rest);
 }
