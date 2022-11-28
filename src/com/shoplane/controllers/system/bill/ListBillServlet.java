@@ -1,7 +1,6 @@
 package com.shoplane.controllers.system.bill;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,8 +10,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.shoplane.dao.BillDAO;
 import com.shoplane.models.Bill;
+import com.shoplane.services.system.BillService;
 
-@WebServlet("/system/bills/")
+@WebServlet(urlPatterns = { "/system/bills/", "/system/bills" })
 public class ListBillServlet extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
@@ -25,15 +25,8 @@ public class ListBillServlet extends HttpServlet {
 
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    // define url
-    String url = "./index.jsp";
-
-    // get all current bills in database
-    List<Bill> bills = this.billDAO.findAll();
-
-    // set params and forward
-    request.setAttribute("bills", bills);
-    request.getRequestDispatcher(url).forward(request, response);
+    BillService billService = new BillService(request, response);
+    billService.getListBill();
   }
 
   @Override

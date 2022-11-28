@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.shoplane.services.client.CustomerService;
 
-@WebServlet("/logout")
+@WebServlet(urlPatterns = { "/logout", "/logout/" })
 public class CustomerLogoutServlet extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
@@ -21,7 +21,7 @@ public class CustomerLogoutServlet extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     CustomerService customerService = new CustomerService(request, response);
-    customerService.handleGetLogout();
+    customerService.logout();
   }
 
 }

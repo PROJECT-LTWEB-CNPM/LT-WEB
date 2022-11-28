@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.shoplane.services.system.ProductService;
 
-@WebServlet("/system/products/create")
+@WebServlet(urlPatterns = { "/system/products/create", "/system/products/create/" })
 public class CreateProductServlet extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
@@ -20,6 +20,7 @@ public class CreateProductServlet extends HttpServlet {
 
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    System.out.println("Here");
     ProductService productService = new ProductService(request, response);
     productService.handleGetCreateProduct();
   }

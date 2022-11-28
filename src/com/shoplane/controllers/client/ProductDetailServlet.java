@@ -21,7 +21,7 @@ import com.shoplane.models.ProductImage;
 import com.shoplane.services.client.ProductService;
 import com.shoplane.utils.Helper;
 
-@WebServlet("/product-detail")
+@WebServlet(urlPatterns = { "/product-detail", "/product-detail/" })
 public class ProductDetailServlet extends HttpServlet {
   private static final long serialVersionUID = 1L;
 

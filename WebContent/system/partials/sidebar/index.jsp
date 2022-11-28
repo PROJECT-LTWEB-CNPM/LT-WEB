@@ -12,7 +12,7 @@ String context = request.getContextPath() + "/system";
 			SHOPLANE </span>
 	</div>
 	<div class="sidebar__nav">
-		<a class="sidebar__nav-item" href="<%=context%>/dashboard"><i
+		<a class="sidebar__nav-item" href="<%=context%>/"><i
 			class="fas fa-chart-line"></i><span> Thống kê </span></a> <a
 			href="<%=context%>/users" class="sidebar__nav-item"><i
 			class="fas fa-users"></i> <span> Người dùng </span></a> <a

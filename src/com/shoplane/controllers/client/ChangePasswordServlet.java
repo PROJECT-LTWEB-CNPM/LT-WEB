@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/account/change-password")
+@WebServlet(urlPatterns = { "/account/change-password", "/account/change-password/" })
 public class ChangePasswordServlet extends HttpServlet {
   private static final long serialVersionUID = 1L;
 

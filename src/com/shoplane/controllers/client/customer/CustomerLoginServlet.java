@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.shoplane.services.client.CustomerService;
 
-@WebServlet("/login")
+@WebServlet(urlPatterns = { "/login", "/login/" })
 public class CustomerLoginServlet extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
@@ -23,15 +23,13 @@ public class CustomerLoginServlet extends HttpServlet {
     request.setCharacterEncoding("UTF-8");
     response.setCharacterEncoding("UTF-8");
     CustomerService customerService = new CustomerService(request, response);
-    customerService.handleGetLogin();
+    customerService.getLoginForm();
   }
 
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    request.setCharacterEncoding("UTF-8");
-    response.setCharacterEncoding("UTF-8");
     CustomerService customerService = new CustomerService(request, response);
-    customerService.handlePostLogin();
+    customerService.postLogin();
   }
 
 }

@@ -13,10 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import com.shoplane.models.Order;
 
-/**
- * Servlet implementation class Cart
- */
-@WebServlet("/cart")
+@WebServlet(urlPatterns = { "/cart", "/cart/" })
 public class CartServlet extends HttpServlet {
   private static final long serialVersionUID = 1L;
 

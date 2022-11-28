@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.shoplane.services.client.CustomerService;
 
-@WebServlet("/register")
+@WebServlet(urlPatterns = { "/register", "/register/" })
 public class CustomerRegisterServlet extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
@@ -21,13 +21,13 @@ public class CustomerRegisterServlet extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     CustomerService customerService = new CustomerService(request, response);
-    customerService.handleGetRegister();
+    customerService.getRegisterForm();
   }
 
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     CustomerService customerService = new CustomerService(request, response);
-    customerService.handlePostRegister();
+    customerService.postRegisterForm();
   }
 
 }

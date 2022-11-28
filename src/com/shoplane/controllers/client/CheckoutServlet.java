@@ -16,7 +16,7 @@ import com.shoplane.models.Order;
 import com.shoplane.models.User;
 import com.shoplane.utils.Helper;
 
-@WebServlet("/checkout")
+@WebServlet(urlPatterns = { "/checkout", "/checkout/" })
 public class CheckoutServlet extends HttpServlet {
   private static final long serialVersionUID = 1L;
   BillDAO billDAO = null;

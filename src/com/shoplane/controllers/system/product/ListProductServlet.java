@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.shoplane.services.system.ProductService;
 
-@WebServlet("/system/products/")
+@WebServlet(urlPatterns = { "/system/products/", "/system/products" })
 public class ListProductServlet extends HttpServlet {
   private static final long serialVersionUID = 1L;
 

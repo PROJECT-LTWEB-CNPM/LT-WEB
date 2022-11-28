@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/account/modify")
+@WebServlet(urlPatterns = { "/account/modify", "/account/modify/" })
 public class ModifyServlet extends HttpServlet {
   private static final long serialVersionUID = 1L;
 

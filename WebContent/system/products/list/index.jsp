@@ -4,7 +4,8 @@
 
 <%
 request.setCharacterEncoding("utf-8");
-String baseUrl = request.getContextPath() + "/system/products/list";
+String context = request.getContextPath();
+String baseUrl = context + "/system/products/list";
 %>
 
 <!doctype html>
@@ -59,7 +60,7 @@ String baseUrl = request.getContextPath() + "/system/products/list";
 										thêm</a>
 								</div>
 								<div style="width: 15%" class="table__link">
-									<a href="./detail?product_id=${item.getProductId()}">Xem
+									<a href="<%=context %>/system/products/detail?product_id=${item.getProductId()}">Xem
 										chi tiết</a>
 								</div>
 							</div>

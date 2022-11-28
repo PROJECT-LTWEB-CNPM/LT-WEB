@@ -18,7 +18,7 @@ import com.shoplane.models.ProductType;
 import com.shoplane.services.client.ProductService;
 import com.shoplane.utils.Constants;
 
-@WebServlet("/collection")
+@WebServlet(urlPatterns = { "/collection", "/collection/" })
 public class CollectionServlet extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
