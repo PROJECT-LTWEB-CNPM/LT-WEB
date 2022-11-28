@@ -31,14 +31,14 @@ String url = context + "/default/account";
 									class="your__order-title">Tổng tiền</span>
 							</div>
 							<div class="your__order-table-body">
-								<c:forEach var="item" items="${bills}" >
-								<div class="your__order-table-item">
-									<a class="your__order-value" href="./my-orders.jsp">${item.getBillId()}</a>
-									<span class="your__order-value">01/09/2022</span> <span
-										class="your__order-value">Chưa hoàn tất</span> <span
-										class="your__order-value">Đang vận chuyển</span> <span
-										class="your__order-value">${item.getTotalPrice()}đ</span>
-								</div>
+								<c:forEach var="item" items="${bills}">
+									<div class="your__order-table-item">
+										<a class="your__order-value" href="./my-orders.jsp">${item.getBillId()}</a>
+										<span class="your__order-value">01/09/2022</span> <span
+											class="your__order-value">Chưa hoàn tất</span> <span
+											class="your__order-value">Đang vận chuyển</span> <span
+											class="your__order-value">${item.getTotalPrice()}đ</span>
+									</div>
 								</c:forEach>
 							</div>
 						</div>
@@ -61,9 +61,9 @@ String url = context + "/default/account";
 						</div>
 						<div class="your__info-action">
 							<a class="btn-submit" type="submit" name="modify-button"
-								href="<%=context %>/account/modify">Chỉnh
-								sửa thông tin</a> <a class="btn-submit"
-								href="<%=context %>/login">Đăng xuất</a>
+								href="<%=context%>/account/modify">Chỉnh sửa thông tin</a> <a
+								class="btn-submit" href="<%=context%>/account/change-password">Thay đổi mật khẩu</a> <a
+								class="btn-submit" href="<%=context%>/logout">Đăng xuất</a>
 						</div>
 					</div>
 				</div>

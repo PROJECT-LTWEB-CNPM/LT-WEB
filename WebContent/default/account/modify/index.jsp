@@ -3,14 +3,15 @@
 
 <%
 request.setCharacterEncoding("utf-8");
-String context = request.getContextPath() + "/default/account/modify";
+String context = request.getContextPath();
+String url = context + "/default/account/modify";
 %>
 
 <!doctype html>
 <html lang="en">
 <head>
 <jsp:include page="../../head.jsp" />
-<link rel="stylesheet" href="<%=context%>/index.css" />
+<link rel="stylesheet" href="<%=url%>/index.css" />
 <title>Thay đổi thông tin - Shoplane</title>
 </head>
 <body>
@@ -30,6 +31,7 @@ String context = request.getContextPath() + "/default/account/modify";
 							<button class="btn-submit" type="submit" name="modifyButton">Cập
 								nhật</button>
 						</form>
+						<a class="btn-submit" href="<%=context %>/account" style="text-align: center; margin-top: 1rem">Quay lại</a>
 					</div>
 				</section>
 			</div>

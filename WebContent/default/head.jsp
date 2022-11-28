@@ -3,7 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=divice-width, initial-scale=1" />
 <!-- Google font  -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -20,13 +19,13 @@
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css" />
 <link rel="stylesheet" type="text/css"
-	href="<c:url value='/assets/css/index.css?v=1' />" />
+	href="<c:url value='/assets/css/index.css' />" />
 <link rel="stylesheet" type="text/css"
-	href="<c:url value='/default/header/header.css?v=1' />" />
+	href="<c:url value='/default/header/header.css' />" />
 <link rel="stylesheet" type="text/css"
-	href="<c:url value='/default/footer/footer.css?v=1' />" />
+	href="<c:url value='/default/footer/footer.css' />" />
 <link rel="stylesheet" type="text/css"
-	href="<c:url value='/default/back-to-top/index.css?v=1' />" />
+	href="<c:url value='/default/back-to-top/index.css' />" />
 <link rel="shortcut icon"
 	href="${pageContext.request.contextPath}/assets/images/favicon/favicon.ico"
 	type="image/x-icon" />

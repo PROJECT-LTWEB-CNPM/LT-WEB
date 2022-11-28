@@ -1,10 +1,10 @@
+<%@page import="com.shoplane.utils.Helper"%>
+<%@page import="com.shoplane.utils.Constants"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@page import="java.util.Arrays"%>
 <%@page import="java.util.List"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<jsp:useBean id="categories" class="services.client.CategoryService"></jsp:useBean>
-
 <%
 request.setCharacterEncoding("utf-8");
 String categoryId = (String) request.getAttribute("categoryId");
@@ -17,7 +17,7 @@ String baseUrl = context + "/default/collections";
 <head>
 <jsp:include page="../head.jsp" />
 <link rel="stylesheet" href="<%=baseUrl%>/index.css" />
-<title>${cateName} - Shoplane</title>
+<title>${cateName}-Shoplane</title>
 </head>
 <body>
 	<div id="app">
@@ -35,7 +35,7 @@ String baseUrl = context + "/default/collections";
 								<li
 									class="category-item ${categoryId == 'AO5' || categoryId == 'QUAN4' ? 'active' : ''}">
 									<a
-									href="<%=context%>/collection?category_id=AO5&category_type=${categoryType}"
+									href="<%=context%>/collection?category_id=<%=Constants.SHIRT_ALL %>&category_type=${categoryType}"
 									class="category-item__link">TẤT CẢ SẢN PHẨM</a>
 								</li>
 								<c:forEach var="item" items="${cates}">
@@ -54,15 +54,15 @@ String baseUrl = context + "/default/collections";
 							<h3 class="type_of_product">${cateName}</h3>
 							<div class="option_filter">
 								<h3 class="option_filter-label">SẮP XẾP THEO</h3>
-								<form action="${requestScope['javax.servlet.forward.request_uri']}?category_id=${categoryId}&category_type=${categoryType}" method="post">
-									<select onchange="this.form.submit()" name="orderType" class="option_filter-group" tabindex="-1">
-										<option value="manual">Sản phẩm nổi bật</option>
-										<option value="price-ascending">Giá: Tăng dần</option>
-										<option value="price-descending">Giá: Giảm dần</option>
-										<option value="created-ascending">Cũ nhất</option>
-										<option value="created-descending" selected>Mới nhất
-										</option>
-										<option value="best-selling">Bán chạy nhất</option>
+								<form
+									action="${requestScope['javax.servlet.forward.request_uri']}?category_id=${categoryId}&category_type=${categoryType}"
+									method="post">
+									<select onchange="this.form.submit()" name="orderType"
+										class="option_filter-group" tabindex="-1">
+										<option value="<%=Constants.OLDEST%>">Cũ nhất</option>
+										<option value="<%=Constants.NEWEST%>">Mới nhất</option>
+										<option value="<%=Constants.DESC%>">Giá giảm dần</option>
+										<option value="<%=Constants.ASC%>">Giá tăng dần</option>
 									</select>
 								</form>
 							</div>
@@ -79,13 +79,13 @@ String baseUrl = context + "/default/collections";
 										</h4>
 										<h4 class="shop_name">SHOPLANE</h4>
 										<div class="home-product-item__rating">
-											<i class="fas fa-star"></i> <i class="fas fa-star"></i> <i
-												class="fas fa-star"></i> <i class="fas fa-star"></i> <i
-												class="fas fa-star"></i>
+											<c:forEach begin="1" end="5">
+												<i class="fas fa-star"></i>
+											</c:forEach>
 										</div>
 										<div class="home-product-item__price">
-											<span class="home-product-item__price-current">${item.getNewPrice()}đ</span>
-											<span class="home-product-item__price-old">${item.getOldPrice()}đ</span>
+											<span class="home-product-item__price-current">${Helper.intToVND(item.getNewPrice())}</span>
+											<span class="home-product-item__price-old">${Helper.intToVND(item.getOldPrice())}</span>
 										</div>
 									</div>
 								</div>

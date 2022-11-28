@@ -8,16 +8,19 @@ String context = request.getContextPath();
 String baseUrl = request.getContextPath() + "/default/home";
 %>
 
+
+
 <!doctype html>
 <html lang="en">
 <head>
 <jsp:include page="../head.jsp" />
-<link rel="stylesheet" href="<%=baseUrl%>/slider/index.css" />
-<link rel="stylesheet" href="<%=baseUrl%>/default-section/index.css" />
+<link rel="stylesheet" href="<%=baseUrl%>/slider/index.css"
+	type="text/css" />
+<link rel="stylesheet" href="<%=baseUrl%>/index.css" />
 <title>Cửa hàng quần áo - Shoplane</title>
 </head>
 <body>
-	<div id="app">
+	 <div id="app">
 		<jsp:include page="../header/header.jsp" />
 		<main class="main">
 			<!-- Slider section -->
@@ -37,4 +40,3 @@ String baseUrl = request.getContextPath() + "/default/home";
 	<script type="text/javascript" src="<%=baseUrl%>/index.js"></script>
 </body>
 </html>
-

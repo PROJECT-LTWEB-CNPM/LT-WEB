@@ -1,10 +1,10 @@
-<%@page import="utils.Helper"%>
+<%@page import="com.shoplane.utils.Helper"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@page import="models.Order"%>
-<%@page import="models.User"%>
+<%@page import="com.shoplane.models.Order"%>
+<%@page import="com.shoplane.models.User"%>
 
 <%
 request.setCharacterEncoding("utf-8");

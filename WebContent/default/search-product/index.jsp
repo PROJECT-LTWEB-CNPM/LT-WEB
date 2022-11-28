@@ -1,3 +1,4 @@
+<%@page import="com.shoplane.utils.Helper"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@page import="java.util.Arrays"%>
@@ -27,7 +28,8 @@ String baseUrl = context + "/default/search-product";
 		<jsp:include page="../header/header.jsp" />
 		<section class="catalog">
 			<div class="container">
-				<h1 class="catalog__heading">SẢN PHẨM BẠN ĐANG TÌM KIẾM: ${findProduct}</h1>
+				<h1 class="catalog__heading">SẢN PHẨM BẠN ĐANG TÌM KIẾM:
+					${findProduct}</h1>
 				<div class="catalog__list">
 					<c:forEach var="item" items="${listProductWithSearch}">
 						<div class="catalog__item">
@@ -41,13 +43,13 @@ String baseUrl = context + "/default/search-product";
 								</h4>
 								<h4 class="shop_name">SHOPLANE</h4>
 								<div class="home-product-item__rating">
-									<c:forEach begin="0" end="3">
-										<ion-icon name="star-outline"></ion-icon>
+									<c:forEach begin="1" end="5">
+										<i class="fas fa-star"></i>
 									</c:forEach>
 								</div>
 								<div class="home-product-item__price">
-									<span class="home-product-item__price-current">${item.getNewPrice()}đ</span>
-									<span class="home-product-item__price-old">${item.getOldPrice()}đ</span>
+									<span class="home-product-item__price-current">${Helper.intToVND(item.getNewPrice())}</span>
+									<span class="home-product-item__price-old">${Helper.intToVND(item.getOldPrice())}</span>
 								</div>
 							</div>
 						</div>

@@ -1,6 +1,7 @@
-<%@page import="models.Order"%>
+<%@page import="com.shoplane.utils.Helper"%>
+<%@page import="com.shoplane.models.Order"%>
 <%@page import="java.util.List"%>
-<%@page import="models.User"%>
+<%@page import="com.shoplane.models.User"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -55,7 +56,7 @@ for (Order order : ors) {
 									<button type="button" class="order__quanty-btn">+</button>
 								</div>
 							</div>
-							<div class="order__total">${o.getPrice()}₫</div>
+							<div class="order__total">${Helper.intToVND(o.getPrice())}</div>
 						</div>
 					</div>
 				</c:forEach>
@@ -65,7 +66,7 @@ for (Order order : ors) {
 			<h3 class="order__heading">ĐƠN HÀNG</h3>
 			<div class="order__payment">
 				<span class="title_order order_item">Tổng tiền:</span> <span
-					class="order__payment-price"><%=totalPrice %>₫</span>
+					class="order__payment-price"><%=Helper.intToVND(totalPrice) %></span>
 			</div>
 			<a class="btn-submit" href="<%=url%>"> <span
 				class="btn_cart-lable">THANH TOÁN</span> <ion-icon name="cart"></ion-icon>
