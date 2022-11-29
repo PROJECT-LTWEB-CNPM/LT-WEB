@@ -1,6 +1,9 @@
 package com.shoplane.utils;
 
 public class Constants {
+//  Encoding
+  public static final String UTF8 = "UTF-8";
+
   // ProductType
   public static final String SHIRT = "AO";
   public static final String SHORT = "QUAN";

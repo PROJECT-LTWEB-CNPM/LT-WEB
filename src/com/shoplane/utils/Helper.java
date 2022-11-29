@@ -27,4 +27,8 @@ public class Helper {
   public static LocalDate dateWithoutTime(Date date) {
     return date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
   }
+
+  public static boolean isNumeric(String str) {
+    return str.matches("-?\\d+(\\.\\d+)?"); // match a number with optional '-' and decimal.
+  }
 }

@@ -1,4 +1,4 @@
-package com.shoplane.controllers.client;
+package com.shoplane.controllers.client.order.product;
 
 import java.io.IOException;
 import java.util.List;
@@ -18,15 +18,15 @@ import com.shoplane.models.ProductType;
 import com.shoplane.services.client.ProductService;
 import com.shoplane.utils.Constants;
 
-@WebServlet("/collection")
-public class CollectionServlet extends HttpServlet {
+@WebServlet(urlPatterns = { "/collection", "/collection/" })
+public class ListProductServlet extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
   ProductDAO productDAO = null;
   ProductTypeDAO productTypeDAO = null;
   CategoryDAO categoryDAO = null;
 
-  public CollectionServlet() {
+  public ListProductServlet() {
     super();
     this.productDAO = new ProductDAO();
     this.productTypeDAO = new ProductTypeDAO();

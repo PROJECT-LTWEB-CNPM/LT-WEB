@@ -1,4 +1,4 @@
-package com.shoplane.controllers.system.product;
+package com.shoplane.controllers.client.order.account;
 
 import java.io.IOException;
 
@@ -8,27 +8,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.shoplane.services.system.ProductService;
-
-@WebServlet(urlPatterns = { "/system/products/create", "/system/products/create/" })
-public class CreateProductServlet extends HttpServlet {
+@WebServlet(urlPatterns = { "/account/change-password", "/account/change-password/" })
+public class ChangePasswordServlet extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
-  public CreateProductServlet() {
+  public ChangePasswordServlet() {
     super();
   }
 
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    System.out.println("Here");
-    ProductService productService = new ProductService(request, response);
-    productService.handleGetCreateProduct();
+    String pageUrl = "/default/account/changePassword/index.jsp";
+    request.getRequestDispatcher(pageUrl).forward(request, response);
   }
 
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    ProductService productService = new ProductService(request, response);
-    productService.handlePostCreateProduct();
   }
 
 }

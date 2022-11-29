@@ -11,47 +11,48 @@ import com.shoplane.dao.RoleDAO;
 import com.shoplane.dao.UserDAO;
 import com.shoplane.models.Role;
 import com.shoplane.models.User;
+import com.shoplane.services.SuperService;
 import com.shoplane.utils.Bcrypt;
 import com.shoplane.utils.Constants;
 import com.shoplane.utils.Helper;
 
-public class CustomerService {
+public class CustomerService extends SuperService {
 
-  HttpServletRequest request = null;
-  HttpServletResponse response = null;
   UserDAO userDAO = null;
+  RoleDAO roleDAO = null;
 
   public CustomerService(HttpServletRequest request, HttpServletResponse response) {
-    this.request = request;
-    this.response = response;
+    super(request, response);
     this.userDAO = new UserDAO();
+    this.roleDAO = new RoleDAO();
   }
 
-  // Get login
-  public void handleGetLogin() throws ServletException, IOException {
+  // [GET] CustomerLoginServlet
+  public void getLoginForm() throws ServletException, IOException {
     try {
+      super.setEncoding(Constants.UTF8);
       HttpSession session = request.getSession();
-
       String url = "/default/account/login/index.jsp";
-
       User user = (User) session.getAttribute("user");
 
       if (user != null) {
         url = "./account";
-        response.sendRedirect(url);
+        super.redirectToPage(url);
         return;
       }
-      this.request.getRequestDispatcher(url).forward(request, response);
+      super.forwardToPage(url);
 
     } catch (Exception e) {
-      String errorPage = "/500.jsp";
-      this.request.getRequestDispatcher(errorPage).forward(request, response);
+      super.log(e.getMessage());
+      String error = "/500";
+      this.redirectToPage(error);
     }
   }
 
-  // Post Login
-  public void handlePostLogin() throws IOException, ServletException {
+  // [POST] CustomerLoginServlet
+  public void postLogin() throws IOException, ServletException {
     try {
+      super.setEncoding(Constants.UTF8);
       String url = "./account";
       String nextUrl = request.getParameter("caller");
       String email = request.getParameter("email").trim();
@@ -69,44 +70,46 @@ public class CustomerService {
         // Check pwd
         if (Bcrypt.checkpwd(pwdNotHash, u.getPassword())) {
           request.getSession().setAttribute("user", u);
-          response.sendRedirect(url);
+          super.redirectToPage(url);
         } else {
-          request.setAttribute("errMsg", "*Mật khẩu không chính xác");
-          this.handleGetLogin();
+          super.setAttribute("errMsg", "*Mật khẩu không chính xác");
+          this.getLoginForm();
         }
       } else {
-        request.setAttribute("errMsg", "*Email không tồn tại");
-        this.handleGetLogin();
+        super.setAttribute("errMsg", "*Email không tồn tại");
+        this.getLoginForm();
       }
     } catch (Exception e) {
-      System.out.println(e.getMessage());
-      String errorUrl = "/500.jsp";
-      request.getRequestDispatcher(errorUrl).forward(request, response);
+      super.log(e.getMessage());
+      String error = "/500";
+      this.redirectToPage(error);
     }
   }
 
-  // Get Register
-  public void handleGetRegister() throws ServletException, IOException {
-    String url = "/default/account/register/index.jsp";
+  // [GET] CustomerRegisterServlet
+  public void getRegisterForm() throws ServletException, IOException {
     try {
+      String url = "/default/account/register/index.jsp";
+      super.forwardToPage(url);
     } catch (Exception e) {
-      url = "/error/index.jsp";
+      super.log(e.getMessage());
+      String error = "/500";
+      this.redirectToPage(error);
     }
-    request.getRequestDispatcher(url).forward(request, response);
   }
 
-  // Post Register
-  public void handlePostRegister() throws IOException {
-    // init services
-    SendMail sm = new SendMail();
+  // [POST] CustomerRegisterServlet
+  public void postRegisterForm() throws IOException {
 
-    // Get Session
-    HttpSession session = request.getSession();
-
-    String url = request.getContextPath() + "/verify";
     try {
+      // init services
+      SendMail sm = new SendMail();
+      // Get Session
+      HttpSession session = request.getSession();
+
+      String url = request.getContextPath() + "/verify";
       // Get User
-      User user = this.handleGetUser(request);
+      User user = this.createUser(request);
       // Set code
       user.setCode(sm.getRandom());
 
@@ -121,21 +124,18 @@ public class CustomerService {
 
       // set user to session
       session.setAttribute("user", user);
-
+      super.redirectToPage(url);
     } catch (Exception e) {
-      System.out.println(e.getMessage());
+      super.log(e.getMessage());
+      String error = "/500";
+      super.redirectToPage(error);
     }
-    response.sendRedirect(url);
   }
 
-  private User handleGetUser(HttpServletRequest request) {
-
-    // init services
-    // RoleService rs = new RoleService();
-    RoleDAO roleDAO = new RoleDAO();
+  private User createUser(HttpServletRequest request) {
 
     // Get Role
-    Role r = roleDAO.find(Constants.USER_ROLE);
+    Role r = this.roleDAO.find(Constants.USER_ROLE);
 
     // Get param from sign up form
     String userId = Helper.getRandom();
@@ -158,44 +158,50 @@ public class CustomerService {
     return user;
   }
 
-  // Get Verify
-  public void handleGetVerify() throws ServletException, IOException {
-    this.request.setCharacterEncoding("UTF-8");
-    this.response.setCharacterEncoding("UTF-8");
-
-    String url = "/default/account/register/verify.jsp";
-    request.getRequestDispatcher(url).forward(request, response);
+  // [GET] CustomerVerifyCodeServlet
+  public void getVerifyForm() throws ServletException, IOException {
+    try {
+      super.setEncoding(Constants.UTF8);
+      String url = "/default/account/register/verify.jsp";
+      super.forwardToPage(url);
+    } catch (Exception e) {
+      super.log(e.getMessage());
+      String error = "/500";
+      super.redirectToPage(error);
+    }
   }
 
-  public void handlePostVerify() throws IOException {
-
-    String url = "./login";
-    String code = request.getParameter("code").trim();
-    User user = (User) this.request.getSession().getAttribute("user");
+  // [POST] CustomerVerifyCodeServlet
+  public void postVerifyForm() throws IOException {
     try {
+      String url = "./login";
+      String code = request.getParameter("code").trim();
+      User user = (User) this.request.getSession().getAttribute("user");
       if (code.equals(user.getCode())) {
         this.userDAO.create(user);
         this.request.getSession().removeAttribute("user");
       } else {
-        request.setAttribute("errMsg", "*Mã xác nhận không đúng vui lòng nhập lại");
-        this.handleGetVerify();
+        super.setAttribute("errMsg", "*Mã xác nhận không đúng vui lòng nhập lại");
+        this.getVerifyForm();
         return;
       }
+      super.redirectToPage(url);
     } catch (Exception e) {
-      url = "./error";
+      super.log(e.getMessage());
+      String error = "/500";
+      super.redirectToPage(error);
     }
-    response.sendRedirect(url);
   }
 
-  // Get Logout
-  public void handleGetLogout() throws IOException, ServletException {
+  // [GET] CustomerLogoutServlet
+  public void logout() throws IOException, ServletException {
     try {
       this.request.getSession().removeAttribute("user");
-      this.response.sendRedirect("./login");
+      super.redirectToPage("./login");
     } catch (Exception e) {
-      System.out.println(e.getMessage());
-      String errorPage = "/500.jsp";
-      this.request.getRequestDispatcher(errorPage).forward(request, response);
+      super.log(e.getMessage());
+      String error = "/500";
+      super.redirectToPage(error);
     }
   }
 }

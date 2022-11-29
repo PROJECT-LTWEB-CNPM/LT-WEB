@@ -43,9 +43,15 @@ public class SizeDAO extends JpaDAO<Size> implements GenericDAO<Size> {
   }
 
   @Override
-  public List<Size> pagination(int currentPage, int pageSize, Object... rest) {
+  public List<Size> pagination(int currentPage, int pageSize) {
     String queryName = "Size.findAll";
-    return super.pagination(queryName, Size.class, currentPage, pageSize, rest);
+    return super.pagination(queryName, Size.class, currentPage, pageSize);
+  }
+
+  @Override
+  public int count() {
+    // TODO Auto-generated method stub
+    return 0;
   }
 
 }

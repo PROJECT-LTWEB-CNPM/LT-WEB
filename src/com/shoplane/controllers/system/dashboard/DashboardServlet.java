@@ -1,4 +1,4 @@
-package com.shoplane.controllers.client.customer;
+package com.shoplane.controllers.system.dashboard;
 
 import java.io.IOException;
 
@@ -8,22 +8,25 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/forgot-password")
-public class CustomerForgotPasswordServlet extends HttpServlet {
+import com.shoplane.services.system.DashBoardService;
+
+@WebServlet(urlPatterns = { "/system", "/system/" })
+public class DashboardServlet extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
-  public CustomerForgotPasswordServlet() {
+  public DashboardServlet() {
     super();
   }
 
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    String url = "/default/account/forgotPassword/index.jsp";
-    request.getRequestDispatcher(url).forward(request, response);
+    DashBoardService dashBoardService = new DashBoardService(request, response);
+    dashBoardService.getDashboard();
   }
 
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    doGet(request, response);
   }
 
 }

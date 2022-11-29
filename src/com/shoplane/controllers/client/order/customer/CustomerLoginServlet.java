@@ -1,4 +1,4 @@
-package com.shoplane.controllers.client.customer;
+package com.shoplane.controllers.client.order.customer;
 
 import java.io.IOException;
 
@@ -10,24 +10,26 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.shoplane.services.client.CustomerService;
 
-@WebServlet("/verify")
-public class CustomerVerifyCodeServlet extends HttpServlet {
+@WebServlet(urlPatterns = { "/login", "/login/" })
+public class CustomerLoginServlet extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
-  public CustomerVerifyCodeServlet() {
+  public CustomerLoginServlet() {
     super();
   }
 
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    request.setCharacterEncoding("UTF-8");
+    response.setCharacterEncoding("UTF-8");
     CustomerService customerService = new CustomerService(request, response);
-    customerService.handleGetVerify();
+    customerService.getLoginForm();
   }
 
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     CustomerService customerService = new CustomerService(request, response);
-    customerService.handlePostVerify();
+    customerService.postLogin();
   }
 
 }

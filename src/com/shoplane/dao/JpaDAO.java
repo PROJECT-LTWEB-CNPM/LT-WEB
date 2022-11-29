@@ -86,19 +86,23 @@ public class JpaDAO<T> {
 
   // Find all
   @SuppressWarnings("unchecked")
-  public List<T> pagination(String queryString, Class<T> type, int currentPage, int pageSize, Object[] rest) {
+  public List<T> pagination(String queryString, Class<T> type, int currentPage, int pageSize) {
     EntityManager entityManager = this.entityManagerFactory.createEntityManager();
     Query query = entityManager.createNamedQuery(queryString, type);
-    if (rest.length > 0) {
-      Map<String, Object> parameters = (Map<String, Object>) rest[0];
-      Set<Entry<String, Object>> setParameters = parameters.entrySet();
-      for (Entry<String, Object> entry : setParameters) {
-        query.setParameter(entry.getKey(), entry.getValue());
-      }
-    }
-    List<T> result = query.setFirstResult(currentPage * pageSize)
+    List<T> result = query.setFirstResult((currentPage - 1) * pageSize)
         .setMaxResults(pageSize).getResultList();
     entityManager.close();
     return result;
+  }
+
+  public int count(String queryName) {
+    EntityManager entityManager = entityManagerFactory.createEntityManager();
+    entityManager.getTransaction().begin();
+
+    int maxResults = ((Long) entityManager.createNamedQuery(queryName).getSingleResult()).intValue();
+
+    entityManager.getTransaction().commit();
+    entityManager.close();
+    return maxResults;
   }
 }

@@ -33,9 +33,15 @@ public class OrderDAO extends JpaDAO<Order> implements GenericDAO<Order> {
   }
 
   @Override
-  public List<Order> pagination(int currentPage, int pageSize, Object... rest) {
+  public List<Order> pagination(int currentPage, int pageSize) {
     String queryName = "Order.findAll";
-    return super.pagination(queryName, Order.class, currentPage, pageSize, rest);
+    return super.pagination(queryName, Order.class, currentPage, pageSize);
+  }
+
+  @Override
+  public int count() {
+    // TODO Auto-generated method stub
+    return 0;
   }
 
 }

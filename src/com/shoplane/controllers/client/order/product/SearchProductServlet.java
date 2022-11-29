@@ -1,4 +1,4 @@
-package com.shoplane.controllers.client;
+package com.shoplane.controllers.client.order.product;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.shoplane.dao.ProductDAO;
 import com.shoplane.models.Product;
 
-@WebServlet("/search")
+@WebServlet(urlPatterns = { "/search", "/search/" })
 public class SearchProductServlet extends HttpServlet {
   private static final long serialVersionUID = 1L;
   ProductDAO productDAO = null;

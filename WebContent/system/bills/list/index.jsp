@@ -12,7 +12,8 @@ String context = request.getContextPath();
 <head>
 <jsp:include page="../../head.jsp" />
 <title>Quản lý đơn hàng - Shoplane</title>
-<link rel="stylesheet" href="./index.css" type="text/css">
+<link rel="stylesheet" href="<%=context%>/system/bills/list/index.css"
+	type="text/css">
 </head>
 <body>
 	<div id="app">
@@ -60,7 +61,7 @@ String context = request.getContextPath();
 								<div style="width: 15%">${b.user.userId}</div>
 								<div style="width: 15%">${b.totalPrice}</div>
 								<div style="width: 10%" class="table__link">
-									<a href="./detail?bill=${b.billId}">Xem chi tiết</a>
+									<a href="<%=context %>/system/bills/detail?id=${b.billId}">Xem chi tiết</a>
 								</div>
 							</div>
 						</c:forEach>

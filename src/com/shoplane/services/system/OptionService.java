@@ -1,9 +1,7 @@
 package com.shoplane.services.system;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -13,47 +11,50 @@ import com.shoplane.dao.OptionDAO;
 import com.shoplane.dao.ProductDAO;
 import com.shoplane.models.Option;
 import com.shoplane.models.Product;
+import com.shoplane.services.SuperService;
 
-public class OptionService {
-  private HttpServletRequest request;
-  private HttpServletResponse response;
+public class OptionService extends SuperService {
   private OptionDAO optionDAO = null;
   private ProductDAO productDAO = null;
 
   public OptionService(HttpServletRequest request, HttpServletResponse response) {
-    this.request = request;
-    this.response = response;
+    super(request, response);
     this.optionDAO = new OptionDAO();
     this.productDAO = new ProductDAO();
   }
 
-  // [GET] list option
+  // [GET] ListOptionServlet
   public void handleGetListOption() throws ServletException, IOException {
-    String url = "/system/options/list/index.jsp";
-    String productId = this.request.getParameter("product_id").trim();
     try {
+      String url = "/system/options/list/index.jsp";
+      String productId = this.request.getParameter("product_id").trim();
       Product product = this.productDAO.find(productId);
       List<Option> options = null;
       if (product != null) {
-        Map<String, Object> parameter = new HashMap<>();
-        parameter.put("product", product);
-        options = this.optionDAO.findWithNamedQuery("Option.findByProduct", parameter);
+        options = this.optionDAO.findByProduct(product);
       }
-      this.request.setAttribute("options", options);
+      super.setAttribute("options", options);
+      super.forwardToPage(url);
     } catch (Exception e) {
-
+      super.log(e.getMessage());
+      String error = "/500";
+      this.redirectToPage(error);
     }
-    this.request.getRequestDispatcher(url).forward(request, response);
   }
 
-  // [GET] create option
+  // [GET] CreateOptionServlet
   public void handleGetCreateOption() throws ServletException, IOException {
-    String url = "/system/options/create/index.jsp";
-
-    this.request.getRequestDispatcher(url).forward(request, response);
+    try {
+      String url = "/system/options/create/index.jsp";
+      super.forwardToPage(url);
+    } catch (Exception e) {
+      super.log(e.getMessage());
+      String error = "/500";
+      this.redirectToPage(error);
+    }
   }
 
-  // [POST] create option
+  // [POST] CreateOptionServlet
   public void handlePostCreateOption() {
 
   }

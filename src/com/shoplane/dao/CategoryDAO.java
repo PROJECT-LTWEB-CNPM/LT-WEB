@@ -60,8 +60,14 @@ public class CategoryDAO extends JpaDAO<Category> implements GenericDAO<Category
   }
 
   @Override
-  public List<Category> pagination(int currentPage, int pageSize, Object... rest) {
+  public List<Category> pagination(int currentPage, int pageSize) {
     String queryString = "Category.findAll";
-    return super.pagination(queryString, Category.class, currentPage, pageSize, rest);
+    return super.pagination(queryString, Category.class, currentPage, pageSize);
+  }
+
+  @Override
+  public int count() {
+    // TODO Auto-generated method stub
+    return 0;
   }
 }

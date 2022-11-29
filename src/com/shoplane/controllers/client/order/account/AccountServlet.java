@@ -1,4 +1,4 @@
-package com.shoplane.controllers.client;
+package com.shoplane.controllers.client.order.account;
 
 import java.io.IOException;
 import java.util.List;
@@ -13,15 +13,13 @@ import com.shoplane.dao.BillDAO;
 import com.shoplane.models.Bill;
 import com.shoplane.models.User;
 
-@WebServlet("/account")
+@WebServlet(urlPatterns = { "/account", "/account/" })
 public class AccountServlet extends HttpServlet {
   private static final long serialVersionUID = 1L;
-  // BillService bs = null;
   BillDAO billDAO = null;
 
   public AccountServlet() {
     super();
-//    this.bs = new BillService();
     this.billDAO = new BillDAO();
   }
 

@@ -27,8 +27,8 @@ import javax.persistence.TemporalType;
 @Table(name = "bills")
 @NamedQueries({
     @NamedQuery(name = "Bill.findAll", query = "SELECT b FROM Bill b"),
-    @NamedQuery(name = "Bill.findByUser", query = "SELECT b FROM Bill b WHERE b.user = :user")
-})
+    @NamedQuery(name = "Bill.findByUser", query = "SELECT b FROM Bill b WHERE b.user = :user"),
+    @NamedQuery(name = "Bill.count", query = "SELECT COUNT(b) FROM Bill b") })
 public class Bill implements Serializable {
   private static final long serialVersionUID = 1L;
 
