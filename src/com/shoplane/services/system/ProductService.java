@@ -1,7 +1,10 @@
 package com.shoplane.services.system;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -37,6 +40,8 @@ public class ProductService extends SuperService {
       super.setEncoding(Constants.UTF8);
 
       // get list
+      String productTypeId = super.getParameter("product_type");
+      String categoryId = super.getParameter("category");
       String currentPageStr = super.getParameter("current_page");
       String pageSizeStr = super.getParameter("page_size");
 
@@ -55,15 +60,46 @@ public class ProductService extends SuperService {
         }
       }
 
+      List<ProductType> productTypes = this.productTypeDAO.findAll();
+      List<Category> categories = this.categoryDAO.findAll();
+      ProductType productType = this.productTypeDAO.find(productTypeId);
+      Category category = this.categoryDAO.find(categoryId);
+      Map<String, Object> params = new HashMap<>();
+      params.put("productType", productType);
+      List<Product> products = new ArrayList<>();
       int totalItem = this.productDAO.count();
-      int totalPage = totalItem / pageSize + 1;
-      List<Product> products = this.productDAO.pagination(currentPage, pageSize);
+
+      if (productTypeId.equals(Constants.ALL)) {
+        products = this.productDAO.pagination(currentPage, pageSize);
+      } else {
+        totalItem = 0;
+        if (categoryId.equals(Constants.SHIRT_ALL) && productTypeId.equals(Constants.SHIRT)) {
+          products = this.productDAO.paginationByProductType(params, currentPage, pageSize);
+          totalItem = this.productDAO.countByProductType(params);
+        }
+        if (categoryId.equals(Constants.SHORT_ALL) && productTypeId.equals(Constants.SHORT)) {
+          products = this.productDAO.paginationByProductType(params, currentPage, pageSize);
+          totalItem = this.productDAO.countByProductType(params);
+        }
+        if (!categoryId.equals(Constants.SHIRT_ALL) && !categoryId.equals(Constants.SHORT_ALL)) {
+          params.put("category", category);
+          products = this.productDAO.paginationByProductTypeAndCategory(params, currentPage, pageSize);
+          totalItem = this.productDAO.countByProductTypeAndCategory(params);
+        }
+      }
+
+      // Chưa ổn lắm => Cần phải fix chỉnh lại chỗ này
+      int totalPage = (int) Math.ceil((double) totalItem / pageSize);
+
       super.setAttribute("products", products);
+      super.setAttribute("productTypes", productTypes);
+      super.setAttribute("categories", categories);
+      // Set value of param url
       super.setAttribute("totalPage", totalPage);
       super.setAttribute("currentPage", currentPage);
       super.setAttribute("pageSize", pageSize);
-
-      System.out.println(pageSize);
+      super.setAttribute("productType", productTypeId);
+      super.setAttribute("category", categoryId);
 
       // Check url
       if (url == null) {

@@ -26,7 +26,10 @@ import javax.persistence.Table;
     @NamedQuery(name = "Product.findByCategory", query = "SELECT p FROM Product p WHERE p.category = :category"),
     @NamedQuery(name = "Product.findByProductName", query = "SELECT p FROM Product p WHERE p.productName LIKE :productName"),
     @NamedQuery(name = "Product.findByCategoryAndProductType", query = "SELECT p FROM Product p WHERE p.category = :category AND p.producttype = :productType"),
-    @NamedQuery(name = "Product.count", query = "SELECT COUNT(p) FROM Product p") })
+    @NamedQuery(name = "Product.count", query = "SELECT COUNT(p) FROM Product p"),
+    @NamedQuery(name = "Product.countByProductType", query = "SELECT COUNT(p) FROM Product p WHERE p.producttype = :productType"),
+    @NamedQuery(name = "Product.countByProductTypeAndCategory", query = "SELECT COUNT(p) FROM Product p WHERE p.category = :category AND p.producttype = :productType")
+})
 public class Product implements Serializable {
   private static final long serialVersionUID = 1L;
 

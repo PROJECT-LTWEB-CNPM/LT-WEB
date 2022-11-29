@@ -18,18 +18,18 @@ String baseUrl = context + "/system/products/list";
 			</c:when>
 			<c:otherwise>
 				<a class="page-item btn-submit"
-					href="<%=context%>/system/products/?current_page=${currentPage - 1}&page_size=${pageSize}"><span>Previous</span></a>
+					href="<%=context%>/system/products/?product_type=${productType}&category=${category}&current_page=${currentPage - 1}&page_size=${pageSize}"><span>Previous</span></a>
 			</c:otherwise>
 		</c:choose>
 		<c:forEach begin="1" end="${totalPage}" var="item">
 			<c:choose>
 				<c:when test="${item == currentPage}">
 					<a class="page-item btn-submit active"
-						href="<%=context%>/system/products/?current_page=${item}&page_size=${pageSize}"><span>${item}</span></a>
+						href="<%=context%>/system/products/?product_type=${productType}&category=${category}&current_page=${item}&page_size=${pageSize}"><span>${item}</span></a>
 				</c:when>
 				<c:otherwise>
 					<a class="page-item btn-submit"
-						href="<%=context%>/system/products/?current_page=${item}&page_size=${pageSize}"><span>${item}</span></a>
+						href="<%=context%>/system/products/?product_type=${productType}&category=${category}&current_page=${item}&page_size=${pageSize}"><span>${item}</span></a>
 				</c:otherwise>
 			</c:choose>
 
@@ -42,7 +42,7 @@ String baseUrl = context + "/system/products/list";
 			</c:when>
 			<c:otherwise>
 				<a class="page-item btn-submit"
-					href="<%=context%>/system/products/?current_page=${currentPage + 1}&page_size=${pageSize}"><span>Next</span></a>
+					href="<%=context%>/system/products/?product_type=${productType}&category=${category}&current_page=${currentPage + 1}&page_size=${pageSize}"><span>Next</span></a>
 			</c:otherwise>
 		</c:choose>
 	</div>

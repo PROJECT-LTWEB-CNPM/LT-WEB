@@ -29,11 +29,39 @@ int[] entries = {10, 20, 30};
 			</div>
 			<main id="main-content">
 				<div class="actions">
-
-
+					<div class="action__select">
+						Loại sản phẩm <select style="width: 6rem" id="select__type"
+							onchange="javascript:handleSelectProductType(this)">
+							<c:forEach var="item" items="${productTypes}">
+								<c:choose>
+									<c:when test="${item.getTypeId().equals(productType)}">
+										<option value="${item.getTypeId()}" selected>${item.getTypeName()}</option>
+									</c:when>
+									<c:otherwise>
+										<option value="${item.getTypeId()}">${item.getTypeName()}</option>
+									</c:otherwise>
+								</c:choose>
+							</c:forEach>
+						</select>
+					</div>
+					<div class="action__select">
+						Danh mục <select id="select__category"
+							onchange="javascript:handleSelectCategory(this)">
+							<c:forEach var="item" items="${categories}">
+								<c:choose>
+									<c:when test="${item.getCategoryId().equals(category)}">
+										<option value="${item.getCategoryId()}" selected>${item.getCategoryName()}</option>
+									</c:when>
+									<c:otherwise>
+										<option value="${item.getCategoryId()}">${item.getCategoryName()}</option>
+									</c:otherwise>
+								</c:choose>
+							</c:forEach>
+						</select>
+					</div>
 					<div class="action__select">
 						Xem <select style="width: 5rem" id="select__entries"
-							onchange="javascript:handleSelect(this)">
+							onchange="javascript:handleSelectEntries(this)">
 							<c:forEach end="3" begin="1" var="item">
 								<c:choose>
 									<c:when test="${(item * 10) == pageSize}">
@@ -57,9 +85,10 @@ int[] entries = {10, 20, 30};
 							<input type="checkbox">
 						</div>
 						<div style="width: 10%">ID</div>
-						<div style="width: 35%">Tên sản phẩm</div>
+						<div style="width: 25%">Tên sản phẩm</div>
 						<div style="width: 15%">Hình ảnh</div>
-						<div style="width: 10%">Nguồn gốc</div>
+						<div style="width: 10%">Loại sản phẩm</div>
+						<div style="width: 10%">Danh mục</div>
 						<div style="width: 10%">Các lựa chọn</div>
 						<div style="width: 15%"></div>
 					</div>
@@ -70,13 +99,14 @@ int[] entries = {10, 20, 30};
 									<input type="checkbox">
 								</div>
 								<div style="width: 10%">${item.getProductId()}</div>
-								<div style="width: 35%">${item.getProductName()}</div>
+								<div style="width: 25%">${item.getProductName()}</div>
 								<div style="width: 15%">
 									<img src="${item.getMainImageUrl()}"
 										alt="${item.getProductName()}"
 										style="height: 60px; object-fit: cover" />
 								</div>
-								<div style="width: 10%">${item.getOrigin()}</div>
+								<div style="width: 10%">${item.getProducttype().getTypeName()}</div>
+								<div style="width: 10%">${item.getCategory().getCategoryName()}</div>
 								<div style="width: 10%" class="table__link">
 									<a
 										href="<%=context %>/system/products/options?product_id=${item.getProductId()}">Xem
@@ -102,9 +132,37 @@ int[] entries = {10, 20, 30};
 		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 	<script type="text/javascript">
-		function handleSelect(elm) {
-			console.log(elm);
-			window.location = '?current_page=1&page_size=' + elm.value;
+		function handleSelectProductType(elm) {
+			const queryString = window.location.search;
+			const urlParams = new URLSearchParams(queryString);
+
+			const category = urlParams.get('category');
+			const pageSize = urlParams.get('page_size');
+
+			window.location = '?product_type=' + elm.value + '&category='
+					+ category + '&current_page=1&page_size=' + pageSize;
+
+		}
+		function handleSelectCategory(elm) {
+			const queryString = window.location.search;
+			const urlParams = new URLSearchParams(queryString);
+
+			const productType = urlParams.get('product_type');
+			const pageSize = urlParams.get('page_size');
+
+			window.location = '?product_type=' + productType + '&category='
+					+ elm.value + '&current_page=1&page_size=' + pageSize;
+		}
+
+		function handleSelectEntries(elm) {
+			const queryString = window.location.search;
+			const urlParams = new URLSearchParams(queryString);
+
+			const productType = urlParams.get('product_type');
+			const category = urlParams.get('category');
+
+			window.location = '?product_type=' + productType + '&category='
+					+ category + '&current_page=1&page_size=' + elm.value;
 		}
 	</script>
 </body>

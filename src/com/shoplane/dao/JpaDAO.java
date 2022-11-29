@@ -95,12 +95,43 @@ public class JpaDAO<T> {
     return result;
   }
 
+  @SuppressWarnings("unchecked")
+  public List<T> paginationWithNamedQuery(String queryName, Class<T> type, Map<String, Object> parameters,
+      int currentPage, int pageSize) {
+    EntityManager entityManager = this.entityManagerFactory.createEntityManager();
+
+    Query query = entityManager.createNamedQuery(queryName);
+    Set<Entry<String, Object>> setParameters = parameters.entrySet();
+    for (Entry<String, Object> entry : setParameters) {
+      query.setParameter(entry.getKey(), entry.getValue());
+    }
+
+    List<T> result = query.setFirstResult((currentPage - 1) * pageSize)
+        .setMaxResults(pageSize).getResultList();
+    entityManager.close();
+    return result;
+  }
+
   public int count(String queryName) {
     EntityManager entityManager = entityManagerFactory.createEntityManager();
     entityManager.getTransaction().begin();
 
     int maxResults = ((Long) entityManager.createNamedQuery(queryName).getSingleResult()).intValue();
 
+    entityManager.getTransaction().commit();
+    entityManager.close();
+    return maxResults;
+  }
+
+  public int countWithNamedQuery(String queryName, Map<String, Object> params) {
+    EntityManager entityManager = entityManagerFactory.createEntityManager();
+    entityManager.getTransaction().begin();
+    Query query = entityManager.createNamedQuery(queryName);
+    Set<Entry<String, Object>> setParameters = params.entrySet();
+    for (Entry<String, Object> entry : setParameters) {
+      query.setParameter(entry.getKey(), entry.getValue());
+    }
+    int maxResults = ((Long) query.getSingleResult()).intValue();
     entityManager.getTransaction().commit();
     entityManager.close();
     return maxResults;

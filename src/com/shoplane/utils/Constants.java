@@ -7,6 +7,7 @@ public class Constants {
   // ProductType
   public static final String SHIRT = "AO";
   public static final String SHORT = "QUAN";
+  public static final String ALL = "ALL";
 
   // Category
   public static final String SHIRT_ALL = "AO5";

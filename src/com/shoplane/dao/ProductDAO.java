@@ -40,8 +40,15 @@ public class ProductDAO extends JpaDAO<Product> implements GenericDAO<Product> {
   }
 
   @Override
-  public List<Product> findWithNamedQuery(String queryName, Map<String, Object> parameters) {
-    return super.findWithNamedQuery(queryName, parameters);
+  public List<Product> pagination(int currentPage, int pageSize) {
+    String queryString = "Product.findAll";
+    return super.pagination(queryString, Product.class, currentPage, pageSize);
+  }
+
+  @Override
+  public int count() {
+    String queryName = "Product.count";
+    return super.count(queryName);
   }
 
   public List<Product> findByProductType(ProductType productType) {
@@ -81,16 +88,25 @@ public class ProductDAO extends JpaDAO<Product> implements GenericDAO<Product> {
     return products;
   }
 
-  @Override
-  public List<Product> pagination(int currentPage, int pageSize) {
-    String queryString = "Product.findAll";
-    return super.pagination(queryString, Product.class, currentPage, pageSize);
+  public List<Product> paginationByProductTypeAndCategory(Map<String, Object> parameters, int currentPage,
+      int pageSize) {
+    String queryName = "Product.findByCategoryAndProductType";
+    return super.paginationWithNamedQuery(queryName, Product.class, parameters, currentPage, pageSize);
   }
 
-  @Override
-  public int count() {
-    String queryName = "Product.count";
-    return super.count(queryName);
+  public List<Product> paginationByProductType(Map<String, Object> parameters, int currentPage,
+      int pageSize) {
+    String queryName = "Product.findByProductType";
+    return super.paginationWithNamedQuery(queryName, Product.class, parameters, currentPage, pageSize);
   }
 
+  public int countByProductType(Map<String, Object> params) {
+    String queryName = "Product.countByProductType";
+    return super.countWithNamedQuery(queryName, params);
+  }
+
+  public int countByProductTypeAndCategory(Map<String, Object> params) {
+    String queryName = "Product.countByProductTypeAndCategory";
+    return super.countWithNamedQuery(queryName, params);
+  }
 }
