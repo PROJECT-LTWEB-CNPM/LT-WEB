@@ -1,6 +1,5 @@
 @charset "UTF-8";
 
-
 .actions {
 	display: flex;
 	justify-content: flex-end;
@@ -58,3 +57,4 @@
 .table__link a:hover {
 	text-decoration: underline;
 }
+

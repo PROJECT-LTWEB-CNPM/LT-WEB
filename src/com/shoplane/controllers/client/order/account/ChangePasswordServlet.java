@@ -1,4 +1,4 @@
-package com.shoplane.controllers.client.customer;
+package com.shoplane.controllers.client.order.account;
 
 import java.io.IOException;
 
@@ -8,18 +8,18 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(urlPatterns = { "/forgot-password", "/forgot-password/" })
-public class CustomerForgotPasswordServlet extends HttpServlet {
+@WebServlet(urlPatterns = { "/account/change-password", "/account/change-password/" })
+public class ChangePasswordServlet extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
-  public CustomerForgotPasswordServlet() {
+  public ChangePasswordServlet() {
     super();
   }
 
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    String url = "/default/account/forgotPassword/index.jsp";
-    request.getRequestDispatcher(url).forward(request, response);
+    String pageUrl = "/default/account/changePassword/index.jsp";
+    request.getRequestDispatcher(pageUrl).forward(request, response);
   }
 
   @Override

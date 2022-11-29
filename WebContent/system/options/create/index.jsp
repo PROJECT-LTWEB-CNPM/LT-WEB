@@ -26,9 +26,9 @@ String baseUrl = request.getContextPath() + "/system/options/create";
 			<main id="main-content">
 				<div class="customer_info">
 					<div class="actions">
-						<a href="<%=context %>/system/products">&lt;&lt;Quản lý sản phẩm</a>
-<%-- 						<a href="<%=context %>/system/products/options">&lt;&lt;Quản lý lựa chọn</a>
- --%>					</div>
+						<a href="<%=context%>/system/products">&lt;&lt;Quản lý sản
+							phẩm</a>
+					</div>
 					<form action="create" method="POST">
 						<input type="text" name="optionId" placeholder="Mã option"
 							class="form-control" /> <select name="productId"

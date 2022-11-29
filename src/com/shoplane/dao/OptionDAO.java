@@ -52,8 +52,14 @@ public class OptionDAO extends JpaDAO<Option> implements GenericDAO<Option> {
   }
 
   @Override
-  public List<Option> pagination(int currentPage, int pageSize, Object... rest) {
+  public List<Option> pagination(int currentPage, int pageSize) {
     String queryString = "Option.findAll";
-    return super.pagination(queryString, Option.class, currentPage, pageSize, rest);
+    return super.pagination(queryString, Option.class, currentPage, pageSize);
+  }
+
+  @Override
+  public int count() {
+    // TODO Auto-generated method stub
+    return 0;
   }
 }

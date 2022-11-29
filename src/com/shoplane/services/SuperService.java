@@ -40,4 +40,15 @@ public class SuperService {
   public void setAttribute(String key, Object value) {
     this.request.setAttribute(key, value);
   }
+
+  // Get Param
+  public String getParameter(String key) {
+    return this.request.getParameter(key);
+  }
+
+  // Get context
+
+  public String getContextPath() {
+    return this.request.getContextPath();
+  }
 }

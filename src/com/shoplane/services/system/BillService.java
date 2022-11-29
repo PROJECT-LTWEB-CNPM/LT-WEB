@@ -38,7 +38,7 @@ public class BillService extends SuperService {
     } catch (Exception e) {
       super.log(e.getMessage());
       String error = "/500";
-      this.redirectToPage(error);
+      super.redirectToPage(error);
     }
   }
 

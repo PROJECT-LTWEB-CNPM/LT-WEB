@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.shoplane.services.system.DashBoardService;
+
 @WebServlet(urlPatterns = { "/system", "/system/" })
 public class DashboardServlet extends HttpServlet {
   private static final long serialVersionUID = 1L;
@@ -18,6 +20,8 @@ public class DashboardServlet extends HttpServlet {
 
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    DashBoardService dashBoardService = new DashBoardService(request, response);
+    dashBoardService.getDashboard();
   }
 
   @Override

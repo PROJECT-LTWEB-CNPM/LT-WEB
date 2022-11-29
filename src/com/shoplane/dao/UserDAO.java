@@ -61,9 +61,15 @@ public class UserDAO extends JpaDAO<User> implements GenericDAO<User> {
   }
 
   @Override
-  public List<User> pagination(int currentPage, int pageSize, Object... rest) {
+  public List<User> pagination(int currentPage, int pageSize) {
     String queryString = "User.findAll";
-    return super.pagination(queryString, User.class, currentPage, pageSize, rest);
+    return super.pagination(queryString, User.class, currentPage, pageSize);
+  }
+
+  @Override
+  public int count() {
+    // TODO Auto-generated method stub
+    return 0;
   }
 
 }

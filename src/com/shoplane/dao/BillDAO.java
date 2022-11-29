@@ -52,9 +52,15 @@ public class BillDAO extends JpaDAO<Bill> implements GenericDAO<Bill> {
   }
 
   @Override
-  public List<Bill> pagination(int currentPage, int pageSize, Object... rest) {
+  public List<Bill> pagination(int currentPage, int pageSize) {
     String queryName = "Bill.findAll";
-    return super.pagination(queryName, Bill.class, currentPage, pageSize, rest);
+    return super.pagination(queryName, Bill.class, currentPage, pageSize);
+  }
+
+  @Override
+  public int count() {
+    String queryName = "Bill.count";
+    return super.count(queryName);
   }
 
 }

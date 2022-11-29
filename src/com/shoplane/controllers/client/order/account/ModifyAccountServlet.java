@@ -1,4 +1,4 @@
-package com.shoplane.controllers.client;
+package com.shoplane.controllers.client.order.account;
 
 import java.io.IOException;
 
@@ -9,10 +9,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @WebServlet(urlPatterns = { "/account/modify", "/account/modify/" })
-public class ModifyServlet extends HttpServlet {
+public class ModifyAccountServlet extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
-  public ModifyServlet() {
+  public ModifyAccountServlet() {
     super();
   }
 

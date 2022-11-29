@@ -43,9 +43,15 @@ public class RoleDAO extends JpaDAO<Role> implements GenericDAO<Role> {
   }
 
   @Override
-  public List<Role> pagination(int currentPage, int pageSize, Object... rest) {
+  public List<Role> pagination(int currentPage, int pageSize) {
     String queryName = "Role.findAll";
-    return super.pagination(queryName, Role.class, currentPage, pageSize, rest);
+    return super.pagination(queryName, Role.class, currentPage, pageSize);
+  }
+
+  @Override
+  public int count() {
+    // TODO Auto-generated method stub
+    return 0;
   }
 
 }

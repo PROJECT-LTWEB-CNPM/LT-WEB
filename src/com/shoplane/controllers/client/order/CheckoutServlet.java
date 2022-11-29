@@ -1,4 +1,4 @@
-package com.shoplane.controllers.client;
+package com.shoplane.controllers.client.order;
 
 import java.io.IOException;
 import java.util.Date;

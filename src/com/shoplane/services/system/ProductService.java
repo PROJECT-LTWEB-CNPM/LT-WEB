@@ -15,6 +15,7 @@ import com.shoplane.models.Product;
 import com.shoplane.models.ProductType;
 import com.shoplane.services.SuperService;
 import com.shoplane.utils.Constants;
+import com.shoplane.utils.Helper;
 
 public class ProductService extends SuperService {
 
@@ -30,14 +31,39 @@ public class ProductService extends SuperService {
   }
 
   // [GET] ListProductServlet
-  public void handleGetShowProductList(String url) throws ServletException, IOException {
+  public void getProductList(String url) throws ServletException, IOException {
     try {
       // Set encoding
       super.setEncoding(Constants.UTF8);
 
       // get list
-      List<Product> products = this.productDAO.findAll();
+      String currentPageStr = super.getParameter("current_page");
+      String pageSizeStr = super.getParameter("page_size");
+
+      System.out.println("Here");
+
+      int currentPage = 1;
+      int pageSize = 10;
+
+      if (currentPageStr != null && pageSizeStr != null) {
+        if (Helper.isNumeric(currentPageStr)) {
+          currentPage = Integer.parseInt(currentPageStr);
+        }
+
+        if (Helper.isNumeric(pageSizeStr)) {
+          pageSize = Integer.parseInt(pageSizeStr);
+        }
+      }
+
+      int totalItem = this.productDAO.count();
+      int totalPage = totalItem / pageSize + 1;
+      List<Product> products = this.productDAO.pagination(currentPage, pageSize);
       super.setAttribute("products", products);
+      super.setAttribute("totalPage", totalPage);
+      super.setAttribute("currentPage", currentPage);
+      super.setAttribute("pageSize", pageSize);
+
+      System.out.println(pageSize);
 
       // Check url
       if (url == null) {
@@ -48,7 +74,7 @@ public class ProductService extends SuperService {
       }
     } catch (Exception e) {
       super.log(e.getMessage());
-      String error = "/500";
+      String error = super.getContextPath() + "/system/500";
       super.redirectToPage(error);
     }
   }
@@ -128,7 +154,7 @@ public class ProductService extends SuperService {
 
   // [GET] Update product
   public void handleGetUpdateProduct() throws ServletException, IOException {
-    this.handleGetShowProductList("./");
+    this.getProductList("./");
   }
 
   // [POST] Update product
