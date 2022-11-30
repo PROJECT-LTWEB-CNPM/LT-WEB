@@ -62,6 +62,7 @@
 	align-items: flex-end;
 	gap: 0.5rem;
 	transform: translateY(-1rem);
+	margin-bottom: 2rem;
 }
 
 .sub-nav-item {
@@ -72,4 +73,14 @@
 .sub-nav-item:hover {
 	color: #5ec9ff;
 	text-decoration: underline;
+}
+.form-group {
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+	align-items: flex-start;
+}
+
+.form-group>.form-label {
+	font-size: 1.4rem;
 }

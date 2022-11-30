@@ -34,35 +34,91 @@ String baseUrl = context + "/system/products/create";
 						href="<%=context%>/system/products/create">Thêm sản phẩm</a>
 				</div>
 				<div class="customer_info">
-					<div class="actions">
-						<a
-							href="<%=context%>/system/products/?product_type=ALL&category=AO5&current_page=1&page_size=10">&lt;&lt;Quản
-							lý sản phẩm</a>
-					</div>
 					<form action="" method="POST">
 						<input type="text" name="productId" hidden
-							value="<%=Helper.getRandom()%>" /> <select name="categoryTypeId"
-							class="form-control">
+							value="<%=Helper.getRandom()%>" /> 
+							
+					<div class="form-group">
+							<label for="categoryId" class="form-label">Loại sản phẩm</label>	
+						<select name="categoryTypeId" class="form-control">
 							<c:forEach var="item" items="${productTypes}">
 								<option value="${item.getTypeId()}">${item.getTypeName()}</option>
 							</c:forEach>
-						</select> <select name="categoryId" class="form-control">
+						</select>
+						</div>
+						<div class="form-group">
+							<label for="categoryId" class="form-label">Danh mục</label>	
+						 <select name="categoryId" class="form-control">
 							<c:forEach var="item" items="${categories}">
 								<option value="${item.getCategoryId()}">${item.getCategoryName()}</option>
 							</c:forEach>
-						</select> <input type="text" name="productName" id="productName"
-							placeholder="Tên sản phẩm" class="form-control" /> <input
+						</select> 
+						</div>
+						
+						<input name="productId" value="${productId}" hidden /> 
+						
+						<div class="form-group">
+							<label for="productName" class="form-label">Tên sản phẩm</label>	
+							<input
+							type="text" name="productName" placeholder="Nhập sản phẩm"
+							class="form-control"  id="productName" /> 
+						</div>
+
+						<div class="form-group">
+							<label for="mainImageUrl" class="form-label">Đường dẫn hình ảnh</label>	
+							<input
 							type="text" name="mainImageUrl" id="mainImageUrl"
-							placeholder="Hình ảnh" class="form-control" /> <input
-							type="text" name="oldPrice" id="oldPrice" placeholder="Giá cũ"
-							class="form-control" /> <input type="text" name="newPrice"
-							id="newPrice" placeholder="Giá mới" class="form-control" /> <input
-							type="text" name="description" placeholder="Mô tả"
-							class="form-control" /> <input type="text" name="origin"
-							id="origin" placeholder="Nguồn gốc" class="form-control" /> <input
-							type="text" name="pattern" id="pattern" placeholder="Họa tiết"
-							class="form-control" /> <input type="text" name="meterial"
-							id="meterial" placeholder="Loại vải" class="form-control" />
+							placeholder="Hình ảnh" class="form-control"
+							/> 
+						</div>
+						<div class="form-group">
+							<label for="oldPrice" class="form-label">Giá cũ</label>	
+							<input type="text"
+							name="oldPrice" id="oldPrice" placeholder="Giá cũ"
+							class="form-control" /> 
+							</div>
+
+						<div class="form-group">
+							<label for="newPrice" class="form-label">Giá mới</label>	
+							<input
+							type="text" name="newPrice" id="newPrice" placeholder="Giá mới"
+							class="form-control"  /> 
+						</div>
+
+						<div class="form-group">
+							<label for="origin" class="form-label">Nguồn gốc</label>	
+							<input
+							type="text" name="origin" placeholder="Nguồn gốc" id="origin"
+							class="form-control" /> 
+						</div>
+
+						<div class="form-group">
+							<label for="description" class="form-label">Mô tả</label>	
+							<input
+							type="text" name="description" placeholder="Mô tả" id="description"
+							class="form-control" /> 
+						</div>
+
+						<div class="form-group">
+							<label for="pattern" class="form-label">Họa tiết</label>	
+							<input
+							type="text" name="pattern" id="pattern" placeholder="Họa tiết" id="pattern"
+							class="form-control" /> 
+						</div>
+
+						<div class="form-group">
+							<label for="meterial" class="form-label">Loại vải</label>	
+						<input
+							type="text" name="meterial" id="meterial" placeholder="Loại vải"
+							class="form-control"  />
+						</div>
+						<div class="form-group">
+							<label for="meterial" class="form-label">Tình trạng</label>	
+							<select name="select_active" class="form-control">
+								<option value="0" >Còn hàng</option>
+								<option value="1" >Hết hàng</option>
+							</select>
+						</div>
 						<button class="btn-submit" type="submit">Lưu</button>
 					</form>
 				</div>

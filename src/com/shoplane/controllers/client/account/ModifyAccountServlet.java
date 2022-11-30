@@ -1,4 +1,4 @@
-package com.shoplane.controllers.client.order.account;
+package com.shoplane.controllers.client.account;
 
 import java.io.IOException;
 

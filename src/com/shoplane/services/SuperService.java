@@ -47,6 +47,11 @@ public class SuperService {
     return this.request.getParameter(key);
   }
 
+  // Get Param
+  public String[] getParameterValues(String key) {
+    return this.request.getParameterValues(key);
+  }
+
   // Get context
 
   public String getContextPath() {

@@ -1,4 +1,4 @@
-package com.shoplane.controllers.client.order.customer;
+package com.shoplane.controllers.client.customer;
 
 import java.io.IOException;
 
@@ -10,24 +10,18 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.shoplane.services.client.CustomerService;
 
-@WebServlet(urlPatterns = { "/verify", "/verify/" })
-public class CustomerVerifyCodeServlet extends HttpServlet {
+@WebServlet(urlPatterns = { "/logout", "/logout/" })
+public class CustomerLogoutServlet extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
-  public CustomerVerifyCodeServlet() {
+  public CustomerLogoutServlet() {
     super();
   }
 
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     CustomerService customerService = new CustomerService(request, response);
-    customerService.getVerifyForm();
-  }
-
-  @Override
-  protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    CustomerService customerService = new CustomerService(request, response);
-    customerService.postVerifyForm();
+    customerService.logout();
   }
 
 }

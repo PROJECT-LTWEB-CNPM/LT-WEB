@@ -14,7 +14,7 @@ String baseUrl = context + "/system/options/list";
 <head>
 <jsp:include page="../../head.jsp" />
 <link rel="stylesheet" href="<%=baseUrl%>/index.css" />
-<title>Quản lý lựa chọn - Shoplane</title>
+<title>Quản lý ảnh - Shoplane</title>
 </head>
 <body>
 	<div id="app">
@@ -36,8 +36,9 @@ String baseUrl = context + "/system/options/list";
 				</div>
 				<div class="actions">
 					<a
-						href="<%=context%>/system/products/options/create/?product_id=${productId}">Thêm
-						hình</a> <a href="<%=context%>/system/products/options/delete">Xóa
+						href="<%=context%>/system/products/images/create/?product_id=${productId}">Thêm
+						hình</a> <a class="btnDeleteImages"
+						href="<%=context%>/system/products/images/delete/?product_id=${productId}">Xóa
 						hình</a>
 				</div>
 				<div class="table">
@@ -56,7 +57,8 @@ String baseUrl = context + "/system/options/list";
 						<c:forEach var="item" items="${productImages}">
 							<div class="table__row">
 								<div style="width: 5%">
-									<input type="checkbox">
+									<input type="checkbox" name="imageSelected"
+										value="${item.getImageId()}">
 								</div>
 								<div style="width: 10%">${item.getImageId()}</div>
 								<div style="width: 35%">${item.getImageUrl()}</div>
@@ -69,7 +71,7 @@ String baseUrl = context + "/system/options/list";
 								<div style="width: 10%">${product.getOrigin()}</div>
 								<div style="width: 15%" class="table__link">
 									<a
-										href="<%=context %>/system/products/options/detail/?product_id=${productId}&image_id=${item.getImageUrl()}">Xem
+										href="<%=context %>/system/products/images/detail/?product_id=${productId}&image_id=${item.getImageId()}">Xem
 										chi tiết</a>
 								</div>
 							</div>
@@ -79,10 +81,12 @@ String baseUrl = context + "/system/options/list";
 			</main>
 		</div>
 	</div>
+	<input class="productId" value="${productId}" hidden />
 	<!-- Jquery -->
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"
 		integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA=="
 		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script type="text/javascript" src="<%=context%>/assets/js/deleteProductImage.js"></script>
 </body>
 </html>

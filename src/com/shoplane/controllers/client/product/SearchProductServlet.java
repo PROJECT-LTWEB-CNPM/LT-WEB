@@ -1,4 +1,4 @@
-package com.shoplane.controllers.client.order.product;
+package com.shoplane.controllers.client.product;
 
 import java.io.IOException;
 import java.util.ArrayList;

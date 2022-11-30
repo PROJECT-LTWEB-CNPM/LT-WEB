@@ -1,4 +1,4 @@
-package com.shoplane.controllers.client.order.product;
+package com.shoplane.controllers.client.product;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -18,7 +18,6 @@ import com.shoplane.models.Option;
 import com.shoplane.models.Order;
 import com.shoplane.models.Product;
 import com.shoplane.models.ProductImage;
-import com.shoplane.services.client.ProductService;
 import com.shoplane.utils.Helper;
 
 @WebServlet(urlPatterns = { "/product-detail", "/product-detail/" })
@@ -114,7 +113,7 @@ public class ProductDetailServlet extends HttpServlet {
   }
 
   protected Product getProductByPId(String pId) {
-    ProductService productSevice = new ProductService();
+    // ProductService productSevice = new ProductService();
     Product product = this.productDAO.find(pId);
     return product;
   }

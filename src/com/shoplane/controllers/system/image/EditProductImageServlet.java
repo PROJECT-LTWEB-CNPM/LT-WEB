@@ -1,4 +1,4 @@
-package com.shoplane.controllers.client.order.customer;
+package com.shoplane.controllers.system.image;
 
 import java.io.IOException;
 
@@ -8,26 +8,26 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.shoplane.services.client.CustomerService;
+import com.shoplane.services.system.ProductImageService;
 
-@WebServlet(urlPatterns = { "/register", "/register/" })
-public class CustomerRegisterServlet extends HttpServlet {
+@WebServlet(urlPatterns = { "/system/products/images/detail", "/system/products/images/detail/" })
+public class EditProductImageServlet extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
-  public CustomerRegisterServlet() {
+  public EditProductImageServlet() {
     super();
   }
 
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    CustomerService customerService = new CustomerService(request, response);
-    customerService.getRegisterForm();
+    ProductImageService productImageService = new ProductImageService(request, response);
+    productImageService.getProductImageEditForm();
   }
 
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    CustomerService customerService = new CustomerService(request, response);
-    customerService.postRegisterForm();
+    ProductImageService productImageService = new ProductImageService(request, response);
+    productImageService.updateProductImage();
   }
 
 }

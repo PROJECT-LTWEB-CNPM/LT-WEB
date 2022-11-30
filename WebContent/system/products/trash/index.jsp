@@ -31,59 +31,13 @@ int[] entries = {10, 20, 30};
 				<div class="sub-nav">
 					<a class="sub-nav-item"
 						href="<%=context%>/system/products/?product_type=ALL&category=AO5&current_page=1&page_size=10">Quản
-						lý sản phẩm</a>
+						lý sản phẩm</a> <i class="fas fa-angle-right"></i> <a
+						class="sub-nav-item"
+						href="<%=context%>/system/products/trash/">Thùng rác</a>
 				</div>
 				<div class="actions">
-					<div class="action__select">
-						Loại sản phẩm <select style="width: 6rem" id="select__type"
-							onchange="javascript:handleSelectProductType(this)">
-							<c:forEach var="item" items="${productTypes}">
-								<c:choose>
-									<c:when test="${item.getTypeId().equals(productType)}">
-										<option value="${item.getTypeId()}" selected>${item.getTypeName()}</option>
-									</c:when>
-									<c:otherwise>
-										<option value="${item.getTypeId()}">${item.getTypeName()}</option>
-									</c:otherwise>
-								</c:choose>
-							</c:forEach>
-						</select>
-					</div>
-					<div class="action__select">
-						Danh mục <select id="select__category"
-							onchange="javascript:handleSelectCategory(this)">
-							<c:forEach var="item" items="${categories}">
-								<c:choose>
-									<c:when test="${item.getCategoryId().equals(category)}">
-										<option value="${item.getCategoryId()}" selected>${item.getCategoryName()}</option>
-									</c:when>
-									<c:otherwise>
-										<option value="${item.getCategoryId()}">${item.getCategoryName()}</option>
-									</c:otherwise>
-								</c:choose>
-							</c:forEach>
-						</select>
-					</div>
-					<div class="action__select">
-						Xem <select style="width: 5rem" id="select__entries"
-							onchange="javascript:handleSelectEntries(this)">
-							<c:forEach end="3" begin="1" var="item">
-								<c:choose>
-									<c:when test="${(item * 10) == pageSize}">
-										<option value="${item * 10}" selected>${item * 10}</option>
-									</c:when>
-									<c:otherwise>
-										<option value="${item * 10}">${item * 10}</option>
-									</c:otherwise>
-								</c:choose>
-
-							</c:forEach>
-						</select> sản phẩm
-					</div>
-
-					<a href="<%=context%>/system/products/create/">Thêm sản phẩm</a> <a
-						href="" class="btnDeleteProducts">Xóa sản phẩm</a> <a
-						href="<%=context%>/system/products/trash/">Thùng rác</a>
+					<a href="" class="btnDeleteProducts">Xóa tất cả</a> <a
+						href="<%=context%>/system/products/trash/">Khôi phục tất cả</a>
 				</div>
 				<div class="table">
 					<div class="table__head">
@@ -93,10 +47,10 @@ int[] entries = {10, 20, 30};
 						<div style="width: 10%">Mã sản phẩm</div>
 						<div style="width: 20%">Tên sản phẩm</div>
 						<div style="width: 10%">Hình ảnh</div>
+						<div style="width: 10%">Loại sản phẩm</div>
 						<div style="width: 10%">Danh mục</div>
 						<div style="width: 10%">Tình trạng</div>
-						<div style="width: 10%">Các lựa chọn</div>
-						<div style="width: 10%">Ảnh xem trước</div>
+						<div style="width: 10%"></div>
 						<div style="width: 15%"></div>
 					</div>
 					<div class="table__body">
@@ -113,8 +67,10 @@ int[] entries = {10, 20, 30};
 										alt="${item.getProductName()}"
 										style="height: 60px; object-fit: cover" />
 								</div>
-								<div style="width: 10%">${item.getCategory().getCategoryName()}</div>
+								<div style="width: 10%">${item.getProducttype().getTypeName()}</div>
 								<div style="width: 10%">
+									${item.getCategory().getCategoryName()}</div>
+								<div style="width: 10%" class="table__link">
 									<c:choose>
 										<c:when test="${item.getIsActive() == 0}">
 										Còn hàng	
@@ -126,18 +82,12 @@ int[] entries = {10, 20, 30};
 								</div>
 								<div style="width: 10%" class="table__link">
 									<a
-										href="<%=context %>/system/products/options/?product_id=${item.getProductId()}">Xem
-										thêm</a>
-								</div>
-								<div style="width: 10%" class="table__link">
-									<a
-										href="<%=context %>/system/products/images/?product_id=${item.getProductId()}">Xem
-										thêm</a>
+										href="<%=context %>/system/products/images/?product_id=${item.getProductId()}">Xóa</a>
 								</div>
 								<div style="width: 15%" class="table__link">
 									<a
-										href="<%=context %>/system/products/detail/?product_id=${item.getProductId()}">Xem
-										chi tiết</a>
+										href="<%=context %>/system/products/detail/?product_id=${item.getProductId()}">Khôi
+										phục</a>
 								</div>
 							</div>
 						</c:forEach>

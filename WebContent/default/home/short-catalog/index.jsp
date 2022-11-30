@@ -1,21 +1,34 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import="com.shoplane.models.Product"%>
+<%@page import="java.util.List"%>
+<%@page import="java.util.HashMap"%>
+<%@page import="java.util.Map"%>
+<%@page import="com.shoplane.models.ProductType"%>
 <%@page import="com.shoplane.utils.Helper"%>
 <%@page import="com.shoplane.utils.Constants"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<jsp:useBean id="product"
-	class="com.shoplane.services.client.ProductService"></jsp:useBean>
+<jsp:useBean id="productDAO" class="com.shoplane.dao.ProductDAO"></jsp:useBean>
+<jsp:useBean id="productTypeDAO" class="com.shoplane.dao.ProductTypeDAO"></jsp:useBean>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
-request.setCharacterEncoding("utf-8");
-
+request.setCharacterEncoding(Constants.UTF8);
 String context = request.getContextPath();
+ProductType productType = productTypeDAO.find(Constants.SHORT);
+
+Map<String, Object> params = new HashMap<>();
+params.put("isDelete", (byte) 0);
+params.put("productType", productType);
+
+List<Product> products = new ArrayList<>();
+products = productDAO.paginationByProductTypeAndIsDeleted(params, 1, 12);
 %>
 
 <section class="catalog">
 	<div class="container hide_short">
 		<h1 class="catalog__heading">DANH MỤC QUẦN</h1>
 		<div class="catalog__list">
-			<c:forEach var="item" items="${product.getAllShort()}">
+			<c:forEach var="item" items="<%=products%>">
 				<div class="catalog__item">
 					<div class="group_content">
 						<div class="home-product-item__img"
@@ -41,7 +54,7 @@ String context = request.getContextPath();
 		</div>
 		<div class="btn-more">
 			<a class="btn-more-link"
-				href="<%=context%>/collection?category_id=<%=Constants.SHORT_ALL%>&category_type=<%=Constants.SHORT%>">
+				href="<%=context%>/collection/?product_type=<%=Constants.SHORT%>&category_id=<%=Constants.SHORT_ALL%>&current_page=1&page_size=12">
 				XEM TẤT CẢ </a>
 		</div>
 	</div>

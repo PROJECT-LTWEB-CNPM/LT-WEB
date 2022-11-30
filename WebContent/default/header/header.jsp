@@ -1,3 +1,7 @@
+<%@page import="com.shoplane.utils.Helper"%>
+<%@page import="com.shoplane.models.ProductType"%>
+<%@page import="java.util.List"%>
+<%@page import="com.shoplane.models.Category"%>
 <%@page import="com.shoplane.models.User"%>
 <%@page import="com.shoplane.utils.Constants"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -5,8 +9,17 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <jsp:useBean id="categoryDAO" class="com.shoplane.dao.CategoryDAO" />
 <jsp:useBean id="productTypeDAO" class="com.shoplane.dao.ProductTypeDAO" />
+
 <%
 String context = request.getContextPath();
+
+ProductType shirtProductType = productTypeDAO.find(Constants.SHIRT);
+List<Category> shirtCategories = categoryDAO.findByProductType(shirtProductType);
+
+ProductType shortProductType = productTypeDAO.find(Constants.SHORT);
+List<Category> shortCategories = categoryDAO.findByProductType(shortProductType);
+
+// Flow 
 String url = null;
 url = context + "/login";
 User u = (User) session.getAttribute("user");
@@ -26,29 +39,23 @@ if (u != null) {
 					</a>
 				</div>
 				<div class="header__navbar-item hide dropdown">
-					<a href="<%=context%>/collection?category_id=AO5&category_type=AO">ÁO</a>
-					<c:if test="${ categoryDAO != null && productTypeDAO != null}">
-						<div class="dropdown-content">
-							<c:forEach var="item"
-								items="${categoryDAO.findByProductType(productTypeDAO.find(Constants.SHIRT))}">
-								<a
-									href="<%=context %>/collection?category_id=${item.getCategoryId()}&category_type=AO">${item.getCategoryName()}</a>
-							</c:forEach>
-						</div>
-					</c:if>
+					<a href="<%=context%>/collection/?product_type=<%=Constants.SHIRT%>&category_id=<%=Constants.SHIRT_ALL%>&current_page=1&page_size=12">ÁO</a>
+					<div class="dropdown-content">
+						<c:forEach var="item" items="<%=shirtCategories%>">
+							<a
+								href="<%=context %>/collection/?product_type=<%=Constants.SHIRT %>&category_id=${item.getCategoryId()}&current_page=1&page_size=12">${item.getCategoryName()}</a>
+						</c:forEach>
+					</div>
 				</div>
 				<div class="header__navbar-item hide dropdown">
 					<a
-						href="<%=context%>/collection?category_id=QUAN4&category_type=QUAN">QUẦN</a>
-					<c:if test="${ categoryDAO != null && productTypeDAO != null}">
-						<div class="dropdown-content">
-							<c:forEach var="item"
-								items="${categoryDAO.findByProductType(productTypeDAO.find(Constants.SHORT))}">
-								<a
-									href="<%=context %>/collection?category_id=${item.getCategoryId()}&category_type=QUAN">${item.getCategoryName() }</a>
-							</c:forEach>
-						</div>
-					</c:if>
+						href="<%=context%>/collection/?product_type=<%=Constants.SHORT%>&category_id=<%=Constants.SHORT_ALL%>&current_page=1&page_size=12">QUẦN</a>
+					<div class="dropdown-content">
+						<c:forEach var="item" items="<%=shortCategories%>">
+							<a
+								href="<%=context %>/collection/?product_type=<%=Constants.SHORT %>&category_id=${item.getCategoryId()}&current_page=1&page_size=12">${item.getCategoryName() }</a>
+						</c:forEach>
+					</div>
 				</div>
 			</li>
 			<li class="header__navbar-item header__navbar-item-search"><i

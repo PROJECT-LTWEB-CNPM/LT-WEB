@@ -25,7 +25,6 @@ public class JpaDAO<T> {
     EntityManager entityManager = entityManagerFactory.createEntityManager();
     entityManager.getTransaction().begin();
     entityManager.persist(entity);
-    entityManager.refresh(entity);
     entityManager.getTransaction().commit();
     entityManager.close();
     return entity;

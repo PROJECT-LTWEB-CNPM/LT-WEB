@@ -88,6 +88,17 @@ public class ProductDAO extends JpaDAO<Product> implements GenericDAO<Product> {
     return products;
   }
 
+  public List<Product> findByIsDeleted(Map<String, Object> parameters) {
+    String queryName = "Product.findByIsDeleted";
+    return super.findWithNamedQuery(queryName, parameters);
+  }
+
+  public List<Product> paginationByIsDeleted(Map<String, Object> parameters, int currentPage,
+      int pageSize) {
+    String queryName = "Product.findByIsDeleted";
+    return super.paginationWithNamedQuery(queryName, Product.class, parameters, currentPage, pageSize);
+  }
+
   public List<Product> paginationByProductTypeAndCategory(Map<String, Object> parameters, int currentPage,
       int pageSize) {
     String queryName = "Product.findByCategoryAndProductType";
@@ -109,4 +120,52 @@ public class ProductDAO extends JpaDAO<Product> implements GenericDAO<Product> {
     String queryName = "Product.countByProductTypeAndCategory";
     return super.countWithNamedQuery(queryName, params);
   }
+
+  public int countByIsDeleted(Map<String, Object> params) {
+    String queryName = "Product.countByIsDeleted";
+    return super.countWithNamedQuery(queryName, params);
+  }
+
+  public int bulkUpdate(List<Product> products) {
+    int rowCountUpdated = 0;
+    for (Product product : products) {
+      this.update(product);
+      rowCountUpdated++;
+    }
+    return rowCountUpdated;
+  }
+
+  public List<Product> findByProductTypeAndIsDeleted(Map<String, Object> params) {
+    String queryName = "Product.findByProductTypeAndIsDeleted";
+    return super.findWithNamedQuery(queryName, params);
+  }
+
+  public List<Product> paginationByProductTypeAndIsDeleted(Map<String, Object> parameters, int currentPage,
+      int pageSize) {
+    String queryName = "Product.findByProductTypeAndIsDeleted";
+    return super.paginationWithNamedQuery(queryName, Product.class, parameters, currentPage, pageSize);
+  }
+
+  public int countByProductTypeAndIsDeleted(Map<String, Object> params) {
+    String queryName = "Product.countByProductTypeAndIsDeleted";
+    return super.countWithNamedQuery(queryName, params);
+  }
+
+  //
+  public List<Product> findByCategoryAndProductTypeAndIsDeleted(Map<String, Object> params) {
+    String queryName = "Product.findByCategoryAndProductTypeAndIsDeleted";
+    return super.findWithNamedQuery(queryName, params);
+  }
+
+  public List<Product> paginationByCategoryAndProductTypeAndIsDeleted(Map<String, Object> parameters, int currentPage,
+      int pageSize) {
+    String queryName = "Product.findByCategoryAndProductTypeAndIsDeleted";
+    return super.paginationWithNamedQuery(queryName, Product.class, parameters, currentPage, pageSize);
+  }
+
+  public int countByProductTypeAndCategoryAndIsDeleted(Map<String, Object> params) {
+    String queryName = "Product.countByProductTypeAndCategoryAndIsDeleted";
+    return super.countWithNamedQuery(queryName, params);
+  }
+
 }

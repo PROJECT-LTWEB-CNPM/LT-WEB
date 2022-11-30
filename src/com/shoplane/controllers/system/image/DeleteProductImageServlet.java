@@ -1,4 +1,4 @@
-package com.shoplane.controllers.client.order.customer;
+package com.shoplane.controllers.system.image;
 
 import java.io.IOException;
 
@@ -8,22 +8,25 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(urlPatterns = { "/forgot-password", "/forgot-password/" })
-public class CustomerForgotPasswordServlet extends HttpServlet {
+import com.shoplane.services.system.ProductImageService;
+
+@WebServlet(urlPatterns = { "/system/products/images/delete", "/system/products/images/delete/" })
+public class DeleteProductImageServlet extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
-  public CustomerForgotPasswordServlet() {
+  public DeleteProductImageServlet() {
     super();
   }
 
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    String url = "/default/account/forgotPassword/index.jsp";
-    request.getRequestDispatcher(url).forward(request, response);
+    ProductImageService productImageService = new ProductImageService(request, response);
+    productImageService.deleteProductImage();
   }
 
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
   }
 
 }

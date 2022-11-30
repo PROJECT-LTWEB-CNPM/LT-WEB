@@ -1,4 +1,4 @@
-package com.shoplane.controllers.client.order.product;
+package com.shoplane.controllers.client.product;
 
 import java.io.IOException;
 import java.util.List;
@@ -16,7 +16,6 @@ import com.shoplane.models.Category;
 import com.shoplane.models.Product;
 import com.shoplane.models.ProductType;
 import com.shoplane.services.client.ProductService;
-import com.shoplane.utils.Constants;
 
 @WebServlet(urlPatterns = { "/collection", "/collection/" })
 public class ListProductServlet extends HttpServlet {
@@ -35,21 +34,8 @@ public class ListProductServlet extends HttpServlet {
 
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    request.setCharacterEncoding("UTF-8");
-    response.setCharacterEncoding("UTF-8");
-
-    String categoryId = request.getParameter("category_id").trim();
-    String categoryType = request.getParameter("category_type").trim();
-
-    // get sort type form select form
-    String orderType = request.getParameter("orderType");
-
-    if (orderType == null)
-      orderType = Constants.OLDEST;
-
-    if (categoryId != null && categoryType != null) {
-      handleGetProducts(request, response, categoryType, categoryId, orderType);
-    }
+    ProductService productService = new ProductService(request, response);
+    productService.getCollectionProduct();
   }
 
   @Override
@@ -64,7 +50,6 @@ public class ListProductServlet extends HttpServlet {
     try {
 
       // Create services
-      ProductService ps = new ProductService();
 
       // Init data
       List<Product> pList = null;
@@ -83,7 +68,6 @@ public class ListProductServlet extends HttpServlet {
       ProductType pType = productTypeDAO.find(cateType);
       cate = categoryDAO.findByProductType(pType);
 
-      pList = ps.getOrderedProduct(pList, orderType);
       System.out.println(orderType);
 
       // Set att => collection/index.jsp

@@ -21,14 +21,26 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "products")
 @NamedQueries({
-    @NamedQuery(name = "Product.findAll", query = "SELECT p FROM Product p"),
-    @NamedQuery(name = "Product.findByProductType", query = "SELECT p FROM Product p WHERE p.producttype = :productType"),
     @NamedQuery(name = "Product.findByCategory", query = "SELECT p FROM Product p WHERE p.category = :category"),
     @NamedQuery(name = "Product.findByProductName", query = "SELECT p FROM Product p WHERE p.productName LIKE :productName"),
-    @NamedQuery(name = "Product.findByCategoryAndProductType", query = "SELECT p FROM Product p WHERE p.category = :category AND p.producttype = :productType"),
+
+    @NamedQuery(name = "Product.findAll", query = "SELECT p FROM Product p"),
     @NamedQuery(name = "Product.count", query = "SELECT COUNT(p) FROM Product p"),
+
+    @NamedQuery(name = "Product.findByProductType", query = "SELECT p FROM Product p WHERE p.producttype = :productType"),
     @NamedQuery(name = "Product.countByProductType", query = "SELECT COUNT(p) FROM Product p WHERE p.producttype = :productType"),
-    @NamedQuery(name = "Product.countByProductTypeAndCategory", query = "SELECT COUNT(p) FROM Product p WHERE p.category = :category AND p.producttype = :productType")
+
+    @NamedQuery(name = "Product.findByIsDeleted", query = "SELECT p FROM Product p WHERE p.isDelete = :isDelete"),
+    @NamedQuery(name = "Product.countByIsDeleted", query = "SELECT COUNT(p) FROM Product p WHERE p.isDelete = :isDelete"),
+
+    @NamedQuery(name = "Product.findByCategoryAndProductType", query = "SELECT p FROM Product p WHERE p.category = :category AND p.producttype = :productType"),
+    @NamedQuery(name = "Product.countByProductTypeAndCategory", query = "SELECT COUNT(p) FROM Product p WHERE p.category = :category AND p.producttype = :productType"),
+
+    @NamedQuery(name = "Product.findByProductTypeAndIsDeleted", query = "SELECT p FROM Product p WHERE p.isDelete = :isDelete AND p.producttype = :productType"),
+    @NamedQuery(name = "Product.countByProductTypeAndIsDeleted", query = "SELECT COUNT(p) FROM Product p WHERE p.isDelete = :isDelete AND p.producttype = :productType"),
+
+    @NamedQuery(name = "Product.findByCategoryAndProductTypeAndIsDeleted", query = "SELECT p FROM Product p WHERE p.category = :category AND p.producttype = :productType AND p.isDelete = :isDelete"),
+    @NamedQuery(name = "Product.countByProductTypeAndCategoryAndIsDeleted", query = "SELECT COUNT(p) FROM Product p WHERE p.category = :category AND p.producttype = :productType AND p.isDelete = :isDelete")
 })
 public class Product implements Serializable {
   private static final long serialVersionUID = 1L;

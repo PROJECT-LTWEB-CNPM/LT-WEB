@@ -17,7 +17,8 @@ String baseUrl = context + "/default/collections";
 <head>
 <jsp:include page="../head.jsp" />
 <link rel="stylesheet" href="<%=baseUrl%>/index.css" />
-<title>${cateName}-Shoplane</title>
+<link rel="stylesheet" href="<%=baseUrl%>/pagination/pagination.css" />
+<title>${c.getCategoryName()} - Shoplane</title>
 </head>
 <body>
 	<div id="app">
@@ -32,17 +33,11 @@ String baseUrl = context + "/default/collections";
 								<i class="fa-solid fa-xmark"></i>
 							</div>
 							<ul class="category-list">
-								<li
-									class="category-item ${categoryId == 'AO5' || categoryId == 'QUAN4' ? 'active' : ''}">
-									<a
-									href="<%=context%>/collection?category_id=<%=Constants.SHIRT_ALL %>&category_type=${categoryType}"
-									class="category-item__link">TẤT CẢ SẢN PHẨM</a>
-								</li>
-								<c:forEach var="item" items="${cates}">
+								<c:forEach var="item" items="${categories}">
 									<li
-										class="category-item ${categoryId == item.getCategoryId() ? 'active' : ''}">
+										class="category-item ${category == item.getCategoryId() ? 'active' : ''}">
 										<a
-										href="<%=context %>/collection?category_id=${item.getCategoryId()}&category_type=${categoryType}"
+										href="<%=context %>/collection/?product_type=${item.getProducttype().getTypeId()}&category_id=${item.getCategoryId()}&current_page=1&page_size=12"
 										class="category-item__link">${item.getCategoryName()}</a>
 									</li>
 								</c:forEach>
@@ -51,7 +46,7 @@ String baseUrl = context + "/default/collections";
 					</div>
 					<div class="grid__column_3">
 						<div class="product_filter">
-							<h3 class="type_of_product">${cateName}</h3>
+							<h3 class="type_of_product">${c.getCategoryName()}</h3>
 							<div class="option_filter">
 								<h3 class="option_filter-label">SẮP XẾP THEO</h3>
 								<form
@@ -68,7 +63,7 @@ String baseUrl = context + "/default/collections";
 							</div>
 						</div>
 						<div class="grid__row">
-							<c:forEach var="item" items="${productBycategoryId}">
+							<c:forEach var="item" items="${products}">
 								<div class="grid__column-3-3">
 									<div class="group_content">
 										<div class="home-product-item__img"
@@ -92,7 +87,7 @@ String baseUrl = context + "/default/collections";
 							</c:forEach>
 						</div>
 						<div class="show_all">
-							<button class="btn-submit">XEM THÊM</button>
+							<jsp:include page="./pagination/pagination.jsp" />
 						</div>
 					</div>
 				</div>

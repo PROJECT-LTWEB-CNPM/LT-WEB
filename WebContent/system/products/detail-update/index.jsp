@@ -34,6 +34,8 @@ String baseUrl = context + "/system/products/detail-update";
 				</div>
 				<div class="customer_info">
 					<form action="" method="POST">
+						<div class="form-group">
+							<label for="categoryId" class="form-label">Loại sản phẩm</label>	
 						<select name="categoryTypeId" class="form-control">
 							<c:forEach var="item" items="${productTypes}">
 								<c:choose>
@@ -46,7 +48,12 @@ String baseUrl = context + "/system/products/detail-update";
 									</c:otherwise>
 								</c:choose>
 							</c:forEach>
-						</select> <select name="categoryId" class="form-control">
+						</select>
+						</div>
+						
+						<div class="form-group">
+							<label for="categoryId" class="form-label">Danh mục</label>	
+						 <select name="categoryId" class="form-control">
 							<c:forEach var="item" items="${categories}">
 								<c:choose>
 									<c:when
@@ -58,24 +65,77 @@ String baseUrl = context + "/system/products/detail-update";
 									</c:otherwise>
 								</c:choose>
 							</c:forEach>
-						</select> <input name="productId" value="${productId}" hidden /> <input
-							type="text" name="productName" placeholder="Tên sản phẩm"
-							class="form-control" value="${product.getProductName()}" /> <input
+						</select> 
+						</div>
+						
+						<input name="productId" value="${productId}" hidden /> 
+						
+						<div class="form-group">
+							<label for="productName" class="form-label">Tên sản phẩm</label>	
+							<input
+							type="text" name="productName" placeholder="Nhập sản phẩm"
+							class="form-control" value="${product.getProductName()}" id="productName" /> 
+						</div>
+
+						<div class="form-group">
+							<label for="mainImageUrl" class="form-label">Đường dẫn hình ảnh</label>	
+							<input
 							type="text" name="mainImageUrl" id="mainImageUrl"
 							placeholder="Hình ảnh" class="form-control"
-							value="${product.getMainImageUrl()}" /> <input type="text"
+							value="${product.getMainImageUrl()}" /> 
+						</div>
+						<div class="form-group">
+							<label for="oldPrice" class="form-label">Giá cũ</label>	
+							<input type="text"
 							name="oldPrice" id="oldPrice" placeholder="Giá cũ"
-							class="form-control" value="${product.getOldPrice()}" /> <input
+							class="form-control" value="${product.getOldPrice()}" /> 
+							</div>
+
+						<div class="form-group">
+							<label for="newPrice" class="form-label">Giá mới</label>	
+							<input
 							type="text" name="newPrice" id="newPrice" placeholder="Giá mới"
-							class="form-control" value="${product.getNewPrice()}" /> <input
-							type="text" name="origin" placeholder="Nguồn gốc"
-							class="form-control" value="${product.getOrigin()}" /> <input
-							type="text" name="description" placeholder="Mô tả"
-							class="form-control" value="${product.getDescription()}" /> <input
-							type="text" name="pattern" id="pattern" placeholder="Họa tiết"
-							class="form-control" value="${product.getPattern()}" /> <input
+							class="form-control" value="${product.getNewPrice()}" /> 
+						</div>
+
+						<div class="form-group">
+							<label for="origin" class="form-label">Nguồn gốc</label>	
+							<input
+							type="text" name="origin" placeholder="Nguồn gốc" id="origin"
+							class="form-control" value="${product.getOrigin()}" /> 
+						</div>
+
+						<div class="form-group">
+							<label for="description" class="form-label">Mô tả</label>	
+							<input
+							type="text" name="description" placeholder="Mô tả" id="description"
+							class="form-control" value="${product.getDescription()}" /> 
+						</div>
+
+						<div class="form-group">
+							<label for="pattern" class="form-label">Họa tiết</label>	
+							<input
+							type="text" name="pattern" id="pattern" placeholder="Họa tiết" id="pattern"
+							class="form-control" value="${product.getPattern()}" /> 
+						</div>
+
+						<div class="form-group">
+							<label for="meterial" class="form-label">Loại vải</label>	
+						<input
 							type="text" name="meterial" id="meterial" placeholder="Loại vải"
 							class="form-control" value="${product.getMeterial()}" />
+						</div>
+						<div class="form-group">
+							<label for="meterial" class="form-label">Tình trạng</label>	
+							<select name="select_active" class="form-control">
+								<option value="0" >Còn hàng</option>
+								<option value="1" >Hết hàng</option>
+<%-- 							<c:if test="${product.getIsActive() == 0}">
+							</c:if>
+							<c:if test="${product.getIsActive() == 1}">
+							</c:if>
+ --%>							</select>
+						</div>
 						<button class="btn-submit" type="submit">Lưu</button>
 					</form>
 

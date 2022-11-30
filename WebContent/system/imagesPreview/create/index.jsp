@@ -6,7 +6,7 @@
 <%
 request.setCharacterEncoding("utf-8");
 String context = request.getContextPath();
-String baseUrl = request.getContextPath() + "/system/imagesPreview/create";
+String baseUrl = request.getContextPath() + "/system/options/create";
 %>
 
 <!doctype html>
@@ -28,29 +28,24 @@ String baseUrl = request.getContextPath() + "/system/imagesPreview/create";
 			<main id="main-content">
 				<div class="sub-nav">
 					<a class="sub-nav-item"
-						href="<%=context%>/system/bills/?status=0&current_page=1&page_size=10">Quản
-						lý hóa đơn</a> <i class="fas fa-angle-right"></i><a
+						href="<%=context%>/system/products/?product_type=ALL&category=AO5&current_page=1&page_size=10">Quản
+						lý sản phẩm</a> <i class="fas fa-angle-right"></i> <a
 						class="sub-nav-item"
-						href="<%=context%>/system/bills/create/">Thêm
-						hóa đơn</a>
+						href="<%=context%>/system/products/images/?product_id=${productId}">Quản
+						lý hình ảnh</a> <i class="fas fa-angle-right"></i><a
+						class="sub-nav-item"
+						href="<%=context%>/system/products/images/create/?product_id=${productId}">Thêm
+						hình ảnh</a>
 				</div>
 				<div class="customer_info">
 					<form action="" method="POST">
-						<input name="optionId" value="OP<%=Helper.getRandom()%>" hidden />
+						<input name="imageId" value="<%=Helper.getRandom()%>" hidden />
 						<select name="productId" class="form-control">
 							<option value="${productId}">${product.getProductName()}</option>
-						</select> <select name="colorId" class="form-control">
-							<c:forEach var="item" items="${colors}">
-								<option value="${item.getColorId()}">
-									${item.getColorName()}</option>
-							</c:forEach>
-						</select> <select name="sizeId" class="form-control">
-							<c:forEach var="item" items="${sizes}">
-								<option value="${item.getSizeId()}">
-									${item.getSizeName()}</option>
-							</c:forEach>
-						</select> <input type="text" name="availableQuantity"
-							placeholder="Số lượng khả dụng" class="form-control" required />
+						</select> <input type="text" name="imageUrl" placeholder="Đường dẫn"
+							class="form-control" required /> <img
+							src="https://product.hstatic.net/200000305259/product/l57bh1o8-1-y6dc-shirt_tpr-wht_4_0a0b05105c3a4b0aa08fb93995b00809_master.jpg"
+							style="width: 40rem; height: 40rem; object-fit: cover;" />
 						<button class="btn-submit" type="submit">Lưu</button>
 					</form>
 				</div>

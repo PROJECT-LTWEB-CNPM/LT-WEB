@@ -50,6 +50,7 @@ public class ProductService extends SuperService {
 
       int currentPage = 1;
       int pageSize = 10;
+      byte isDelete = 0;
 
       if (currentPageStr != null && pageSizeStr != null) {
         if (Helper.isNumeric(currentPageStr)) {
@@ -61,22 +62,25 @@ public class ProductService extends SuperService {
         }
       }
 
+      // Get data
       List<ProductType> productTypes = this.productTypeDAO.findAll();
       List<Category> categories = this.categoryDAO.findAll();
       ProductType productType = this.productTypeDAO.find(productTypeId);
       Category category = this.categoryDAO.find(categoryId);
       Map<String, Object> params = new HashMap<>();
-      params.put("productType", productType);
+      params.put("isDelete", isDelete);
       List<Product> products = new ArrayList<>();
       int totalItem = this.productDAO.count();
 
       if (productTypeId.equals(Constants.ALL)) {
-        products = this.productDAO.pagination(currentPage, pageSize);
+        products = this.productDAO.paginationByIsDeleted(params, currentPage, pageSize);
+        totalItem = this.productDAO.countByIsDeleted(params);
       } else {
+        params.put("productType", productType);
         totalItem = 0;
         if (categoryId.equals(Constants.SHIRT_ALL) && productTypeId.equals(Constants.SHIRT)) {
-          products = this.productDAO.paginationByProductType(params, currentPage, pageSize);
-          totalItem = this.productDAO.countByProductType(params);
+          products = this.productDAO.paginationByProductTypeAndIsDeleted(params, currentPage, pageSize);
+          totalItem = this.productDAO.countByProductTypeAndIsDeleted(params);
         }
         if (categoryId.equals(Constants.SHORT_ALL) && productTypeId.equals(Constants.SHORT)) {
           products = this.productDAO.paginationByProductType(params, currentPage, pageSize);
@@ -84,8 +88,8 @@ public class ProductService extends SuperService {
         }
         if (!categoryId.equals(Constants.SHIRT_ALL) && !categoryId.equals(Constants.SHORT_ALL)) {
           params.put("category", category);
-          products = this.productDAO.paginationByProductTypeAndCategory(params, currentPage, pageSize);
-          totalItem = this.productDAO.countByProductTypeAndCategory(params);
+          products = this.productDAO.paginationByCategoryAndProductTypeAndIsDeleted(params, currentPage, pageSize);
+          totalItem = this.productDAO.countByProductTypeAndCategoryAndIsDeleted(params);
         }
       }
 
@@ -141,17 +145,34 @@ public class ProductService extends SuperService {
   public void handlePostCreateProduct() throws ServletException, IOException {
     try {
       // Get props
-      String productId = this.request.getParameter("productId").trim();
-      String productTypeId = this.request.getParameter("categoryTypeId").trim();
-      String categoryId = this.request.getParameter("categoryId").trim();
-      String productName = this.request.getParameter("productName").trim();
-      String mainImageUrl = this.request.getParameter("mainImageUrl").trim();
-      int oldPrice = Integer.parseInt(this.request.getParameter("oldPrice").trim());
-      int newPrice = Integer.parseInt(this.request.getParameter("newPrice").trim());
-      String origin = this.request.getParameter("origin").trim();
-      String pattern = this.request.getParameter("pattern").trim();
-      String meterial = this.request.getParameter("meterial").trim();
-      String description = this.request.getParameter("description").trim();
+      String productId = super.getParameter("productId").trim();
+      String productTypeId = super.getParameter("categoryTypeId").trim();
+      String categoryId = super.getParameter("categoryId").trim();
+      String productName = super.getParameter("productName").trim();
+      String mainImageUrl = super.getParameter("mainImageUrl").trim();
+      String oldPriceStr = super.getParameter("oldPrice").trim();
+      String newPriceStr = super.getParameter("newPrice").trim();
+      String origin = super.getParameter("origin").trim();
+      String pattern = super.getParameter("pattern").trim();
+      String meterial = super.getParameter("meterial").trim();
+      String description = super.getParameter("description").trim();
+      String isActiveStr = super.getParameter("select_active").trim();
+
+      int oldPrice = 0;
+      int newPrice = 0;
+      int isActive = 0;
+
+      if (Helper.isNumeric(oldPriceStr)) {
+        oldPrice = Integer.parseInt(oldPriceStr);
+      }
+
+      if (Helper.isNumeric(newPriceStr)) {
+        newPrice = Integer.parseInt(newPriceStr);
+      }
+
+      if (Helper.isNumeric(isActiveStr)) {
+        isActive = Integer.parseInt(isActiveStr);
+      }
 
       String url = super.getContextPath()
           + "/system/products/?product_type=ALL&category=AO5&current_page=1&page_size=10";
@@ -164,6 +185,7 @@ public class ProductService extends SuperService {
           pattern, meterial);
       product.setCategory(category);
       product.setProducttype(productType);
+      product.setIsActive((byte) isActive);
 
       this.productDAO.create(product);
 
@@ -231,9 +253,11 @@ public class ProductService extends SuperService {
       String description = super.getParameter("description").trim();
       String oldPriceStr = super.getParameter("oldPrice").trim();
       String newPriceStr = super.getParameter("newPrice").trim();
+      String isActiveStr = super.getParameter("select_active").trim();
 
       int oldPrice = 0;
       int newPrice = 0;
+      int isActive = 0;
 
       if (Helper.isNumeric(oldPriceStr)) {
         oldPrice = Integer.parseInt(oldPriceStr);
@@ -243,6 +267,9 @@ public class ProductService extends SuperService {
         newPrice = Integer.parseInt(newPriceStr);
       }
 
+      if (Helper.isNumeric(isActiveStr)) {
+        isActive = Integer.parseInt(isActiveStr);
+      }
       // Get data
       Product product = this.productDAO.find(productId);
       Category category = this.categoryDAO.find(categoryId);
@@ -259,6 +286,7 @@ public class ProductService extends SuperService {
       product.setCategory(category);
       product.setProducttype(productType);
       product.setDescription(description);
+      product.setIsActive((byte) isActive);
       this.productDAO.update(product);
 
       super.redirectToPage(url);
@@ -272,7 +300,69 @@ public class ProductService extends SuperService {
   }
 
   // [GET] delete product
-  public void handleGetDeleteProduct() {
+  public void handleGetDeleteProduct() throws IOException {
+    try {
+      super.setEncoding(Constants.UTF8);
+      // Link
+      String url = super.getContextPath()
+          + "/system/products/?product_type=ALL&category=AO5&current_page=1&page_size=10";
 
+      // Get Param
+      String productsSelected = super.getParameter("productsSelected");
+      System.out.println(productsSelected);
+      String[] productIds = null;
+      List<Product> products = new ArrayList<>();
+      Product product = null;
+      byte isDeleted = 1;
+
+      // Convert ids str to Array
+      if (!productsSelected.equals("")) {
+        productIds = productsSelected.split(",");
+      }
+      // Check
+      if (productIds != null) {
+        for (String productId : productIds) {
+          product = this.productDAO.find(productId);
+          product.setIsDelete(isDeleted);
+          products.add(product);
+        }
+      }
+
+      // Update to isdeleted field
+      this.productDAO.bulkUpdate(products);
+
+      // Redirect
+      super.redirectToPage(url);
+
+    } catch (Exception e) {
+      super.log(e.getMessage());
+      String error = super.getContextPath() + "/system/500";
+      super.redirectToPage(error);
+    }
+  }
+
+  // [GET] ListProductDeleted
+  public void getListProductDeleted() throws IOException {
+    try {
+      super.setEncoding(Constants.UTF8);
+      // Link
+      String url = "/system/products/trash/index.jsp";
+
+      byte isDeleted = 1;
+      Map<String, Object> params = new HashMap<>();
+      params.put("isDelete", isDeleted);
+      List<Product> products = this.productDAO.findByIsDeleted(params);
+
+      // Set att
+      super.setAttribute("products", products);
+
+      // Redirect
+      super.forwardToPage(url);
+
+    } catch (Exception e) {
+      super.log(e.getMessage());
+      String error = super.getContextPath() + "/system/500";
+      super.redirectToPage(error);
+    }
   }
 }
