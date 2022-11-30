@@ -28,13 +28,11 @@ String baseUrl = request.getContextPath() + "/system/options/create";
 			<main id="main-content">
 				<div class="sub-nav">
 					<a class="sub-nav-item"
-						href="<%=context%>/system/products/?product_type=ALL&category=AO5&current_page=1&page_size=10">Quản
-						lý sản phẩm</a> <i class="fas fa-angle-right"></i><a
+						href="<%=context%>/system/bills/?current_page=1&page_size=10">Quản
+						lý hóa đơn</a> <i class="fas fa-angle-right"></i><a
 						class="sub-nav-item"
-						href="<%=context%>/system/products/options/?product_id=${productId}">Quản
-						lý lựa chọn</a><i class="fas fa-angle-right"></i><a
-						class="sub-nav-item"
-						href="<%=context%>/system/products/options/create/?product_id=${productId}">Thêm lựa chọn</a>
+						href="<%=context%>/system/bills/create/">Thêm
+						hóa đơn</a>
 				</div>
 				<div class="customer_info">
 					<form action="" method="POST">

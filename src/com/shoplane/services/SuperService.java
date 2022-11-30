@@ -6,6 +6,7 @@ import java.io.UnsupportedEncodingException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 public class SuperService {
   protected HttpServletRequest request = null;
@@ -50,5 +51,10 @@ public class SuperService {
 
   public String getContextPath() {
     return this.request.getContextPath();
+  }
+
+  // Get Session
+  public HttpSession getSession() {
+    return this.request.getSession();
   }
 }

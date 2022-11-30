@@ -1,4 +1,4 @@
-package com.shoplane.controllers.system.product;
+package com.shoplane.controllers.system.bill;
 
 import java.io.IOException;
 
@@ -8,27 +8,24 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.shoplane.services.system.ProductService;
+import com.shoplane.services.system.BillService;
 
-@WebServlet(urlPatterns = { "/system/products/detail", "/system/products/detail/" })
-public class DetailProductServlet extends HttpServlet {
+@WebServlet(urlPatterns = { "/system/bills/create/", "/system/bills/create" })
+public class CreateBillServlet extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
-  public DetailProductServlet() {
+  public CreateBillServlet() {
     super();
   }
 
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    ProductService productService = new ProductService(request, response);
-    productService.handleGetDetailProduct();
+    BillService billService = new BillService(request, response);
+    billService.getBillForm();
   }
 
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    System.out.println("Hello productService");
-    ProductService productService = new ProductService(request, response);
-    productService.handlePostUpdateProduct();
   }
 
 }

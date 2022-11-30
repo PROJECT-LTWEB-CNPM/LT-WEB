@@ -28,6 +28,11 @@ int[] entries = {10, 20, 30};
 				<jsp:include page="../../partials/header/index.jsp" />
 			</div>
 			<main id="main-content">
+				<div class="sub-nav">
+					<a class="sub-nav-item"
+						href="<%=context%>/system/products/?product_type=ALL&category=AO5&current_page=1&page_size=10">Quản
+						lý sản phẩm</a> 
+				</div>
 				<div class="actions">
 					<div class="action__select">
 						Loại sản phẩm <select style="width: 6rem" id="select__type"
@@ -84,12 +89,13 @@ int[] entries = {10, 20, 30};
 						<div style="width: 5%">
 							<input type="checkbox">
 						</div>
-						<div style="width: 10%">ID</div>
-						<div style="width: 25%">Tên sản phẩm</div>
-						<div style="width: 15%">Hình ảnh</div>
+						<div style="width: 10%">Mã sản phẩm</div>
+						<div style="width: 20%">Tên sản phẩm</div>
+						<div style="width: 10%">Hình ảnh</div>
 						<div style="width: 10%">Loại sản phẩm</div>
 						<div style="width: 10%">Danh mục</div>
 						<div style="width: 10%">Các lựa chọn</div>
+						<div style="width: 10%">Ảnh xem trước</div>
 						<div style="width: 15%"></div>
 					</div>
 					<div class="table__body">
@@ -99,8 +105,8 @@ int[] entries = {10, 20, 30};
 									<input type="checkbox">
 								</div>
 								<div style="width: 10%">${item.getProductId()}</div>
-								<div style="width: 25%">${item.getProductName()}</div>
-								<div style="width: 15%">
+								<div style="width: 20%">${item.getProductName()}</div>
+								<div style="width: 10%">
 									<img src="${item.getMainImageUrl()}"
 										alt="${item.getProductName()}"
 										style="height: 60px; object-fit: cover" />
@@ -109,12 +115,17 @@ int[] entries = {10, 20, 30};
 								<div style="width: 10%">${item.getCategory().getCategoryName()}</div>
 								<div style="width: 10%" class="table__link">
 									<a
-										href="<%=context %>/system/products/options?product_id=${item.getProductId()}">Xem
+										href="<%=context %>/system/products/options/?product_id=${item.getProductId()}">Xem
+										thêm</a>
+								</div>
+								<div style="width: 10%" class="table__link">
+									<a
+										href="<%=context %>/system/products/images/?product_id=${item.getProductId()}">Xem
 										thêm</a>
 								</div>
 								<div style="width: 15%" class="table__link">
 									<a
-										href="<%=context %>/system/products/detail?product_id=${item.getProductId()}">Xem
+										href="<%=context %>/system/products/detail/?product_id=${item.getProductId()}">Xem
 										chi tiết</a>
 								</div>
 							</div>

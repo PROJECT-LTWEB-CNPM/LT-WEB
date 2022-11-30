@@ -24,4 +24,10 @@ public class DetailOptionServlet extends HttpServlet {
     optionService.handleGetDetailOption();
   }
 
+  @Override
+  protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    OptionService optionService = new OptionService(request, response);
+    optionService.updateOption();
+  }
+
 }

@@ -27,6 +27,12 @@ String baseUrl = context + "/system/bills/detail";
 				<jsp:include page="../../partials/header/index.jsp" />
 			</div>
 			<main id="main-content">
+				<div class="sub-nav">
+					<a class="sub-nav-item" href="<%=context%>/system/bills/">Quản
+						lý hóa đơn</a> <i class="fas fa-angle-right"></i> <a
+						class="sub-nav-item"
+						href="<%=context%>/system/bills/detail/?bill_id=${billId}">Chỉnh sửa hóa đơn</a>
+				</div>
 				<div class="customer_info">
 					<form action="/edit" method="post">
 						<input type="text" name="billId" value="${bill.billId}"
@@ -37,7 +43,8 @@ String baseUrl = context + "/system/bills/detail";
 							class="form-control" readonly /> <select id="statusBill"
 							name="statusBill" class="form-control">
 							<option>-- Lựa chọn trạng thái thanh toán --</option>
-							<option value="1" selected="${bill.getStatusBill() == 1}">Đã thanh toán</option>
+							<option value="1" selected="${bill.getStatusBill() == 1}">Đã
+								thanh toán</option>
 							<option value="0" selected>Chưa thanh toán</option>
 						</select> <input type="text" name="totalPrice" value="${bill.totalPrice}"
 							class="form-control" readonly />

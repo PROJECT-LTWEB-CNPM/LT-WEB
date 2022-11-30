@@ -20,13 +20,13 @@ String baseUrl = request.getContextPath() + "/default/home";
 <title>Cửa hàng quần áo - Shoplane</title>
 </head>
 <body>
-	 <div id="app">
+	<div id="app">
 		<jsp:include page="../header/header.jsp" />
 		<main class="main">
 			<!-- Slider section -->
 			<jsp:include page="./slider/index.jsp" />
 			<!-- Shirt section-->
-			<jsp:include page="./shirt-catalog/index.jsp" />
+			<<jsp:include page="./shirt-catalog/index.jsp" />
 			<!-- Short section-->
 			<jsp:include page="./short-catalog/index.jsp" />
 		</main>

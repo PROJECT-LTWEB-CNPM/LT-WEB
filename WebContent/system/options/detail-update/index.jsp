@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
 request.setCharacterEncoding("utf-8");
 String context = request.getContextPath();
@@ -24,21 +24,55 @@ String baseUrl = request.getContextPath() + "/system/options/detail-update";
 				<jsp:include page="../../partials/header/index.jsp" />
 			</div>
 			<main id="main-content">
+				<div class="sub-nav">
+					<a class="sub-nav-item"
+						href="<%=context%>/system/products/?product_type=ALL&category=AO5&current_page=1&page_size=10">Quản
+						lý sản phẩm</a> <i class="fas fa-angle-right"></i><a
+						class="sub-nav-item"
+						href="<%=context%>/system/products/options/?product_id=${productId}">Quản
+						lý lựa chọn</a><i class="fas fa-angle-right"></i><a
+						class="sub-nav-item"
+						href="<%=context%>/system/products/options/detail/?product_id=${productId}&option_id=${optionId}">Chỉnh
+						sửa lựa chọn</a>
+				</div>
 				<div class="customer_info">
-					<div class="actions">
-						<a href="<%=context %>/system/products">&lt;&lt;Quản lý sản phẩm</a>
-					</div>
-					<form action="create" method="POST">
-						<input type="text" name="optionId" placeholder="Mã option"
-							class="form-control" /> <select name="productId"
-							class="form-control">
-							<option value="-1">-- Lựa chọn sản phẩm --</option>
+					<form action="" method="POST">
+						<input type="text" name="optionId" placeholder="Mã lựa chọn"
+							class="form-control" value="${option.getOptionId()}" disabled />
+						<select name="productId" class="form-control">
+							<option value="${productId}">${product.getProductName()}</option>
 						</select> <select name="colorId" class="form-control">
-							<option value="-1">-- Lựa chọn màu sắc --</option>
+							<c:forEach var="item" items="${colors}">
+								<c:choose>
+									<c:when
+										test="${item.getColorId().equals(option.getColor().getColorId())}">
+										<option value="${item.getColorId()}" selected>
+											${item.getColorName()}</option>
+									</c:when>
+									<c:otherwise>
+										<option value="${item.getColorId()}">
+											${item.getColorName()}</option>
+									</c:otherwise>
+								</c:choose>
+							</c:forEach>
 						</select> <select name="sizeId" class="form-control">
-							<option value="-1">-- Lựa chọn kích thước --</option>
+							<c:forEach var="item" items="${sizes}">
+								<c:choose>
+									<c:when
+										test="${item.getSizeId().equals(option.getSize().getSizeId())}">
+										<option value="${item.getSizeId()}" selected>
+											${item.getSizeName()}</option>
+									</c:when>
+									<c:otherwise>
+										<option value="${item.getSizeId()}">
+											${item.getSizeName()}</option>
+									</c:otherwise>
+								</c:choose>
+
+							</c:forEach>
 						</select> <input type="text" name="availableQuantity"
-							placeholder="Số lượng khả dụng" class="form-control" />
+							placeholder="Số lượng khả dụng" class="form-control"
+							value="${option.getAvailableQuantity()}" />
 						<button class="btn-submit" type="submit">Lưu</button>
 					</form>
 				</div>

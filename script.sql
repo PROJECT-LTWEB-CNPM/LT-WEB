@@ -4,12 +4,12 @@ use shoplanedb;
 
 -- Create tables 
 create table ProductTypes (
-	type_id char(6) primary key,
+	type_id char(10) primary key,
     type_name varchar(50) not null 
 );
 
 create table Categories (
-	category_id char(6) primary key,
+	category_id char(10) primary key,
     category_name varchar(255) not null,
     product_type char(10),
     -- ProductTypes vs Categories
@@ -21,26 +21,33 @@ create table Categories (
 );
 
 create table Colors (
-	color_id char(6) primary key,
+	color_id char(10) primary key,
 	color_name varchar(255) not null
 );
 
 create table Sizes (
-	size_id char(6) primary key, 
+	size_id char(10) primary key, 
     size_name varchar(255) not null
 );
 
 create table Roles (
-	role_id char(6) primary key,
+	role_id char(10) primary key,
     role_name varchar(255) not null
 );
 
 insert into Roles
+values('ROL0', N'Tất cả');
+insert into Roles
 values('ROL1', N'Khách hàng');
+insert into Roles
+values('ROL2', N'Quản trị viên');
+insert into Roles
+values('ROL3', N'Nhân viên');
+
 
 create table Products (
-	product_id char(6) primary key,
-    product_type char(6), 
+	product_id char(10) primary key,
+    product_type char(10), 
     product_name varchar(255) not null,
     old_price int not null,
     new_price int not null,
@@ -51,7 +58,7 @@ create table Products (
     pattern varchar(255), 
     is_active bit not null default 0, 
     is_delete bit not null default 0,
-    category_id char(6),
+    category_id char(10),
     -- Add constraint  Products vs Categories
     constraint fk_product_category_id 
     foreign key (category_id)
@@ -68,9 +75,9 @@ create table Products (
 );
  
 create table ProductImages (
-	image_id char(6) primary key,
+	image_id char(10) primary key,
     image_url text not null,
-	product_id char(6),
+	product_id char(10),
      -- Add constraint Products vs ProductImages
     constraint fk_product_product_id
     foreign key (product_id)
@@ -80,11 +87,11 @@ create table ProductImages (
 );
 
 create table `Options`(
-	option_id char(6) primary key,
+	option_id char(10) primary key,
     available_quantity int not null,
-	product_id char(6), 
-    color_id char(6), 
-    size_id char(6),
+	product_id char(10), 
+    color_id char(10), 
+    size_id char(10),
 	-- Add constraint Products vs Options
     constraint fk_option_product_id
     foreign key (product_id)
@@ -108,7 +115,7 @@ create table `Options`(
 );
 
 create table Users (
-	user_id char(6) primary key,
+	user_id char(10) primary key,
     email char(255) not null unique, 
     `password` char(255) not null, 
     fullname varchar(50) not null, 
@@ -116,7 +123,9 @@ create table Users (
     phonenumber char(10) not null, 
     is_active_acc bit not null default(0), 
     is_delete_acc bit not null default(0),
-    role_id char(6),
+     `code` char(10) DEFAULT NULL,
+    role_id char(10),
+    
 	-- Roles vs Users
     constraint fk_user_role_id
 	foreign key (role_id) 
@@ -126,11 +135,11 @@ create table Users (
 );
 
 create table Bills (
-	bill_id char(6) primary key,
+	bill_id char(10) primary key,
 	`date` datetime not null, 
     total_price int not null,  
     status_bill bit default 0,
-	user_id char(6),
+	user_id char(10),
     -- Users vs Bills
     constraint fk_bill_user_id
 	foreign key (user_id) 
@@ -140,12 +149,12 @@ create table Bills (
 );
 
 create table Orders (
-	order_id char(6) primary key, 
+	order_id char(10) primary key, 
     `date` datetime not null, 
     ordered_quantity int not null, 
     price int not null,
-	bill_id char(6),
-    option_id char(6),
+	bill_id char(10),
+    option_id char(10),
     
     -- Bills vs Orders
     constraint fk_order_bill_id
@@ -161,6 +170,69 @@ create table Orders (
     on delete set null
     on update cascade
 );
+
+-- insert user admin
+insert into `Users`
+values('U0001', 'admin1@gmail.com', '12345', 'Admin 1', 'Đăk Nông', '0123456798', 0, 0, '123456', 'ROL2');
+insert into `Users`
+values('U0002', 'admin2@gmail.com', '12345', 'Admin 2', 'Đăk Nông', '0123456798', 0, 0, '123456', 'ROL2');
+insert into `Users`
+values('U0003', 'admin3@gmail.com', '12345', 'Admin 3', 'Đăk Nông', '0123456798', 0, 0, '123456', 'ROL2');
+insert into `Users`
+values('U0004', 'admin4@gmail.com', '12345', 'Admin 4', 'Đăk Nông', '0123456798', 0, 0, '123456', 'ROL2');
+
+-- insert user employee
+insert into `Users`
+values('U1011', 'employee1@gmail.com', '12345', 'Nhân viên 1', 'Đăk Nông', '0123456798', 0, 0, '123456', 'ROL3');
+insert into `Users`
+values('U1012', 'employee2@gmail.com', '12345', 'Nhân viên 2', 'Đăk Nông', '0123456798', 0, 0, '123456', 'ROL3');
+insert into `Users`
+values('U1013', 'employee3@gmail.com', '12345', 'Nhân viên 2', 'Đăk Nông', '0123456798', 0, 0, '123456', 'ROL3');
+insert into `Users`
+values('U1014', 'employee4@gmail.com', '12345', 'Nhân viên 4', 'Đăk Nông', '0123456798', 0, 0, '123456', 'ROL3');
+insert into `Users`
+values('U1015', 'employee5@gmail.com', '12345', 'Nhân viên 5', 'Đăk Nông', '0123456798', 0, 0, '123456', 'ROL3');
+insert into `Users`
+values('U1016', 'employee6@gmail.com', '12346', 'Nhân viên 6', 'Đăk Nông', '0123456798', 0, 0, '123456', 'ROL3');
+insert into `Users`
+values('U1017', 'employee7@gmail.com', '12345', 'Nhân viên 7', 'Đăk Nông', '0123456798', 0, 0, '123456', 'ROL3');
+insert into `Users`
+values('U1018', 'employee8@gmail.com', '12345', 'Nhân viên 8', 'Đăk Nông', '0123456798', 0, 0, '123456', 'ROL3');
+insert into `Users`
+values('U1019', 'employee9@gmail.com', '12345', 'Nhân viên 9', 'Đăk Nông', '0123456798', 0, 0, '123456', 'ROL3');
+insert into `Users`
+values('U1020', 'employee10@gmail.com', '12345', 'Nhân viên 10', 'Đăk Nông', '0123456798', 0, 0, '123456', 'ROL3');
+insert into `Users`
+values('U1021', 'employee11@gmail.com', '12345', 'Nhân viên 11', 'Đăk Nông', '0123456798', 0, 0, '123456', 'ROL3');
+
+
+
+
+
+-- -- insert user customer
+insert into `Users`
+values('U2011', 'doduongthaituan201102@gmail.com', '12345', 'Đỗ Dương Thái Tuấn', 'Hà Nội', '0987654321', 0, 0, '123456', 'ROL1');
+insert into `Users`
+values('U2012', 'phamnguyennhuttruong@gmail.com', '12345', 'Phạm Nguyễn Nhựt Trường', 'Hà Nội', '0123456789', 0, 0, '123456', 'ROL1');
+insert into `Users`
+values('U2013', 'buthanhduy@gmail.com', '12345', 'Bùi Thanh Duy', 'Phú Yên', '0123456798', 0, 0, '123456', 'ROL1');
+insert into `Users`
+values('U2014', 'vuhoanganh@gmail.com', '12345', 'Vũ Hoàng Anh', 'Đồng Nai', '0123456798', 0, 0, '123456', 'ROL1');
+insert into `Users`
+values('U2015', 'tranchimy@gmail.com', '12345', 'Trần Chí Mỹ', 'Bình Thuận', '0345698710', 0, 0, '123456', 'ROL1');
+insert into `Users`
+values('U2016', 'nguyenducanh@gmail.com', '12345', 'Nguyễn Đức Anh', 'Quảng Nam', '0123457698', 0, 0, '123456', 'ROL1');
+insert into `Users`
+values('U2017', 'nguyendieulinh@gmail.com', '12345', 'Nguyễn Diệu Linh', 'Bình Phước', '0124356798', 0, 0, '123456', 'ROL1');
+insert into `Users`
+values('U2018', 'lehongnhung@gmail.com', '12345', 'Lê Hồng Nhung', 'Phú Yên', '0213456798', 0, 0, '123456', 'ROL1');
+insert into `Users`
+values('U2019', 'nguyenthihang@gmail.com', '12345', 'Nguyễn Thị Hằng', 'Phú Yên', '0123654798', 0, 0, '123456', 'ROL1');
+insert into `Users`
+values('U2020', 'phungthihau@gmail.com', '12345', 'Phùng Thị Hậu', 'Quảng Bình', '0129866798', 0, 0, '123456', 'ROL1');
+insert into `Users`
+values('U2021', 'huonglethi@gmail.com', '12345', 'Lê Thị Hương', 'Bến Tre', '0129866798', 0, 0, '123456', 'ROL1');
+
 
 -- Insert data to ProductTypes Table
 INSERT INTO shoplanedb.ProductTypes(type_id, type_name)
@@ -554,5 +626,71 @@ INSERT INTO shoplanedb.ProductImages(image_id, image_url, product_id)
 VALUES('PI66', 'https://product.hstatic.net/200000305259/product/vgc-mockup_polo_tpr_blk_6_82a02d481c93443d988597a5b952e816_master.jpg', 'PRO22');
 INSERT INTO shoplanedb.ProductImages(image_id, image_url, product_id)
 VALUES('PI67', 'https://product.hstatic.net/200000305259/product/vgc-mockup_polo_tpr_blk_4_ff730a8cfbb24ec19a77d0c4f36cecd7_master.jpg', 'PRO22');
+
+-- Insert Bills
+insert into Bills 
+values('B201100', '2022-12-20', 450000, 0, 'U2011');
+insert into Bills 
+values('B201101', '2022-12-20', 500000, 0, 'U2011');
+insert into Bills 
+values('B201102', '2022-12-21', 600000, 0, 'U2012');
+insert into Bills 
+values('B201103', '2022-12-22', 700000, 0, 'U2012');
+insert into Bills 
+values('B201104', '2022-12-22', 69000, 0, 'U2012');
+insert into Bills 
+values('B201105', '2022-12-25', 900000, 0, 'U2013');
+insert into Bills 
+values('B201106', '2022-12-24', 135000, 0, 'U2013');
+insert into Bills 
+values('B201107', '2022-12-20', 450000, 0, 'U2014');
+insert into Bills 
+values('B201108', '2022-12-20', 350000, 0, 'U2015');
+insert into Bills 
+values('B201109', '2022-12-26', 600000, 0, 'U2015');
+insert into Bills 
+values('B201110', '2022-12-27', 800000, 0, 'U2015');
+insert into Bills 
+values('B201111', '2022-12-20', 320000, 0, 'U2016');
+insert into Bills 
+values('B201112', '2022-12-22', 320000, 0, 'U2016');
+insert into Bills 
+values('B201113', '2022-10-22', 320000, 0, 'U2016');
+insert into Bills 
+values('B201114', '2022-1-22', 420000, 0, 'U2017');
+insert into Bills 
+values('B201115', '2022-1-22', 620000, 0, 'U2017');
+insert into Bills 
+values('B201116', '2022-6-22', 720000, 0, 'U2017');
+insert into Bills 
+values('B201117', '2022-9-22', 920000, 0, 'U2017');
+insert into Bills 
+values('B201118', '2022-12-22', 120000, 0, 'U2018');
+insert into Bills 
+values('B201119', '2022-10-22', 120000, 0, 'U2018');
+insert into Bills 
+values('B201120', '2022-10-22', 350000, 0, 'U2018');
+insert into Bills 
+values('B201121', '2022-10-22', 520000, 0, 'U2018');
+insert into Bills 
+values('B201122', '2022-10-22', 240000, 0, 'U2019');
+insert into Bills 
+values('B201123', '2022-10-22', 260000, 0, 'U2019');
+insert into Bills 
+values('B201124', '2022-10-22', 280000, 0, 'U2019');
+insert into Bills 
+values('B201125', '2022-10-22', 290000, 0, 'U2019');
+insert into Bills 
+values('B201126', '2022-10-22', 300000, 0, 'U2020');
+insert into Bills 
+values('B201127', '2022-10-22', 920000, 0, 'U2020');
+insert into Bills 
+values('B201128', '2022-10-22', 840000, 0, 'U2021');
+insert into Bills 
+values('B201129', '2022-10-22', 670000, 0, 'U2021');
+insert into Bills 
+values('B201130', '2022-10-22', 830000, 0, 'U2021');
+insert into Bills 
+values('B201131', '2022-10-22', 290000, 0, 'U2021');
 
 

@@ -20,7 +20,6 @@ public class CreateProductServlet extends HttpServlet {
 
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    System.out.println("Here");
     ProductService productService = new ProductService(request, response);
     productService.handleGetCreateProduct();
   }

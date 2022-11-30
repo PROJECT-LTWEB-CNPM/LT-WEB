@@ -22,7 +22,10 @@ import javax.persistence.Table;
 @NamedQueries({
     @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u"),
     @NamedQuery(name = "User.findByEmail", query = "SELECT u FROM User u WHERE u.email = :email"),
-    @NamedQuery(name = "User.findByIsDeleted", query = "SELECT u FROM User u WHERE u.isDeleteAcc = :isDeleteAcc")
+    @NamedQuery(name = "User.findByIsDeleted", query = "SELECT u FROM User u WHERE u.isDeleteAcc = :isDeleteAcc"),
+    @NamedQuery(name = "User.findByRole", query = "SELECT u FROM User u WHERE u.role = :role"),
+    @NamedQuery(name = "User.count", query = "SELECT COUNT(u) FROM User u"),
+    @NamedQuery(name = "User.countByRole", query = "SELECT COUNT(u) FROM User u WHERE u.role = :role"),
 })
 public class User implements Serializable {
   private static final long serialVersionUID = 1L;

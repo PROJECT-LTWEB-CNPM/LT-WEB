@@ -2,8 +2,6 @@ package com.shoplane.controllers.system.user;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,6 +15,7 @@ import com.shoplane.dao.RoleDAO;
 import com.shoplane.dao.UserDAO;
 import com.shoplane.models.Role;
 import com.shoplane.models.User;
+import com.shoplane.services.system.UserService;
 
 @WebServlet(urlPatterns = { "/system/users/" })
 public class ListUserServlet extends HttpServlet {
@@ -31,15 +30,8 @@ public class ListUserServlet extends HttpServlet {
 
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    String url = "/system/users/list/index.jsp";
-    response.setCharacterEncoding("UTF-8");
-    request.setCharacterEncoding("UTF-8");
-
-    List<User> listUser = new ArrayList<>();
-    listUser = this.userDAO.findByIsDeleted(Byte.parseByte("0"));
-
-    request.setAttribute("listUsers", listUser);
-    request.getRequestDispatcher(url).forward(request, response);
+    UserService userService = new UserService(request, response);
+    userService.getListUser();
   }
 
   public void loadUserDataToManageUserForm(HttpServletRequest request, HttpServletResponse response,

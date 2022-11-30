@@ -36,6 +36,9 @@ public class ProductService extends SuperService {
   // [GET] ListProductServlet
   public void getProductList(String url) throws ServletException, IOException {
     try {
+
+      // Set url patten active sidebar item
+      super.getSession().setAttribute("urlPatten", Constants.PRODUCTS);
       // Set encoding
       super.setEncoding(Constants.UTF8);
 
@@ -44,8 +47,6 @@ public class ProductService extends SuperService {
       String categoryId = super.getParameter("category");
       String currentPageStr = super.getParameter("current_page");
       String pageSizeStr = super.getParameter("page_size");
-
-      System.out.println("Here");
 
       int currentPage = 1;
       int pageSize = 10;
@@ -122,9 +123,11 @@ public class ProductService extends SuperService {
       List<Category> categories = this.categoryDAO.findAll();
       List<ProductType> productTypes = this.productTypeDAO.findAll();
 
+      // Set Att
       super.setAttribute("categories", categories);
       super.setAttribute("productTypes", productTypes);
 
+      // Forward
       super.forwardToPage(url);
 
     } catch (Exception e) {
@@ -139,6 +142,8 @@ public class ProductService extends SuperService {
     try {
       // Get props
       String productId = this.request.getParameter("productId").trim();
+      String productTypeId = this.request.getParameter("categoryTypeId").trim();
+      String categoryId = this.request.getParameter("categoryId").trim();
       String productName = this.request.getParameter("productName").trim();
       String mainImageUrl = this.request.getParameter("mainImageUrl").trim();
       int oldPrice = Integer.parseInt(this.request.getParameter("oldPrice").trim());
@@ -147,12 +152,19 @@ public class ProductService extends SuperService {
       String pattern = this.request.getParameter("pattern").trim();
       String meterial = this.request.getParameter("meterial").trim();
       String description = this.request.getParameter("description").trim();
+
+      String url = super.getContextPath()
+          + "/system/products/?product_type=ALL&category=AO5&current_page=1&page_size=10";
+      // Get Data
+      Category category = this.categoryDAO.find(categoryId);
+      ProductType productType = this.productTypeDAO.find(productTypeId);
+
+      // Create product
       Product product = new Product(productId, productName, mainImageUrl, oldPrice, newPrice, description, origin,
           pattern, meterial);
+      product.setCategory(category);
+      product.setProducttype(productType);
 
-      // Url = ./ => Same with /system/products
-      String url = "./";
-      // Create product
       this.productDAO.create(product);
 
       // forward
@@ -160,7 +172,7 @@ public class ProductService extends SuperService {
 
     } catch (Exception e) {
       super.log(e.getMessage());
-      String error = "/500";
+      String error = super.getContextPath() + "/system/500";
       super.redirectToPage(error);
     }
   }
@@ -168,17 +180,23 @@ public class ProductService extends SuperService {
   // [GET] DetailProductServlet
   public void handleGetDetailProduct() throws ServletException, IOException {
     try {
+      super.setEncoding(Constants.UTF8);
       // Link
       String url = "/system/products/detail-update/index.jsp";
 
       // Param
       String productId = this.request.getParameter("product_id");
 
-      // Get item
+      // Get data
       Product product = this.productDAO.find(productId);
+      List<Category> categories = this.categoryDAO.findAll();
+      List<ProductType> productTypes = this.productTypeDAO.findAll();
 
       // Set att and forward
       super.setAttribute("product", product);
+      super.setAttribute("productId", productId);
+      super.setAttribute("categories", categories);
+      super.setAttribute("productTypes", productTypes);
       super.forwardToPage(url);
 
     } catch (Exception e) {
@@ -193,8 +211,63 @@ public class ProductService extends SuperService {
     this.getProductList("./");
   }
 
-  // [POST] Update product
-  public void handlePostUpdateProduct() {
+  // [POST] UpdateProductServlet
+  public void handlePostUpdateProduct() throws IOException {
+    try {
+      super.setEncoding(Constants.UTF8);
+      // Link
+      String url = super.getContextPath()
+          + "/system/products/?product_type=ALL&category=AO5&current_page=1&page_size=10";
+
+      // Params
+      String productId = super.getParameter("productId").trim();
+      String productTypeId = super.getParameter("categoryTypeId").trim();
+      String categoryId = super.getParameter("categoryId").trim();
+      String productName = super.getParameter("productName").trim();
+      String mainImageUrl = super.getParameter("mainImageUrl").trim();
+      String origin = super.getParameter("origin").trim();
+      String pattern = super.getParameter("pattern").trim();
+      String meterial = super.getParameter("meterial").trim();
+      String description = super.getParameter("description").trim();
+      String oldPriceStr = super.getParameter("oldPrice").trim();
+      String newPriceStr = super.getParameter("newPrice").trim();
+
+      int oldPrice = 0;
+      int newPrice = 0;
+
+      if (Helper.isNumeric(oldPriceStr)) {
+        oldPrice = Integer.parseInt(oldPriceStr);
+      }
+
+      if (Helper.isNumeric(newPriceStr)) {
+        newPrice = Integer.parseInt(newPriceStr);
+      }
+
+      // Get data
+      Product product = this.productDAO.find(productId);
+      Category category = this.categoryDAO.find(categoryId);
+      ProductType productType = this.productTypeDAO.find(productTypeId);
+
+      // Update product
+      product.setProductName(productName);
+      product.setMainImageUrl(mainImageUrl);
+      product.setOldPrice(oldPrice);
+      product.setNewPrice(newPrice);
+      product.setOrigin(origin);
+      product.setPattern(pattern);
+      product.setMeterial(meterial);
+      product.setCategory(category);
+      product.setProducttype(productType);
+      product.setDescription(description);
+      this.productDAO.update(product);
+
+      super.redirectToPage(url);
+
+    } catch (Exception e) {
+      super.log(e.getMessage());
+      String error = super.getContextPath() + "/system/500";
+      super.redirectToPage(error);
+    }
 
   }
 

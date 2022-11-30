@@ -5,7 +5,8 @@
 
 <%
 request.setCharacterEncoding("utf-8");
-String baseUrl = request.getContextPath() + "/system/products/create";
+String context = request.getContextPath();
+String baseUrl = context + "/system/products/create";
 %>
 
 <!doctype html>
@@ -25,20 +26,27 @@ String baseUrl = request.getContextPath() + "/system/products/create";
 				<jsp:include page="../../partials/header/index.jsp" />
 			</div>
 			<main id="main-content">
+				<div class="sub-nav">
+					<a class="sub-nav-item"
+						href="<%=context%>/system/products/?product_type=ALL&category=AO5&current_page=1&page_size=10">Quản
+						lý sản phẩm</a> <i class="fas fa-angle-right"></i><a
+						class="sub-nav-item"
+						href="<%=context%>/system/products/create">Thêm sản phẩm</a>
+				</div>
 				<div class="customer_info">
 					<div class="actions">
-						<a href="./">&lt;&lt;Quản lý sản phẩm</a> 
+						<a
+							href="<%=context%>/system/products/?product_type=ALL&category=AO5&current_page=1&page_size=10">&lt;&lt;Quản
+							lý sản phẩm</a>
 					</div>
-					<form action="create" method="POST">
-						<input type="text" name="productId" placeholder="Mã sản phẩm"
-							class="form-control" value="<%=Helper.getRandom()%>" /> <select
-							name="categoryTypeId" class="form-control">
-							<option value="-1">-- Lựa chọn loại danh mục --</option>
+					<form action="" method="POST">
+						<input type="text" name="productId" hidden
+							value="<%=Helper.getRandom()%>" /> <select name="categoryTypeId"
+							class="form-control">
 							<c:forEach var="item" items="${productTypes}">
 								<option value="${item.getTypeId()}">${item.getTypeName()}</option>
 							</c:forEach>
 						</select> <select name="categoryId" class="form-control">
-							<option value="-1">-- Lựa chọn danh mục --</option>
 							<c:forEach var="item" items="${categories}">
 								<option value="${item.getCategoryId()}">${item.getCategoryName()}</option>
 							</c:forEach>

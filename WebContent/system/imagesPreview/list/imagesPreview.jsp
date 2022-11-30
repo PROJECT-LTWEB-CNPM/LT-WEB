@@ -31,42 +31,45 @@ String baseUrl = context + "/system/options/list";
 						href="<%=context%>/system/products/?product_type=ALL&category=AO5&current_page=1&page_size=10">Quản
 						lý sản phẩm</a> <i class="fas fa-angle-right"></i><a
 						class="sub-nav-item"
-						href="<%=context%>/system/products/options/?product_id=${productId}">Quản
-						lý lựa chọn</a>
+						href="<%=context%>/system/products/images/?product_id=${productId}">Quản
+						lý ảnh xem trước</a>
 				</div>
 				<div class="actions">
-					 <a
+					<a
 						href="<%=context%>/system/products/options/create/?product_id=${productId}">Thêm
-						lựa chọn</a> <a href="<%=context%>/system/products/options/delete">Xóa
-						lựa chọn</a>
+						hình</a> <a href="<%=context%>/system/products/options/delete">Xóa
+						hình</a>
 				</div>
 				<div class="table">
 					<div class="table__head">
 						<div style="width: 5%">
 							<input type="checkbox">
 						</div>
-						<div style="width: 10%">ID</div>
-						<div style="width: 35%">Mã sản phẩm</div>
-						<div style="width: 15%">Màu sắc</div>
-						<div style="width: 10%">Kích thước</div>
-						<div style="width: 10%">Số lượng còn lại</div>
+						<div style="width: 10%">Mã hình ảnh</div>
+						<div style="width: 35%">Đường dẫn</div>
+						<div style="width: 15%">Hình ảnh</div>
+						<div style="width: 10%">Tên sản phẩm</div>
+						<div style="width: 10%">Nguồn gốc</div>
 						<div style="width: 15%"></div>
 					</div>
 					<div class="table__body">
-						<c:forEach var="item" items="${options}">
+						<c:forEach var="item" items="${productImages}">
 							<div class="table__row">
 								<div style="width: 5%">
 									<input type="checkbox">
 								</div>
-								<div style="width: 10%">${item.getOptionId()}</div>
-								<div style="width: 35%">${item.getProduct().getProductId()}</div>
-								<div style="width: 15%">${item.getColor().getColorName()}
+								<div style="width: 10%">${item.getImageId()}</div>
+								<div style="width: 35%">${item.getImageUrl()}</div>
+								<div style="width: 15%">
+									<img src="${item.getImageUrl()}"
+										alt="${product.getProductName()}"
+										style="height: 60px; object-fit: cover" />
 								</div>
-								<div style="width: 10%">${item.getSize().getSizeName()}</div>
-								<div style="width: 10%">${item.getAvailableQuantity()}</div>
+								<div style="width: 10%">${product.getProductName()}</div>
+								<div style="width: 10%">${product.getOrigin()}</div>
 								<div style="width: 15%" class="table__link">
 									<a
-										href="<%=context %>/system/products/options/detail/?product_id=${productId}&option_id=${item.getOptionId()}">Xem
+										href="<%=context %>/system/products/options/detail/?product_id=${productId}&image_id=${item.getImageUrl()}">Xem
 										chi tiết</a>
 								</div>
 							</div>

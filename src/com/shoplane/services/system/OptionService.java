@@ -7,37 +7,51 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.shoplane.dao.ColorDAO;
 import com.shoplane.dao.OptionDAO;
 import com.shoplane.dao.ProductDAO;
+import com.shoplane.dao.SizeDAO;
+import com.shoplane.models.Color;
 import com.shoplane.models.Option;
 import com.shoplane.models.Product;
+import com.shoplane.models.Size;
 import com.shoplane.services.SuperService;
+import com.shoplane.utils.Constants;
+import com.shoplane.utils.Helper;
 
 public class OptionService extends SuperService {
   private OptionDAO optionDAO = null;
   private ProductDAO productDAO = null;
+  private SizeDAO sizeDAO = null;
+  private ColorDAO colorDAO = null;
 
   public OptionService(HttpServletRequest request, HttpServletResponse response) {
     super(request, response);
     this.optionDAO = new OptionDAO();
     this.productDAO = new ProductDAO();
+    this.sizeDAO = new SizeDAO();
+    this.colorDAO = new ColorDAO();
   }
 
   // [GET] ListOptionServlet
   public void handleGetListOption() throws ServletException, IOException {
     try {
       String url = "/system/options/list/index.jsp";
-      String productId = this.request.getParameter("product_id").trim();
+      String productId = super.getParameter("product_id").trim();
       Product product = this.productDAO.find(productId);
+
       List<Option> options = null;
       if (product != null) {
         options = this.optionDAO.findByProduct(product);
       }
+
+      // Set att and forward to page
       super.setAttribute("options", options);
+      super.setAttribute("productId", productId);
       super.forwardToPage(url);
     } catch (Exception e) {
       super.log(e.getMessage());
-      String error = "/500";
+      String error = super.getContextPath() + "/system/500";
       this.redirectToPage(error);
     }
   }
@@ -45,25 +59,139 @@ public class OptionService extends SuperService {
   // [GET] CreateOptionServlet
   public void handleGetCreateOption() throws ServletException, IOException {
     try {
+      // define url
       String url = "/system/options/create/index.jsp";
+      // Get param
+      String productId = super.getParameter("product_id").trim();
+      Product product = this.productDAO.find(productId);
+      List<Size> sizes = this.sizeDAO.findAll();
+      List<Color> colors = this.colorDAO.findAll();
+
+      super.setAttribute("productId", productId);
+      super.setAttribute("product", product);
+      super.setAttribute("sizes", sizes);
+      super.setAttribute("colors", colors);
+
+      // Forward to page
       super.forwardToPage(url);
     } catch (Exception e) {
       super.log(e.getMessage());
-      String error = "/500";
+      String error = super.getContextPath() + "/system/500";
       this.redirectToPage(error);
     }
   }
 
   // [POST] CreateOptionServlet
-  public void handlePostCreateOption() {
+  public void handlePostCreateOption() throws IOException {
+    try {
+      super.setEncoding(Constants.UTF8);
+      // get params
+      String productId = super.getParameter("productId");
+      String optionId = super.getParameter("optionId");
+      String sizeId = super.getParameter("sizeId");
+      String colorId = super.getParameter("colorId");
+      String quantity = super.getParameter("availableQuantity");
+      // next url
+      String url = super.getContextPath() + "/system/products/options/?product_id=" + productId;
+      // Get data from db
+      Product product = this.productDAO.find(productId);
+      Size size = this.sizeDAO.find(sizeId);
+      Color color = this.colorDAO.find(colorId);
 
+      // Create option
+      Option option = new Option();
+      option.setOptionId(optionId);
+      if (Helper.isNumeric(quantity)) {
+        option.setAvailableQuantity(Integer.parseInt(quantity));
+      } else {
+        option.setAvailableQuantity(0);
+      }
+      option.setColor(color);
+      option.setSize(size);
+      option.setProduct(product);
+
+      this.optionDAO.create(option);
+
+      super.redirectToPage(url);
+
+    } catch (Exception e) {
+      super.log(e.getMessage());
+      String error = super.getContextPath() + "/system/500";
+      this.redirectToPage(error);
+    }
   }
 
   // [GET] detail option
   public void handleGetDetailOption() throws ServletException, IOException {
-    String url = "/system/options/detail-update/index.jsp";
+    try {
+      // define Url
+      String url = "/system/options/detail-update/index.jsp";
+      // Get Params
+      String optionId = super.getParameter("option_id");
+      String productId = super.getParameter("product_id");
 
-    this.request.getRequestDispatcher(url).forward(request, response);
+      // Get data from db
+      Product product = this.productDAO.find(productId);
+      Option option = this.optionDAO.find(optionId);
+      List<Size> sizes = this.sizeDAO.findAll();
+      List<Color> colors = this.colorDAO.findAll();
+
+      // Set att
+      super.setAttribute("productId", productId);
+      super.setAttribute("optionId", optionId);
+      super.setAttribute("product", product);
+      super.setAttribute("sizes", sizes);
+      super.setAttribute("colors", colors);
+      super.setAttribute("option", option);
+
+      super.forwardToPage(url);
+    } catch (Exception e) {
+      super.log(e.getMessage());
+      String error = super.getContextPath() + "/system/500";
+      this.redirectToPage(error);
+    }
+  }
+
+  // [POST] DetailOptionServlet
+  public void updateOption() throws IOException {
+    try {
+      super.setEncoding(Constants.UTF8);
+      // Get Params
+      String optionId = super.getParameter("option_id");
+      String productId = super.getParameter("product_id");
+      String sizeId = super.getParameter("sizeId");
+      String colorId = super.getParameter("colorId");
+      String quantity = super.getParameter("availableQuantity");
+
+      // Url
+
+      String url = super.getContextPath() + "/system/products/options/?product_id=" + productId;
+
+      // Get data
+      Product product = this.productDAO.find(productId);
+      Option option = this.optionDAO.find(optionId);
+      Size size = this.sizeDAO.find(sizeId);
+      Color color = this.colorDAO.find(colorId);
+
+      // Update option
+      if (Helper.isNumeric(quantity)) {
+        option.setAvailableQuantity(Integer.parseInt(quantity));
+      }
+      option.setColor(color);
+      option.setSize(size);
+      option.setProduct(product);
+
+      this.optionDAO.update(option);
+
+      // redirect
+      super.redirectToPage(url);
+
+    } catch (Exception e) {
+      super.log(e.getMessage());
+      String error = super.getContextPath() + "/system/500";
+      this.redirectToPage(error);
+    }
+
   }
 
 }
