@@ -5,15 +5,16 @@
 
 <%
 request.setCharacterEncoding("utf-8");
-String context = request.getContextPath() + "/default/product-detail";
+String context = request.getContextPath();
+String baseUrl = context + "/default/product-detail";
 %>
 
 <!doctype html>
 <html lang="en">
 <head>
-<jsp:include page="../head.jsp" />
-<link rel="stylesheet" href="<%=context%>/index.css" />
-<title>${product.getProductName()}-Shoplane</title>
+<jsp:include page="../components/head.jsp" />
+<link rel="stylesheet" href="<%=context%>/assets/css/default/productDetail.css" />
+<title>${product.getProductName()} - SHOPLANE</title>
 <style>
 .main {
 	padding-top: 10rem;
@@ -23,7 +24,7 @@ String context = request.getContextPath() + "/default/product-detail";
 </head>
 <body>
 	<div id="app">
-		<jsp:include page="../header/header.jsp" />
+		<jsp:include page="../components/header.jsp" />
 		<main class="main">
 			<div class="container">
 				<div class="product__inner">
@@ -87,11 +88,11 @@ String context = request.getContextPath() + "/default/product-detail";
 				</div>
 			</div>
 		</main>
-		<jsp:include page="../footer/footer.jsp" />
+		<jsp:include page="../components/footer.jsp" />
 	</div>
 	<!-- Jquery -->
-	<jsp:include page="../script.jsp" />
-	<script type="text/javascript" src="<%=context%>/index.js"></script>
+	<jsp:include page="../components/script.jsp" />
+	<script type="text/javascript" src="<%=baseUrl%>/index.js"></script>
 </body>
 </html>
 

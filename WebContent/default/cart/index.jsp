@@ -10,37 +10,37 @@ String context = request.getContextPath();
 <!doctype html>
 <html lang="en">
 <head>
-<jsp:include page="../head.jsp" />
+<jsp:include page="../components/head.jsp" />
 <c:choose>
 	<c:when test="${orders.size() > 0}">
-		<link rel="stylesheet" href="<%=context%>/default/cart/index.css" />
+		<link rel="stylesheet" href="<%=context%>/assets/css/default/cart/cart.css" />
 	</c:when>
 	<c:otherwise>
 		<link rel="stylesheet"
-			href="<%=context%>/default/cart/cart-empty/index.css" />
+			href="<%=context%>/assets/css/default/cart/cartEmptyOrder.css" />
 	</c:otherwise>
 </c:choose>
 <title>Giỏ hàng của bạn - Shoplane</title>
 </head>
 <body>
 	<div id="app">
-		<jsp:include page="../header/header.jsp" />
+		<jsp:include page="../components/header.jsp" />
 		<main class="main">
 			<div class="container">
 				<c:choose>
 					<c:when test="${orders.size() > 0}">
-						<jsp:include page="./cart-list/index.jsp" />
+						<jsp:include page="./cartListOrder.jsp" />
 					</c:when>
 					<c:otherwise>
-						<jsp:include page="./cart-empty/index.jsp" />
+						<jsp:include page="./cartEmptyOrder.jsp" />
 					</c:otherwise>
 				</c:choose>
 			</div>
 		</main>
-		<jsp:include page="../footer/footer.jsp" />
-		<jsp:include page="../back-to-top/back-to-top.jsp" />
+		<jsp:include page="../components/footer.jsp" />
+		<jsp:include page="../components/backToTop.jsp" />
 	</div>
-	<jsp:include page="../script.jsp" />
+	<jsp:include page="../components/script.jsp" />
 </body>
 </html>
 

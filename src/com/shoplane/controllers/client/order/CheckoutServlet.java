@@ -30,7 +30,7 @@ public class CheckoutServlet extends HttpServlet {
   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     try {
       // forward url
-      String url = "/default/cart/checkouts/index.jsp";
+      String url = "/default/checkouts/index.jsp";
 
       // Forward
       request.getRequestDispatcher(url).forward(request, response);

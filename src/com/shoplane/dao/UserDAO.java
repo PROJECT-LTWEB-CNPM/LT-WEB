@@ -68,8 +68,18 @@ public class UserDAO extends JpaDAO<User> implements GenericDAO<User> {
 
   @Override
   public int count() {
-    // TODO Auto-generated method stub
-    return 0;
+    String queryName = "User.count";
+    return super.count(queryName);
+  }
+
+  public List<User> findByRole(Map<String, Object> parameters) {
+    String queryName = "User.findByRole";
+    return super.findWithNamedQuery(queryName, parameters);
+  }
+
+  public int countByRole(Map<String, Object> parameters) {
+    String queryName = "User.countByRole";
+    return super.countWithNamedQuery(queryName, parameters);
   }
 
 }

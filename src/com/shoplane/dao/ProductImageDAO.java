@@ -62,4 +62,13 @@ public class ProductImageDAO extends JpaDAO<ProductImage> implements GenericDAO<
     // TODO Auto-generated method stub
     return 0;
   }
+
+  public int bulkDelete(List<ProductImage> productImages) {
+    int rowCountDeleted = 0;
+    for (ProductImage productImage : productImages) {
+      this.delete(productImage.getImageId());
+      rowCountDeleted++;
+    }
+    return rowCountDeleted;
+  }
 }

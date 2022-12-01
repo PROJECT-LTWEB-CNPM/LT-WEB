@@ -1,10 +1,12 @@
+<%@page import="com.shoplane.utils.Constants"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <%
 request.setCharacterEncoding("utf-8");
-String baseUrl = request.getContextPath() + "/system/options/list";
+String context = request.getContextPath();
+String baseUrl = context + "/system/options/list";
 %>
 
 <!doctype html>
@@ -24,9 +26,18 @@ String baseUrl = request.getContextPath() + "/system/options/list";
 				<jsp:include page="../../partials/header/index.jsp" />
 			</div>
 			<main id="main-content">
+				<div class="sub-nav">
+					<a class="sub-nav-item"
+						href="<%=context%>/system/products/?product_type=ALL&category=AO5&current_page=1&page_size=10">Quản
+						lý sản phẩm</a> <i class="fas fa-angle-right"></i><a
+						class="sub-nav-item"
+						href="<%=context%>/system/products/options/?product_id=${productId}">Quản
+						lý lựa chọn</a>
+				</div>
 				<div class="actions">
-					<a href="./">&lt;&lt;Quản lý sản phẩm</a> <a
-						href="./options/create">Thêm lựa chọn</a> <a href="./delete">Xóa
+					 <a
+						href="<%=context%>/system/products/options/create/?product_id=${productId}">Thêm
+						lựa chọn</a> <a href="<%=context%>/system/products/options/delete">Xóa
 						lựa chọn</a>
 				</div>
 				<div class="table">
@@ -54,14 +65,14 @@ String baseUrl = request.getContextPath() + "/system/options/list";
 								<div style="width: 10%">${item.getSize().getSizeName()}</div>
 								<div style="width: 10%">${item.getAvailableQuantity()}</div>
 								<div style="width: 15%" class="table__link">
-									<a href="./options/detail?option_id=${item.getOptionId()}">Xem
+									<a
+										href="<%=context %>/system/products/options/detail/?product_id=${productId}&option_id=${item.getOptionId()}">Xem
 										chi tiết</a>
 								</div>
 							</div>
 						</c:forEach>
 					</div>
 				</div>
-				<button>Quay lại</button>
 			</main>
 		</div>
 	</div>

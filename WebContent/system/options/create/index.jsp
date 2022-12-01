@@ -1,5 +1,7 @@
+<%@page import="com.shoplane.utils.Helper"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <%
 request.setCharacterEncoding("utf-8");
@@ -24,22 +26,53 @@ String baseUrl = request.getContextPath() + "/system/options/create";
 				<jsp:include page="../../partials/header/index.jsp" />
 			</div>
 			<main id="main-content">
+				<div class="sub-nav">
+					<a class="sub-nav-item"
+						href="<%=context%>/system/products/?product_type=ALL&category=AO5&current_page=1&page_size=10">Quản
+						lý sản phẩm</a> <i class="fas fa-angle-right"></i><a
+						class="sub-nav-item"
+						href="<%=context%>/system/products/options/?product_id=${productId}">Quản
+						lý lựa chọn</a><i class="fas fa-angle-right"></i><a
+						class="sub-nav-item"
+						href="<%=context%>/system/products/options/create/?product_id=${productId}">Thêm
+						lựa chọn</a>
+				</div>
 				<div class="customer_info">
-					<div class="actions">
-						<a href="<%=context%>/system/products">&lt;&lt;Quản lý sản
-							phẩm</a>
-					</div>
-					<form action="create" method="POST">
-						<input type="text" name="optionId" placeholder="Mã option"
-							class="form-control" /> <select name="productId"
-							class="form-control">
-							<option value="-1">-- Lựa chọn sản phẩm --</option>
-						</select> <select name="colorId" class="form-control">
-							<option value="-1">-- Lựa chọn màu sắc --</option>
-						</select> <select name="sizeId" class="form-control">
-							<option value="-1">-- Lựa chọn kích thước --</option>
-						</select> <input type="text" name="availableQuantity"
-							placeholder="Số lượng khả dụng" class="form-control" />
+					<form action="" method="POST">
+						<input name="optionId" value="OP<%=Helper.getRandom()%>" hidden />
+						<div class="form-group">
+							<label for="productId">Tên sản phẩm</label> 
+							<select
+								name="productId" class="form-control">
+								<option value="${productId}" selected>${product.getProductName()}</option>
+							</select>
+						</div>
+
+						<div class="form-group">
+							<label for="productId">Màu sắc</label> 
+							<select name="colorId" class="form-control">
+							<c:forEach var="item" items="${colors}">
+								<option value="${item.getColorId()}">
+									${item.getColorName()}</option>
+							</c:forEach>
+							</select> 
+						</div>	
+
+						<div class="form-group">
+							<label for="productId">Kích cỡ</label> 
+							<select name="sizeId" class="form-control">
+							<c:forEach var="item" items="${sizes}">
+								<option value="${item.getSizeId()}">
+									${item.getSizeName()}</option>
+							</c:forEach>
+							</select> 
+						</div>	
+
+						<div class="form-group">
+							<label for="availableQuantity">Số lượng khả dụng</label> 
+							<input type="text" name="availableQuantity" id="availableQuantity"
+							placeholder="Số lượng khả dụng" class="form-control" required />
+						</div>
 						<button class="btn-submit" type="submit">Lưu</button>
 					</form>
 				</div>

@@ -63,4 +63,14 @@ public class BillDAO extends JpaDAO<Bill> implements GenericDAO<Bill> {
     return super.count(queryName);
   }
 
+  public List<Bill> paginationByStatus(Map<String, Object> parameters, int currentPage, int pageSize) {
+    String queryName = "Bill.findByStatus";
+    return super.paginationWithNamedQuery(queryName, Bill.class, parameters, currentPage, pageSize);
+  }
+
+  public int countByStatus(Map<String, Object> parameters) {
+    String queryName = "Bill.countByStatus";
+    return super.countWithNamedQuery(queryName, parameters);
+  }
+
 }

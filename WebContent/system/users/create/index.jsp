@@ -1,10 +1,12 @@
+<%@page import="com.shoplane.utils.Helper"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <%
 request.setCharacterEncoding("utf-8");
-String baseUrl = request.getContextPath() + "/system/users/create";
+String context = request.getContextPath();
+String baseUrl = context + "/system/users/create";
 %>
 
 <!doctype html>
@@ -24,6 +26,14 @@ String baseUrl = request.getContextPath() + "/system/users/create";
 				<jsp:include page="../../partials/header/index.jsp" />
 			</div>
 			<main id="main-content">
+				<div class="sub-nav">
+					<a class="sub-nav-item"
+						href="<%=context%>/system/users/?role_id=ROL0&current_page=1&page_size=10">Quản
+						lý người dùng</a> <i class="fas fa-angle-right"></i> <a
+						class="sub-nav-item"
+						href="<%=context%>/system/bills/detail/?status=2&current_page=1&page_size=10">Thêm
+						người dùng</a>
+				</div>
 				<div class="customer_info">
 					<div class="img">
 						<img
@@ -34,26 +44,47 @@ String baseUrl = request.getContextPath() + "/system/users/create";
 
 					<form action="create" method="POST">
 						<input type="text" name="userId" id="userId"
-							placeholder="Mã người dùng" class="form-control"> <input
-							type="text" name="fullname" id="fullname" placeholder="Họ và tên"
-							class="form-control"> <input type="text" name="email"
-							id="email" placeholder="Email" class="form-control" /> <input
-							type="text" name="phonenumber" id="phonenumber"
-							placeholder="Số điện thoại" class="form-control"> <input
-							type="text" name="address" id="address" placeholder="Địa chỉ"
-							class="form-control" /> <input type="text" name="password"
-							id="password" placeholder="Mật khẩu" class="form-control" /> <select
-							class="form-control" id="acctiveAcc">
-							<option value="-1">-- Lựa chọn trạng thái tài khoản --</option>
-							<option value="1">Kích hoạt</option>
-							<option value="0">Kích hoạt sau</option>
-						</select>
-						<select class="form-control" id="roleId">
-							<option value="-1">-- Lựa chọn vai trò --</option>
-							<c:forEach var="item" items="${roles}">
-								<option value="${item.getRoleId()}">${item.getRoleName()}</option>
-							</c:forEach>
-						</select>
+							placeholder="Mã người dùng" hidden value="${Helper.getRandom()}">
+						<div class="form-group">
+							<label for="fullname">Họ và tên</label> <input type="text"
+								name="fullname" id="fullname" placeholder="Họ và tên"
+								class="form-control" required="required">
+						</div>
+						<div class="form-group">
+							<label for="email">Email(Username)</label> <input type="text"
+								name="email" id="email" placeholder="Email" class="form-control"required="required" />
+						</div>
+						<div class="form-group">
+							<label for="phonenumber">Số điện thoại</label> <input type="text"
+								name="phonenumber" id="phonenumber" placeholder="Số điện thoại"
+								class="form-control" required="required">
+						</div>
+						<div class="form-group">
+							<label for="address">Địa chỉ</label> <input type="text"
+								name="address" id="address" placeholder="Địa chỉ"
+								class="form-control" required="required"/>
+						</div>
+						<div class="form-group">
+							<label for="password">Mật khẩu</label> <input type="password"
+								name="password" id="password" placeholder="Mật khẩu"
+								class="form-control" required="required"/>
+						</div>
+						<div class="form-group">
+							<label for="acctiveAcc">Kích hoạt người dùng</label> <select
+								class="form-control" id="acctiveAcc" name="acctiveAcc">
+								<option value="1">Kích hoạt</option>
+								<option value="0">Kích hoạt sau</option>
+							</select>
+						</div>
+
+						<div class="form-group">
+							<label for="roleId">Quyền</label> <select class="form-control"
+								id="roleId" name="roleId">
+								<c:forEach var="item" items="${roles}">
+									<option value="${item.getRoleId()}">${item.getRoleName()}</option>
+								</c:forEach>
+							</select>
+						</div>
 						<button type="submit" class="btn-submit">Lưu</button>
 					</form>
 				</div>

@@ -32,7 +32,7 @@ public class CustomerService extends SuperService {
     try {
       super.setEncoding(Constants.UTF8);
       HttpSession session = request.getSession();
-      String url = "/default/account/login/index.jsp";
+      String url = "/default/account/loginAccount.jsp";
       User user = (User) session.getAttribute("user");
 
       if (user != null) {
@@ -89,7 +89,7 @@ public class CustomerService extends SuperService {
   // [GET] CustomerRegisterServlet
   public void getRegisterForm() throws ServletException, IOException {
     try {
-      String url = "/default/account/register/index.jsp";
+      String url = "/default/account/registerAccount.jsp";
       super.forwardToPage(url);
     } catch (Exception e) {
       super.log(e.getMessage());
@@ -162,7 +162,7 @@ public class CustomerService extends SuperService {
   public void getVerifyForm() throws ServletException, IOException {
     try {
       super.setEncoding(Constants.UTF8);
-      String url = "/default/account/register/verify.jsp";
+      String url = "/default/account/verifyAccount.jsp";
       super.forwardToPage(url);
     } catch (Exception e) {
       super.log(e.getMessage());

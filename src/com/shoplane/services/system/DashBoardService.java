@@ -16,6 +16,9 @@ public class DashBoardService extends SuperService {
   public void getDashboard() throws IOException {
     try {
       String url = "/system/dashboard/index.jsp";
+
+      // Set url active sidebar
+      super.getSession().setAttribute("urlPatten", "");
       super.forwardToPage(url);
     } catch (Exception e) {
       super.log(e.getMessage());

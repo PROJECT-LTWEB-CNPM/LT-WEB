@@ -13,6 +13,7 @@ String baseUrl = context + "/system/users/list";
 <head>
 <jsp:include page="../../head.jsp" />
 <link rel="stylesheet" href="<%=baseUrl%>/index.css" />
+<link rel="stylesheet" href="<%=baseUrl%>/pagination/pagination.css" />
 <title>Quản lý người dùng - Shoplane</title>
 </head>
 <body>
@@ -25,7 +26,43 @@ String baseUrl = context + "/system/users/list";
 				<jsp:include page="../../partials/header/index.jsp" />
 			</div>
 			<main id="main-content">
+				<div class="sub-nav">
+					<a class="sub-nav-item"
+						href="<%=context%>/system/users/?role_id=ROL0&current_page=1&page_size=10">Quản
+						lý người dùng</a>
+				</div>
 				<div class="actions">
+					<div class="action__select">
+						Loại người dùng <select id="select__type"
+							onchange="javascript:handleSelectRole(this)">
+							<c:forEach var="item" items="${roles}">
+								<c:choose>
+									<c:when test="${item.getRoleId().equals(roleId)}">
+										<option value="${item.getRoleId()}" selected>${item.getRoleName()}</option>
+									</c:when>
+									<c:otherwise>
+										<option value="${item.getRoleId()}">${item.getRoleName()}</option>
+									</c:otherwise>
+								</c:choose>
+							</c:forEach>
+						</select>
+					</div>
+					<div class="action__select">
+						Xem <select style="width: 5rem" id="select__entries"
+							onchange="javascript:handleSelectEntries(this)">
+							<c:forEach end="3" begin="1" var="item">
+								<c:choose>
+									<c:when test="${(item * 10) == pageSize}">
+										<option value="${item * 10}" selected>${item * 10}</option>
+									</c:when>
+									<c:otherwise>
+										<option value="${item * 10}">${item * 10}</option>
+									</c:otherwise>
+								</c:choose>
+
+							</c:forEach>
+						</select> sản phẩm
+					</div>
 					<a href="<%=context%>/system/users/create">Thêm người dùng</a> <a
 						onclick="deleteUser(this)"> Xóa người dùng</a>
 				</div>
@@ -34,7 +71,7 @@ String baseUrl = context + "/system/users/list";
 						<div style="width: 5%">
 							<input type="checkbox" class="all">
 						</div>
-						<div style="width: 10%">ID</div>
+						<div style="width: 10%">Mã người dùng</div>
 						<div style="width: 25%">Họ và tên</div>
 						<div style="width: 25%">Email</div>
 						<div style="width: 15%">Loại người dùng</div>
@@ -42,7 +79,7 @@ String baseUrl = context + "/system/users/list";
 						<div style="width: 10%"></div>
 					</div>
 					<div class="table__body" id="data-users">
-						<c:forEach var="item" items="${listUsers}">
+						<c:forEach var="item" items="${users}">
 							<div class="table__row">
 								<div style="width: 5%">
 									<input type="checkbox" value="${item.getUserId()}" />
@@ -59,6 +96,7 @@ String baseUrl = context + "/system/users/list";
 						</c:forEach>
 					</div>
 				</div>
+				<jsp:include page="./pagination/pagination.jsp"></jsp:include>
 			</main>
 		</div>
 	</div>
@@ -109,6 +147,23 @@ String baseUrl = context + "/system/users/list";
 					alert('error')
 				}
 			});
+		}
+		function handleSelectRole(elm) {
+			const queryString = window.location.search;
+			const urlParams = new URLSearchParams(queryString);
+
+			const pageSize = urlParams.get('page_size');
+
+			window.location = '?role_id=' + elm.value + '&current_page=1&page_size=' + pageSize;
+
+		}
+		function handleSelectEntries(elm) {
+			const queryString = window.location.search;
+			const urlParams = new URLSearchParams(queryString);
+
+			const roleId = urlParams.get('role_id');
+
+			window.location = '?eole_id=' + roleId + '&current_page=1&page_size=' + elm.value;
 		}
 	</script>
 </body>

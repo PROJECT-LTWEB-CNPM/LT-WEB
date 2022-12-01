@@ -10,13 +10,13 @@ String url = context + "/default/account";
 <!doctype html>
 <html lang="en">
 <head>
-<jsp:include page="../head.jsp" />
-<link rel="stylesheet" href="<%=url%>/index.css" />
+<jsp:include page="../components/head.jsp" />
+<link rel="stylesheet" href="<%=context%>/assets/css/default/account/account.css" />
 <title>Tài khoản - Shoplane</title>
 </head>
 <body>
 	<div id="app">
-		<jsp:include page="../header/header.jsp" />
+		<jsp:include page="../components/header.jsp" />
 		<main class="main">
 			<div class="container">
 				<div class="your__container">
@@ -69,9 +69,9 @@ String url = context + "/default/account";
 				</div>
 			</div>
 		</main>
-		<jsp:include page="../footer/footer.jsp" />
+		<jsp:include page="../components/footer.jsp" />
 	</div>
-	<jsp:include page="../script.jsp" />
+	<jsp:include page="../components/script.jsp" />
 </body>
 </html>
 
