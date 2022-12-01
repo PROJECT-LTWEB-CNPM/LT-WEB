@@ -95,6 +95,13 @@
 	font-size: 1.4rem;
 }
 
+.form-group {
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+	align-items: flex-start;
+}
+
 .form-control:focus {
 	outline: none !important;
 	border-color: #719ECE;

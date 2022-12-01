@@ -26,6 +26,11 @@ String baseUrl = context + "/system/users/list";
 				<jsp:include page="../../partials/header/index.jsp" />
 			</div>
 			<main id="main-content">
+				<div class="sub-nav">
+					<a class="sub-nav-item"
+						href="<%=context%>/system/users/?role_id=ROL0&current_page=1&page_size=10">Quản
+						lý người dùng</a>
+				</div>
 				<div class="actions">
 					<div class="action__select">
 						Loại người dùng <select id="select__type"

@@ -14,7 +14,7 @@ String baseUrl = context + "/system/bills/detail";
 <html lang="en">
 <head>
 <jsp:include page="../../head.jsp" />
-<title>Quản lý đơn hàng - Shoplane</title>
+<title>Chỉnh sửa đơn hàng - Shoplane</title>
 <link rel="stylesheet" href="<%=baseUrl%>/index.css" type="text/css" />
 </head>
 <body>
@@ -28,26 +28,46 @@ String baseUrl = context + "/system/bills/detail";
 			</div>
 			<main id="main-content">
 				<div class="sub-nav">
-					<a class="sub-nav-item" href="<%=context%>/system/bills/">Quản
-						lý hóa đơn</a> <i class="fas fa-angle-right"></i> <a
+					<a class="sub-nav-item" href="<%=context%>/system/bills/?status=2&current_page=1&page_size=10">Quản
+						lý đơn hàng</a> <i class="fas fa-angle-right"></i> <a
 						class="sub-nav-item"
-						href="<%=context%>/system/bills/detail/?bill_id=${billId}">Chỉnh sửa hóa đơn</a>
+						href="<%=context%>/system/bills/?bill_id=${billId}">Chỉnh sửa đơn hàng</a>
 				</div>
 				<div class="customer_info">
 					<form action="/edit" method="post">
-						<input type="text" name="billId" value="${bill.billId}"
-							class="form-control" readonly /> <input class="form-control"
-							type="text" name="date"
-							value="${Helper.dateWithoutTime(bill.date)}" readonly> <input
-							type="text" name="customerId" value="${bill.user.userId}"
-							class="form-control" readonly /> <select id="statusBill"
-							name="statusBill" class="form-control">
-							<option>-- Lựa chọn trạng thái thanh toán --</option>
-							<option value="1" selected="${bill.getStatusBill() == 1}">Đã
+						<div class="form-group">
+							<label for="date" >Mã đơn hàng</label>
+							<input type="text" name="billId" value="${bill.billId}"
+							class="form-control" readonly /> 
+							</div>
+							<div class="form-group">
+							<label for="date" >Ngày tạo</label>
+								<input class="form-control"
+								type="text" name="date"
+								value="${Helper.dateWithoutTime(bill.date)}" readonly> 
+							</div>	
+							
+							<div class="form-group">
+								<label for="date" >Người mua</label>
+								<input
+								type="text" name="customerId" value="${bill.getUser().getFullname()}"
+								class="form-control" readonly /> 
+							</div>
+
+							<div class="form-group">
+								<label for="date" >Trạng thái thanh toán</label>
+								<select id="statusBill"
+								name="statusBill" class="form-control">
+									<option value="1" selected="${bill.getStatusBill() == 1}">Đã
 								thanh toán</option>
-							<option value="0" selected>Chưa thanh toán</option>
-						</select> <input type="text" name="totalPrice" value="${bill.totalPrice}"
-							class="form-control" readonly />
+								<option value="0" selected>Chưa thanh toán</option>
+							</select>
+						</div>	
+						<div class="form-group">
+								<label for="date" >Tổng số tiền</label>
+							 	<input type="text" name="totalPrice" value="${bill.totalPrice}"
+								class="form-control" readonly />
+						</div>
 						<button type="submit" class="btn-submit">Lưu</button>
 					</form>
 				</div>

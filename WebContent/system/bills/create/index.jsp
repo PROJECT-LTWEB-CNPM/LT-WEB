@@ -1,23 +1,24 @@
-<%@page import="com.shoplane.utils.Helper"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@page import="com.shoplane.utils.Helper"%>
 
 <%
 request.setCharacterEncoding("utf-8");
+
 String context = request.getContextPath();
-String baseUrl = request.getContextPath() + "/system/imagesPreview/create";
+String baseUrl = context + "/system/bills/detail";
 %>
 
 <!doctype html>
 <html lang="en">
 <head>
 <jsp:include page="../../head.jsp" />
-<link rel="stylesheet" href="<%=baseUrl%>/index.css" />
-<title>Thêm sản phẩm - Shoplane</title>
+<title>Thêm hóa đơn - Shoplane</title>
+<link rel="stylesheet" href="<%=baseUrl%>/index.css" type="text/css" />
 </head>
 <body>
-	<div id="system">
+	<div id="app">
 		<div id="sidebar">
 			<jsp:include page="../../partials/sidebar/index.jsp" />
 		</div>
@@ -28,30 +29,38 @@ String baseUrl = request.getContextPath() + "/system/imagesPreview/create";
 			<main id="main-content">
 				<div class="sub-nav">
 					<a class="sub-nav-item"
-						href="<%=context%>/system/bills/?status=0&current_page=1&page_size=10">Quản
-						lý hóa đơn</a> <i class="fas fa-angle-right"></i><a
+						href="<%=context%>/system/bills/?status=2&current_page=1&page_size=10">Quản
+						lý đơn hàng</a> <i class="fas fa-angle-right"></i> <a
 						class="sub-nav-item"
-						href="<%=context%>/system/bills/create/">Thêm
-						hóa đơn</a>
+						href="<%=context%>/system/bills/detail/?status=2&current_page=1&page_size=10">Thêm
+						đơn hàng</a>
 				</div>
 				<div class="customer_info">
-					<form action="" method="POST">
-						<input name="optionId" value="OP<%=Helper.getRandom()%>" hidden />
-						<select name="productId" class="form-control">
-							<option value="${productId}">${product.getProductName()}</option>
-						</select> <select name="colorId" class="form-control">
-							<c:forEach var="item" items="${colors}">
-								<option value="${item.getColorId()}">
-									${item.getColorName()}</option>
-							</c:forEach>
-						</select> <select name="sizeId" class="form-control">
-							<c:forEach var="item" items="${sizes}">
-								<option value="${item.getSizeId()}">
-									${item.getSizeName()}</option>
-							</c:forEach>
-						</select> <input type="text" name="availableQuantity"
-							placeholder="Số lượng khả dụng" class="form-control" required />
-						<button class="btn-submit" type="submit">Lưu</button>
+					<form action="" method="post">
+						<div class="form-group">
+							<label for="date">Mã đơn hàng</label> <input type="text"
+								name="billId" class="form-control"
+								value="<%=Helper.getRandom()%>" readonly/>
+						</div>
+						<div class="form-group">
+							<label for="date">Ngày tạo</label> <input type="datetime-local"
+								id="date" name="date" class="form-control">
+						</div>
+
+						<div class="form-group">
+							<label for="date">Người mua hàng</label> <input type="text"
+								name="customerId" class="form-control" />
+
+
+						</div>
+
+						<div class="form-group">
+							<label for="date">Trạng thái thanh toán</label> <select
+								id="statusBill" name="statusBill" class="form-control">
+								<option value="0" selected>Chưa thanh toán</option>
+							</select>
+						</div>
+						<button type="submit" class="btn-submit">Lưu</button>
 					</form>
 				</div>
 			</main>

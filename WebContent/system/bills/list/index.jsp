@@ -30,7 +30,7 @@ String baseUrl = context + "/system/bills/list";
 			<main id="main-content">
 				<div class="sub-nav">
 					<a class="sub-nav-item" href="<%=context%>/system/bills/">Quản
-						lý hóa đơn</a>
+						lý đơn hàng</a>
 				</div>
 				<div class="actions">
 					<div class="action__select">
@@ -68,16 +68,16 @@ String baseUrl = context + "/system/bills/list";
 							</c:forEach>
 						</select> sản phẩm
 					</div>
-					<a href="<%=context%>/system/bills/create">Thêm hóa đơn</a> <a
+					<a href="<%=context%>/system/bills/create">Thêm đơn hàng</a> <a
 						href="#!"
 						onclick="event.preventDefault();document.getElementById('selectedBill').submit();">Xóa
-						hóa đơn</a>
+						đơn hàng</a>
 				</div>
 				<div class="table">
 					<div class="table__head">
 						<div style="width: 5%"></div>
 						<div style="width: 10%" class="table__cell">
-							<span>Mã hóa đơn</span><i class="fas fa-sort"></i>
+							<span>Mã đơn hàng</span><i class="fas fa-sort"></i>
 						</div>
 						<div style="width: 15%" class="table__cell">
 							<span>Ngày đặt</span><i class="fas fa-sort"></i>
@@ -85,7 +85,7 @@ String baseUrl = context + "/system/bills/list";
 						<div style="width: 15%" class="table__cell">Trạng thái thanh
 							toán</div>
 						<div style="width: 20%" class="table__cell">
-							<span>Tên khách hàng</span><i class="fas fa-sort"></i>
+							<span>Người đặt</span><i class="fas fa-sort"></i>
 						</div>
 						<div style="width: 15%" class="table__cell">
 							<span>Tổng tiền</span><i class="fas fa-sort"></i>
@@ -100,7 +100,7 @@ String baseUrl = context + "/system/bills/list";
 									<input type="checkbox" name="selectedBills" value="${b.billId}">
 								</div>
 								<div style="width: 10%">${b.billId}</div>
-								<div style="width: 15%">${b.date}</div>
+								<div style="width: 15%">${Helper.dateWithoutTime(b.date)}</div>
 								<div style="width: 15%">
 									<c:choose>
 										<c:when test="${b.statusBill==0}">

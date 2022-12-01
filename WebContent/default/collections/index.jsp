@@ -15,14 +15,14 @@ String baseUrl = context + "/default/collections";
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<jsp:include page="../head.jsp" />
-<link rel="stylesheet" href="<%=baseUrl%>/index.css" />
-<link rel="stylesheet" href="<%=baseUrl%>/pagination/pagination.css" />
-<title>${c.getCategoryName()} - Shoplane</title>
+<jsp:include page="../components/head.jsp" />
+<link rel="stylesheet" href="<%=context%>/assets/css/default/collection/collection.css" />
+<link rel="stylesheet" href="<%=context%>/assets/css/default/collection/pagination.css" />
+<title>${category.getCategoryName()} - SHOPLANE</title>
 </head>
 <body>
 	<div id="app">
-		<jsp:include page="../header/header.jsp" />
+		<jsp:include page="../components/header.jsp" />
 		<main class="main">
 			<div class="container">
 				<div class="grid__row collection__container">
@@ -35,7 +35,7 @@ String baseUrl = context + "/default/collections";
 							<ul class="category-list">
 								<c:forEach var="item" items="${categories}">
 									<li
-										class="category-item ${category == item.getCategoryId() ? 'active' : ''}">
+										class="category-item ${categoryId == item.getCategoryId() ? 'active' : ''}">
 										<a
 										href="<%=context %>/collection/?product_type=${item.getProducttype().getTypeId()}&category_id=${item.getCategoryId()}&current_page=1&page_size=12"
 										class="category-item__link">${item.getCategoryName()}</a>
@@ -45,21 +45,29 @@ String baseUrl = context + "/default/collections";
 						</div>
 					</div>
 					<div class="grid__column_3">
-						<div class="product_filter">
-							<h3 class="type_of_product">${c.getCategoryName()}</h3>
-							<div class="option_filter">
-								<h3 class="option_filter-label">SẮP XẾP THEO</h3>
-								<form
-									action="${requestScope['javax.servlet.forward.request_uri']}?category_id=${categoryId}&category_type=${categoryType}"
-									method="post">
-									<select onchange="this.form.submit()" name="orderType"
+						<div class="product__nav">
+							<h3 class="product__heading">${category.getCategoryName()}</h3>
+							<div class="product__filter">
+								<div class="option_filter">
+									<label class="option_filter-label">GIÁ</label> <select
+										onchange="this.form.submit()" name="orderType"
 										class="option_filter-group" tabindex="-1">
-										<option value="<%=Constants.OLDEST%>">Cũ nhất</option>
-										<option value="<%=Constants.NEWEST%>">Mới nhất</option>
-										<option value="<%=Constants.DESC%>">Giá giảm dần</option>
-										<option value="<%=Constants.ASC%>">Giá tăng dần</option>
+										<option value="<%=Constants.DESC%>">Giảm dần</option>
+										<option value="<%=Constants.ASC%>">Tăng dần</option>
 									</select>
-								</form>
+								</div>
+								<div class="option_filter">
+									<h3 class="option_filter-label">THỜI GIAN</h3>
+									<form
+										action="${requestScope['javax.servlet.forward.request_uri']}?category_id=${categoryId}&category_type=${categoryType}"
+										method="post">
+										<select onchange="this.form.submit()" name="orderType"
+											class="option_filter-group" tabindex="-1">
+											<option value="<%=Constants.OLDEST%>">Cũ nhất</option>
+											<option value="<%=Constants.NEWEST%>">Mới nhất</option>
+										</select>
+									</form>
+								</div>
 							</div>
 						</div>
 						<div class="grid__row">
@@ -87,15 +95,15 @@ String baseUrl = context + "/default/collections";
 							</c:forEach>
 						</div>
 						<div class="show_all">
-							<jsp:include page="./pagination/pagination.jsp" />
+							<jsp:include page="./pagination.jsp" />
 						</div>
 					</div>
 				</div>
 			</div>
 		</main>
-		<jsp:include page="../footer/footer.jsp" />
-		<jsp:include page="../back-to-top/back-to-top.jsp" />
+		<jsp:include page="../components/footer.jsp" />
+		<jsp:include page="../components/backToTop.jsp" />
 	</div>
-	<jsp:include page="../script.jsp" />
+	<jsp:include page="../components/script.jsp" />
 </body>
 </html>

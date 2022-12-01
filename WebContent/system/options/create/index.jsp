@@ -34,25 +34,45 @@ String baseUrl = request.getContextPath() + "/system/options/create";
 						href="<%=context%>/system/products/options/?product_id=${productId}">Quản
 						lý lựa chọn</a><i class="fas fa-angle-right"></i><a
 						class="sub-nav-item"
-						href="<%=context%>/system/products/options/create/?product_id=${productId}">Thêm lựa chọn</a>
+						href="<%=context%>/system/products/options/create/?product_id=${productId}">Thêm
+						lựa chọn</a>
 				</div>
 				<div class="customer_info">
 					<form action="" method="POST">
 						<input name="optionId" value="OP<%=Helper.getRandom()%>" hidden />
-						<select name="productId" class="form-control">
-							<option value="${productId}">${product.getProductName()}</option>
-						</select> <select name="colorId" class="form-control">
+						<div class="form-group">
+							<label for="productId">Tên sản phẩm</label> 
+							<select
+								name="productId" class="form-control">
+								<option value="${productId}" selected>${product.getProductName()}</option>
+							</select>
+						</div>
+
+						<div class="form-group">
+							<label for="productId">Màu sắc</label> 
+							<select name="colorId" class="form-control">
 							<c:forEach var="item" items="${colors}">
 								<option value="${item.getColorId()}">
 									${item.getColorName()}</option>
 							</c:forEach>
-						</select> <select name="sizeId" class="form-control">
+							</select> 
+						</div>	
+
+						<div class="form-group">
+							<label for="productId">Kích cỡ</label> 
+							<select name="sizeId" class="form-control">
 							<c:forEach var="item" items="${sizes}">
 								<option value="${item.getSizeId()}">
 									${item.getSizeName()}</option>
 							</c:forEach>
-						</select> <input type="text" name="availableQuantity"
+							</select> 
+						</div>	
+
+						<div class="form-group">
+							<label for="availableQuantity">Số lượng khả dụng</label> 
+							<input type="text" name="availableQuantity" id="availableQuantity"
 							placeholder="Số lượng khả dụng" class="form-control" required />
+						</div>
 						<button class="btn-submit" type="submit">Lưu</button>
 					</form>
 				</div>

@@ -20,8 +20,6 @@ public class CustomerLoginServlet extends HttpServlet {
 
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    request.setCharacterEncoding("UTF-8");
-    response.setCharacterEncoding("UTF-8");
     CustomerService customerService = new CustomerService(request, response);
     customerService.getLoginForm();
   }

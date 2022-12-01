@@ -14,7 +14,7 @@ String billUrl = context + "/system/bills/?status=2&current_page=1&page_size=10"
 
 String[] urls = { dashboardUrl, userUrl, billUrl, productUrl };
 String[] icons = { "fas fa-chart-line", "fas fa-users", "fas fa-file-invoice", "fas fa-vest" };
-String[] labels = { "Thống kê", "Người dùng", "Hóa đơn", "Sản phẩm" };
+String[] labels = { "Tổng quan", "Người dùng", "Đơn hàng", "Sản phẩm" };
 String[] pattenUrls = { "", Constants.USERS, Constants.BILLS, Constants.PRODUCTS };
 String urlPatten = (String) request.getSession().getAttribute("urlPatten");
 if (urlPatten == null) {

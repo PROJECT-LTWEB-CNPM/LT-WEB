@@ -4,7 +4,9 @@
 
 <%
 request.setCharacterEncoding("utf-8");
-String baseUrl = request.getContextPath() + "/system/users/edit";
+String context = request.getContextPath();
+String baseUrl = context + "/system/users/edit";
+String[] isActiveTexts = { "Chưa kích hoạt", "Đã kích hoạt" };
 %>
 
 <!doctype html>
@@ -12,7 +14,7 @@ String baseUrl = request.getContextPath() + "/system/users/edit";
 <head>
 <jsp:include page="../../head.jsp" />
 <link rel="stylesheet" href="<%=baseUrl%>/index.css" />
-<title>Thêm người dùng - Shoplane</title>
+<title>Chỉnh sửa người dùng - Shoplane</title>
 </head>
 <body>
 	<div id="system">
@@ -24,6 +26,14 @@ String baseUrl = request.getContextPath() + "/system/users/edit";
 				<jsp:include page="../../partials/header/index.jsp" />
 			</div>
 			<main id="main-content">
+				<div class="sub-nav">
+					<a class="sub-nav-item"
+						href="<%=context%>/system/users/?role_id=ROL0&current_page=1&page_size=10">Quản
+						lý người dùng</a> <i class="fas fa-angle-right"></i> <a
+						class="sub-nav-item"
+						href="<%=context%>/system/users/edit?user_id=${userId}">Chỉnh
+						sửa người dùng</a>
+				</div>
 				<div class="customer_info">
 					<div class="img">
 						<img
@@ -33,39 +43,78 @@ String baseUrl = request.getContextPath() + "/system/users/edit";
 					<button class="change_img">Thay đổi ảnh</button>
 
 					<div id="form_userData">
-						<form
-							action="http://localhost:8080/shoplane-ft/system/users/edit/"
-							method="post">
-							<input type="text" name="userId" id="userId"
-								placeholder="Mã người dùng" class="form-control"
-								value="${user.getUserId()}"> <input type="text"
-								name="fullname" id="fullname" placeholder="Họ và tên"
-								class="form-control" value="${user.getFullname()}" /> <input
-								type="text" name="email" id="email" placeholder="Email"
-								class="form-control" value="${user.getEmail()}" /> <input
-								type="text" name="phonenumber" id="phonenumber"
-								placeholder="Số điện thoại" class="form-control"
-								value="${user.getPhonenumber()}" /> <input type="text"
-								name="address" id="address" placeholder="Địa chỉ"
-								class="form-control" value="${user.getAddress()}" /> <select
-								class="form-control" id="acctiveAcc">
-								<option value="-1">-- Lựa chọn trạng thái tài khoản --</option>
-								<option value="1" selected="${user.getIsActiveAcc()}">Kích
-									hoạt</option>
-								<option value="0">Kích hoạt sau</option>
-							</select> <select class="form-control" id="roleId">
-								<option value="-1">-- Lựa chọn vai trò --</option>
-								<c:forEach var="item" items="${roles}">
-									<option value="${item.getRoleId()}"
-										selected="${user.getRole().getRoleId() == item.getRoleId()}">${item.getRoleName()}</option>
-								</c:forEach>
-							</select>
+						<form action="" method="POST">
+							<div class="form-group">
+								<label for="userId">Mã người dùng</label> <input type="text"
+									name="userId" id="userId" placeholder="Mã người dùng"
+									class="form-control" value="${user.getUserId()}"
+									readonly="readonly">
+							</div>
+							<div class="form-group">
+								<label for="fullname">Tên đầy đủ</label> <input type="text"
+									name="fullname" id="fullname" placeholder="Họ và tên"
+									class="form-control" value="${user.getFullname()}"
+									required="required" />
+							</div>
+							<div class="form-group">
+								<label for="email">Email</label> <input type="text" name="email"
+									id="email" placeholder="Email" class="form-control"
+									value="${user.getEmail()}" required="required" />
+							</div>
+
+							<div class="form-group">
+								<label for="phonenumber">Số điện thoại</label> <input
+									type="text" name="phonenumber" id="phonenumber"
+									placeholder="Số điện thoại" class="form-control"
+									value="${user.getPhonenumber()}" required="required" />
+							</div>
+
+							<div class="form-group">
+								<label for="phonenumber">Địa chỉ</label> <input type="text"
+									name="address" id="address" placeholder="Địa chỉ"
+									class="form-control" value="${user.getAddress()}"
+									required="required" />
+							</div>
+
+							<div class="form-group">
+								<label for="acctiveAcc">Trạng thái tài khoản</label> <select
+									class="form-control" id="acctiveAcc" name="acctiveAcc">
+									<c:forEach items="<%=isActiveTexts%>" var="item" varStatus="i">
+										<c:choose>
+											<c:when test="${i.index == user.getIsActiveAcc()}">
+												<option value="${i.index}" selected>${item}</option>
+											</c:when>
+											<c:otherwise>
+												<option value="${i.index}">${item}</option>
+											</c:otherwise>
+										</c:choose>
+									</c:forEach>
+								</select>
+							</div>
+
+							<div class="form-group">
+								<label for="acctiveAcc">Vai trò</label> <select
+									class="form-control" id="roleId" name="roleId">
+									<c:forEach var="item" items="${roles}">
+										<c:choose>
+											<c:when
+												test="${item.getRoleId().equals(user.getRole().getRoleId())}">
+												<option value="${item.getRoleId()}" selected>${item.getRoleName()}</option>
+											</c:when>
+											<c:otherwise>
+												<option value="${item.getRoleId()}" selected>${item.getRoleName()}</option>
+											</c:otherwise>
+										</c:choose>
+
+									</c:forEach>
+								</select>
+							</div>
 							<button type="submit" class="btn-submit">Lưu</button>
 						</form>
 					</div>
 				</div>
 			</main>
 		</div>
-	</div>	
+	</div>
 </body>
 </html>

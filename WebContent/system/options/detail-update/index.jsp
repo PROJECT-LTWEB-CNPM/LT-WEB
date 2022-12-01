@@ -39,9 +39,16 @@ String baseUrl = request.getContextPath() + "/system/options/detail-update";
 					<form action="" method="POST">
 						<input type="text" name="optionId" placeholder="Mã lựa chọn"
 							class="form-control" value="${option.getOptionId()}" disabled />
-						<select name="productId" class="form-control">
-							<option value="${productId}">${product.getProductName()}</option>
-						</select> <select name="colorId" class="form-control">
+						<div class="form-group">
+							<label for="meterial" class="form-label">Sản phẩm</label> 
+							<select name="productId" class="form-control">
+								<option value="${productId}">${product.getProductName()}</option>
+							</select> 
+						</div>
+						
+						<div class="form-group">
+							<label for="meterial" class="form-label">Màu sắc</label> 
+						<select name="colorId" class="form-control">
 							<c:forEach var="item" items="${colors}">
 								<c:choose>
 									<c:when
@@ -55,25 +62,34 @@ String baseUrl = request.getContextPath() + "/system/options/detail-update";
 									</c:otherwise>
 								</c:choose>
 							</c:forEach>
-						</select> <select name="sizeId" class="form-control">
-							<c:forEach var="item" items="${sizes}">
-								<c:choose>
-									<c:when
-										test="${item.getSizeId().equals(option.getSize().getSizeId())}">
-										<option value="${item.getSizeId()}" selected>
-											${item.getSizeName()}</option>
-									</c:when>
-									<c:otherwise>
-										<option value="${item.getSizeId()}">
-											${item.getSizeName()}</option>
-									</c:otherwise>
-								</c:choose>
+						</select>
+						</div>
 
-							</c:forEach>
-						</select> <input type="text" name="availableQuantity"
-							placeholder="Số lượng khả dụng" class="form-control"
-							value="${option.getAvailableQuantity()}" />
-						<button class="btn-submit" type="submit">Lưu</button>
+						<div class="form-group">
+							<label for="meterial" class="form-label">Kích thước</label> <select
+								name="sizeId" class="form-control">
+								<c:forEach var="item" items="${sizes}">
+									<c:choose>
+										<c:when
+											test="${item.getSizeId().equals(option.getSize().getSizeId())}">
+											<option value="${item.getSizeId()}" selected>
+												${item.getSizeName()}</option>
+										</c:when>
+										<c:otherwise>
+											<option value="${item.getSizeId()}">
+												${item.getSizeName()}</option>
+										</c:otherwise>
+									</c:choose>
+								</c:forEach>
+							</select>
+						</div>
+							<div class="form-group">
+								<label for="meterial" class="form-label">Số lượng khả dụng</label> <input
+									type="text" name="availableQuantity"
+									placeholder="Số lượng khả dụng" class="form-control"
+									value="${option.getAvailableQuantity()}" />
+							</div>
+							<button class="btn-submit" type="submit">Lưu</button>
 					</form>
 				</div>
 			</main>

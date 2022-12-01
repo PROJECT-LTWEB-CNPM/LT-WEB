@@ -37,8 +37,12 @@ import javax.persistence.Table;
     @NamedQuery(name = "Product.countByProductTypeAndCategory", query = "SELECT COUNT(p) FROM Product p WHERE p.category = :category AND p.producttype = :productType"),
 
     @NamedQuery(name = "Product.findByProductTypeAndIsDeleted", query = "SELECT p FROM Product p WHERE p.isDelete = :isDelete AND p.producttype = :productType"),
+    @NamedQuery(name = "Product.findByProductTypeAndIsDeletedAndPriceAsc", query = "SELECT p FROM Product p WHERE p.isDelete = :isDelete AND p.producttype = :productType ORDER BY p.newPrice ASC"),
+    @NamedQuery(name = "Product.findByProductTypeAndIsDeletedAndPriceDesc", query = "SELECT p FROM Product p WHERE p.isDelete = :isDelete AND p.producttype = :productType ORDER BY p.newPrice DESC"),
     @NamedQuery(name = "Product.countByProductTypeAndIsDeleted", query = "SELECT COUNT(p) FROM Product p WHERE p.isDelete = :isDelete AND p.producttype = :productType"),
 
+    @NamedQuery(name = "Product.findByCategoryAndProductTypeAndIsDeletedAndPriceAsc", query = "SELECT p FROM Product p WHERE p.category = :category AND p.producttype = :productType AND p.isDelete = :isDelete ORDER BY p.newPrice ASC"),
+    @NamedQuery(name = "Product.findByCategoryAndProductTypeAndIsDeletedAndPriceDesc", query = "SELECT p FROM Product p WHERE p.category = :category AND p.producttype = :productType AND p.isDelete = :isDelete ORDER BY p.newPrice DESC"),
     @NamedQuery(name = "Product.findByCategoryAndProductTypeAndIsDeleted", query = "SELECT p FROM Product p WHERE p.category = :category AND p.producttype = :productType AND p.isDelete = :isDelete"),
     @NamedQuery(name = "Product.countByProductTypeAndCategoryAndIsDeleted", query = "SELECT COUNT(p) FROM Product p WHERE p.category = :category AND p.producttype = :productType AND p.isDelete = :isDelete")
 })

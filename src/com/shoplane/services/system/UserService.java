@@ -14,6 +14,7 @@ import com.shoplane.dao.UserDAO;
 import com.shoplane.models.Role;
 import com.shoplane.models.User;
 import com.shoplane.services.SuperService;
+import com.shoplane.utils.Bcrypt;
 import com.shoplane.utils.Constants;
 import com.shoplane.utils.Helper;
 
@@ -88,6 +89,154 @@ public class UserService extends SuperService {
 
       // forward
       super.forwardToPage(url);
+    } catch (Exception e) {
+      super.log(e.getMessage());
+      String error = super.getContextPath() + "/system/500";
+      super.redirectToPage(error);
+    }
+  }
+
+  // [GET] CreateUserServlet
+  public void getCreateUserForm() throws IOException {
+    try {
+      super.setEncoding(Constants.UTF8);
+      // Define url
+      String url = "/system/users/create/index.jsp";
+      // Get data
+      List<Role> roles = this.roleDAO.findAll();
+      // Set att
+      super.setAttribute("roles", roles);
+      // forward
+      super.forwardToPage(url);
+    } catch (Exception e) {
+      super.log(e.getMessage());
+      String error = super.getContextPath() + "/system/500";
+      super.redirectToPage(error);
+    }
+  }
+
+  // [POST] CreateUserServlet
+  public void submitCreateUserForm() throws IOException {
+    try {
+      super.setEncoding(Constants.UTF8);
+      // Define url
+      String url = super.getContextPath() + "/system/users/?role_id=ROL0&current_page=1&page_size=10";
+      // Get params
+      String userId = super.getParameter("userId");
+      String fullname = super.getParameter("fullname");
+      String email = super.getParameter("email");
+      String phonenumber = super.getParameter("phonenumber");
+      String address = super.getParameter("address");
+      String password = super.getParameter("password");
+      String isActiveStr = super.getParameter("acctiveAcc");
+      String roleId = super.getParameter("roleId");
+      String pwdHashed = "";
+
+      int isActive = 0;
+      if (Helper.isNumeric(isActiveStr)) {
+        isActive = Integer.parseInt(isActiveStr);
+      }
+      if (roleId == null) {
+        roleId = Constants.USER_ROLE;
+      }
+      if (password != null) {
+        password = "";
+      }
+
+      // hash pwd
+      pwdHashed = Bcrypt.hashpwd(password);
+
+      // Get data
+      List<Role> roles = this.roleDAO.findAll();
+      Role role = this.roleDAO.find(roleId);
+      User user = new User();
+      user.setUserId(userId);
+      user.setFullname(fullname);
+      user.setAddress(address);
+      user.setRole(role);
+      user.setIsActiveAcc((byte) isActive);
+      user.setEmail(email);
+      user.setPassword(pwdHashed);
+      user.setPhonenumber(phonenumber);
+
+      // Create
+      this.userDAO.create(user);
+
+      // Set att
+      super.setAttribute("roles", roles);
+      // Redirect
+      super.redirectToPage(url);
+    } catch (Exception e) {
+      super.log(e.getMessage());
+      String error = super.getContextPath() + "/system/500";
+      super.redirectToPage(error);
+    }
+  }
+
+  // [GET] EditUserServlet
+  public void getEditUserForm() throws IOException {
+    try {
+      super.setEncoding(Constants.UTF8);
+      // Url
+      String url = "/system/users/edit/index.jsp";
+      // Get params
+      String userId = request.getParameter("user_id");
+      // Get data
+      User user = this.userDAO.find(userId);
+      List<Role> roles = this.roleDAO.findAll();
+
+      super.setAttribute("userId", userId);
+      super.setAttribute("user", user);
+      super.setAttribute("roles", roles);
+      super.forwardToPage(url);
+    } catch (Exception e) {
+      super.log(e.getMessage());
+      String error = super.getContextPath() + "/system/500";
+      super.redirectToPage(error);
+    }
+  }
+
+  // [POST] EditUserServlet
+  public void submitEditUserForm() throws IOException {
+    try {
+      super.setEncoding(Constants.UTF8);
+      // Url
+      String url = super.getContextPath() + "/system/users/?role_id=ROL0&current_page=1&page_size=10";
+      // Get params
+      String userId = request.getParameter("userId");
+      String fullname = super.getParameter("fullname");
+      String email = super.getParameter("email");
+      String phonenumber = super.getParameter("phonenumber");
+      String address = super.getParameter("address");
+      String isActiveStr = super.getParameter("acctiveAcc");
+      String roleId = super.getParameter("roleId");
+
+      // Check
+      int isActive = 0;
+      if (Helper.isNumeric(isActiveStr)) {
+        isActive = Integer.parseInt(isActiveStr);
+      }
+      if (roleId == null) {
+        roleId = Constants.USER_ROLE;
+      }
+
+      // Get data
+      User user = this.userDAO.find(userId);
+      Role role = this.roleDAO.find(roleId);
+
+      // Update
+      if (user != null) {
+        user.setFullname(fullname);
+        user.setAddress(address);
+        user.setRole(role);
+        user.setIsActiveAcc((byte) isActive);
+        user.setEmail(email);
+        user.setPhonenumber(phonenumber);
+        this.userDAO.update(user);
+      }
+
+      // Redirect
+      super.redirectToPage(url);
     } catch (Exception e) {
       super.log(e.getMessage());
       String error = super.getContextPath() + "/system/500";

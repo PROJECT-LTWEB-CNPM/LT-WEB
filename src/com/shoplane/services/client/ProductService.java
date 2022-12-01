@@ -118,14 +118,13 @@ public class ProductService extends SuperService {
       super.setAttribute("products", products);
       super.setAttribute("productTypes", productTypes);
       super.setAttribute("categories", categories);
-      super.setAttribute("c", category);
-      super.setAttribute("productType", productType);
+      super.setAttribute("category", category);
       // Set value of param url
       super.setAttribute("totalPage", totalPage);
       super.setAttribute("currentPage", currentPage);
       super.setAttribute("pageSize", pageSize);
       super.setAttribute("productType", productTypeId);
-      super.setAttribute("category", categoryId);
+      super.setAttribute("categoryId", categoryId);
 
       // Forward
       super.forwardToPage(url);

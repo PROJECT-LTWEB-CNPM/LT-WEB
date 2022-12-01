@@ -40,11 +40,21 @@ String baseUrl = request.getContextPath() + "/system/options/create";
 				<div class="customer_info">
 					<form action="" method="POST">
 						<input name="imageId" value="${productImage.getImageId()}" hidden />
-						<select name="productId" class="form-control">
-							<option value="${productId}">${product.getProductName()}</option>
-						</select> <input type="text" name="imageUrl" placeholder="Đường dẫn"
+						
+						<div class="form-group">
+							<label for="productId">Sản phẩm</label>
+							<select name="productId" class="form-control">
+								<option value="${productId}">${product.getProductName()}</option>
+							</select> 
+						</div>
+						
+						<div class="form-group">
+							<label for="imageUrl">Đường dẫn</label>
+						<input type="text" name="imageUrl" placeholder="Đường dẫn"
 							class="form-control" required
-							value="${productImage.getImageUrl()}" /> <img
+							value="${productImage.getImageUrl()}" /> 
+						</div>
+						<img
 							src="${productImage.getImageUrl()}"
 							style="width: 40rem; height: 40rem; object-fit: cover;" />
 						<button class="btn-submit" type="submit">Lưu</button>

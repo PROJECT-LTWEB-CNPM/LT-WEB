@@ -18,7 +18,7 @@ public class CustomerForgotPasswordServlet extends HttpServlet {
 
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    String url = "/default/account/forgotPassword/index.jsp";
+    String url = "/default/account/forgotPasswordAccount.jsp";
     request.getRequestDispatcher(url).forward(request, response);
   }
 
