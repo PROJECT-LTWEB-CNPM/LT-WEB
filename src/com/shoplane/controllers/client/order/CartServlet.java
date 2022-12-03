@@ -23,7 +23,7 @@ public class CartServlet extends HttpServlet {
 
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    String url = "/default/cart/index.jsp";
+    String url = "/pages/default/cart/index.jsp";
     @SuppressWarnings("unchecked")
     List<Order> orders = (List<Order>) request.getSession().getAttribute("orders");
     if (orders != null) {
@@ -31,7 +31,7 @@ public class CartServlet extends HttpServlet {
       request.setAttribute("orders", orders);
     } else {
       orders = new ArrayList<>();
-      url = "/default/cart/index.jsp";
+      url = "/pages/default/cart/index.jsp";
     }
     // Forward to cart page
     request.getRequestDispatcher(url).forward(request, response);
@@ -42,7 +42,7 @@ public class CartServlet extends HttpServlet {
     try {
       HttpSession session = req.getSession();
       String opId = req.getParameter("oId");
-      String url = "/default/cart/index.jsp";
+      String url = "/pages/default/cart/index.jsp";
       @SuppressWarnings("unchecked")
       List<Order> ors = (List<Order>) req.getSession().getAttribute("orders");
 

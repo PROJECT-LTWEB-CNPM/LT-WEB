@@ -18,7 +18,7 @@ public class ChangePasswordServlet extends HttpServlet {
 
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    String pageUrl = "/default/account/changePassword/index.jsp";
+    String pageUrl = "/pages/default/account/changePassword/index.jsp";
     request.getRequestDispatcher(pageUrl).forward(request, response);
   }
 

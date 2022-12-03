@@ -11,26 +11,27 @@
 		<class>com.shoplane.models.Option</class>
 		<class>com.shoplane.models.Order</class>
 		<class>com.shoplane.models.ProductImage</class>
-		<class>com.shoplane.models.Product</class>
 		<class>com.shoplane.models.ProductType</class>
+		<class>com.shoplane.models.Product</class>
 		<class>com.shoplane.models.Role</class>
 		<class>com.shoplane.models.Size</class>
 		<class>com.shoplane.models.User</class>
 		<properties>
 			<!-- Configuring JDBC properties -->
 			<property name="javax.persistence.jdbc.url"
-				value="jdbc:mysql://localhost:3306/shoplanedb" />
-			<property name="javax.persistence.jdbc.user" value="root" />
+				value="jdbc:mysql://localhost:3306/TFcT8GlodF" />
+			<property name="javax.persistence.jdbc.user"
+				value="root" />
 			<property name="javax.persistence.jdbc.password"
 				value="201102" />
 			<property name="javax.persistence.jdbc.driver"
 				value="com.mysql.jdbc.Driver" />
 
-			<!-- Hibernate properties -->
+			<!-- Config hibernate -->
 			<property name="hibernate.dialect"
-				value="org.hibernate.dialect.MySQL5Dialect" />
-			<!-- <property name="hibernate.show_sql" value="true" />
-			<property name="hibernate.format_sql" value="true" />  -->
+				value="org.hibernate.dialect.MySQLDialect" />
+			<!-- <property name="hibernate.show_sql" value="true" /> <property name="hibernate.format_sql" 
+				value="true" /> -->
 
 			<!-- batching size -->
 			<property name="hibernate.jdbc.batch_size" value="30" />

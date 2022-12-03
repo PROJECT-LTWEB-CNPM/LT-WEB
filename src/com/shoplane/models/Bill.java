@@ -1,7 +1,6 @@
 package com.shoplane.models;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -20,11 +19,11 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 /**
- * The persistent class for the bills database table.
+ * The persistent class for the Bills database table.
  * 
  */
 @Entity
-@Table(name = "bills")
+@Table(name = "Bills")
 @NamedQueries({
     @NamedQuery(name = "Bill.findAll", query = "SELECT b FROM Bill b"),
     @NamedQuery(name = "Bill.findByUser", query = "SELECT b FROM Bill b WHERE b.user = :user"),
@@ -58,14 +57,6 @@ public class Bill implements Serializable {
   private List<Order> orders;
 
   public Bill() {
-  }
-
-  public Bill(String billId, Date date, int totalPrice, User user) {
-    this.billId = billId;
-    this.date = date;
-    this.totalPrice = totalPrice;
-    this.user = user;
-    this.orders = new ArrayList<>();
   }
 
   public String getBillId() {

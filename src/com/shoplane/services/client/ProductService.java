@@ -58,7 +58,7 @@ public class ProductService extends SuperService {
       super.setEncoding(Constants.UTF8);
 
       // Link
-      String url = "/default/collections/index.jsp";
+      String url = "/pages/default/collections/index.jsp";
       // Get params
       String productTypeId = super.getParameter("product_type");
       String categoryId = super.getParameter("category_id");

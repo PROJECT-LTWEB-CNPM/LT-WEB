@@ -19,7 +19,7 @@ public class ModifyAccountServlet extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-    String url = "/default/account/modify/index.jsp";
+    String url = "/pages/default/account/modify/index.jsp";
     request.getRequestDispatcher(url).forward(request, response);
   }
 

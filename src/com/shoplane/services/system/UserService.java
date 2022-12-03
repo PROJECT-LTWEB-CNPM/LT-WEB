@@ -36,7 +36,7 @@ public class UserService extends SuperService {
       // Set active sidebar item
       super.getSession().setAttribute("urlPatten", Constants.USERS);
       // Define url
-      String url = "/system/users/list/index.jsp";
+      String url = "/pages/system/users/index.jsp";
 
       String roleId = super.getParameter("role_id");
       String currentPageStr = super.getParameter("current_page");
@@ -67,7 +67,6 @@ public class UserService extends SuperService {
       int totalItem = this.userDAO.count();
 
       if (roleId.equals(Constants.ALL_ROLE)) {
-        // users = this.userDAO.findByIsDeleted(Byte.parseByte("0"));
         users = this.userDAO.pagination(currentPage, pageSize);
       } else {
         params.put("role", role);
@@ -101,7 +100,7 @@ public class UserService extends SuperService {
     try {
       super.setEncoding(Constants.UTF8);
       // Define url
-      String url = "/system/users/create/index.jsp";
+      String url = "/pages/system/users/createUser.jsp";
       // Get data
       List<Role> roles = this.roleDAO.findAll();
       // Set att
@@ -178,7 +177,7 @@ public class UserService extends SuperService {
     try {
       super.setEncoding(Constants.UTF8);
       // Url
-      String url = "/system/users/edit/index.jsp";
+      String url = "/pages/system/users/editUser.jsp";
       // Get params
       String userId = request.getParameter("user_id");
       // Get data

@@ -18,7 +18,7 @@ public class InternalErrorServlet extends HttpServlet {
 
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    String pageInternalError = "/500.jsp";
+    String pageInternalError = "/pages/500.jsp";
     request.getRequestDispatcher(pageInternalError).forward(request, response);
   }
 

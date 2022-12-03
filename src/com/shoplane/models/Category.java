@@ -13,11 +13,15 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+/**
+ * The persistent class for the Categories database table.
+ * 
+ */
 @Entity
-@Table(name = "categories")
+@Table(name = "Categories")
 @NamedQueries({
     @NamedQuery(name = "Category.findAll", query = "SELECT c FROM Category c"),
-    @NamedQuery(name = "Category.findByProductType", query = "SELECT c FROM Category c WHERE c.producttype = :productType"),
+    @NamedQuery(name = "Category.findByProductType", query = "SELECT c FROM Category c WHERE c.productTypeBean = :productType"),
     @NamedQuery(name = "Category.findByCategoryName", query = "SELECT c FROM Category c WHERE c.categoryName LIKE '%:categoryName%'"),
 })
 public class Category implements Serializable {
@@ -33,7 +37,7 @@ public class Category implements Serializable {
   // bi-directional many-to-one association to ProductType
   @ManyToOne
   @JoinColumn(name = "product_type")
-  private ProductType producttype;
+  private ProductType productTypeBean;
 
   // bi-directional many-to-one association to Product
   @OneToMany(mappedBy = "category")
@@ -58,12 +62,12 @@ public class Category implements Serializable {
     this.categoryName = categoryName;
   }
 
-  public ProductType getProducttype() {
-    return this.producttype;
+  public ProductType getProductTypeBean() {
+    return this.productTypeBean;
   }
 
-  public void setProducttype(ProductType producttype) {
-    this.producttype = producttype;
+  public void setProductTypeBean(ProductType productTypeBean) {
+    this.productTypeBean = productTypeBean;
   }
 
   public List<Product> getProducts() {

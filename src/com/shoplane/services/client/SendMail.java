@@ -27,9 +27,12 @@ public class SendMail {
   public boolean sendMail(User user) {
     boolean isSend = false;
     String toEmail = user.getEmail();
-    String fromEmail = "doduongthaituan201102@gmail.com";
-    String fromPwd = "ddqzmkydrtjexbfj";
-
+    /*
+     * String fromEmail = "doduongthaituan201102@gmail.com";
+     * String fromPwd = "ddqzmkydrtjexbfj";
+     */
+    String fromEmail = "20110743@student.hcmute.edu.vn";
+    String fromPwd = "Tuanvn1234567890..";
     try {
 
       // your host email smtp server details

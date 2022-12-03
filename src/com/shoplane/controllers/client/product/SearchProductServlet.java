@@ -32,7 +32,7 @@ public class SearchProductServlet extends HttpServlet {
         listProductWithSearch = this.productDAO.findByProductName(productName);
         request.setAttribute("findProduct", productName);
         request.setAttribute("listProductWithSearch", listProductWithSearch);
-        request.getRequestDispatcher("/default/searchProduct.jsp").forward(request, response);
+        request.getRequestDispatcher("/pages/default/searchProduct.jsp").forward(request, response);
       }
     } catch (Exception e) {
       System.out.println(e.getMessage());

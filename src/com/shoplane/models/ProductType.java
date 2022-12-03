@@ -6,11 +6,11 @@ import java.util.List;
 
 
 /**
- * The persistent class for the producttypes database table.
+ * The persistent class for the ProductTypes database table.
  * 
  */
 @Entity
-@Table(name="producttypes")
+@Table(name="ProductTypes")
 @NamedQuery(name="ProductType.findAll", query="SELECT p FROM ProductType p")
 public class ProductType implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -23,11 +23,11 @@ public class ProductType implements Serializable {
 	private String typeName;
 
 	//bi-directional many-to-one association to Category
-	@OneToMany(mappedBy="producttype")
+	@OneToMany(mappedBy="productTypeBean")
 	private List<Category> categories;
 
 	//bi-directional many-to-one association to Product
-	@OneToMany(mappedBy="producttype")
+	@OneToMany(mappedBy="productTypeBean")
 	private List<Product> products;
 
 	public ProductType() {
@@ -59,14 +59,14 @@ public class ProductType implements Serializable {
 
 	public Category addCategory(Category category) {
 		getCategories().add(category);
-		category.setProducttype(this);
+		category.setProductTypeBean(this);
 
 		return category;
 	}
 
 	public Category removeCategory(Category category) {
 		getCategories().remove(category);
-		category.setProducttype(null);
+		category.setProductTypeBean(null);
 
 		return category;
 	}
@@ -81,14 +81,14 @@ public class ProductType implements Serializable {
 
 	public Product addProduct(Product product) {
 		getProducts().add(product);
-		product.setProducttype(this);
+		product.setProductTypeBean(this);
 
 		return product;
 	}
 
 	public Product removeProduct(Product product) {
 		getProducts().remove(product);
-		product.setProducttype(null);
+		product.setProductTypeBean(null);
 
 		return product;
 	}

@@ -8,17 +8,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.shoplane.dao.RoleDAO;
 import com.shoplane.services.system.UserService;
 
 @WebServlet(urlPatterns = { "/system/users/edit", "/system/users/edit/" })
 public class EditUserSevlet extends HttpServlet {
   private static final long serialVersionUID = 1L;
-  RoleDAO roleDAO = null;
 
   public EditUserSevlet() {
     super();
-    this.roleDAO = new RoleDAO();
   }
 
   @Override

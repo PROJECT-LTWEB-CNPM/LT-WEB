@@ -36,7 +36,8 @@ public class OptionService extends SuperService {
   // [GET] ListOptionServlet
   public void handleGetListOption() throws ServletException, IOException {
     try {
-      String url = "/system/options/list/index.jsp";
+      super.setEncoding(Constants.UTF8);
+      String url = "/pages/system/options/index.jsp";
       String productId = super.getParameter("product_id").trim();
       Product product = this.productDAO.find(productId);
 
@@ -59,8 +60,9 @@ public class OptionService extends SuperService {
   // [GET] CreateOptionServlet
   public void handleGetCreateOption() throws ServletException, IOException {
     try {
+      super.setEncoding(Constants.UTF8);
       // define url
-      String url = "/system/options/create/index.jsp";
+      String url = "/pages/system/options/createOption.jsp";
       // Get param
       String productId = super.getParameter("product_id").trim();
       Product product = this.productDAO.find(productId);
@@ -124,8 +126,9 @@ public class OptionService extends SuperService {
   // [GET] detail option
   public void handleGetDetailOption() throws ServletException, IOException {
     try {
+      super.setEncoding(Constants.UTF8);
       // define Url
-      String url = "/system/options/detail-update/index.jsp";
+      String url = "/pages/system/options/editOption.jsp";
       // Get Params
       String optionId = super.getParameter("option_id");
       String productId = super.getParameter("product_id");

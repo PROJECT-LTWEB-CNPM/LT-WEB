@@ -26,7 +26,7 @@ public class AccountServlet extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     try {
-      String url = "/default/account/index.jsp";
+      String url = "/pages/default/account/index.jsp";
       User user = (User) request.getSession().getAttribute("user");
       List<Bill> bills = this.billDAO.findByUser(user);
       if (bills != null) {

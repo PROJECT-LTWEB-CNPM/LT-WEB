@@ -32,11 +32,16 @@ public class CustomerService extends SuperService {
     try {
       super.setEncoding(Constants.UTF8);
       HttpSession session = request.getSession();
-      String url = "/default/account/loginAccount.jsp";
+      String url = "/pages/default/account/loginAccount.jsp";
       User user = (User) session.getAttribute("user");
 
       if (user != null) {
-        url = "./account";
+        Role role = user.getRole();
+        if (role.getRoleId().equals(Constants.ADMIN_ROLE) || role.getRoleId().equals((Constants.EMPLOYEE_ROLE))) {
+          url = super.getContextPath() + "/system";
+        } else {
+          url = super.getContextPath() + "/account";
+        }
         super.redirectToPage(url);
         return;
       }
@@ -44,7 +49,7 @@ public class CustomerService extends SuperService {
 
     } catch (Exception e) {
       super.log(e.getMessage());
-      String error = "/500";
+      String error = super.getContextPath() + "/500";
       this.redirectToPage(error);
     }
   }
@@ -53,7 +58,7 @@ public class CustomerService extends SuperService {
   public void postLogin() throws IOException, ServletException {
     try {
       super.setEncoding(Constants.UTF8);
-      String url = "./account";
+      String url = super.getContextPath() + "/account";
       String nextUrl = request.getParameter("caller");
       String email = request.getParameter("email").trim();
       String pwdNotHash = request.getParameter("password").trim();
@@ -81,7 +86,7 @@ public class CustomerService extends SuperService {
       }
     } catch (Exception e) {
       super.log(e.getMessage());
-      String error = "/500";
+      String error = super.getContextPath() + "/500";
       this.redirectToPage(error);
     }
   }
@@ -89,11 +94,11 @@ public class CustomerService extends SuperService {
   // [GET] CustomerRegisterServlet
   public void getRegisterForm() throws ServletException, IOException {
     try {
-      String url = "/default/account/registerAccount.jsp";
+      String url = "/pages/default/account/registerAccount.jsp";
       super.forwardToPage(url);
     } catch (Exception e) {
       super.log(e.getMessage());
-      String error = "/500";
+      String error = super.getContextPath() + "/500";
       this.redirectToPage(error);
     }
   }
@@ -127,7 +132,7 @@ public class CustomerService extends SuperService {
       super.redirectToPage(url);
     } catch (Exception e) {
       super.log(e.getMessage());
-      String error = "/500";
+      String error = super.getContextPath() + "500";
       super.redirectToPage(error);
     }
   }
@@ -152,7 +157,13 @@ public class CustomerService extends SuperService {
     }
 
     // Get user
-    User user = new User(userId, fullName, address, phonenumber, email, pwdHashed);
+    User user = new User();
+    user.setUserId(userId);
+    user.setFullname(fullName);
+    user.setAddress(address);
+    user.setPhonenumber(phonenumber);
+    user.setEmail(email);
+    user.setPassword(pwdHashed);
     user.setRole(r);
 
     return user;
@@ -162,11 +173,11 @@ public class CustomerService extends SuperService {
   public void getVerifyForm() throws ServletException, IOException {
     try {
       super.setEncoding(Constants.UTF8);
-      String url = "/default/account/verifyAccount.jsp";
+      String url = "/pages/default/account/verifyAccount.jsp";
       super.forwardToPage(url);
     } catch (Exception e) {
       super.log(e.getMessage());
-      String error = "/500";
+      String error = super.getContextPath() + "/500";
       super.redirectToPage(error);
     }
   }
@@ -174,7 +185,7 @@ public class CustomerService extends SuperService {
   // [POST] CustomerVerifyCodeServlet
   public void postVerifyForm() throws IOException {
     try {
-      String url = "./login";
+      String url = super.getContextPath() + "/login";
       String code = request.getParameter("code").trim();
       User user = (User) this.request.getSession().getAttribute("user");
       if (code.equals(user.getCode())) {
@@ -188,7 +199,7 @@ public class CustomerService extends SuperService {
       super.redirectToPage(url);
     } catch (Exception e) {
       super.log(e.getMessage());
-      String error = "/500";
+      String error = super.getContextPath() + "/500";
       super.redirectToPage(error);
     }
   }
@@ -196,11 +207,12 @@ public class CustomerService extends SuperService {
   // [GET] CustomerLogoutServlet
   public void logout() throws IOException, ServletException {
     try {
+      String url = super.getContextPath() + "/login";
       this.request.getSession().removeAttribute("user");
-      super.redirectToPage("./login");
+      super.redirectToPage(url);
     } catch (Exception e) {
       super.log(e.getMessage());
-      String error = "/500";
+      String error = super.getContextPath() + "/500";
       super.redirectToPage(error);
     }
   }

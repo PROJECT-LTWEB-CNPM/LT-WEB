@@ -14,11 +14,11 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
- * The persistent class for the users database table.
+ * The persistent class for the Users database table.
  * 
  */
 @Entity
-@Table(name = "users")
+@Table(name = "Users")
 @NamedQueries({
     @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u"),
     @NamedQuery(name = "User.findByEmail", query = "SELECT u FROM User u WHERE u.email = :email"),
@@ -36,11 +36,11 @@ public class User implements Serializable {
 
   private String address;
 
+  private String code;
+
   private String email;
 
   private String fullname;
-
-  private String code;
 
   @Column(name = "is_active_acc")
   private byte isActiveAcc;
@@ -64,15 +64,6 @@ public class User implements Serializable {
   public User() {
   }
 
-  public User(String userId, String fullname, String address, String phonenumber, String email, String pwd) {
-    this.userId = userId;
-    this.fullname = fullname;
-    this.address = address;
-    this.phonenumber = phonenumber;
-    this.email = email;
-    this.password = pwd;
-  }
-
   public String getUserId() {
     return this.userId;
   }
@@ -87,6 +78,14 @@ public class User implements Serializable {
 
   public void setAddress(String address) {
     this.address = address;
+  }
+
+  public String getCode() {
+    return this.code;
+  }
+
+  public void setCode(String code) {
+    this.code = code;
   }
 
   public String getEmail() {
@@ -165,14 +164,6 @@ public class User implements Serializable {
 
   public void setRole(Role role) {
     this.role = role;
-  }
-
-  public void setCode(String code) {
-    this.code = code;
-  }
-
-  public String getCode() {
-    return this.code;
   }
 
 }

@@ -24,7 +24,7 @@ public class SuperService {
 
   public void forwardToPage(String url) throws ServletException, IOException {
     this.request.getRequestDispatcher(url).forward(request, response);
-    ;
+
   }
 
 //  Redirect to url Pattern

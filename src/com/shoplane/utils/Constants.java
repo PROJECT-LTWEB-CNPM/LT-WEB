@@ -37,4 +37,7 @@ public class Constants {
   public static final String USERS = "users";
   public static final String PRODUCTS = "products";
 
+  // Ship
+  public static final int SHIPMENT = 35000;
+
 }
