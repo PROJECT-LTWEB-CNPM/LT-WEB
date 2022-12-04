@@ -3,6 +3,18 @@ const disSelects = $('#district');
 const wardSelects = $('#ward');
 const orderBtn = $('.btn__order');
 
+function handleGetBaseUrl() {
+	const { hostname, host, protocol } = window.location;
+	let url = "";
+	if (hostname !== 'localhost') {
+		url = `${protocol}//${host}`;
+	} else {
+		url = `${protocol}//${host}/shoplane-ft`;
+	}
+	return url;
+}
+
+
 function createOptionList(list) {
 	return list.map(item => createOption(item.code, item.name)).join("");
 }
@@ -114,10 +126,10 @@ const app = {
 				address,
 				totalPrice
 			}
-			console.log(data)
+			const baseUrl = handleGetBaseUrl();
 			// Post data
 			request = $.ajax({
-				url: "http://localhost:8080/shoplane-ft/checkout",
+				url: `${baseUrl}/checkout`,
 				type: "POST",
 				data: data,
 				success: function(res) {

@@ -11,7 +11,8 @@ String url = context + "/default/account";
 <html lang="en">
 <head>
 <jsp:include page="../components/head.jsp" />
-<link rel="stylesheet" href="<%=context%>/assets/css/default/account/account.css" />
+<link rel="stylesheet"
+	href="<%=context%>/assets/css/default/account/account.css" />
 <title>Tài khoản - SHOPLANE</title>
 </head>
 <body>
@@ -59,11 +60,16 @@ String url = context + "/default/account";
 								<span>Điện thoại:</span> <span>${sessionScope.user.getPhonenumber()}</span>
 							</div>
 						</div>
+						<input hidden value="${sessionScope.modifyAccountStatus}"
+							id="modifyAccountStatus" /> <input
+							value="${sessionScope.changePasswordAccountStatus}" hidden
+							id="changePasswordAccountStatus" />
 						<div class="your__info-action">
 							<a class="btn-submit" type="submit" name="modify-button"
 								href="<%=context%>/account/modify">Chỉnh sửa thông tin</a> <a
-								class="btn-submit" href="<%=context%>/account/change-password">Thay đổi mật khẩu</a> <a
-								class="btn-submit" href="<%=context%>/logout">Đăng xuất</a>
+								class="btn-submit" href="<%=context%>/account/change-password">Thay
+								đổi mật khẩu</a> <a class="btn-submit" href="<%=context%>/logout">Đăng
+								xuất</a>
 						</div>
 					</div>
 				</div>
@@ -72,6 +78,18 @@ String url = context + "/default/account";
 		<jsp:include page="../components/footer.jsp" />
 	</div>
 	<jsp:include page="../components/script.jsp" />
+	<script>
+		const modifyAccountStatus = $('#modifyAccountStatus').val();
+		const changePasswordAccountStatus = $('#changePasswordAccountStatus')
+				.val();
+		if (modifyAccountStatus === 'success') {
+			swal("Thông báo", "Chỉnh sửa thông tin thành công", "success");
+		}
+		console.log(changePasswordAccountStatus);
+		if (changePasswordAccountStatus === 'success') {
+			swal("Thông báo", "Thay đổi mật khẩu thành công", "success");
+		}
+	</script>
 </body>
 </html>
 

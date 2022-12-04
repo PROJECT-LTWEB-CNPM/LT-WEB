@@ -18,8 +18,10 @@ String baseUrl = context + "/default/collections";
 <html lang="en">
 <head>
 <jsp:include page="../components/head.jsp" />
-<link rel="stylesheet" href="<%=context%>/assets/css/default/collection/collection.css" />
-<link rel="stylesheet" href="<%=context%>/assets/css/default/collection/pagination.css" />
+<link rel="stylesheet"
+	href="<%=context%>/assets/css/default/collection/collection.css" />
+<link rel="stylesheet"
+	href="<%=context%>/assets/css/default/collection/pagination.css" />
 <title>${category.getCategoryName()} - SHOPLANE</title>
 </head>
 <body>
@@ -51,24 +53,12 @@ String baseUrl = context + "/default/collections";
 							<h3 class="product__heading">${category.getCategoryName()}</h3>
 							<div class="product__filter">
 								<div class="option_filter">
-									<label class="option_filter-label">GIÁ</label> <select
-										onchange="this.form.submit()" name="orderType"
-										class="option_filter-group" tabindex="-1">
+									<h3 class="option_filter-label">GIÁ</h3>
+									<select onchange="javascript:handleSelectOrderByPrice(this)"
+										name="orderType" class="option_filter-group" tabindex="-1">
 										<option value="<%=Constants.DESC%>">Giảm dần</option>
 										<option value="<%=Constants.ASC%>">Tăng dần</option>
 									</select>
-								</div>
-								<div class="option_filter">
-									<h3 class="option_filter-label">THỜI GIAN</h3>
-									<form
-										action="${requestScope['javax.servlet.forward.request_uri']}?category_id=${categoryId}&category_type=${categoryType}"
-										method="post">
-										<select onchange="this.form.submit()" name="orderType"
-											class="option_filter-group" tabindex="-1">
-											<option value="<%=Constants.OLDEST%>">Cũ nhất</option>
-											<option value="<%=Constants.NEWEST%>">Mới nhất</option>
-										</select>
-									</form>
 								</div>
 							</div>
 						</div>
@@ -77,7 +67,13 @@ String baseUrl = context + "/default/collections";
 								<div class="grid__column-3-3">
 									<div class="group_content">
 										<div class="home-product-item__img"
-											style="background-image: url(${item.getMainImageUrl()})"></div>
+											style="background-image: url(${item.getMainImageUrl()})">
+											<c:if test="${item.getIsActive() == 1}">
+												<img style="width: 15rem"
+													src="https://theme.hstatic.net/200000305259/1000963148/14/icon_soldout_img.png?v=70"
+													alt="" />
+											</c:if>
+										</div>
 										<h4 class="home-product-item__name">
 											<a
 												href="<%=context %>/product-detail?product_id=${item.getProductId()}">${item.getProductName()}</a>
@@ -107,5 +103,21 @@ String baseUrl = context + "/default/collections";
 		<jsp:include page="../components/backToTop.jsp" />
 	</div>
 	<jsp:include page="../components/script.jsp" />
+	<script type="text/javascript">
+		function handleSelectOrderByPrice(elm) {
+			const queryString = window.location.search;
+			const urlParams = new URLSearchParams(queryString);
+
+			const productTypeId = urlParams.get('product_type');
+			const categoryId = urlParams.get('category_id');
+			const pageSize = urlParams.get('page_size');
+			const currentPage = urlParams.get('current_page');
+
+			window.location = '?product_type=' + productTypeId
+					+ '&category_id=' + categoryId + '&current_page='
+					+ currentPage + '&page_size=' + pageSize
+					+ '&sort_by_price=' + elm.value;
+		}
+	</script>
 </body>
 </html>

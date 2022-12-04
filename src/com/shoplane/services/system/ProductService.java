@@ -79,7 +79,7 @@ public class ProductService extends SuperService {
         params.put("productType", productType);
         totalItem = 0;
         if (categoryId.equals(Constants.SHIRT_ALL) && productTypeId.equals(Constants.SHIRT)) {
-          products = this.productDAO.paginationByProductTypeAndIsDeleted(params, currentPage, pageSize);
+          products = this.productDAO.paginationByProductTypeAndIsDeleted(params, currentPage, pageSize, Constants.DESC);
           totalItem = this.productDAO.countByProductTypeAndIsDeleted(params);
         }
         if (categoryId.equals(Constants.SHORT_ALL) && productTypeId.equals(Constants.SHORT)) {
@@ -88,7 +88,8 @@ public class ProductService extends SuperService {
         }
         if (!categoryId.equals(Constants.SHIRT_ALL) && !categoryId.equals(Constants.SHORT_ALL)) {
           params.put("category", category);
-          products = this.productDAO.paginationByCategoryAndProductTypeAndIsDeleted(params, currentPage, pageSize);
+          products = this.productDAO.paginationByCategoryAndProductTypeAndIsDeleted(params, currentPage, pageSize,
+              Constants.DESC);
           totalItem = this.productDAO.countByProductTypeAndCategoryAndIsDeleted(params);
         }
       }

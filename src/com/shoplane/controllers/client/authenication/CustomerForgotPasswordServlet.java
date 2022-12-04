@@ -1,4 +1,4 @@
-package com.shoplane.controllers.client.customer;
+package com.shoplane.controllers.client.authenication;
 
 import java.io.IOException;
 

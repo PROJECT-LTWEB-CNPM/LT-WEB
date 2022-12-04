@@ -64,7 +64,7 @@ if (u != null) {
 			</li>
 			<li class="header__navbar-item header__navbar-item-search"><i
 				class="fas fa-search header__navbar-item-search-icon"></i>
-				<form action="search" method="get" style="width: 100%;">
+				<form action="<%=context %>/search" method="get" style="width: 100%;">
 					<input type="text" placeholder="Tìm kiếm quần áo...."
 						class="header__navbar-item-search-input" autofocus
 						name="product_name" /> <input type="submit" style="display: none" />

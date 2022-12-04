@@ -1,3 +1,14 @@
+function handleGetBaseUrl() {
+	const {hostname, host, protocol} = window.location;
+	let url = "";
+	if(hostname !== 'localhost') {
+		url = `${protocol}//${host}`;
+	} else {
+		url = `${protocol}//${host}/shoplane-ft`;
+	}
+	return url;
+}
+
 function handleDeleteProductImage() {
 
 	const productId = $('.productId').val();
@@ -9,9 +20,10 @@ function handleDeleteProductImage() {
 			imagesSelected.push($(this).val());
 		});
 		const imagesSelectedStr = imagesSelected.join(',');
+		const baseUrl = handleGetBaseUrl();
 
 		$.ajax({
-			url: "http://localhost:8080/shoplane-ft/system/products/images/delete/",
+			url: `${baseUrl}/system/products/images/delete/`,
 			type: 'GET',
 			data: {
 				imagesSelected: imagesSelectedStr,

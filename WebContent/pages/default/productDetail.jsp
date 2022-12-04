@@ -16,8 +16,9 @@ String baseUrl = context + "/default/product-detail";
 <html lang="en">
 <head>
 <jsp:include page="./components/head.jsp" />
-<link rel="stylesheet" href="<%=context%>/assets/css/default/productDetail.css" />
-<title>${product.getProductName()} - SHOPLANE</title>
+<link rel="stylesheet"
+	href="<%=context%>/assets/css/default/productDetail.css" />
+<title>${product.getProductName()}-SHOPLANE</title>
 <style>
 .main {
 	padding-top: 10rem;
@@ -50,15 +51,22 @@ String baseUrl = context + "/default/product-detail";
 						</p>
 						<div class="product_info-size">
 							<h3 class="product_info-size-label">KÍCH THƯỚC:</h3>
-							<div class="product_info-size-list">
-								<c:forEach var="o" items="${options}">
-									<div class="product_info-size-item">
-										<input type="radio" id="${o.getSize().getSizeId()}"
-											value="${o.getOptionId()}" /> <label
-											for="${o.getSize().getSizeId()}">${o.getSize().getSizeName()}</label>
+							<c:choose>
+								<c:when test="${product.getIsActive() == 0}">
+									<div class="product_info-size-list">
+										<c:forEach var="o" items="${options}">
+											<div class="product_info-size-item">
+												<input type="radio" id="${o.getSize().getSizeId()}"
+													value="${o.getOptionId()}" /> <label
+													for="${o.getSize().getSizeId()}">${o.getSize().getSizeName()}</label>
+											</div>
+										</c:forEach>
 									</div>
-								</c:forEach>
-							</div>
+								</c:when>
+								<c:otherwise>
+									<div>Hết hàng</div>
+								</c:otherwise>
+							</c:choose>
 						</div>
 						<div class="product_info-quantity">
 							<h3 class="product_info-quantity-label">SỐ LƯỢNG:</h3>
@@ -93,9 +101,10 @@ String baseUrl = context + "/default/product-detail";
 		</main>
 		<jsp:include page="./components/footer.jsp" />
 	</div>
-	<!-- Jquery -->
+	<!-- Import script lib -->
 	<jsp:include page="./components/script.jsp" />
-	<script type="text/javascript" src="<%=context%>/assets/js/default/productDetail.js"></script>
+	<script type="text/javascript"
+		src="<%=context%>/assets/js/default/productDetail.js"></script>
 </body>
 </html>
 

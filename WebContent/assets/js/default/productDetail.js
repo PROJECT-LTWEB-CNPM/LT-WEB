@@ -1,3 +1,15 @@
+function handleGetBaseUrl() {
+	const { hostname, host, protocol } = window.location;
+	let url = "";
+	if (hostname !== 'localhost') {
+		url = `${protocol}//${host}`;
+	} else {
+		url = `${protocol}//${host}/shoplane-ft`;
+	}
+	return url;
+}
+
+
 function handlePreviewImage() {
 	// Preview image
 	const pImage = document.querySelector('.product_img');
@@ -13,6 +25,7 @@ function handlePreviewImage() {
 function handleBtnQuantity() {
 	const quantityInput = document.querySelector('.product_info-quantity-text');
 	$('.btn-ins').click(() => {
+		console.log(document.location.hostname);
 		const { value } = quantityInput;
 		quantityInput.value = +value + 1;
 	})
@@ -38,41 +51,43 @@ function handleAddToCart() {
 		}
 		// Verify
 		if (data.oId === '') {
-			alert('Vui lòng chọn kích thước')
+			swal("Vui lòng lựa chọn kích thước");
 			return;
 		}
 		if (data.quanty === '') {
-			alert('Vui lòng chọn số lượng')
+			swal('Vui lòng chọn số lượng')
 			return;
 		}
 
 		// POST data using ajax
+		const baseUrl = handleGetBaseUrl();
 		$.ajax({
 			type: 'POST',
-			url: 'http://localhost:8080/shoplane-ft/product-detail',
+			url: `${baseUrl}/product-detail`,
 			data: data,
 			success: function(result) {
-				alert('Thêm sản phẩm thành công');
+				swal("Thông báo!", "Thêm sản phẩm thành công", "success");
 				handleChangeCartCount();
 			},
 			error: function(err) {
-				alert('Thêm sản phẩm thất bại');
+				swal("Thông báo!", "hêm sản phẩm thất bại", "error");
 			}
 		})
 	})
 }
 
-function handlePayNow() {
-
-}
-
 function handleChangeCartCount() {
-	window.location.reload();
+	setTimeout(() => {
+		window.location.reload();
+	}, 2000);
 	const cartCountString = $('#ordersCount').val() || '0';
 
 	const cartCount = +cartCountString;
 	$('.header_navbar-count').text(cartCount);
 }
+
+
+handleGetBaseUrl();
 
 handlePreviewImage();
 handleBtnQuantity();

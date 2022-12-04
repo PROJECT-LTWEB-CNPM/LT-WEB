@@ -17,11 +17,6 @@ String baseUrl = context + "/default/search-product";
 <jsp:include page="./components/head.jsp" />
 <link rel="stylesheet" href="<%=context%>/assets/css/default/searchProduct.css" />
 <title>Tìm kiếm sản phẩm - SHOPLANE</title>
-<style>
-.main {
-	padding-top: 6rem;
-}
-</style>
 </head>
 <body>
 	<div id="app">
@@ -60,9 +55,6 @@ String baseUrl = context + "/default/search-product";
 		<jsp:include page="./components/footer.jsp" />
 		<jsp:include page="./components/backToTop.jsp" />
 	</div>
-
-	<!-- Jquery -->
 	<jsp:include page="./components/script.jsp" />
-
 </body>
 </html>

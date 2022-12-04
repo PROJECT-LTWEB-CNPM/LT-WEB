@@ -13,7 +13,8 @@ String url = context + "/default/account/modify";
 <html lang="en">
 <head>
 <jsp:include page="../components/head.jsp" />
-<link rel="stylesheet" href="<%=context%>/assets/css/default/account/formAccount.css" />
+<link rel="stylesheet"
+	href="<%=context%>/assets/css/default/account/formAccount.css" />
 <title>Thay đổi mật khẩu - SHOPLANE</title>
 </head>
 <body>
@@ -23,20 +24,23 @@ String url = context + "/default/account/modify";
 			<div class="container">
 				<section id="modify">
 					<div class="modify-form">
-						<form action="change-password" method="POST">
+						<form action="" method="POST">
 							<h1 class="modify-header">THAY ĐỔI MẬT KHẨU</h1>
-							<input class="form-control" type="password" name="currentPassword"
-								placeholder="Mật khẩu hiện tại"> 
-								
-							<input class="form-control"
-								type="password" name="newPassword" placeholder="Mật khẩu mới" /> 
-							<input
-								class="form-control" type="password" name="confirmPassword"
+							<input class="form-control" type="password"
+								name="currentPassword" placeholder="Mật khẩu hiện tại">
+
+							<input class="form-control" type="password" name="newPassword"
+								placeholder="Mật khẩu mới" /> <input class="form-control"
+								type="password" name="confirmPassword"
 								placeholder="Xác nhận mật khẩu">
+							<div class="err__msg">
+								<span>${errMsg}</span>
+							</div>
 							<button class="btn-submit" type="submit" name="modifyButton">Cập
 								nhật</button>
 						</form>
-						<a class="btn-submit" href="<%=context %>/account" style="text-align: center; margin-top: 1rem">Quay lại</a>
+						<a class="btn-submit" href="<%=context%>/account"
+							style="text-align: center; margin-top: 1rem">Quay lại</a>
 					</div>
 				</section>
 			</div>

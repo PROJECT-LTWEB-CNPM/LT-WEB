@@ -15,7 +15,8 @@ String url = context + "/default/account/modify";
 <head>
 <jsp:include page="../components/head.jsp" />
 
-<link rel="stylesheet" href="<%=context%>/assets/css/default/account/formAccount.css" />
+<link rel="stylesheet"
+	href="<%=context%>/assets/css/default/account/formAccount.css" />
 <title>Thay đổi thông tin - SHOPLANE</title>
 </head>
 <body>
@@ -25,17 +26,23 @@ String url = context + "/default/account/modify";
 			<div class="container">
 				<section id="modify">
 					<div class="modify-form">
-						<form action="modify" method="POST">
+						<form action="" method="POST">
 							<h1 class="modify-header">ĐIỀU CHỈNH THÔNG TIN</h1>
 							<input class="form-control" type="text" name="fullname"
-								placeholder="Họ và tên"> <input class="form-control"
-								type="text" name="phonenumber" placeholder="Số điện thoại" /> <input
+								placeholder="Họ và tên" value="${sessionScope.user.getFullname()}"> 
+							<input class="form-control"
+								type="text" name="phonenumber" placeholder="Số điện thoại" value="${sessionScope.user.getPhonenumber()}"/> 
+							<input
 								class="form-control" type="text" name="address"
-								placeholder="Địa chỉ">
+								placeholder="Địa chỉ" value="${sessionScope.user.getAddress()}">
+							<div class="err__msg">
+								<span>${sessionScope.errMsg}</span>
+							</div>
 							<button class="btn-submit" type="submit" name="modifyButton">Cập
 								nhật</button>
 						</form>
-						<a class="btn-submit" href="<%=context %>/account" style="text-align: center; margin-top: 1rem">Quay lại</a>
+						<a class="btn-submit" href="<%=context%>/account"
+							style="text-align: center; margin-top: 1rem">Quay lại</a>
 					</div>
 				</section>
 			</div>

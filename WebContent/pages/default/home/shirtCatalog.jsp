@@ -9,10 +9,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<jsp:useBean id="productDAO"
-	class="com.shoplane.dao.ProductDAO"></jsp:useBean>
-<jsp:useBean id="productTypeDAO"
-	class="com.shoplane.dao.ProductTypeDAO"></jsp:useBean>
+<jsp:useBean id="productDAO" class="com.shoplane.dao.ProductDAO"></jsp:useBean>
+<jsp:useBean id="productTypeDAO" class="com.shoplane.dao.ProductTypeDAO"></jsp:useBean>
 
 <%
 request.setCharacterEncoding(Constants.UTF8);
@@ -26,18 +24,24 @@ params.put("isDelete", (byte) 0);
 params.put("productType", productType);
 
 List<Product> products = new ArrayList<>();
-products = productDAO.paginationByProductTypeAndIsDeleted(params, 1, 12);
+products = productDAO.paginationByProductTypeAndIsDeleted(params, 1, 12, Constants.ASC);
 %>
 
 <section class="catalog">
 	<div class="container">
 		<h1 class="catalog__heading">DANH MỤC ÁO</h1>
 		<div class="catalog__list">
-			<c:forEach var="item" items="<%=products %>">
+			<c:forEach var="item" items="<%=products%>">
 				<div class="catalog__item">
 					<div class="group_content">
 						<div class="home-product-item__img"
 							style="background-image: url(${item.getMainImageUrl()});">
+							<c:if test="${item.getIsActive() == 1}">
+								<img style="width: 15rem"
+									src="https://theme.hstatic.net/200000305259/1000963148/14/icon_soldout_img.png?v=70"
+									alt="" />
+							</c:if>
+
 						</div>
 						<h4 class="home-product-item__name">
 							<a
@@ -56,11 +60,11 @@ products = productDAO.paginationByProductTypeAndIsDeleted(params, 1, 12);
 					</div>
 				</div>
 			</c:forEach>
-			<div class="btn-more">
-				<a class="btn-more-link"
-					href="<%=context %>/collection/?product_type=<%=Constants.SHIRT%>&category_id=<%=Constants.SHIRT_ALL %>&current_page=1&page_size=12">
-					XEM TẤT CẢ </a>
-			</div>
+		</div>
+		<div class="btn-more">
+			<a class="btn-more-link"
+				href="<%=context%>/collection/?product_type=<%=Constants.SHIRT%>&category_id=<%=Constants.SHIRT_ALL%>&current_page=1&page_size=12">
+				XEM TẤT CẢ </a>
 		</div>
 	</div>
 </section>

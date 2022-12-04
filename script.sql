@@ -1,6 +1,8 @@
+
 DROP DATABASE IF EXISTS TFcT8GlodF;
 CREATE DATABASE TFcT8GlodF;
 use TFcT8GlodF;
+
 
 -- Create tables 
 create table ProductTypes (
@@ -209,7 +211,7 @@ values('U1021', 'employee11@gmail.com', '12345', 'Nhân viên 11', 'Đăk Nông'
 
 -- -- insert user customer
 insert into `Users`
-values('U2011', 'doduongthaituan201102@gmail.com', '12345', 'Đỗ Dương Thái Tuấn', 'Hà Nội', '0987654321', 0, 0, '123456', 'ROL1');
+values('U2011', 'doduongthaituan@gmail.com', '12345', 'Đỗ Dương Thái Tuấn', 'Hà Nội', '0987654321', 0, 0, '123456', 'ROL1');
 insert into `Users`
 values('U2012', 'phamnguyennhuttruong@gmail.com', '12345', 'Phạm Nguyễn Nhựt Trường', 'Hà Nội', '0123456789', 0, 0, '123456', 'ROL1');
 insert into `Users`
@@ -372,13 +374,71 @@ VALUES('PRO32','AO' , 'COAT JACKET/WHITE', 500000,299000, 'https://product.hstat
 
 -- INSERT DATA SHORT
 INSERT INTO Products(product_id, product_type, product_name, old_price, new_price, main_image_url, category_id, meterial, origin, pattern)
-VALUES('PRO33','QUAN' , 'ESSENTIAL SHORT/BEGEI', 300000,200000, 'https://product.hstatic.net/200000305259/product/vgc-short_pants-brown_1_17cfb2f161334beb847f785cb17d66e8_large.jpg', 'QUAN3', 'FRENCH TERRY COTTON','VETNAM', 'LOGO RUBBER SIGNATURE');
+VALUES('PRO33','QUAN' , 'ESSENTIAL SHORT/BEGEI', 300000, 200000, 'https://product.hstatic.net/200000305259/product/vgc-short_pants-brown_1_17cfb2f161334beb847f785cb17d66e8_large.jpg', 'QUAN3', 'FRENCH TERRY COTTON','VETNAM', 'LOGO RUBBER SIGNATURE');
 
 INSERT INTO Products(product_id, product_type, product_name, old_price, new_price, main_image_url, category_id, meterial, origin, pattern)
 VALUES('PRO34','QUAN' , 'ESSENTIAL SHORT/BLACK', 300000,200000, 'https://product.hstatic.net/200000305259/product/vgc-pant_blk_1_c1c1a72179fb46e4b8b9f5d6fa97cf40_large.jpg', 'QUAN3', 'FRENCH TERRY COTTON','VETNAM', 'LOGO RUBBER SIGNATURE');
 
 INSERT INTO Products(product_id, product_type, product_name, old_price, new_price, main_image_url, category_id, meterial, origin, pattern)
 VALUES('PRO35','QUAN' , 'ESSENTIAL SHORT/GREY', 300000,200000, 'https://product.hstatic.net/200000305259/product/vgc-short_pants-grey_1_8f4bb61d2783492eab797454f3730de5_large.jpg', 'QUAN3', 'FRENCH TERRY COTTON','VETNAM', 'LOGO RUBBER SIGNATURE');
+
+-- Quan tay
+INSERT INTO Products(product_id, product_type, product_name, old_price, new_price, main_image_url, category_id, meterial, origin, pattern)
+VALUES('PRO36','QUAN' , 'Quần Tây Slimfit - Cropped', 595000, 300000, 
+'https://4men.com.vn/thumbs/2022/11/quan-tay-slimfit-cropped-tui-nho-qt048-mau-den-21948-p.JPG', 
+'QUAN2', 'Polyester','VETNAM', 'Regular Fit');
+
+INSERT INTO Products(product_id, product_type, product_name, old_price, new_price, main_image_url, category_id, meterial, origin, pattern)
+VALUES('PRO37','QUAN' , 'Quần Tây Regular Detail QT047 Màu Đen', 595000, 300000,
+'https://4men.com.vn/thumbs/2022/10/quan-tay-regular-detail-qt047-mau-den-21887-p.JPG', 
+'QUAN2', 'Polyester','VETNAM', 'Regular Fit');
+
+INSERT INTO Products(product_id, product_type, product_name, old_price, new_price, main_image_url, category_id, meterial, origin, pattern)
+VALUES('PRO38','QUAN' , 'QT Slimfit Basic Pocket QT043', 595000, 300000,
+'https://4men.com.vn/thumbs/2022/09/qt-slimfit-basic-pocket-qt043-21521-p.JPG', 
+'QUAN2', 'Polyester','VETNAM', 'Regular Fit');
+
+INSERT INTO Products(product_id, product_type, product_name, old_price, new_price, main_image_url, category_id, meterial, origin, pattern)
+VALUES('PRO39','QUAN' , 'Quần Tây Regular Trơn Tag Kim Loại QT041', 595000, 300000,
+'https://4men.com.vn/thumbs/2022/07/quan-tay-regular-tron-tag-kim-loai-qt041-mau-xanh-den-21147-p.JPG', 
+'QUAN2', 'Polyester','VETNAM', 'Regular Fit');
+
+INSERT INTO Products(product_id, product_type, product_name, old_price, new_price, main_image_url, category_id, meterial, origin, pattern)
+VALUES('PRO40','QUAN' , 'Quần Tây Slimfit Túi Mini Kiểu QT039', 595000, 300000,
+'https://4men.com.vn/thumbs/2022/06/quan-tay-slimfit-tui-mini-kieu-qt039-mau-be-20994-p.JPG', 
+'QUAN2', 'Polyester','VETNAM', 'Regular Fit');
+
+-- Quan Jeans
+INSERT INTO Products(product_id, product_type, product_name, old_price, new_price,  main_image_url, category_id, meterial, origin, pattern)
+VALUES('PRO41','QUAN' , 'Quần Jeans Regular Mid - Blue Geometric', 595000, 300000,
+'https://4men.com.vn/thumbs/2022/11/quan-jeans-regular-mid-blue-geometric-qj071-21945-p.JPG', 
+'QUAN1', 'Polyester','VETNAM', 'Regular Fit');
+
+INSERT INTO Products(product_id, product_type, product_name,  old_price, new_price, main_image_url, category_id, meterial, origin, pattern)
+VALUES('PRO42','QUAN' , 'Quần Jeans Slimfit Grey Faded QJ070', 595000, 300000,
+'https://4men.com.vn/thumbs/2022/10/quan-jeans-slimfit-grey-faded-qj070-21874-p.JPG', 
+'QUAN1', 'Polyester','VETNAM', 'Regular Fit');
+
+INSERT INTO Products(product_id, product_type, product_name,old_price, new_price,  main_image_url, category_id, meterial, origin, pattern)
+VALUES('PRO43','QUAN' , 'Quần Jeans Blue Regular Túi Kiểu QJ069', 595000, 300000,
+'https://4men.com.vn/thumbs/2022/10/quan-jeans-blue-regular-tui-kieu-qj069-21872-p.JPG', 
+'QUAN1', 'Polyester','VETNAM', 'Regular Fit');
+
+INSERT INTO Products(product_id, product_type, product_name, old_price, new_price, main_image_url, category_id, meterial, origin, pattern)
+VALUES('PRO44','QUAN' , 'Quần Tây Slimfit Túi Mini Kiểu QT039', 595000, 300000,
+'https://4men.com.vn/thumbs/2022/06/quan-tay-slimfit-tui-mini-kieu-qt039-mau-be-20994-p.JPG', 
+'QUAN1', 'Polyester','VETNAM', 'Regular Fit');
+
+INSERT INTO Products(product_id, product_type, product_name, old_price, new_price, main_image_url, category_id, meterial, origin, pattern)
+VALUES('PRO45','QUAN' , 'QJ Slimfit Lightblue QJ064', 595000, 300000,
+'https://4men.com.vn/thumbs/2022/09/qj-slimfit-lightblue-qj064-21525-p.JPG', 
+'QUAN1', 'Polyester','VETNAM', 'Regular Fit');
+
+INSERT INTO Products(product_id, product_type, product_name, old_price, new_price, main_image_url, category_id, meterial, origin, pattern)
+VALUES('PRO46','QUAN' , 'Quần Jeans Slimfit Rách Gối QJ068 Màu Đen', 595000, 300000,
+'https://4men.com.vn/thumbs/2022/08/quan-jeans-slimfit-rach-goi-qj068-mau-den-21331-p.JPG', 
+'QUAN1', 'Polyester','VETNAM', 'Regular Fit');
+
 
 -- Insert data to Sizes table
 INSERT INTO Sizes(size_id, size_name)
@@ -481,6 +541,83 @@ INSERT INTO `Options`(option_id, available_quantity, product_id, color_id, size_
 VALUES('OP31', 100, 'PRO19', 'COL7', 'SIZEM');
 INSERT INTO `Options`(option_id, available_quantity, product_id, color_id, size_id)
 VALUES('OP32', 100, 'PRO20', 'COL10', 'SIZEXL');
+
+-- Option quan tay (PRO36 - PRO40)
+INSERT INTO `Options`(option_id, available_quantity, product_id, color_id, size_id)
+VALUES('OP33', 100, 'PRO36', 'COL8', 'SIZEM');
+INSERT INTO `Options`(option_id, available_quantity, product_id, color_id, size_id)
+VALUES('OP34', 100, 'PRO36', 'COL9', 'SIZEL');
+INSERT INTO `Options`(option_id, available_quantity, product_id, color_id, size_id)
+VALUES('OP35', 100, 'PRO36', 'COL10', 'SIZEXL');
+
+INSERT INTO `Options`(option_id, available_quantity, product_id, color_id, size_id)
+VALUES('OP36', 100, 'PRO37', 'COL9', 'SIZEL');
+INSERT INTO `Options`(option_id, available_quantity, product_id, color_id, size_id)
+VALUES('OP37', 100, 'PRO37', 'COL10', 'SIZEXL');
+
+INSERT INTO `Options`(option_id, available_quantity, product_id, color_id, size_id)
+VALUES('OP38', 100, 'PRO38', 'COL8', 'SIZEM');
+INSERT INTO `Options`(option_id, available_quantity, product_id, color_id, size_id)
+VALUES('OP39', 100, 'PRO38', 'COL9', 'SIZEL');
+INSERT INTO `Options`(option_id, available_quantity, product_id, color_id, size_id)
+VALUES('OP40', 100, 'PRO38', 'COL10', 'SIZEXL');
+
+INSERT INTO `Options`(option_id, available_quantity, product_id, color_id, size_id)
+VALUES('OP41', 100, 'PRO39', 'COL8', 'SIZEM');
+INSERT INTO `Options`(option_id, available_quantity, product_id, color_id, size_id)
+VALUES('OP42', 100, 'PRO39', 'COL9', 'SIZEL');
+INSERT INTO `Options`(option_id, available_quantity, product_id, color_id, size_id)
+VALUES('OP43', 100, 'PRO39', 'COL10', 'SIZEXL');
+
+INSERT INTO `Options`(option_id, available_quantity, product_id, color_id, size_id)
+VALUES('OP44', 100, 'PRO40', 'COL8', 'SIZEM');
+INSERT INTO `Options`(option_id, available_quantity, product_id, color_id, size_id)
+VALUES('OP45', 100, 'PRO40', 'COL9', 'SIZEL');
+INSERT INTO `Options`(option_id, available_quantity, product_id, color_id, size_id)
+VALUES('OP46', 100, 'PRO40', 'COL10', 'SIZEXL');
+
+-- Option quan jean(PRO41 - PRO46)
+INSERT INTO `Options`(option_id, available_quantity, product_id, color_id, size_id)
+VALUES('OP47', 100, 'PRO41', 'COL8', 'SIZEM');
+INSERT INTO `Options`(option_id, available_quantity, product_id, color_id, size_id)
+VALUES('OP48', 100, 'PRO41', 'COL9', 'SIZEL');
+INSERT INTO `Options`(option_id, available_quantity, product_id, color_id, size_id)
+VALUES('OP49', 100, 'PRO41', 'COL10', 'SIZEXL');
+
+INSERT INTO `Options`(option_id, available_quantity, product_id, color_id, size_id)
+VALUES('OP50', 100, 'PRO42', 'COL8', 'SIZEM');
+INSERT INTO `Options`(option_id, available_quantity, product_id, color_id, size_id)
+VALUES('OP51', 100, 'PRO42', 'COL9', 'SIZEL');
+INSERT INTO `Options`(option_id, available_quantity, product_id, color_id, size_id)
+VALUES('OP52', 100, 'PRO42', 'COL10', 'SIZEXL');
+
+INSERT INTO `Options`(option_id, available_quantity, product_id, color_id, size_id)
+VALUES('OP53', 100, 'PRO43', 'COL8', 'SIZEM');
+INSERT INTO `Options`(option_id, available_quantity, product_id, color_id, size_id)
+VALUES('OP54', 100, 'PRO43', 'COL9', 'SIZEL');
+INSERT INTO `Options`(option_id, available_quantity, product_id, color_id, size_id)
+VALUES('OP55', 100, 'PRO43', 'COL10', 'SIZEXL');
+
+INSERT INTO `Options`(option_id, available_quantity, product_id, color_id, size_id)
+VALUES('OP56', 100, 'PRO44', 'COL8', 'SIZEM');
+INSERT INTO `Options`(option_id, available_quantity, product_id, color_id, size_id)
+VALUES('OP57', 100, 'PRO44', 'COL9', 'SIZEL');
+INSERT INTO `Options`(option_id, available_quantity, product_id, color_id, size_id)
+VALUES('OP58', 100, 'PRO44', 'COL10', 'SIZEXL');
+
+INSERT INTO `Options`(option_id, available_quantity, product_id, color_id, size_id)
+VALUES('OP59', 100, 'PRO45', 'COL8', 'SIZEM');
+INSERT INTO `Options`(option_id, available_quantity, product_id, color_id, size_id)
+VALUES('OP60', 100, 'PRO45', 'COL9', 'SIZEL');
+INSERT INTO `Options`(option_id, available_quantity, product_id, color_id, size_id)
+VALUES('OP61', 100, 'PRO45', 'COL10', 'SIZEXL');
+
+INSERT INTO `Options`(option_id, available_quantity, product_id, color_id, size_id)
+VALUES('OP62', 100, 'PRO46', 'COL8', 'SIZEM');
+INSERT INTO `Options`(option_id, available_quantity, product_id, color_id, size_id)
+VALUES('OP63', 100, 'PRO46', 'COL9', 'SIZEL');
+INSERT INTO `Options`(option_id, available_quantity, product_id, color_id, size_id)
+VALUES('OP64', 100, 'PRO46', 'COL10', 'SIZEXL');
 
 -- insert images
 INSERT INTO ProductImages(image_id, image_url, product_id)
@@ -683,7 +820,3 @@ insert into Bills
 values('B201130', '2022-10-22', 830000, 0, 'U2021');
 insert into Bills 
 values('B201131', '2022-10-22', 290000, 0, 'U2021');
-
-
-
-

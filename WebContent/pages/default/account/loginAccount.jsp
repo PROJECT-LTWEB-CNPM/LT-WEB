@@ -30,10 +30,10 @@ String url = context + "/default/account/login";
 								placeholder="Email" required> <input
 								class="form-control" type="password" name="password"
 								placeholder="Mật khẩu" required>
+								<input id="status" value="${sessionScope.status}"/>
 							<div class="err__msg">
 								<span>${errMsg}</span>
 							</div>
-
 							<button class="btn-submit" type="submit">Đăng nhập</button>
 							<a class="register-text" style="font-size: 1.3rem; margin: 1rem 0;" href="<%=context%>/forgot-password""> Quên
 								mật khẩu?</a>
@@ -51,5 +51,12 @@ String url = context + "/default/account/login";
 		<jsp:include page="../components/footer.jsp" />
 	</div>
 	<jsp:include page="../components/script.jsp" />
+	<script>
+		const status = $('#status').val();
+		console.log(status)
+		if(status === 'success') {
+			swal("Xin chúc mừng!", "Tài khoản của bạn đã được tạo thành công.", "success");			
+		}
+	</script>
 </body>
 </html>

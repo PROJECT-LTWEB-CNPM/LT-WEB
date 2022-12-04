@@ -143,12 +143,16 @@
 }
 
 .home-product-item__img {
-	padding-top: 100%;
-	background-repeat: no-repeat;
-	background-size: contain;
+	width: inherit;
+	height: 25rem;
+	background-size: cover;
 	background-position: center;
+	background-repeat: no-repeat;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
 }
-
 .home-product-item__name {
 	font-size: 1.5rem;
 	margin: 1rem 0;
@@ -162,6 +166,15 @@
 	cursor: pointer;
 	transition: all linear 0.1s;
 }
+
+.home-product-item__name>a {
+	transition: all linear 0.2s;
+}
+
+.home-product-item__name>a:hover {
+	color: #5ec9ff;
+}
+
 
 .shop_name {
 	font-size: 1.6rem;

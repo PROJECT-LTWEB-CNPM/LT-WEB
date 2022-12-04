@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.shoplane.services.client.AccountService;
+
 @WebServlet(urlPatterns = { "/account/modify", "/account/modify/" })
 public class ModifyAccountServlet extends HttpServlet {
   private static final long serialVersionUID = 1L;
@@ -19,30 +21,15 @@ public class ModifyAccountServlet extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-    String url = "/pages/default/account/modify/index.jsp";
-    request.getRequestDispatcher(url).forward(request, response);
+    AccountService accountService = new AccountService(request, response);
+    accountService.getModifyAccountForm();
   }
 
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-    try {
-      /*
-       * String fullname = request.getParameter("fullname");
-       * String phonenumber = request.getParameter("phonenumber");
-       * String address = request.getParameter("address");
-       * UserService us = new UserService();
-       */
-//			int isUpdated = us.update("u01", fullname, phonenumber, address);
-      int isUpdated = 1;
-      if (isUpdated == 1) {
-        String url = request.getContextPath() + "/default/account/index.jsp";
-        response.sendRedirect(url);
-      }
-
-    } catch (Exception e) {
-      System.out.println(e.getMessage());
-    }
+    AccountService accountService = new AccountService(request, response);
+    accountService.submitModifyAccountForm();
   }
 
 }

@@ -138,7 +138,7 @@ public class UserService extends SuperService {
       if (roleId == null) {
         roleId = Constants.USER_ROLE;
       }
-      if (password != null) {
+      if (password == null) {
         password = "";
       }
 

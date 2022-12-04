@@ -23,7 +23,7 @@ params.put("isDelete", (byte) 0);
 params.put("productType", productType);
 
 List<Product> products = new ArrayList<>();
-products = productDAO.paginationByProductTypeAndIsDeleted(params, 1, 12);
+products = productDAO.paginationByProductTypeAndIsDeleted(params, 1, 12, Constants.ASC);
 %>
 
 <section class="catalog">
@@ -35,6 +35,11 @@ products = productDAO.paginationByProductTypeAndIsDeleted(params, 1, 12);
 					<div class="group_content">
 						<div class="home-product-item__img"
 							style="background-image: url(${item.getMainImageUrl()});">
+							<c:if test="${item.getIsActive() == 1}">
+								<img style="width: 15rem"
+									src="https://theme.hstatic.net/200000305259/1000963148/14/icon_soldout_img.png?v=70"
+									alt="" />
+							</c:if>
 						</div>
 						<h4 class="home-product-item__name">
 							<a
