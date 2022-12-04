@@ -37,4 +37,16 @@ public class Constants {
   public static final String USERS = "users";
   public static final String PRODUCTS = "products";
 
+  // Ship
+  public static final int SHIPMENT = 35000;
+
+  // Session
+  public static final String USER_SESSION = "user";
+  public static final String CUSTOMER_SESSION = "customer";
+  public static final String ADMIN_SESSION = "admin";
+
+  // Status respone
+  public static final String SUCCESS_STATUS = "success";
+  public static final String FAILURE_STATUS = "failure";
+
 }

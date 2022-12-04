@@ -15,14 +15,14 @@ public class DashBoardService extends SuperService {
 
   public void getDashboard() throws IOException {
     try {
-      String url = "/system/dashboard/index.jsp";
+      String url = "/pages/system/dashboard/index.jsp";
 
       // Set url active sidebar
       super.getSession().setAttribute("urlPatten", "");
       super.forwardToPage(url);
     } catch (Exception e) {
       super.log(e.getMessage());
-      String error = "/500";
+      String error = super.getContextPath() + "/system/500";
       super.redirectToPage(error);
     }
   }

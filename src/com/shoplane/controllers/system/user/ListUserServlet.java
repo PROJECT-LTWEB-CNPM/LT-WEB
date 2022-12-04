@@ -8,8 +8,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.beanutils.BeanUtils;
-
 import com.shoplane.dao.RoleDAO;
 import com.shoplane.dao.UserDAO;
 import com.shoplane.models.Role;
@@ -41,7 +39,7 @@ public class ListUserServlet extends HttpServlet {
       RoleDAO roleDAO = new RoleDAO();
 
       role = roleDAO.find(request.getParameter("roleAccount"));
-      BeanUtils.populate(user, request.getParameterMap());
+      // BeanUtils.populate(user, request.getParameterMap());
 
       user.setRole(role);
       this.userDAO.update(user);

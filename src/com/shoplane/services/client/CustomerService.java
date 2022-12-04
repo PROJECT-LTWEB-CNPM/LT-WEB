@@ -5,12 +5,12 @@ import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import com.shoplane.dao.RoleDAO;
 import com.shoplane.dao.UserDAO;
 import com.shoplane.models.Role;
 import com.shoplane.models.User;
+import com.shoplane.services.SendMail;
 import com.shoplane.services.SuperService;
 import com.shoplane.utils.Bcrypt;
 import com.shoplane.utils.Constants;
@@ -31,12 +31,17 @@ public class CustomerService extends SuperService {
   public void getLoginForm() throws ServletException, IOException {
     try {
       super.setEncoding(Constants.UTF8);
-      HttpSession session = request.getSession();
-      String url = "/default/account/loginAccount.jsp";
-      User user = (User) session.getAttribute("user");
+      String url = "/pages/default/account/loginAccount.jsp";
+
+      User user = (User) super.getSession().getAttribute(Constants.USER_SESSION);
 
       if (user != null) {
-        url = "./account";
+        Role role = user.getRole();
+        if (role.getRoleId().equals(Constants.ADMIN_ROLE) || role.getRoleId().equals((Constants.EMPLOYEE_ROLE))) {
+          url = super.getContextPath() + "/system";
+        } else {
+          url = super.getContextPath() + "/account";
+        }
         super.redirectToPage(url);
         return;
       }
@@ -44,7 +49,7 @@ public class CustomerService extends SuperService {
 
     } catch (Exception e) {
       super.log(e.getMessage());
-      String error = "/500";
+      String error = super.getContextPath() + "/500";
       this.redirectToPage(error);
     }
   }
@@ -52,8 +57,15 @@ public class CustomerService extends SuperService {
   // [POST] CustomerLoginServlet
   public void postLogin() throws IOException, ServletException {
     try {
+      // Set encoding
       super.setEncoding(Constants.UTF8);
-      String url = "./account";
+
+      // reomve att session
+      super.getSession().setAttribute("status", null);
+      super.getSession().removeAttribute("status");
+
+      // Get params
+      String url = super.getContextPath() + "/account";
       String nextUrl = request.getParameter("caller");
       String email = request.getParameter("email").trim();
       String pwdNotHash = request.getParameter("password").trim();
@@ -65,13 +77,22 @@ public class CustomerService extends SuperService {
 
       // Get user by email
       User u = this.userDAO.findByEmail(email);
-      // Check user
+      // User is not exist
       if (u != null) {
         // Check pwd
         if (Bcrypt.checkpwd(pwdNotHash, u.getPassword())) {
-          request.getSession().setAttribute("user", u);
+          // keep user data
+          super.setAttribute("errMsg", "");
+          super.getSession().setAttribute("user", u);
+          // Get user role
+          Role role = u.getRole();
+          // Check role
+          if (role.getRoleId().equals(Constants.ADMIN_ROLE) || role.getRoleId().equals((Constants.EMPLOYEE_ROLE))) {
+            url = super.getContextPath() + "/system";
+          }
           super.redirectToPage(url);
         } else {
+          // Password invalid
           super.setAttribute("errMsg", "*Mật khẩu không chính xác");
           this.getLoginForm();
         }
@@ -81,7 +102,7 @@ public class CustomerService extends SuperService {
       }
     } catch (Exception e) {
       super.log(e.getMessage());
-      String error = "/500";
+      String error = super.getContextPath() + "/500";
       this.redirectToPage(error);
     }
   }
@@ -89,11 +110,11 @@ public class CustomerService extends SuperService {
   // [GET] CustomerRegisterServlet
   public void getRegisterForm() throws ServletException, IOException {
     try {
-      String url = "/default/account/registerAccount.jsp";
+      String url = "/pages/default/account/registerAccount.jsp";
       super.forwardToPage(url);
     } catch (Exception e) {
       super.log(e.getMessage());
-      String error = "/500";
+      String error = super.getContextPath() + "/500";
       this.redirectToPage(error);
     }
   }
@@ -102,71 +123,79 @@ public class CustomerService extends SuperService {
   public void postRegisterForm() throws IOException {
 
     try {
-      // init services
-      SendMail sm = new SendMail();
-      // Get Session
-      HttpSession session = request.getSession();
 
-      String url = request.getContextPath() + "/verify";
-      // Get User
-      User user = this.createUser(request);
-      // Set code
-      user.setCode(sm.getRandom());
+      // Link
+      String url = super.getContextPath() + "/verify";
 
-      // send mail code to user
-      boolean isSended = sm.sendMail(user);
+      // Get param from sign up form
+      String userId = Helper.getRandom();
+      String fullName = request.getParameter("fullName").trim();
+      String phonenumber = request.getParameter("phonenumber").trim();
+      String address = request.getParameter("address").trim();
+      String email = request.getParameter("email").trim();
+      String pwd = request.getParameter("password").trim();
 
-      if (isSended) {
-        System.out.println("Send mail success");
+      User userExits = this.userDAO.findByEmail(email);
+
+      if (userExits == null) {
+        // init services
+        SendMail sm = new SendMail();
+        // Get Role
+        Role role = this.roleDAO.find(Constants.USER_ROLE);
+        // Get hashed pwd
+        String pwdHashed = Bcrypt.hashpwd(pwd);
+        if (pwdHashed == null) {
+          pwdHashed = "";
+        }
+
+        // Get user
+        User user = new User();
+        user.setUserId(userId);
+        user.setFullname(fullName);
+        user.setAddress(address);
+        user.setPhonenumber(phonenumber);
+        user.setEmail(email);
+        user.setPassword(pwdHashed);
+        user.setRole(role);
+        // Set code
+        user.setCode(Helper.getRandom());
+
+        // send mail code to user
+        boolean isSended = sm.sendMail(user);
+
+        if (isSended) {
+          System.out.println("Send mail success");
+        } else {
+          System.out.println("Send mail fail");
+        }
+
+        // set user to session
+        super.getSession().setAttribute("user", user);
+
+        super.redirectToPage(url);
       } else {
-        System.out.println("Send mail fail");
+        String errMsg = "* Email đã tồn tại";
+        super.setAttribute("errMsg", errMsg);
+        this.getRegisterForm();
+
       }
 
-      // set user to session
-      session.setAttribute("user", user);
-      super.redirectToPage(url);
     } catch (Exception e) {
       super.log(e.getMessage());
-      String error = "/500";
+      String error = super.getContextPath() + "/500";
       super.redirectToPage(error);
     }
-  }
-
-  private User createUser(HttpServletRequest request) {
-
-    // Get Role
-    Role r = this.roleDAO.find(Constants.USER_ROLE);
-
-    // Get param from sign up form
-    String userId = Helper.getRandom();
-    String fullName = request.getParameter("fullName").trim();
-    String phonenumber = request.getParameter("phonenumber").trim();
-    String address = request.getParameter("address").trim();
-    String email = request.getParameter("email").trim();
-    String pwd = request.getParameter("password").trim();
-
-    // Get hashed pwd
-    String pwdHashed = Bcrypt.hashpwd(pwd);
-    if (pwdHashed == null) {
-      pwdHashed = "";
-    }
-
-    // Get user
-    User user = new User(userId, fullName, address, phonenumber, email, pwdHashed);
-    user.setRole(r);
-
-    return user;
   }
 
   // [GET] CustomerVerifyCodeServlet
   public void getVerifyForm() throws ServletException, IOException {
     try {
       super.setEncoding(Constants.UTF8);
-      String url = "/default/account/verifyAccount.jsp";
+      String url = "/pages/default/account/verifyAccount.jsp";
       super.forwardToPage(url);
     } catch (Exception e) {
       super.log(e.getMessage());
-      String error = "/500";
+      String error = super.getContextPath() + "/500";
       super.redirectToPage(error);
     }
   }
@@ -174,21 +203,25 @@ public class CustomerService extends SuperService {
   // [POST] CustomerVerifyCodeServlet
   public void postVerifyForm() throws IOException {
     try {
-      String url = "./login";
-      String code = request.getParameter("code").trim();
-      User user = (User) this.request.getSession().getAttribute("user");
+      String status = "";
+      String url = super.getContextPath() + "/login";
+      String code = super.getParameter("code").trim();
+      User user = (User) super.getSession().getAttribute(Constants.USER_SESSION);
       if (code.equals(user.getCode())) {
         this.userDAO.create(user);
-        this.request.getSession().removeAttribute("user");
-      } else {
-        super.setAttribute("errMsg", "*Mã xác nhận không đúng vui lòng nhập lại");
-        this.getVerifyForm();
+        super.getSession().setAttribute(Constants.USER_SESSION, null);
+        status = "success";
+        super.getSession().setAttribute("status", status);
+        super.redirectToPage(url);
         return;
       }
-      super.redirectToPage(url);
+      // else
+      super.setAttribute("errMsg", "* Mã xác nhận không đúng vui lòng nhập lại");
+      this.getVerifyForm();
+
     } catch (Exception e) {
       super.log(e.getMessage());
-      String error = "/500";
+      String error = super.getContextPath() + "/500";
       super.redirectToPage(error);
     }
   }
@@ -196,11 +229,19 @@ public class CustomerService extends SuperService {
   // [GET] CustomerLogoutServlet
   public void logout() throws IOException, ServletException {
     try {
-      this.request.getSession().removeAttribute("user");
-      super.redirectToPage("./login");
+      // Set encoding
+      super.setEncoding(Constants.UTF8);
+      // link
+      String url = super.getContextPath() + "/login";
+      // Delete current user logged
+      super.getSession().removeAttribute(Constants.USER_SESSION);
+
+      // Redirect /login
+      super.redirectToPage(url);
+
     } catch (Exception e) {
       super.log(e.getMessage());
-      String error = "/500";
+      String error = super.getContextPath() + "/500";
       super.redirectToPage(error);
     }
   }

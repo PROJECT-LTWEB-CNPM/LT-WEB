@@ -1,7 +1,6 @@
 package com.shoplane.controllers.client.product;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,9 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 import com.shoplane.dao.CategoryDAO;
 import com.shoplane.dao.ProductDAO;
 import com.shoplane.dao.ProductTypeDAO;
-import com.shoplane.models.Category;
-import com.shoplane.models.Product;
-import com.shoplane.models.ProductType;
 import com.shoplane.services.client.ProductService;
 
 @WebServlet(urlPatterns = { "/collection", "/collection/" })
@@ -41,47 +37,6 @@ public class ListProductServlet extends HttpServlet {
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     doGet(request, response);
-  }
-
-  protected void handleGetProducts(HttpServletRequest req, HttpServletResponse res, String cateType, String cateId,
-      String orderType)
-      throws ServletException, IOException {
-
-    try {
-
-      // Create services
-
-      // Init data
-      List<Product> pList = null;
-      List<Category> cate = null;
-      String cateName = "TẤT CẢ SẢN PHẨM";
-      Category category = null;
-      ProductType productType = this.productTypeDAO.find(cateType);
-
-      if (cateId.contains("AO5") || cateId.contains("QUAN4")) {
-      } else {
-        category = this.categoryDAO.find(cateId);
-        cateName = categoryDAO.find(cateId).getCategoryName();
-      }
-
-      pList = this.productDAO.findByCategoryAndProductType(productType, category);
-      ProductType pType = productTypeDAO.find(cateType);
-      cate = categoryDAO.findByProductType(pType);
-
-      System.out.println(orderType);
-
-      // Set att => collection/index.jsp
-      req.setAttribute("cateName", cateName);
-      req.setAttribute("categoryId", cateId);
-      req.setAttribute("categoryType", cateType);
-      req.setAttribute("cates", cate);
-      req.setAttribute("productBycategoryId", pList);
-
-      req.getRequestDispatcher("/default/collections/index.jsp").forward(req, res);
-    } catch (Exception e) {
-      System.out.println(e.getMessage());
-      req.getRequestDispatcher("/500.jsp").forward(req, res);
-    }
   }
 
 }

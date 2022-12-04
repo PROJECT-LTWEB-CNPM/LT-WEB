@@ -81,6 +81,12 @@
 .signin-text:hover {
 	color: #000000;
 }
+.err__msg {
+	transform: translateY(-1rem);
+	font-size: 1.2rem;
+	color: red;
+	margin-bottom: 0.5rem;
+}
 
 @media ( max-width : 768px) {
 	.login-header, .register-header, .modify-header {

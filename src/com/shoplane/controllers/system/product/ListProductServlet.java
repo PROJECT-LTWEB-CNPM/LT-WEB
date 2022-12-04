@@ -21,6 +21,6 @@ public class ListProductServlet extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     ProductService productService = new ProductService(request, response);
-    productService.getProductList(null);
+    productService.getProductList();
   }
 }

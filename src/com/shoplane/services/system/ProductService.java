@@ -34,9 +34,9 @@ public class ProductService extends SuperService {
   }
 
   // [GET] ListProductServlet
-  public void getProductList(String url) throws ServletException, IOException {
+  public void getProductList() throws ServletException, IOException {
     try {
-
+      String url = "/pages/system/products/index.jsp";
       // Set url patten active sidebar item
       super.getSession().setAttribute("urlPatten", Constants.PRODUCTS);
       // Set encoding
@@ -79,7 +79,7 @@ public class ProductService extends SuperService {
         params.put("productType", productType);
         totalItem = 0;
         if (categoryId.equals(Constants.SHIRT_ALL) && productTypeId.equals(Constants.SHIRT)) {
-          products = this.productDAO.paginationByProductTypeAndIsDeleted(params, currentPage, pageSize);
+          products = this.productDAO.paginationByProductTypeAndIsDeleted(params, currentPage, pageSize, Constants.DESC);
           totalItem = this.productDAO.countByProductTypeAndIsDeleted(params);
         }
         if (categoryId.equals(Constants.SHORT_ALL) && productTypeId.equals(Constants.SHORT)) {
@@ -88,7 +88,8 @@ public class ProductService extends SuperService {
         }
         if (!categoryId.equals(Constants.SHIRT_ALL) && !categoryId.equals(Constants.SHORT_ALL)) {
           params.put("category", category);
-          products = this.productDAO.paginationByCategoryAndProductTypeAndIsDeleted(params, currentPage, pageSize);
+          products = this.productDAO.paginationByCategoryAndProductTypeAndIsDeleted(params, currentPage, pageSize,
+              Constants.DESC);
           totalItem = this.productDAO.countByProductTypeAndCategoryAndIsDeleted(params);
         }
       }
@@ -106,13 +107,9 @@ public class ProductService extends SuperService {
       super.setAttribute("productType", productTypeId);
       super.setAttribute("category", categoryId);
 
-      // Check url
-      if (url == null) {
-        url = "/system/products/list/index.jsp";
-        super.forwardToPage(url);
-      } else {
-        super.redirectToPage(url);
-      }
+      // Forward
+      super.forwardToPage(url);
+
     } catch (Exception e) {
       super.log(e.getMessage());
       String error = super.getContextPath() + "/system/500";
@@ -123,7 +120,8 @@ public class ProductService extends SuperService {
   // [GET] CreateProductServlet
   public void handleGetCreateProduct() throws ServletException, IOException {
     try {
-      String url = "/system/products/create/index.jsp";
+      super.setEncoding(Constants.UTF8);
+      String url = "/pages/system/products/createProduct.jsp";
       List<Category> categories = this.categoryDAO.findAll();
       List<ProductType> productTypes = this.productTypeDAO.findAll();
 
@@ -136,7 +134,7 @@ public class ProductService extends SuperService {
 
     } catch (Exception e) {
       super.log(e.getMessage());
-      String error = "/500";
+      String error = super.getContextPath() + "/system/500";
       super.redirectToPage(error);
     }
   }
@@ -144,6 +142,7 @@ public class ProductService extends SuperService {
   // [POST] CreateProductServlet
   public void handlePostCreateProduct() throws ServletException, IOException {
     try {
+      super.setEncoding(Constants.UTF8);
       // Get props
       String productId = super.getParameter("productId").trim();
       String productTypeId = super.getParameter("categoryTypeId").trim();
@@ -181,10 +180,18 @@ public class ProductService extends SuperService {
       ProductType productType = this.productTypeDAO.find(productTypeId);
 
       // Create product
-      Product product = new Product(productId, productName, mainImageUrl, oldPrice, newPrice, description, origin,
-          pattern, meterial);
+      Product product = new Product();
+      product.setProductId(productId);
+      product.setProductName(productName);
+      product.setMainImageUrl(mainImageUrl);
+      product.setOldPrice(oldPrice);
+      product.setNewPrice(newPrice);
+      product.setDescription(description);
+      product.setOrigin(origin);
+      product.setPattern(pattern);
+      product.setMeterial(meterial);
       product.setCategory(category);
-      product.setProducttype(productType);
+      product.setProductTypeBean(productType);
       product.setIsActive((byte) isActive);
 
       this.productDAO.create(product);
@@ -204,7 +211,7 @@ public class ProductService extends SuperService {
     try {
       super.setEncoding(Constants.UTF8);
       // Link
-      String url = "/system/products/detail-update/index.jsp";
+      String url = "/pages/system/products/editProduct.jsp";
 
       // Param
       String productId = this.request.getParameter("product_id");
@@ -223,14 +230,9 @@ public class ProductService extends SuperService {
 
     } catch (Exception e) {
       super.log(e.getMessage());
-      String error = "/500";
+      String error = super.getContextPath() + "/system/500";
       super.redirectToPage(error);
     }
-  }
-
-  // [GET] Update product
-  public void handleGetUpdateProduct() throws ServletException, IOException {
-    this.getProductList("./");
   }
 
   // [POST] UpdateProductServlet
@@ -284,7 +286,7 @@ public class ProductService extends SuperService {
       product.setPattern(pattern);
       product.setMeterial(meterial);
       product.setCategory(category);
-      product.setProducttype(productType);
+      product.setProductTypeBean(productType);
       product.setDescription(description);
       product.setIsActive((byte) isActive);
       this.productDAO.update(product);
@@ -346,7 +348,7 @@ public class ProductService extends SuperService {
     try {
       super.setEncoding(Constants.UTF8);
       // Link
-      String url = "/system/products/trash/index.jsp";
+      String url = "/pages/system/products/trash/index.jsp";
 
       byte isDeleted = 1;
       Map<String, Object> params = new HashMap<>();

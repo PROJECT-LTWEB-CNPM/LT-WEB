@@ -61,6 +61,19 @@ public class JpaDAO<T> {
     return result;
   }
 
+  @SuppressWarnings("unchecked")
+  public T findSingleResultByNamedQuery(String queryName, Map<String, Object> params) {
+    EntityManager entityManager = entityManagerFactory.createEntityManager();
+    Query query = entityManager.createNamedQuery(queryName);
+    Set<Entry<String, Object>> setParameters = params.entrySet();
+    for (Entry<String, Object> entry : setParameters) {
+      query.setParameter(entry.getKey(), entry.getValue());
+    }
+    T result = (T) query.getSingleResult();
+    entityManager.close();
+    return result;
+  }
+
   // Find all
   @SuppressWarnings("unchecked")
   public List<T> findAll(String queryString, Class<T> type) {

@@ -30,7 +30,7 @@ public class CheckoutServlet extends HttpServlet {
   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     try {
       // forward url
-      String url = "/default/checkouts/index.jsp";
+      String url = "/pages/default/checkouts/index.jsp";
 
       // Forward
       request.getRequestDispatcher(url).forward(request, response);
@@ -56,7 +56,11 @@ public class CheckoutServlet extends HttpServlet {
       // create Bill
       String billId = Helper.getRandom();
       int totalPrice = Integer.parseInt(totalPriceStr);
-      Bill bill = new Bill(billId, new Date(), totalPrice, user);
+      Bill bill = new Bill();
+      bill.setBillId(billId);
+      bill.setDate(new Date());
+      bill.setTotalPrice(totalPrice);
+      bill.setUser(user);
       bill.setOrders(orders);
       // Set bill in each order
       for (Order order : orders) {

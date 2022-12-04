@@ -33,7 +33,7 @@ public class BillService extends SuperService {
       // Set encoding
       super.setEncoding(Constants.UTF8);
       // define url
-      String url = "/system/bills/list/index.jsp";
+      String url = "/pages/system/bills/index.jsp";
       String statusStr = super.getParameter("status");
       String currentPageStr = super.getParameter("current_page");
       String pageSizeStr = super.getParameter("page_size");
@@ -93,7 +93,7 @@ public class BillService extends SuperService {
     try {
       super.setEncoding(Constants.UTF8);
       // define url to forward
-      String url = "/system/bills/detail/index.jsp";
+      String url = "/pages/system/bills/editBill.jsp";
 
       // get bill Id
       String billId = request.getParameter("bill_id");
@@ -126,8 +126,9 @@ public class BillService extends SuperService {
   // [POST] EditBillServlet
   public void updateBill() throws IOException {
     try {
+      super.setEncoding(Constants.UTF8);
       // define url to redirect
-      String url = "/system/bills";
+      String url = super.getContextPath() + "/system/bills/?status=2&current_page=1&page_size=10";
 
       // get updated value from updating form
       int totalPrice = Integer.parseInt(request.getParameter("totalPrice"));
@@ -160,7 +161,7 @@ public class BillService extends SuperService {
   public void getBillForm() throws IOException {
     try {
       // define url to redirect
-      String url = "/system/bills/create/index.jsp";
+      String url = "/pages/system/bills/createBill.jsp";
 
       super.forwardToPage(url);
 

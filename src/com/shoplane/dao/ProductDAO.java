@@ -7,6 +7,7 @@ import java.util.Map;
 import com.shoplane.models.Category;
 import com.shoplane.models.Product;
 import com.shoplane.models.ProductType;
+import com.shoplane.utils.Constants;
 
 public class ProductDAO extends JpaDAO<Product> implements GenericDAO<Product> {
   public ProductDAO() {
@@ -96,6 +97,7 @@ public class ProductDAO extends JpaDAO<Product> implements GenericDAO<Product> {
   public List<Product> paginationByIsDeleted(Map<String, Object> parameters, int currentPage,
       int pageSize) {
     String queryName = "Product.findByIsDeleted";
+
     return super.paginationWithNamedQuery(queryName, Product.class, parameters, currentPage, pageSize);
   }
 
@@ -141,8 +143,13 @@ public class ProductDAO extends JpaDAO<Product> implements GenericDAO<Product> {
   }
 
   public List<Product> paginationByProductTypeAndIsDeleted(Map<String, Object> parameters, int currentPage,
-      int pageSize) {
-    String queryName = "Product.findByProductTypeAndIsDeleted";
+      int pageSize, String sortBy) {
+    String queryName = "";
+    if (sortBy.equals(Constants.ASC)) {
+      queryName = "Product.findByProductTypeAndIsDeletedAndPriceAsc";
+    } else {
+      queryName = "Product.findByProductTypeAndIsDeletedAndPriceDesc";
+    }
     return super.paginationWithNamedQuery(queryName, Product.class, parameters, currentPage, pageSize);
   }
 
@@ -158,8 +165,13 @@ public class ProductDAO extends JpaDAO<Product> implements GenericDAO<Product> {
   }
 
   public List<Product> paginationByCategoryAndProductTypeAndIsDeleted(Map<String, Object> parameters, int currentPage,
-      int pageSize) {
-    String queryName = "Product.findByCategoryAndProductTypeAndIsDeleted";
+      int pageSize, String sortBy) {
+    String queryName = "";
+    if (sortBy.equals(Constants.ASC)) {
+      queryName = "Product.findByCategoryAndProductTypeAndIsDeletedAndPriceAsc";
+    } else {
+      queryName = "Product.findByCategoryAndProductTypeAndIsDeletedAndPriceDesc";
+    }
     return super.paginationWithNamedQuery(queryName, Product.class, parameters, currentPage, pageSize);
   }
 
@@ -167,5 +179,4 @@ public class ProductDAO extends JpaDAO<Product> implements GenericDAO<Product> {
     String queryName = "Product.countByProductTypeAndCategoryAndIsDeleted";
     return super.countWithNamedQuery(queryName, params);
   }
-
 }

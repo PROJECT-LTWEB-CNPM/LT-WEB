@@ -2,18 +2,20 @@
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" id="WebApp_ID" version="3.1">
 	<display-name>shoplane-ft</display-name>
 	<welcome-file-list>
-		<welcome-file>/default/home/index.jsp</welcome-file>
+		<welcome-file>/pages/default/home/index.jsp</welcome-file>
 	</welcome-file-list>
-		<error-page>
+	<!-- 
+	<error-page>
 		<exception-type>java.lang.Exception</exception-type>
 		<location>/pages/500.jsp</location>
 	</error-page>
 	<error-page>
 		<error-code>500</error-code>
-		<location>/500.jsp</location>
+		<location>/pages/500.jsp</location>
 	</error-page>
 	<error-page>
 		<error-code>404</error-code>
-		<location>/404.jsp</location>
+		<location>/pages/404.jsp</location>
 	</error-page>
+	-->
 </web-app>

@@ -2,7 +2,6 @@ package com.shoplane.services.client;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,25 +31,6 @@ public class ProductService extends SuperService {
     this.categoryDAO = new CategoryDAO();
   }
 
-  public List<Product> getOrderedProduct(List<Product> products, String orderType) {
-    List<Product> listResult = new ArrayList<>(products);
-
-    switch (orderType) {
-      case Constants.ASC:
-        Collections.sort(listResult, CompareProduct.LOWEST_PRICE);
-        break;
-      case Constants.DESC:
-        Collections.sort(listResult, CompareProduct.HIGHEST_PRICE);
-      case Constants.NEWEST:
-        Collections.reverse(listResult);
-        break;
-      default:
-        break;
-    }
-
-    return listResult;
-  }
-
   // [GET] ListProductServlet => Client side
   public void getCollectionProduct() throws IOException {
     try {
@@ -58,12 +38,13 @@ public class ProductService extends SuperService {
       super.setEncoding(Constants.UTF8);
 
       // Link
-      String url = "/default/collections/index.jsp";
+      String url = "/pages/default/collections/index.jsp";
       // Get params
       String productTypeId = super.getParameter("product_type");
       String categoryId = super.getParameter("category_id");
       String currentPageStr = super.getParameter("current_page");
       String pageSizeStr = super.getParameter("page_size");
+      String sortBy = super.getParameter("sort_by_price");
 
       int currentPage = 1;
       int pageSize = 10;
@@ -78,13 +59,8 @@ public class ProductService extends SuperService {
           pageSize = Integer.parseInt(pageSizeStr);
         }
       }
-
-      // Sort
-      // get sort type form select form
-      String orderType = request.getParameter("orderType");
-
-      if (orderType == null)
-        orderType = Constants.OLDEST;
+      if (sortBy == null)
+        sortBy = Constants.DESC;
 
       List<ProductType> productTypes = this.productTypeDAO.findAll();
       ProductType productType = this.productTypeDAO.find(productTypeId);
@@ -99,16 +75,17 @@ public class ProductService extends SuperService {
       params.put("productType", productType);
 
       if (categoryId.equals(Constants.SHIRT_ALL) && productTypeId.equals(Constants.SHIRT)) {
-        products = this.productDAO.paginationByProductTypeAndIsDeleted(params, currentPage, pageSize);
+        products = this.productDAO.paginationByProductTypeAndIsDeleted(params, currentPage, pageSize, sortBy);
         totalItem = this.productDAO.countByProductTypeAndIsDeleted(params);
       }
       if (categoryId.equals(Constants.SHORT_ALL) && productTypeId.equals(Constants.SHORT)) {
-        products = this.productDAO.paginationByProductTypeAndIsDeleted(params, currentPage, pageSize);
+        products = this.productDAO.paginationByProductTypeAndIsDeleted(params, currentPage, pageSize, sortBy);
         totalItem = this.productDAO.countByProductTypeAndIsDeleted(params);
       }
       if (!categoryId.equals(Constants.SHIRT_ALL) && !categoryId.equals(Constants.SHORT_ALL)) {
         params.put("category", category);
-        products = this.productDAO.paginationByCategoryAndProductTypeAndIsDeleted(params, currentPage, pageSize);
+        products = this.productDAO.paginationByCategoryAndProductTypeAndIsDeleted(params, currentPage, pageSize,
+            sortBy);
         totalItem = this.productDAO.countByProductTypeAndCategoryAndIsDeleted(params);
       }
 

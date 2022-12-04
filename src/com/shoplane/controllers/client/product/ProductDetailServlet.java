@@ -50,7 +50,7 @@ public class ProductDetailServlet extends HttpServlet {
       request.setAttribute("options", options);
 
       // Forward url
-      String url = "/default/product-detail/index.jsp";
+      String url = "/pages/default/productDetail.jsp";
       request.getRequestDispatcher(url).forward(request, response);
     }
   }
@@ -71,7 +71,12 @@ public class ProductDetailServlet extends HttpServlet {
       String oId = Helper.getRandom();
 
       // Create order
-      Order o = new Order(oId, new Date(), quanty, price, option);
+      Order o = new Order();
+      o.setOrderId(oId);
+      o.setDate(new Date());
+      o.setOrderedQuantity(quanty);
+      o.setPrice(price);
+      o.setOption(option);
 
       // Add order to list
       @SuppressWarnings("unchecked")

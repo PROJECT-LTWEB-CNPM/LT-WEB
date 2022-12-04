@@ -15,11 +15,11 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
- * The persistent class for the products database table.
+ * The persistent class for the Products database table.
  * 
  */
 @Entity
-@Table(name = "products")
+@Table(name = "Products")
 @NamedQueries({
     @NamedQuery(name = "Product.findByCategory", query = "SELECT p FROM Product p WHERE p.category = :category"),
     @NamedQuery(name = "Product.findByProductName", query = "SELECT p FROM Product p WHERE p.productName LIKE :productName"),
@@ -27,24 +27,26 @@ import javax.persistence.Table;
     @NamedQuery(name = "Product.findAll", query = "SELECT p FROM Product p"),
     @NamedQuery(name = "Product.count", query = "SELECT COUNT(p) FROM Product p"),
 
-    @NamedQuery(name = "Product.findByProductType", query = "SELECT p FROM Product p WHERE p.producttype = :productType"),
-    @NamedQuery(name = "Product.countByProductType", query = "SELECT COUNT(p) FROM Product p WHERE p.producttype = :productType"),
+    @NamedQuery(name = "Product.findByProductType", query = "SELECT p FROM Product p WHERE p.productTypeBean = :productType"),
+    @NamedQuery(name = "Product.countByProductType", query = "SELECT COUNT(p) FROM Product p WHERE p.productTypeBean = :productType"),
 
     @NamedQuery(name = "Product.findByIsDeleted", query = "SELECT p FROM Product p WHERE p.isDelete = :isDelete"),
     @NamedQuery(name = "Product.countByIsDeleted", query = "SELECT COUNT(p) FROM Product p WHERE p.isDelete = :isDelete"),
 
-    @NamedQuery(name = "Product.findByCategoryAndProductType", query = "SELECT p FROM Product p WHERE p.category = :category AND p.producttype = :productType"),
-    @NamedQuery(name = "Product.countByProductTypeAndCategory", query = "SELECT COUNT(p) FROM Product p WHERE p.category = :category AND p.producttype = :productType"),
+    @NamedQuery(name = "Product.findByCategoryAndProductType", query = "SELECT p FROM Product p WHERE p.category = :category AND p.productTypeBean = :productType"),
+    @NamedQuery(name = "Product.findByCategoryAndProductTypeAndPriceAsc", query = "SELECT p FROM Product p WHERE p.category = :category AND p.productTypeBean = :productType ORDER BY p.newPrice ASC"),
+    @NamedQuery(name = "Product.findByCategoryAndProductTypeAndPriceDesc", query = "SELECT p FROM Product p WHERE p.category = :category AND p.productTypeBean = :productType ORDER BY p.newPrice DESC"),
+    @NamedQuery(name = "Product.countByProductTypeAndCategory", query = "SELECT COUNT(p) FROM Product p WHERE p.category = :category AND p.productTypeBean = :productType"),
 
-    @NamedQuery(name = "Product.findByProductTypeAndIsDeleted", query = "SELECT p FROM Product p WHERE p.isDelete = :isDelete AND p.producttype = :productType"),
-    @NamedQuery(name = "Product.findByProductTypeAndIsDeletedAndPriceAsc", query = "SELECT p FROM Product p WHERE p.isDelete = :isDelete AND p.producttype = :productType ORDER BY p.newPrice ASC"),
-    @NamedQuery(name = "Product.findByProductTypeAndIsDeletedAndPriceDesc", query = "SELECT p FROM Product p WHERE p.isDelete = :isDelete AND p.producttype = :productType ORDER BY p.newPrice DESC"),
-    @NamedQuery(name = "Product.countByProductTypeAndIsDeleted", query = "SELECT COUNT(p) FROM Product p WHERE p.isDelete = :isDelete AND p.producttype = :productType"),
+    @NamedQuery(name = "Product.findByProductTypeAndIsDeleted", query = "SELECT p FROM Product p WHERE p.isDelete = :isDelete AND p.productTypeBean = :productType"),
+    @NamedQuery(name = "Product.findByProductTypeAndIsDeletedAndPriceAsc", query = "SELECT p FROM Product p WHERE p.isDelete = :isDelete AND p.productTypeBean = :productType ORDER BY p.newPrice ASC"),
+    @NamedQuery(name = "Product.findByProductTypeAndIsDeletedAndPriceDesc", query = "SELECT p FROM Product p WHERE p.isDelete = :isDelete AND p.productTypeBean = :productType ORDER BY p.newPrice DESC"),
+    @NamedQuery(name = "Product.countByProductTypeAndIsDeleted", query = "SELECT COUNT(p) FROM Product p WHERE p.isDelete = :isDelete AND p.productTypeBean = :productType"),
 
-    @NamedQuery(name = "Product.findByCategoryAndProductTypeAndIsDeletedAndPriceAsc", query = "SELECT p FROM Product p WHERE p.category = :category AND p.producttype = :productType AND p.isDelete = :isDelete ORDER BY p.newPrice ASC"),
-    @NamedQuery(name = "Product.findByCategoryAndProductTypeAndIsDeletedAndPriceDesc", query = "SELECT p FROM Product p WHERE p.category = :category AND p.producttype = :productType AND p.isDelete = :isDelete ORDER BY p.newPrice DESC"),
-    @NamedQuery(name = "Product.findByCategoryAndProductTypeAndIsDeleted", query = "SELECT p FROM Product p WHERE p.category = :category AND p.producttype = :productType AND p.isDelete = :isDelete"),
-    @NamedQuery(name = "Product.countByProductTypeAndCategoryAndIsDeleted", query = "SELECT COUNT(p) FROM Product p WHERE p.category = :category AND p.producttype = :productType AND p.isDelete = :isDelete")
+    @NamedQuery(name = "Product.findByCategoryAndProductTypeAndIsDeletedAndPriceAsc", query = "SELECT p FROM Product p WHERE p.category = :category AND p.productTypeBean = :productType AND p.isDelete = :isDelete ORDER BY p.newPrice ASC"),
+    @NamedQuery(name = "Product.findByCategoryAndProductTypeAndIsDeletedAndPriceDesc", query = "SELECT p FROM Product p WHERE p.category = :category AND p.productTypeBean = :productType AND p.isDelete = :isDelete ORDER BY p.newPrice DESC"),
+    @NamedQuery(name = "Product.findByCategoryAndProductTypeAndIsDeleted", query = "SELECT p FROM Product p WHERE p.category = :category AND p.productTypeBean = :productType AND p.isDelete = :isDelete"),
+    @NamedQuery(name = "Product.countByProductTypeAndCategoryAndIsDeleted", query = "SELECT COUNT(p) FROM Product p WHERE p.category = :category AND p.productTypeBean = :productType AND p.isDelete = :isDelete")
 })
 public class Product implements Serializable {
   private static final long serialVersionUID = 1L;
@@ -87,7 +89,7 @@ public class Product implements Serializable {
 
   // bi-directional many-to-one association to ProductImage
   @OneToMany(mappedBy = "product")
-  private List<ProductImage> productimages;
+  private List<ProductImage> productImages;
 
   // bi-directional many-to-one association to Category
   @ManyToOne
@@ -97,22 +99,9 @@ public class Product implements Serializable {
   // bi-directional many-to-one association to ProductType
   @ManyToOne
   @JoinColumn(name = "product_type")
-  private ProductType producttype;
+  private ProductType productTypeBean;
 
   public Product() {
-  }
-
-  public Product(String productId, String productName, String mainImageUrl, int oldPrice, int newPrice,
-      String description, String origin, String pattern, String meterial) {
-    this.productId = productId;
-    this.productName = productName;
-    this.mainImageUrl = mainImageUrl;
-    this.oldPrice = oldPrice;
-    this.newPrice = newPrice;
-    this.description = description;
-    this.origin = origin;
-    this.pattern = pattern;
-    this.meterial = meterial;
   }
 
   public String getProductId() {
@@ -225,26 +214,26 @@ public class Product implements Serializable {
     return option;
   }
 
-  public List<ProductImage> getProductimages() {
-    return this.productimages;
+  public List<ProductImage> getProductImages() {
+    return this.productImages;
   }
 
-  public void setProductimages(List<ProductImage> productimages) {
-    this.productimages = productimages;
+  public void setProductImages(List<ProductImage> productImages) {
+    this.productImages = productImages;
   }
 
-  public ProductImage addProductimage(ProductImage productimage) {
-    getProductimages().add(productimage);
-    productimage.setProduct(this);
+  public ProductImage addProductImage(ProductImage productImage) {
+    getProductImages().add(productImage);
+    productImage.setProduct(this);
 
-    return productimage;
+    return productImage;
   }
 
-  public ProductImage removeProductimage(ProductImage productimage) {
-    getProductimages().remove(productimage);
-    productimage.setProduct(null);
+  public ProductImage removeProductImage(ProductImage productImage) {
+    getProductImages().remove(productImage);
+    productImage.setProduct(null);
 
-    return productimage;
+    return productImage;
   }
 
   public Category getCategory() {
@@ -255,12 +244,12 @@ public class Product implements Serializable {
     this.category = category;
   }
 
-  public ProductType getProducttype() {
-    return this.producttype;
+  public ProductType getProductTypeBean() {
+    return this.productTypeBean;
   }
 
-  public void setProducttype(ProductType producttype) {
-    this.producttype = producttype;
+  public void setProductTypeBean(ProductType productTypeBean) {
+    this.productTypeBean = productTypeBean;
   }
 
 }

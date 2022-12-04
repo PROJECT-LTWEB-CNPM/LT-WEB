@@ -12,10 +12,13 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
+/**
+ * The persistent class for the ProductImages database table.
+ * 
+ */
 @Entity
-@Table(name = "productimages")
+@Table(name = "ProductImages")
 @NamedQueries({
-
     @NamedQuery(name = "ProductImage.findAll", query = "SELECT p FROM ProductImage p"),
     @NamedQuery(name = "ProductImage.findByProduct", query = "SELECT p FROM ProductImage p WHERE p.product = :product")
 })

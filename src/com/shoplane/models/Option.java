@@ -14,11 +14,11 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
- * The persistent class for the options database table.
+ * The persistent class for the Options database table.
  * 
  */
 @Entity
-@Table(name = "options")
+@Table(name = "Options")
 @NamedQueries({
     @NamedQuery(name = "Option.findAll", query = "SELECT o FROM Option o"),
     @NamedQuery(name = "Option.findByProduct", query = "SELECT o FROM Option o WHERE o.product = :product")

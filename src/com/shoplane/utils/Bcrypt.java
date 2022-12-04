@@ -13,7 +13,12 @@ public class Bcrypt {
   }
 
   public static boolean checkpwd(String pwdNotHash, String pwdHashed) {
-    boolean isPwd = BCrypt.checkpw(pwdNotHash, pwdHashed);
-    return isPwd;
+    try {
+      boolean isPwd = BCrypt.checkpw(pwdNotHash, pwdHashed);
+      return isPwd;
+    } catch (Exception e) {
+      System.out.println(e.getMessage());
+      return false;
+    }
   }
 }

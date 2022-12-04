@@ -29,7 +29,7 @@ public class ProductImageService extends SuperService {
   public void getImageList() throws IOException {
     try {
       super.setEncoding(Constants.UTF8);
-      String url = "/system/imagesPreview/list/imagesPreview.jsp";
+      String url = "/pages/system/imagesPreview/index.jsp";
       String productId = super.getParameter("product_id");
 
       // Get data
@@ -55,7 +55,7 @@ public class ProductImageService extends SuperService {
   public void getProductImageForm() throws IOException {
     try {
       super.setEncoding(Constants.UTF8);
-      String url = "/system/imagesPreview/create/index.jsp";
+      String url = "/pages/system/imagesPreview/createImagePreview.jsp";
       String productId = super.getParameter("product_id");
 
       // Get data
@@ -116,7 +116,7 @@ public class ProductImageService extends SuperService {
   public void getProductImageEditForm() throws IOException {
     try {
       super.setEncoding(Constants.UTF8);
-      String url = "/system/imagesPreview/detail/index.jsp";
+      String url = "/pages/system/imagesPreview/editImagePreview.jsp";
       String productId = super.getParameter("product_id");
       String imageId = super.getParameter("image_id");
 
