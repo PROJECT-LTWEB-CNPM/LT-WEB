@@ -14,9 +14,8 @@ int[] entries = {10, 20, 30};
 <head>
 <jsp:include page="../head.jsp" />
 <link rel="stylesheet"
-	href="<%=context%>/assets/css/system/product/index.css"
-	type="text/css" />
-	<link rel="stylesheet"
+	href="<%=context%>/assets/css/system/product/index.css" type="text/css" />
+<link rel="stylesheet"
 	href="<%=context%>/assets/css/system/components/pagination.css"
 	type="text/css" />
 <title>Quản lý sản phẩm - SHOPLANE</title>
@@ -84,9 +83,9 @@ int[] entries = {10, 20, 30};
 						</select> sản phẩm
 					</div>
 
-					<a href="<%=context%>/system/products/create/">Thêm sản phẩm</a> <a
-						href="" class="btnDeleteProducts">Xóa sản phẩm</a> <a
-						href="<%=context%>/system/products/trash/">Thùng rác</a>
+					<a href="<%=context%>/system/products/create/">Thêm sản phẩm</a> <span
+						style="cursor: pointer;" class="btnDeleteProducts">Xóa sản
+						phẩm</span> <a href="<%=context%>/system/products/trash/">Thùng rác</a>
 				</div>
 				<div class="table">
 					<div class="table__head">
@@ -146,50 +145,28 @@ int[] entries = {10, 20, 30};
 						</c:forEach>
 					</div>
 				</div>
+				<input id="createProductStatus"
+					value="${sessionScope.createProductStatus}" hidden /> <input
+					id="editProductStatus" value="${sessionScope.editProductStatus}"
+					hidden />
 				<jsp:include page="./pagination.jsp"></jsp:include>
 			</main>
 		</div>
 	</div>
 	<!-- Jquery -->
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"
-		integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA=="
-		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<jsp:include page="../components/script.jsp"></jsp:include>
 	<script type="text/javascript"
-		src="<%=context%>/assets/js/softDeleteProduct.js"></script>
-
-	<script type="text/javascript">
-		function handleSelectProductType(elm) {
-			const queryString = window.location.search;
-			const urlParams = new URLSearchParams(queryString);
-
-			const category = urlParams.get('category');
-			const pageSize = urlParams.get('page_size');
-
-			window.location = '?product_type=' + elm.value + '&category='
-					+ category + '&current_page=1&page_size=' + pageSize;
-
+		src="<%=context%>/assets/js/system/softDeleteProduct.js"></script>
+	<script type="text/javascript"
+		src="<%=context%>/assets/js/system/products/index.js"></script>
+	<script>
+		const createProductStatus = $('#createProductStatus').val();
+		if (createProductStatus === 'success') {
+			swal("Thông báo", "Tạo sản phẩm thành công", "success");
 		}
-		function handleSelectCategory(elm) {
-			const queryString = window.location.search;
-			const urlParams = new URLSearchParams(queryString);
-
-			const productType = urlParams.get('product_type');
-			const pageSize = urlParams.get('page_size');
-
-			window.location = '?product_type=' + productType + '&category='
-					+ elm.value + '&current_page=1&page_size=' + pageSize;
-		}
-
-		function handleSelectEntries(elm) {
-			const queryString = window.location.search;
-			const urlParams = new URLSearchParams(queryString);
-
-			const productType = urlParams.get('product_type');
-			const category = urlParams.get('category');
-
-			window.location = '?product_type=' + productType + '&category='
-					+ category + '&current_page=1&page_size=' + elm.value;
+		const editProductStatus = $('#editProductStatus').val();
+		if (editProductStatus === 'success') {
+			swal("Thông báo", "Chỉnh sửa sản phẩm thành công", "success");
 		}
 	</script>
 </body>

@@ -36,8 +36,5 @@ String baseUrl = request.getContextPath() + "/default/home";
 	<jsp:include page="../components/script.jsp" />
 	<script type="text/javascript"
 		src="<%=context%>/assets/js/default/sliderConfig.js"></script>
-	<script>
-		swal("Hello world!");
-	</script>
 </body>
 </html>

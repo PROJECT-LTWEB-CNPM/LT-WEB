@@ -15,7 +15,8 @@ String context = request.getContextPath();
 <jsp:include page="../components/head.jsp" />
 <c:choose>
 	<c:when test="${orders.size() > 0}">
-		<link rel="stylesheet" href="<%=context%>/assets/css/default/cart/cart.css" />
+		<link rel="stylesheet"
+			href="<%=context%>/assets/css/default/cart/cart.css" />
 	</c:when>
 	<c:otherwise>
 		<link rel="stylesheet"
@@ -39,10 +40,23 @@ String context = request.getContextPath();
 				</c:choose>
 			</div>
 		</main>
+		<input id="deleteItemStatus" value="${deleteItemStatus}" hidden /> <input
+			id="checkoutOrdersStatus" value="${checkoutOrdersStatus}" hidden />
 		<jsp:include page="../components/footer.jsp" />
 		<jsp:include page="../components/backToTop.jsp" />
 	</div>
 	<jsp:include page="../components/script.jsp" />
+	<script>
+		const deleteItemStatus = $('#deleteItemStatus').val();
+		const checkoutOrdersStatus = $('#checkoutOrdersStatus').val();
+
+		if (deleteItemStatus === 'success') {
+			swal("Thông báo", "Xóa sản phẩm thành công", "success");
+		}
+		if (checkoutOrdersStatus === 'success') {
+			swal("Đặt hàng thành công", "Vui lòng kiểm tra email", "success");
+		}
+	</script>
 </body>
 </html>
 

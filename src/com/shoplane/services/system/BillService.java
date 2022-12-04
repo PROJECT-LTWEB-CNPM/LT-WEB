@@ -1,17 +1,22 @@
 package com.shoplane.services.system;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import com.shoplane.dao.BillDAO;
+import com.shoplane.dao.RoleDAO;
+import com.shoplane.dao.UserDAO;
 import com.shoplane.models.Bill;
+import com.shoplane.models.Role;
+import com.shoplane.models.User;
 import com.shoplane.services.SuperService;
 import com.shoplane.utils.Constants;
 import com.shoplane.utils.Helper;
@@ -19,10 +24,14 @@ import com.shoplane.utils.Helper;
 public class BillService extends SuperService {
 
   BillDAO billDAO = null;
+  UserDAO userDAO = null;
+  RoleDAO roleDAO = null;
 
   public BillService(HttpServletRequest request, HttpServletResponse response) {
     super(request, response);
     this.billDAO = new BillDAO();
+    this.userDAO = new UserDAO();
+    this.roleDAO = new RoleDAO();
   }
 
   // [GET] ListBillServlet
@@ -79,7 +88,11 @@ public class BillService extends SuperService {
       super.setAttribute("currentPage", currentPage);
       super.setAttribute("pageSize", pageSize);
       super.setAttribute("totalPage", totalPage);
+
       super.forwardToPage(url);
+
+      super.getSession().setAttribute("createBillStatus", null);
+      super.getSession().setAttribute("editBillStatus", null);
 
     } catch (Exception e) {
       super.log(e.getMessage());
@@ -94,25 +107,20 @@ public class BillService extends SuperService {
       super.setEncoding(Constants.UTF8);
       // define url to forward
       String url = "/pages/system/bills/editBill.jsp";
-
       // get bill Id
       String billId = request.getParameter("bill_id");
-
       // find bill By Id
       Bill foundBill = this.billDAO.find(billId);
-
-      // create new Session
-      HttpSession session = request.getSession();
-
-      // validate then set parameter to forward
-      if (foundBill != null) {
-        session.setAttribute("bill", foundBill);
-      } else {
-        super.log("Can't retrieve bill");
-      }
+      // Get data
+      Role role = this.roleDAO.find(Constants.USER_ROLE);
+      Map<String, Object> params = new HashMap<>();
+      params.put("role", role);
+      List<User> users = this.userDAO.findByRole(params);
 
       // Set Att
       super.setAttribute("billId", billId);
+      super.setAttribute("bill", foundBill);
+      super.setAttribute("users", users);
       // forward parameter to another page
       super.forwardToPage(url);
 
@@ -131,20 +139,19 @@ public class BillService extends SuperService {
       String url = super.getContextPath() + "/system/bills/?status=2&current_page=1&page_size=10";
 
       // get updated value from updating form
-      int totalPrice = Integer.parseInt(request.getParameter("totalPrice"));
-      byte status = Byte.parseByte(request.getParameter("status"));
+      String billId = super.getParameter("billId");
+      byte status = Byte.parseByte(request.getParameter("statusBill"));
+      String editBillStatus = "";
 
-      // create new session
-      HttpSession httpSession = request.getSession();
-
-      // get bill object from previous session
-      Bill updatedBill = (Bill) httpSession.getAttribute("bill");
+      // Get data
+      Bill updatedBill = this.billDAO.find(billId);
 
       // validate Bill
       if (updatedBill != null) {
-        updatedBill.setTotalPrice(totalPrice);
         updatedBill.setStatusBill(status);
         this.billDAO.update(updatedBill);
+        editBillStatus = Constants.SUCCESS_STATUS;
+        super.getSession().setAttribute("editBillStatus", editBillStatus);
       }
 
       // redirect to BillServlet
@@ -163,7 +170,71 @@ public class BillService extends SuperService {
       // define url to redirect
       String url = "/pages/system/bills/createBill.jsp";
 
+      // Get data
+      Role role = this.roleDAO.find(Constants.USER_ROLE);
+      Map<String, Object> params = new HashMap<>();
+      params.put("role", role);
+      List<User> users = this.userDAO.findByRole(params);
+
+      // Set att
+      super.setAttribute("users", users);
       super.forwardToPage(url);
+
+    } catch (Exception e) {
+      super.log(e.getMessage());
+      String error = super.getContextPath() + "/system/500";
+      this.redirectToPage(error);
+    }
+  }
+
+  // [POST] CreateBillServlet
+  public void submitCreateBillForm() throws IOException {
+    try {
+      // define url to redirect
+      String url = super.getContextPath() + "/system/bills/?status=2&current_page=1&page_size=10";
+      // Get data
+      String billId = super.getParameter("billId");
+      String createdAtStr = super.getParameter("date");
+      String customerId = super.getParameter("customerId");
+      String statusBillStr = super.getParameter("statusBill");
+      Date createAt = null;
+      User customer = null;
+      int statusBill = 0;
+      String createBillStatus = "";
+
+      // Format date
+      if (createdAtStr == null || createdAtStr.equals("")) {
+        createAt = new Date();
+      } else {
+        createAt = new SimpleDateFormat("yyyy-mm-dd").parse(createdAtStr);
+      }
+
+      // Get customer
+      if (customerId != null) {
+        customer = this.userDAO.find(customerId);
+      }
+
+      // Check status
+      if (statusBillStr != null) {
+        if (Helper.isNumeric(statusBillStr)) {
+          statusBill = Integer.parseInt(statusBillStr);
+        }
+      }
+
+      // Create bill
+      Bill bill = new Bill();
+      bill.setBillId(billId);
+      bill.setDate(createAt);
+      bill.setUser(customer);
+      bill.setStatusBill((byte) statusBill);
+      this.billDAO.create(bill);
+
+      // Set notification
+      createBillStatus = Constants.SUCCESS_STATUS;
+      super.getSession().setAttribute("createBillStatus", createBillStatus);
+
+      // Redirect
+      super.redirectToPage(url);
 
     } catch (Exception e) {
       super.log(e.getMessage());

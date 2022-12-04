@@ -15,7 +15,9 @@ String baseUrl = context + "/system/bills/detail";
 <head>
 <jsp:include page="../head.jsp" />
 <title>Thêm đơn hàng - SHOPLANE</title>
-<link rel="stylesheet" href="<%=context%>/assets/css/system/bill/createBill.css" type="text/css" />
+<link rel="stylesheet"
+	href="<%=context%>/assets/css/system/bill/createBill.css"
+	type="text/css" />
 </head>
 <body>
 	<div id="app">
@@ -40,7 +42,7 @@ String baseUrl = context + "/system/bills/detail";
 						<div class="form-group">
 							<label for="date">Mã đơn hàng</label> <input type="text"
 								name="billId" class="form-control"
-								value="<%=Helper.getRandom()%>" readonly/>
+								value="<%=Helper.getRandom()%>" readonly />
 						</div>
 						<div class="form-group">
 							<label for="date">Ngày tạo</label> <input type="datetime-local"
@@ -48,8 +50,12 @@ String baseUrl = context + "/system/bills/detail";
 						</div>
 
 						<div class="form-group">
-							<label for="date">Người mua hàng</label> <input type="text"
-								name="customerId" class="form-control" />
+							<label for="date">Người mua hàng</label> <select id="statusBill"
+								name="customerId" class="form-control">
+								<c:forEach var="item" items="${users}">
+									<option value="${item.getUserId()}">${item.getFullname()}</option>
+								</c:forEach>
+							</select>
 						</div>
 						<div class="form-group">
 							<label for="date">Trạng thái thanh toán</label> <select

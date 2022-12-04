@@ -119,6 +119,13 @@ public class AccountService extends SuperService {
     try {
       // link
       String url = "/pages/default/account/modifyAccount.jsp";
+
+      /*
+       * String email = "doduongthaituan201102@gmail.com";
+       * SendMail sendMail = new SendMail();
+       * sendMail.sendReceipt(email);
+       */
+
       // Forwards
       super.forwardToPage(url);
 

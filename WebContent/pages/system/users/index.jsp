@@ -12,9 +12,8 @@ String context = request.getContextPath();
 <head>
 <jsp:include page="../head.jsp" />
 <link rel="stylesheet"
-	href="<%=context%>/assets/css/system/user/index.css"
-	type="text/css" />
-	<link rel="stylesheet"
+	href="<%=context%>/assets/css/system/user/index.css" type="text/css" />
+<link rel="stylesheet"
 	href="<%=context%>/assets/css/system/components/pagination.css"
 	type="text/css" />
 <title>Quản lý người dùng - SHOPLANE</title>
@@ -99,74 +98,25 @@ String context = request.getContextPath();
 						</c:forEach>
 					</div>
 				</div>
+				<input type="text" id="createUserStatus" value="${createUserStatus}"
+					hidden /> <input type="text" id="editUserStatus"
+					value="${editUserStatus}" hidden />
 				<jsp:include page="./pagination.jsp"></jsp:include>
 			</main>
 		</div>
 	</div>
-	<!-- Jquery -->
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"
-		integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA=="
-		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
-	<script type="text/javascript">
-		// Toggle check all
-		let selectedItems = [];
-		const inputAll = $('.all');
-		const inputItems = [...$('input[type=checkbox]')].slice(1);
-/* 		inputAll.on('click', () => {
-			if(inputAll.is(':checked')))	 {
-					
-			}
-		})
- */			inputItems.forEach(item => {
-				item.addEventListener("click", e => {
-					const isChecked = e.target.checked;
-					if(isChecked) {
-						selectedItems.push(e.target.value);
-						if(selectedItems.length === inputItems.length) {
-							$('.all').prop('checked', true);
-						}
-					} else {
-						selectedItems = selectedItems.filter(item => item !== e.target.value);
-						$('.all').prop('checked', false);
-					}
-				})
-		    });
-			
-		
-		function deleteUser() {
-			$.ajax({
-				url : "http://localhost:8080/shoplane-ft/system/users/delete",
-				type : "POST",
-				data : {
-					data: selectedItems.join(',')
-				},
-				success : function(response) {
-					alert('successfull')
-/* 					window.location.reload()
- */				},
-				error : function(xhr) {
-					alert('error')
-				}
-			});
+	<!-- Script included-->
+	<jsp:include page="../components/script.jsp"></jsp:include>
+	<script type="text/javascript"
+		src="<%=context%>/assets/js/system/users/index.js"></script>
+	<script>
+		const createUserStatus = $('#createUserStatus').val();
+		const editUserStatus = $('#editUserStatus').val();
+		if (createUserStatus === 'success') {
+			swal("Thông báo", "Tạo người dùng thành công", "success");
 		}
-		function handleSelectRole(elm) {
-			const queryString = window.location.search;
-			const urlParams = new URLSearchParams(queryString);
-
-			const pageSize = urlParams.get('page_size');
-
-			window.location = '?role_id=' + elm.value + '&current_page=1&page_size=' + pageSize;
-
-		}
-		function handleSelectEntries(elm) {
-			const queryString = window.location.search;
-			const urlParams = new URLSearchParams(queryString);
-
-			const roleId = urlParams.get('role_id');
-
-			window.location = '?eole_id=' + roleId + '&current_page=1&page_size=' + elm.value;
+		if (editUserStatus === 'success') {
+			swal("Thông báo", "Chỉnh sửa người dùng thành công", "success");
 		}
 	</script>
 </body>

@@ -88,6 +88,9 @@ public class UserService extends SuperService {
 
       // forward
       super.forwardToPage(url);
+      // Set null after run one time
+      super.getSession().setAttribute("createUserStatus", null);
+      super.getSession().setAttribute("editUserStatus", null);
     } catch (Exception e) {
       super.log(e.getMessage());
       String error = super.getContextPath() + "/system/500";
@@ -130,6 +133,7 @@ public class UserService extends SuperService {
       String isActiveStr = super.getParameter("acctiveAcc");
       String roleId = super.getParameter("roleId");
       String pwdHashed = "";
+      String createUserStatus = "";
 
       int isActive = 0;
       if (Helper.isNumeric(isActiveStr)) {
@@ -160,9 +164,11 @@ public class UserService extends SuperService {
 
       // Create
       this.userDAO.create(user);
-
+      createUserStatus = Constants.SUCCESS_STATUS;
       // Set att
       super.setAttribute("roles", roles);
+      super.getSession().setAttribute("createUserStatus", createUserStatus);
+
       // Redirect
       super.redirectToPage(url);
     } catch (Exception e) {
@@ -209,6 +215,7 @@ public class UserService extends SuperService {
       String address = super.getParameter("address");
       String isActiveStr = super.getParameter("acctiveAcc");
       String roleId = super.getParameter("roleId");
+      String editUserStatus = "";
 
       // Check
       int isActive = 0;
@@ -232,8 +239,11 @@ public class UserService extends SuperService {
         user.setEmail(email);
         user.setPhonenumber(phonenumber);
         this.userDAO.update(user);
+        editUserStatus = Constants.SUCCESS_STATUS;
       }
 
+      // Set status if update success
+      super.getSession().setAttribute("editUserStatus", editUserStatus);
       // Redirect
       super.redirectToPage(url);
     } catch (Exception e) {
