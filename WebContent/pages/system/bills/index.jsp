@@ -131,5 +131,19 @@ String context = request.getContextPath();
 			</main>
 		</div>
 	</div>
+	<input type="text" id="createBillStatus" value="${sessionScope.createBillStatus}" hidden/>
+	<input type="text" id="editBillStatus" value="${sessionScope.editBillStatus}" hidden/>
+	<!-- Jquery -->
+	<jsp:include page="../components/script.jsp"></jsp:include>
+	<script>
+		const createBillStatus = $('#createBillStatus').val();
+		if (createBillStatus === 'success') {
+			swal("Thông báo", "Tạo đơn hàng thành công", "success");
+		}
+		const editBillStatus = $('#editBillStatus').val();
+		if (editBillStatus === 'success') {
+			swal("Thông báo", "Chỉnh sửa đơn hàng thành công", "success");
+		}
+	</script>
 </body>
 </html>

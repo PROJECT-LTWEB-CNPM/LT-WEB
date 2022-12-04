@@ -36,7 +36,7 @@ String context = request.getContextPath();
 						đơn hàng</a>
 				</div>
 				<div class="customer_info">
-					<form action="/edit" method="post">
+					<form action="" method="post">
 						<div class="form-group">
 							<label for="date">Mã đơn hàng</label> <input type="text"
 								name="billId" value="${bill.billId}" class="form-control"
@@ -49,9 +49,21 @@ String context = request.getContextPath();
 						</div>
 
 						<div class="form-group">
-							<label for="date">Người mua</label> <input type="text"
-								name="customerId" value="${bill.getUser().getFullname()}"
-								class="form-control" readonly />
+							<label for="date">Người mua</label> 
+							<select class="form-control"
+								name="customerId">
+								<c:forEach var="item" items="${users}">
+									<c:choose>
+										<c:when
+											test="${bill.getUser().getUserId().equals(item.getUserId())}">
+											<option selected value="${item.getUserId()}">${item.getFullname()}</option>
+										</c:when>
+										<c:otherwise>
+											<option value="${item.getUserId()}">${item.getFullname()}</option>
+										</c:otherwise>
+									</c:choose>
+								</c:forEach>
+							</select>
 						</div>
 
 						<div class="form-group">

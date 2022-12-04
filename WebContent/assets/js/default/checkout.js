@@ -100,23 +100,23 @@ const app = {
 
 			// Validate
 			if (fullname === "") {
-				alert("Họ tên không được để trống");
+				swal("Họ tên không được để trống");
 				return;
 			}
 			if (phonenumber === "") {
-				alert("Số điện thoại không được để trống");
+				swal("Số điện thoại không được để trống");
 				return;
 			}
 			if ($("#province option:selected").val() === '-1') {
-				alert("Vui lòng chọn thành phố");
+				swal("Vui lòng chọn thành phố");
 				return;
 			}
 			if ($("#district option:selected").val() === '-1') {
-				alert("Vui lòng chọn huyện");
+				swal("Vui lòng chọn huyện");
 				return;
 			}
 			if ($("#ward option:selected").val() === '-1') {
-				alert("Vui lòng chọn xã");
+				swal("Vui lòng chọn xã");
 				return;
 			}
 			// Create data
@@ -134,7 +134,15 @@ const app = {
 				data: data,
 				success: function(res) {
 					if (res === 'success') {
-						window.location.reload()
+						swal("Đặt hàng thành công", "Vui lòng kiểm tra email để xem chi tiết đơn hàng", "success")
+							.then((value) => {
+								window.location.reload()
+							});
+					} else {
+						swal("Đặt hàng thất bại", "Đã có lỗi xảy ra xin vui lòng đặt hàng lại", "info")
+							.then((value) => {
+								window.location.reload()
+							});
 					}
 				}
 			});

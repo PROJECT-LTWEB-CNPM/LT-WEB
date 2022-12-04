@@ -30,7 +30,7 @@ String url = context + "/default/account/login";
 								placeholder="Email" required> <input
 								class="form-control" type="password" name="password"
 								placeholder="Mật khẩu" required>
-								<input id="status" value="${sessionScope.status}"/>
+								<input id="status" value="${sessionScope.status}" hidden=""/>
 							<div class="err__msg">
 								<span>${errMsg}</span>
 							</div>

@@ -85,11 +85,11 @@ int[] entries = {10, 20, 30};
 								</div>
 								<div style="width: 10%" class="table__link">
 									<a
-										href="<%=context %>/system/products/images/?product_id=${item.getProductId()}">Xóa</a>
+										href="<%=context %>/system/products/trash/recovery/?product_id=${item.getProductId()}">Xóa</a>
 								</div>
 								<div style="width: 15%" class="table__link">
 									<a
-										href="<%=context %>/system/products/detail/?product_id=${item.getProductId()}">Khôi
+										href="<%=context %>/system/products/trash/recovery/?product_id=${item.getProductId()}">Khôi
 										phục</a>
 								</div>
 							</div>
@@ -100,46 +100,20 @@ int[] entries = {10, 20, 30};
 			</main>
 		</div>
 	</div>
+	<input id="recoveryProductItemStatus"
+		value="${sessionScope.recoveryProductItemStatus}" hidden />
+	<input id="editProductStatus" value="${sessionScope.editProductStatus}"
+		hidden />
 	<!-- Jquery -->
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"
-		integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA=="
-		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-	<script type="text/javascript"
-		src="<%=context%>/assets/js/softDeleteProduct.js"></script>
-
-	<script type="text/javascript">
-		function handleSelectProductType(elm) {
-			const queryString = window.location.search;
-			const urlParams = new URLSearchParams(queryString);
-
-			const category = urlParams.get('category');
-			const pageSize = urlParams.get('page_size');
-
-			window.location = '?product_type=' + elm.value + '&category='
-					+ category + '&current_page=1&page_size=' + pageSize;
-
+	<jsp:include page="../../components/script.jsp"></jsp:include>>
+	<script>
+		const recoveryProductItemStatus = $('#recoveryProductItemStatus').val();
+		if (recoveryProductItemStatus === 'success') {
+			swal("Thông báo", "Khôi phuc sản phẩm thành công", "success");
 		}
-		function handleSelectCategory(elm) {
-			const queryString = window.location.search;
-			const urlParams = new URLSearchParams(queryString);
-
-			const productType = urlParams.get('product_type');
-			const pageSize = urlParams.get('page_size');
-
-			window.location = '?product_type=' + productType + '&category='
-					+ elm.value + '&current_page=1&page_size=' + pageSize;
-		}
-
-		function handleSelectEntries(elm) {
-			const queryString = window.location.search;
-			const urlParams = new URLSearchParams(queryString);
-
-			const productType = urlParams.get('product_type');
-			const category = urlParams.get('category');
-
-			window.location = '?product_type=' + productType + '&category='
-					+ category + '&current_page=1&page_size=' + elm.value;
+		const editProductStatus = $('#editProductStatus').val();
+		if (editProductStatus === 'success') {
+			swal("Thông báo", "Chỉnh sửa sản phẩm thành công", "success");
 		}
 	</script>
 </body>

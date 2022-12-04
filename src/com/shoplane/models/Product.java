@@ -31,6 +31,7 @@ import javax.persistence.Table;
     @NamedQuery(name = "Product.countByProductType", query = "SELECT COUNT(p) FROM Product p WHERE p.productTypeBean = :productType"),
 
     @NamedQuery(name = "Product.findByIsDeleted", query = "SELECT p FROM Product p WHERE p.isDelete = :isDelete"),
+    @NamedQuery(name = "Product.findByProductIdAndIsDeleted", query = "SELECT p FROM Product p WHERE p.isDelete = :isDelete AND p.productId = :productId"),
     @NamedQuery(name = "Product.countByIsDeleted", query = "SELECT COUNT(p) FROM Product p WHERE p.isDelete = :isDelete"),
 
     @NamedQuery(name = "Product.findByCategoryAndProductType", query = "SELECT p FROM Product p WHERE p.category = :category AND p.productTypeBean = :productType"),

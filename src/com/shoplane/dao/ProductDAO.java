@@ -179,4 +179,9 @@ public class ProductDAO extends JpaDAO<Product> implements GenericDAO<Product> {
     String queryName = "Product.countByProductTypeAndCategoryAndIsDeleted";
     return super.countWithNamedQuery(queryName, params);
   }
+
+  public Product findByProductIdAndIsDeleted(Map<String, Object> params) {
+    String queryName = "Product.findByProductIdAndIsDeleted";
+    return super.findSingleResultByNamedQuery(queryName, params);
+  }
 }

@@ -13,7 +13,7 @@ response.setCharacterEncoding(Constants.UTF8);
 String context = request.getContextPath();
 // Check user login
 String url = "";
-User u = (User) session.getAttribute("user");
+User u = (User) session.getAttribute(Constants.USER_SESSION);
 if (u != null) {
 	url = context + "/checkout";
 } else {
@@ -78,7 +78,7 @@ for (Order order : ors) {
 		</div>
 	</div>
 	<div class="order__bottom">
-		<a class="btn-submit" href="${pageContext.request.contextPath}/">TRANG
+		<a class="btn-submit" href="<%=context %>/">TRANG
 			CHỦ </a>
 	</div>
 </div>

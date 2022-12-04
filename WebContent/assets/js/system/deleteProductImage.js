@@ -1,5 +1,15 @@
-function handleDeleteProductImage() {
+function handleGetBaseUrl() {
+	const { hostname, host, protocol } = window.location;
+	let url = "";
+	if (hostname !== 'localhost') {
+		url = `${protocol}//${host}`;
+	} else {
+		url = `${protocol}//${host}/shoplane-ft`;
+	}
+	return url;
+}
 
+function handleDeleteProductImage() {
 	const productId = $('.productId').val();
 	const btnDeleteImages = $('.btnDeleteImages');
 	btnDeleteImages.click((e) => {
@@ -9,17 +19,19 @@ function handleDeleteProductImage() {
 			imagesSelected.push($(this).val());
 		});
 		const imagesSelectedStr = imagesSelected.join(',');
+		const baseUrl = handleGetBaseUrl();
 
 		$.ajax({
-			url: "http://localhost:8080/shoplane-ft/system/products/images/delete/",
+			url: `${baseUrl}/system/products/images/delete/`,
 			type: 'GET',
 			data: {
 				imagesSelected: imagesSelectedStr,
 				product_id: productId
 			},
 			success: function() {
-				alert("Xóa ảnh thành công")
-				window.location.reload();
+				swal("Xóa ảnh thành công").then(() => {
+					window.location.reload();
+				})
 			}
 		});
 	})

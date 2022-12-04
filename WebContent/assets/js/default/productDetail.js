@@ -66,20 +66,19 @@ function handleAddToCart() {
 			url: `${baseUrl}/product-detail`,
 			data: data,
 			success: function(result) {
-				swal("Thông báo!", "Thêm sản phẩm thành công", "success");
-				handleChangeCartCount();
+				swal("Thông báo!", "Thêm sản phẩm thành công", "success").then(() => {
+					handleChangeCartCount();
+				})
 			},
 			error: function(err) {
-				swal("Thông báo!", "hêm sản phẩm thất bại", "error");
+				swal("Thông báo!", "Thêm sản phẩm thất bại", "error");
 			}
 		})
 	})
 }
 
 function handleChangeCartCount() {
-	setTimeout(() => {
-		window.location.reload();
-	}, 2000);
+	window.location.reload();
 	const cartCountString = $('#ordersCount').val() || '0';
 
 	const cartCount = +cartCountString;

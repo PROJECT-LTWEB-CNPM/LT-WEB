@@ -109,6 +109,8 @@ public class ProductService extends SuperService {
 
       // Forward
       super.forwardToPage(url);
+      super.getSession().setAttribute("createProductStatus", null);
+      super.getSession().setAttribute("editProductStatus", null);
 
     } catch (Exception e) {
       super.log(e.getMessage());
@@ -156,6 +158,7 @@ public class ProductService extends SuperService {
       String meterial = super.getParameter("meterial").trim();
       String description = super.getParameter("description").trim();
       String isActiveStr = super.getParameter("select_active").trim();
+      String createProductStatus = "";
 
       int oldPrice = 0;
       int newPrice = 0;
@@ -195,7 +198,8 @@ public class ProductService extends SuperService {
       product.setIsActive((byte) isActive);
 
       this.productDAO.create(product);
-
+      createProductStatus = Constants.SUCCESS_STATUS;
+      super.getSession().setAttribute("createProductStatus", createProductStatus);
       // forward
       super.redirectToPage(url);
 
@@ -256,6 +260,7 @@ public class ProductService extends SuperService {
       String oldPriceStr = super.getParameter("oldPrice").trim();
       String newPriceStr = super.getParameter("newPrice").trim();
       String isActiveStr = super.getParameter("select_active").trim();
+      String editProductStatus = "";
 
       int oldPrice = 0;
       int newPrice = 0;
@@ -290,7 +295,9 @@ public class ProductService extends SuperService {
       product.setDescription(description);
       product.setIsActive((byte) isActive);
       this.productDAO.update(product);
+      editProductStatus = Constants.SUCCESS_STATUS;
 
+      super.getSession().setAttribute("editProductStatus", editProductStatus);
       super.redirectToPage(url);
 
     } catch (Exception e) {
@@ -361,10 +368,47 @@ public class ProductService extends SuperService {
       // Redirect
       super.forwardToPage(url);
 
+      // Set session
+      super.getSession().setAttribute("recoveryProductItemStatus", null);
+
     } catch (Exception e) {
       super.log(e.getMessage());
       String error = super.getContextPath() + "/system/500";
       super.redirectToPage(error);
     }
   }
+
+  // [GET] ListProductDeleted
+  public void recoveryProductItem() throws IOException {
+    try {
+      super.setEncoding(Constants.UTF8);
+      // Link
+      String url = super.getContextPath() + "/system/products/trash/";
+      // Get data
+      String productId = super.getParameter("product_id");
+      byte isDeleted = 1;
+      byte unDeleted = 0;
+      String recoveryProductItemStatus = "";
+
+      Map<String, Object> params = new HashMap<>();
+      params.put("isDelete", isDeleted);
+      params.put("productId", productId);
+
+      Product product = this.productDAO.findByProductIdAndIsDeleted(params);
+      product.setIsDelete(unDeleted);
+      this.productDAO.update(product);
+      recoveryProductItemStatus = Constants.SUCCESS_STATUS;
+
+      super.getSession().setAttribute("recoveryProductItemStatus", recoveryProductItemStatus);
+
+      // Redirect
+      super.redirectToPage(url);
+
+    } catch (Exception e) {
+      super.log(e.getMessage());
+      String error = super.getContextPath() + "/system/500";
+      super.redirectToPage(error);
+    }
+  }
+
 }

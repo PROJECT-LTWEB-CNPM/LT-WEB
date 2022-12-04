@@ -43,6 +43,9 @@ public class ProductImageService extends SuperService {
 
       // forward
       super.forwardToPage(url);
+
+      super.getSession().setAttribute("createImageStatus", null);
+      super.getSession().setAttribute("editImageStatus", null);
     } catch (Exception e) {
       super.log(e.getMessage());
       String error = super.getContextPath() + "/system/500";
@@ -84,6 +87,7 @@ public class ProductImageService extends SuperService {
       String productId = super.getParameter("productId").trim();
       String imageId = super.getParameter("imageId").trim();
       String imageUrl = super.getParameter("imageUrl").trim();
+      String createImageStatus = "";
 
       // Define url
       String url = super.getContextPath() + "/system/products/images/?product_id=" + productId;
@@ -97,10 +101,12 @@ public class ProductImageService extends SuperService {
       productImage.setImageUrl(imageUrl);
       productImage.setProduct(product);
       this.productImageDAO.create(productImage);
+      createImageStatus = Constants.SUCCESS_STATUS;
 
       // Set att
       super.setAttribute("productId", productId);
       super.setAttribute("product", product);
+      super.getSession().setAttribute("createImageStatus", createImageStatus);
 
       // forward
       super.redirectToPage(url);
@@ -147,6 +153,7 @@ public class ProductImageService extends SuperService {
       String productId = super.getParameter("productId").trim();
       String imageId = super.getParameter("imageId").trim();
       String imageUrl = super.getParameter("imageUrl").trim();
+      String editImageStatus = "";
 
       // Define url
       String url = super.getContextPath() + "/system/products/images/?product_id=" + productId;
@@ -160,10 +167,12 @@ public class ProductImageService extends SuperService {
       productImage.setImageUrl(imageUrl);
       productImage.setProduct(product);
       this.productImageDAO.update(productImage);
+      editImageStatus = Constants.SUCCESS_STATUS;
 
       // Set att
       super.setAttribute("productId", productId);
       super.setAttribute("product", product);
+      super.getSession().setAttribute("editImageStatus", editImageStatus);
 
       // forward
       super.redirectToPage(url);

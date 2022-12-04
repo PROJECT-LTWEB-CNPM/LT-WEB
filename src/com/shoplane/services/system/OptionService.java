@@ -50,6 +50,10 @@ public class OptionService extends SuperService {
       super.setAttribute("options", options);
       super.setAttribute("productId", productId);
       super.forwardToPage(url);
+
+      // Set session
+      super.getSession().setAttribute("createOptionStatus", null);
+      super.getSession().setAttribute("editOptionStatus", null);
     } catch (Exception e) {
       super.log(e.getMessage());
       String error = super.getContextPath() + "/system/500";
@@ -99,6 +103,7 @@ public class OptionService extends SuperService {
       Product product = this.productDAO.find(productId);
       Size size = this.sizeDAO.find(sizeId);
       Color color = this.colorDAO.find(colorId);
+      String createOptionStatus = "";
 
       // Create option
       Option option = new Option();
@@ -113,7 +118,10 @@ public class OptionService extends SuperService {
       option.setProduct(product);
 
       this.optionDAO.create(option);
+      createOptionStatus = Constants.SUCCESS_STATUS;
 
+      super.getSession().setAttribute("createOptionStatus", createOptionStatus);
+      // Redirect
       super.redirectToPage(url);
 
     } catch (Exception e) {
@@ -165,6 +173,7 @@ public class OptionService extends SuperService {
       String sizeId = super.getParameter("sizeId");
       String colorId = super.getParameter("colorId");
       String quantity = super.getParameter("availableQuantity");
+      String editOptionStatus = "";
 
       // Url
 
@@ -185,6 +194,8 @@ public class OptionService extends SuperService {
       option.setProduct(product);
 
       this.optionDAO.update(option);
+      editOptionStatus = Constants.SUCCESS_STATUS;
+      super.getSession().setAttribute("editOptionStatus", editOptionStatus);
 
       // redirect
       super.redirectToPage(url);

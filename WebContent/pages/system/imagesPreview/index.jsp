@@ -82,13 +82,25 @@ String context = request.getContextPath();
 			</main>
 		</div>
 	</div>
+
+	<input type="text" id="createImageStatus"
+		value="${sessionScope.createImageStatus}" hidden />
+	<input type="text" id="editImageStatus"
+		value="${sessionScope.editImageStatus}" hidden />
 	<input class="productId" value="${productId}" hidden />
 	<!-- Jquery -->
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"
-		integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA=="
-		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<jsp:include page="../components/script.jsp"></jsp:include>
 	<script type="text/javascript"
-		src="<%=context%>/assets/js/deleteProductImage.js"></script>
+		src="<%=context%>/assets/js/system/deleteProductImage.js"></script>
+	<script>
+		const createImageStatus = $('#createImageStatus').val();
+		if (createImageStatus === 'success') {
+			swal("Thông báo", "Thêm hình thành công", "success");
+		}
+		const editImageStatus = $('#editImageStatus').val();
+		if (editImageStatus === 'success') {
+			swal("Thông báo", "Chỉnh sửa hình ảnh thành công", "success");
+		}
+	</script>
 </body>
 </html>

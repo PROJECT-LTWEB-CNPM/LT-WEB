@@ -46,6 +46,9 @@ public class CustomerService extends SuperService {
         return;
       }
       super.forwardToPage(url);
+      // reomve att session
+      super.getSession().setAttribute("status", null);
+      super.getSession().removeAttribute("status");
 
     } catch (Exception e) {
       super.log(e.getMessage());
@@ -59,10 +62,6 @@ public class CustomerService extends SuperService {
     try {
       // Set encoding
       super.setEncoding(Constants.UTF8);
-
-      // reomve att session
-      super.getSession().setAttribute("status", null);
-      super.getSession().removeAttribute("status");
 
       // Get params
       String url = super.getContextPath() + "/account";
@@ -111,6 +110,8 @@ public class CustomerService extends SuperService {
   public void getRegisterForm() throws ServletException, IOException {
     try {
       String url = "/pages/default/account/registerAccount.jsp";
+      String loginUrl = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
+          + request.getContextPath() + "/login";
       super.forwardToPage(url);
     } catch (Exception e) {
       super.log(e.getMessage());
@@ -161,7 +162,7 @@ public class CustomerService extends SuperService {
         user.setCode(Helper.getRandom());
 
         // send mail code to user
-        boolean isSended = sm.sendMail(user);
+        boolean isSended = sm.sendOTPSignUpAccount(user);
 
         if (isSended) {
           System.out.println("Send mail success");
@@ -205,13 +206,20 @@ public class CustomerService extends SuperService {
     try {
       String status = "";
       String url = super.getContextPath() + "/login";
+      String loginUrl = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
+          + request.getContextPath() + "/login";
       String code = super.getParameter("code").trim();
       User user = (User) super.getSession().getAttribute(Constants.USER_SESSION);
       if (code.equals(user.getCode())) {
         this.userDAO.create(user);
-        super.getSession().setAttribute(Constants.USER_SESSION, null);
         status = "success";
+        // set Session
+        super.getSession().setAttribute(Constants.USER_SESSION, null);
         super.getSession().setAttribute("status", status);
+
+        // Send mail
+        SendMail sendMail = new SendMail();
+        sendMail.sendSignUpSuccess(user.getEmail(), loginUrl);
         super.redirectToPage(url);
         return;
       }
