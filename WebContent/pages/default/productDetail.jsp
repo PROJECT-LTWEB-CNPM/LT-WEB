@@ -24,6 +24,7 @@ String baseUrl = context + "/default/product-detail";
 	padding-top: 10rem;
 	padding-bottom: 4rem;
 }
+
 </style>
 </head>
 <body>

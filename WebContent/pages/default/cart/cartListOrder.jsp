@@ -50,7 +50,8 @@ for (Order order : ors) {
 								</form>
 							</div>
 							<div class="order__row">KÍCH THƯỚC:
-								${o.getOption().getSize().getSizeName()}</div>
+								${o.getOption().getSize().getSizeName()}			
+							</div>
 							<div class="order__quanty order__row">
 								<span class="order__quanty-title">SỐ LƯỢNG:</span>
 								<div class="order__quanty-action">

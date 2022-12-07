@@ -35,7 +35,7 @@ String url = context + "/default/account";
 								<c:forEach var="item" items="${bills}">
 									<div class="your__order-table-item">
 										<a class="your__order-value" href="./my-orders.jsp">${item.getBillId()}</a>
-										<span class="your__order-value">01/09/2022</span> <span
+										<span class="your__order-value">${item.getDate()}</span> <span
 											class="your__order-value">Chưa hoàn tất</span> <span
 											class="your__order-value">Đang vận chuyển</span> <span
 											class="your__order-value">${item.getTotalPrice()}đ</span>
